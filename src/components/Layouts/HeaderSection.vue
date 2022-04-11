@@ -9,7 +9,7 @@
           v-model="search"
           label="Search Here"
           v-if="$q.screen.gt.sm"
-          style="max-width: 400px"
+          style="max-width: 100%"
         >
           <template v-slot:after>
             <q-btn icon="search" size="16px" outline> </q-btn>
@@ -27,24 +27,36 @@
       </div>
       <div class="col col-md-4 text-center text-right">
         <div>
-          <q-btn flat round dense size="md" icon="mail" class="q-mr-sm" />
-
           <q-btn
-            flat
-            round
-            dense
             size="md"
+            class="q-mr-md"
+            round
+            color="primary"
+            glossy
+            icon="mail"
+          >
+            <q-badge color="red" floating>2</q-badge>
+          </q-btn>
+          <q-btn
+            size="md"
+            class="q-mr-md"
+            round
+            color="primary"
+            glossy
             icon="notifications"
-            class="q-mr-sm"
-          />
+          >
+            <q-badge color="red" floating>100+</q-badge>
+          </q-btn>
           <q-btn
-            flat
-            round
-            dense
             size="md"
-            icon="shopping_cart"
-            class="q-mr-sm"
-          />
+            class="q-mr-md"
+            round
+            color="primary"
+            glossy
+            icon="local_grocery_store"
+          >
+            <q-badge color="red" floating>34</q-badge>
+          </q-btn>
 
           <q-avatar class="cursor-pointer">
             <img src="https://cdn.quasar.dev/img/avatar.png" />
