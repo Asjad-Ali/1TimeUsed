@@ -1,7 +1,7 @@
 <template>
   <q-carousel
     animated
-    height="60vh"
+    height="80vh"
     v-model="slide"
     navigation
     infinite
@@ -14,19 +14,19 @@
   >
     <q-carousel-slide
       :name="1"
-      img-src="https://images.pexels.com/photos/341523/pexels-photo-341523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      img-src="https://preview.colorlib.com/theme/shoppers/images/xhero_1.jpg.pagespeed.ic.6alHHFzIKu.webp"
     />
     <q-carousel-slide
       :name="2"
-      img-src="https://images.pexels.com/photos/279906/pexels-photo-279906.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      img-src="https://preview.colorlib.com/theme/fashi/img/hero-2.jpg.webp"
     />
     <q-carousel-slide
       :name="3"
-      img-src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      img-src="https://preview.colorlib.com/theme/fashi/img/hero-1.jpg.webp"
     />
     <q-carousel-slide
       :name="4"
-      img-src="https://images.pexels.com/photos/1474234/pexels-photo-1474234.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      img-src="https://minimog.thememove.com/wp-content/uploads/2021/12/h3_slide_01.jpg"
     />
   </q-carousel>
 </template>

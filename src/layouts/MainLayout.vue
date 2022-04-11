@@ -3,10 +3,10 @@
     <HeaderSection />
 
     <q-page-container>
-      <CategoriesSection />
+      <CategoriesSection v-if="$q.screen.gt.sm && $route.path == '/'" />
       <router-view />
     </q-page-container>
-    <FooterMain v-if="$q.screen.gt.md" />
+    <FooterMain v-if="$q.screen.gt.sm" />
     <BottomNav v-else />
   </q-layout>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <q-footer reveal bordered elevated>
+  <q-footer bordered elevated>
     <q-tabs
       v-model="footerTab"
       indicator-color="orange-9"
@@ -30,17 +30,17 @@ const footerLinks = [
     to: "/",
   },
   {
-    title: "Explore",
+    title: "Browse",
     icon: "search",
     to: "/",
   },
   {
-    title: "Crew",
+    title: "Sell",
     icon: "group",
     to: "/",
   },
   {
-    title: "Tournaments",
+    title: "Donate",
     icon: "emoji_events",
     to: "/",
   },

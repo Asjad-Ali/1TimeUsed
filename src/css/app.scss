@@ -1,1 +1,48 @@
-// app global css in SCSS form
+
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+.container {
+  width: 100%;
+  padding-right: 50px;
+  padding-left: 50px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.w-100{
+width: 100%;
+}
+
+.w-50{
+  width: 50%;
+}
+.width-100{
+  width: 100%;
+}
+
+.border-bottom{
+  border-bottom: 1px solid #f3f3f4;
+}
+
+.vw99{
+width: 98.5vw;
+@media screen and (max-width: $breakpoint-sm-max) {
+  width: 100vw;
+}
+}
+.mobile-none{
+@media screen and (max-width: $breakpoint-sm-max) {
+display: none;
+}
+}
+.container {
+@media screen and (max-width: $breakpoint-sm-max) {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+}
+

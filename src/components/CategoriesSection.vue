@@ -1,11 +1,7 @@
 <template>
   <section class="flex justify-center items-center categories">
-    <ul class="flex justify-center" style="width: 100%">
-      <li
-        v-for="(category, index) in categories"
-        :key="index"
-        class="q-mr-xl q-mb-md"
-      >
+    <ul class="flex justify-center q-my-xs" style="width: 100%">
+      <li v-for="category in categories" :key="category">
         <a href="#"
           >{{ category.title }}
           <q-icon name="expand_more" />
@@ -70,10 +66,12 @@ const categories = [
   ul {
     li {
       a {
-        text-decoration: none;
-        font-size: 17px;
-        border: 1px solid #b03254;
-        padding: 5px 15px;
+        padding: 10px 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #25262a;
+        font-size: 15px;
+        text-decoration: none !important;
       }
       a {
         &:hover {
