@@ -1,11 +1,11 @@
 <template>
-  <q-page-container
-    class="column items-center justify-center q-ml-auto section-main-div"
-  >
-    <div class="conatiner">
-      <h5 class="self-start">Products</h5>
-      <div class="q-pa-md row items-start q-gutter-md justify-center">
-        <ProductCard v-for="i in 10" :key="i" />
+  <q-page-container>
+    <div class="conatiner flex justify-center">
+      <div class="column">
+        <h5 class="self-start q-ml-auto q-py-md">Products</h5>
+        <div class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg">
+          <ProductCard v-for="i in 12" :key="i" />
+        </div>
       </div>
     </div>
   </q-page-container>
@@ -25,11 +25,5 @@ export default {
 <style lang="scss" scoped>
 h5 {
   margin: 0;
-  padding-left: 10%;
-}
-.section-main-div {
-  @media (min-width: $breakpoint-md-max) {
-    max-width: 100%;
-  }
 }
 </style>

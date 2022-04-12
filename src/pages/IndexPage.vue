@@ -1,8 +1,10 @@
 <template>
   <q-page>
     <CarouselSection />
-    <RecentProducts />
-    <FeaturedProductsSection />
+    <div class="container">
+      <RecentProducts />
+      <FeaturedProductsSection />
+    </div>
   </q-page>
 </template>
 

@@ -28,7 +28,7 @@
       <div class="col col-md-4 text-center text-right">
         <div>
           <q-btn
-            size="md"
+            :size="$q.screen.lt.md ? 'sm' : `md`"
             class="q-mr-md"
             round
             color="primary"
@@ -38,7 +38,7 @@
             <q-badge color="red" floating>2</q-badge>
           </q-btn>
           <q-btn
-            size="md"
+            :size="$q.screen.lt.md ? 'sm' : `md`"
             class="q-mr-md"
             round
             color="primary"
@@ -48,7 +48,7 @@
             <q-badge color="red" floating>100+</q-badge>
           </q-btn>
           <q-btn
-            size="md"
+            :size="$q.screen.lt.md ? 'sm' : `md`"
             class="q-mr-md"
             round
             color="primary"

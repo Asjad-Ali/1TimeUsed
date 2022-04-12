@@ -18,15 +18,15 @@
     />
     <q-carousel-slide
       :name="2"
-      img-src="https://preview.colorlib.com/theme/fashi/img/hero-2.jpg.webp"
+      img-src="https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow.jpg?v=1637326488"
     />
     <q-carousel-slide
       :name="3"
-      img-src="https://preview.colorlib.com/theme/fashi/img/hero-1.jpg.webp"
+      img-src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-milance.gif?v=1639539418"
     />
     <q-carousel-slide
       :name="4"
-      img-src="https://minimog.thememove.com/wp-content/uploads/2021/12/h3_slide_01.jpg"
+      img-src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-jewelry_1920x.gif?v=1639539459"
     />
   </q-carousel>
 </template>
