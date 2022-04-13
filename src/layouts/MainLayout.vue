@@ -3,8 +3,11 @@
     <HeaderSection />
 
     <q-page-container>
-      <CategoriesSection v-if="$q.screen.gt.sm && $route.path == '/'" />
-      <MobileCategoriesSection v-else />
+      <div v-if="$route.path == '/'">
+        <CategoriesSection v-if="$q.screen.gt.sm" />
+        <MobileCategoriesSection v-else />
+      </div>
+
       <router-view />
     </q-page-container>
     <FooterMain v-if="$q.screen.gt.sm" />

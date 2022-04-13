@@ -21,7 +21,6 @@
             :key="i"
             :name="i"
             class="column no-wrap"
-            style="overflow-x: hidden"
           >
             <div
               class="
@@ -65,5 +64,8 @@ const itemsPerPage = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.section-main-div {
+  padding-bottom: 0 !important;
+}
 </style>
 

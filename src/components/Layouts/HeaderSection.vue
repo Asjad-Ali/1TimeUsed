@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row border-bottom items-center">
-      <div class="col col-md-4 text-center mobile-none">
+      <div class="col col-md-4 text-center">
         <q-input
           class="q-my-auto"
           dense
@@ -16,16 +16,16 @@
           </template>
         </q-input>
       </div>
-      <div class="col col-md-4 text-center">
+      <div class="col-2 col-md-4 text-center">
         <router-link to="/">
           <img
             src="https://1timeused.com/assets/img/logo/logo.png"
             alt=""
-            style="width: 180px"
+            class="brand-logo"
           />
         </router-link>
       </div>
-      <div class="col col-md-4 text-center text-right">
+      <div class="col-10 col-md-4 text-center text-right">
         <div>
           <q-btn
             :size="$q.screen.lt.md ? 'sm' : `md`"
@@ -172,6 +172,10 @@ const serch = ref("");
 </script>
 
 <style lang="scss" scoped>
+.brand-logo {
+  width: 180px;
+}
+
 .q-btn {
   font-size: 1.715em;
   color: #8f8c86;
@@ -179,6 +183,11 @@ const serch = ref("");
 @media (min-width: $breakpoint-md-max) {
   .toolbar {
     padding: 0 4rem;
+  }
+}
+@media (max-width: $breakpoint-md-max) {
+  .brand-logo {
+    width: 140px;
   }
 }
 </style>

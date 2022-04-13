@@ -55,6 +55,20 @@ const routes = [
       { path: '', component: () => import('src/pages/AboutUs.vue') }
     ]
   },
+  {
+    path: '/category',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('src/pages/CategoryMobile.vue') }
+    ]
+  },
+  {
+    path: '/subcategory',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('src/pages/ProductSubcategory.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

@@ -1,5 +1,5 @@
 <template>
-  <div class="vw99 q-py-lg">
+  <div class="container q-py-lg">
     <div>
       <h1 class="text-h5 text-center">
         <span style="border-bottom: 2px solid #ddd">Wishlist</span>

@@ -12,7 +12,7 @@
             <div class="q-mr-xl">
               <img
                 src="https://1timeused.com/assets/img/logo/logo.png"
-                style="width: 120px; padding: 5px"
+                style="width: 180px; padding: 5px"
               />
             </div>
           </h6>

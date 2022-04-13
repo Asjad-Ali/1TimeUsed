@@ -2,9 +2,9 @@
   <q-footer bordered elevated>
     <q-tabs
       v-model="footerTab"
-      indicator-color="orange-9"
+      indicator-color="primary"
       dense
-      active-color="orange-9"
+      active-color="primary"
       no-caps
       class="bg-grey-2 text-black font-creepster"
     >
@@ -30,9 +30,9 @@ const footerLinks = [
     to: "/",
   },
   {
-    title: "Browse",
-    icon: "search",
-    to: "/",
+    title: "Category",
+    icon: "category",
+    to: "/category",
   },
   {
     title: "Sell",
@@ -47,7 +47,7 @@ const footerLinks = [
   {
     title: "Profile",
     icon: "person",
-    to: "/",
+    to: "/account",
   },
 ];
 
