@@ -3,13 +3,13 @@
   <div class="container">
     <div class="row q-my-lg q-gutter-md justify-center">
       <div
-        class="col-5 col-md-3"
+        class="col-5 col-md-2"
         v-for="(category, index) in categories"
         :key="index"
       >
         <q-card class="my-card">
           <div class="img-holder">
-            <img :src="category.thumbnail" alt="product" class="fit" />
+            <img :src="category.thumbnail" alt="product" />
           </div>
 
           <q-card-section style="padding: 0px">
@@ -81,7 +81,7 @@ const categories = [
 }
 
 .img-holder {
-  height: 200px;
+  height: 250px;
   width: 100%;
 }
 
