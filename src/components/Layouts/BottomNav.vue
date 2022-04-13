@@ -2,11 +2,12 @@
   <q-footer bordered elevated>
     <q-tabs
       v-model="footerTab"
-      indicator-color="primary"
+      indicator-color="white"
       dense
-      active-color="primary"
+      active-color="white"
       no-caps
-      class="bg-grey-2 text-black font-creepster"
+      class="bg-primary text-grey font-creepster"
+      dark
     >
       <q-tab
         v-for="link in footerLinks"
@@ -53,7 +54,7 @@ const footerLinks = [
 
 export default defineComponent({
   setup() {
-    const footerTab = ref("mails");
+    const footerTab = ref("Home");
 
     return {
       footerTab,
