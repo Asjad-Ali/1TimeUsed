@@ -50,7 +50,7 @@
               $q.screen.lt.md ? `logo-white` : 'logo'
             }.png`"
             alt=""
-            class="brand-logo"
+            class="brand-logo q-py-sm"
           />
         </router-link>
       </div>
