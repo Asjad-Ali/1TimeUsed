@@ -82,7 +82,6 @@ const routerPath = (route) => {
 
 
 
-
 <style lang="scss" scoped>
 .account-tab {
   width: 50%;
