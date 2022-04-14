@@ -7,7 +7,10 @@
         v-for="(category, index) in categories"
         :key="index"
       >
-        <q-card class="my-card">
+        <q-card
+          class="my-card cursor-pointer"
+          @click="$router.push('/product_details')"
+        >
           <div class="img-holder">
             <img :src="category.thumbnail" alt="product" />
           </div>

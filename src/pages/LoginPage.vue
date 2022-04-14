@@ -50,7 +50,7 @@
                   color="orange-10"
                   icon="facebook"
                   label="login with Google"
-                />
+                ></q-btn>
               </div>
 
               <div class="register text-center">
