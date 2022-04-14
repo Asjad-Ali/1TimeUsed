@@ -3,7 +3,7 @@
     <div class="container q-py-lg">
       <div class="column items-center w-100">
         <div>
-          <img src="../../public/images/img_splash_logo.png" width="160" />
+          <img src="../../public/images/img_splash_logo.png" width="200" />
         </div>
 
         <div class="flex justify-center items-center w-100">
@@ -38,8 +38,36 @@
                 <q-btn flat color="primary" label="Forgot Password" />
               </div>
               <p class="text-center q-py-md text-grey">Or Login With</p>
-              <div class="text-center">
-                <q-btn unelevated color="primary" label="login with facebbok" />
+              <div class="text-center q-mb-lg">
+                <q-btn
+                  color="blue"
+                  icon="facebook"
+                  label="login with facebbok"
+                />
+              </div>
+              <div class="text-center q-mb-lg">
+                <q-btn
+                  color="orange-10"
+                  icon="facebook"
+                  label="login with Google"
+                />
+              </div>
+
+              <div class="register text-center">
+                <q-btn
+                  flat
+                  color="primary"
+                  label="Register With Email"
+                  @click="$router.push('/signup')"
+                />
+              </div>
+
+              <div class="copyrights text-center">
+                <p class="text-grey">
+                  All rights reserved by
+                  <a href="#" class="underline-none">1timeused</a><br />
+                  powered by <a href="#" class="underline-none">HORIZAM</a>
+                </p>
               </div>
             </div>
           </div>
@@ -72,8 +100,13 @@ const user = ref({
 }
 .login-bg-img {
   background-image: url(../../public/images/img_login.jpg);
-  height: 65vh;
+  height: auto;
 }
+
+.underline-none {
+  text-decoration: none;
+}
+
 @media (max-width: $breakpoint-sm-max) {
   .account-tab {
     width: 100%;

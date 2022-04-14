@@ -71,7 +71,7 @@ const menus = [
   {
     title: "Sign Out",
     icon: "logout",
-    to: "/",
+    to: "/login",
   },
 ];
 </script>
