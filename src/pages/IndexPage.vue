@@ -8,18 +8,33 @@
   </q-page>
 </template>
 
-<script>
+<script setup>
 import { defineComponent } from "vue";
 import CarouselSection from "components/Home/CarouselSection.vue";
 import FeaturedProductsSection from "src/components/Home/FeaturedProductsSection.vue";
 import RecentProducts from "src/components/Home/Mobile/RecentProducts.vue";
+// import { useMeta } from "quasar";
 
-export default defineComponent({
-  name: "IndexPage",
-  components: {
-    CarouselSection,
-    FeaturedProductsSection,
-    RecentProducts,
-  },
-});
+// const metaData = {
+//   // sets document title
+//   title: "Home",
+//   titleTemplate: (title) => `${title} - 1timeused`,
+
+//   // meta tags
+//   meta: {
+//     description: { name: "description", content: "Home Page" },
+//     keywords: {
+//       name: "keywords",
+//       content: "1timeuses, sell old items , pakistan",
+//     },
+//     ogTitle: {
+//       property: "og:title",
+//       // optional; similar to titleTemplate, but allows templating with other meta properties
+//       template(ogTitle) {
+//         return `${ogTitle} - My Website`;
+//       },
+//     },
+//   },
+// };
+// useMeta(metaData);
 </script>

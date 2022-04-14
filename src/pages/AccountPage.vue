@@ -13,8 +13,8 @@
     <div class="flex justify-center items-center vw99">
       <div class="q-pa-md account-tab">
         <q-list bordered>
-          <div v-for="menu in menus" :key="menu">
-            <q-item @click="routerPath(menu.to)" clickable v-ripple>
+          <div v-for="(menu, index) in menus" :key="index">
+            <q-item @click="$router.push(menu.to)" clickable>
               <q-item-section avatar>
                 <q-icon color="primary" :name="menu.icon" />
               </q-item-section>
@@ -29,7 +29,7 @@
   </div>
 </template>
 <script setup>
-const { useRouter } = require("vue-router");
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const menus = [
@@ -74,13 +74,7 @@ const menus = [
     to: "/login",
   },
 ];
-
-const routerPath = (route) => {
-  router.push({ path: route });
-};
 </script>
-
-
 
 
 <style lang="scss" scoped>

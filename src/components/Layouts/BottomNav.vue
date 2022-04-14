@@ -21,8 +21,8 @@
   </q-footer>
 </template>
 
-<script  >
-import { defineComponent, ref } from "vue";
+<script  setup>
+import { ref } from "vue";
 
 const footerLinks = [
   {
@@ -52,14 +52,5 @@ const footerLinks = [
   },
 ];
 
-export default defineComponent({
-  setup() {
-    const footerTab = ref("Home");
-
-    return {
-      footerTab,
-      footerLinks,
-    };
-  },
-});
+const footerTab = ref("Home");
 </script>
