@@ -13,8 +13,7 @@
             color="primary"
             :icon="category.thumbnail"
           />
-
-          <span class="q-mt-sm">{{ category.title }}</span>
+          <span class="q-mt-sm"> {{ category.title }}</span>
         </div>
       </div>
     </div>

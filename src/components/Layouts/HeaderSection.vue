@@ -111,7 +111,9 @@
 
                 <q-separator />
                 <q-item clickable>
-                  <q-item-section>Sign Out</q-item-section>
+                  <q-item-section @click="$router.push('/login')"
+                    >Sign Out</q-item-section
+                  >
                 </q-item>
               </q-list>
             </q-menu>
