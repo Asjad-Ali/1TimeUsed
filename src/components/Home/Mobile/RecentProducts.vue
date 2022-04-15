@@ -64,6 +64,10 @@ const itemsPerPage = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+h5 {
+  margin-bottom: 0;
+}
+
 .section-main-div {
   padding-bottom: 0 !important;
 }

@@ -6,7 +6,10 @@
         v-for="(category, index) in categories"
         :key="index"
       >
-        <q-card @click="$router.push('/subcategory')" class="q-ma-sm">
+        <q-card
+          @click="$router.push('/subcategory')"
+          class="q-ma-sm cursor-pointer"
+        >
           <div class="w-100 flex justify-center">
             <q-icon :name="category.thumbnail" color="primary" size="4.4em" />
           </div>

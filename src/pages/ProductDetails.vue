@@ -31,7 +31,22 @@
     </q-carousel>
   </div>
 
-  <div class="container">hello</div>
+  <div class="container">
+    <q-card class="my-card q-pa-sm" flat bordered>
+      <div class="title-date flex justify-between items-center">
+        <div class="text-h6 q-mt-sm q-mb-xs">Beautiful Frok</div>
+        <div class="text-grey">25 March 2022</div>
+      </div>
+      <div class="title-date flex justify-between items-center">
+        <div class="q-mt-sm q-mb-xs">RS:500</div>
+        <div class="text-grey">59</div>
+      </div>
+      <div class="title-date flex justify-between items-center">
+        <div class="text-h6 q-mt-sm q-mb-xs">Sanda kalan Lahore</div>
+        <div class="text-grey">in Stock</div>
+      </div>
+    </q-card>
+  </div>
 </template>
 
 <script>
