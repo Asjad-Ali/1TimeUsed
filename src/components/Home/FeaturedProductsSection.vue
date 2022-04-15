@@ -1,6 +1,6 @@
 <template>
   <q-page-container>
-    <div class="conatiner flex justify-center">
+    <div class="conatiner flex justify-center items-center">
       <div class="column">
         <h5 class="q-py-lg text-center">Products</h5>
         <div
@@ -8,6 +8,7 @@
             flex
             q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
             justify-center
+            items-center
           "
         >
           <ProductCard v-for="i in 12" :key="i" />

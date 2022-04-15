@@ -86,6 +86,7 @@
             color="primary"
             glossy
             icon="search"
+            @click="$router.push('/search')"
           />
 
           <q-avatar class="cursor-pointer desktop-only">

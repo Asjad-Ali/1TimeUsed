@@ -14,7 +14,8 @@ const routes = [
       { path: '/about_us', component: () => import('src/pages/AboutUs.vue') },
       { path: '/category', component: () => import('src/pages/CategoryMobile.vue') },
       { path: '/subcategory', component: () => import('src/pages/ProductSubcategory.vue') },
-      { path: '/product_details', component: () => import('src/pages/ProductDetails.vue') }
+      { path: '/product_details', component: () => import('src/pages/ProductDetails.vue') },
+      { path: '/search', component: () => import('src/pages/SearchPage.vue') }
     ]
   },
   // {
