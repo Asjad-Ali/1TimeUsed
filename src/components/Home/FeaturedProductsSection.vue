@@ -2,8 +2,14 @@
   <q-page-container>
     <div class="conatiner flex justify-center">
       <div class="column">
-        <h5 class="self-start q-ml-auto q-py-md">Products</h5>
-        <div class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg">
+        <h5 class="q-py-lg text-center">Products</h5>
+        <div
+          class="
+            flex
+            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+            justify-center
+          "
+        >
           <ProductCard v-for="i in 12" :key="i" />
         </div>
       </div>

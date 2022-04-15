@@ -90,9 +90,6 @@ const options = [
   height: 80vh;
 }
 
-.underline-none {
-  text-decoration: none;
-}
 .text-underline {
   text-decoration: underline;
 }

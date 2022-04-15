@@ -1,5 +1,8 @@
 <template>
-  <div class="container" :class="{ 'bg-primary': $q.screen.lt.md }">
+  <div
+    class="container"
+    :class="{ 'bg-primary': $q.screen.lt.md, 'bg-white': $q.screen.gt.sm }"
+  >
     <div class="row border-bottom items-center">
       <div class="col col-md-4 text-center">
         <!-- <q-input

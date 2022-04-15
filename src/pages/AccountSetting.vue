@@ -19,31 +19,31 @@
             outlined
             v-model="user.name"
             label="Enter Full Name"
-            class="q-mb-md"
+            class="q-mb-md bg-white"
           />
           <q-input
             outlined
             v-model="user.city"
             label="Enter City"
-            class="q-mb-md"
+            class="q-mb-md bg-white"
           />
           <q-input
             outlined
             v-model="user.email"
             label="TalhaTahir@gmail.com"
-            class="q-mb-md"
+            class="q-mb-md bg-white"
           />
           <q-input
             outlined
             v-model="user.phone"
             label="Enter Phone "
-            class="q-mb-md"
+            class="q-mb-md bg-white"
           />
           <q-input
             outlined
             v-model="user.neighbourhood"
             label="Enter Neighborhood "
-            class="q-mb-md"
+            class="q-mb-md bg-white"
           />
           <q-toggle v-model="accept" label="Show my phone number in ads" />
         </div>

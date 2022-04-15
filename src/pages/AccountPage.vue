@@ -12,7 +12,7 @@
     </div>
     <div class="flex justify-center items-center vw99">
       <div class="q-pa-md account-tab">
-        <q-list bordered>
+        <q-list bordered class="bg-white rounded">
           <div v-for="(menu, index) in menus" :key="index">
             <q-item @click="$router.push(menu.to)" clickable>
               <q-item-section avatar>
