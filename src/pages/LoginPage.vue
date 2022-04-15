@@ -1,12 +1,14 @@
 <template>
-  <div class="login-bg-img">
+  <div class="login-bg-img flex justify-center items-center">
     <div class="container q-py-lg">
       <div class="column items-center w-100">
         <div>
           <img src="../../public/images/img_splash_logo.png" width="200" />
         </div>
-
-        <div class="flex justify-center items-center w-100">
+        <q-form
+          @submit="onSubmit"
+          class="flex justify-center items-center w-100"
+        >
           <div class="q-pa-md account-tab">
             <q-input
               v-model="text"
@@ -35,7 +37,12 @@
               <div class="flex justify-between items-center">
                 <q-btn color="primary" glossy label="Login" />
 
-                <q-btn flat color="primary" label="Forgot Password" />
+                <q-btn
+                  flat
+                  color="primary"
+                  label="Forgot Password"
+                  @click="$router.push('/forgot')"
+                />
               </div>
               <p class="text-center q-py-md text-grey">Or Login With</p>
               <div class="text-center q-mb-lg">
@@ -71,7 +78,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </q-form>
       </div>
     </div>
   </div>
@@ -100,7 +107,7 @@ const user = ref({
 }
 .login-bg-img {
   background-image: url(../../public/images/img_login.jpg);
-  height: auto;
+  height: 100vh;
 }
 
 .underline-none {
