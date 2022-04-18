@@ -15,7 +15,9 @@ const routes = [
       { path: '/category', component: () => import('src/pages/CategoryMobile.vue') },
       { path: '/subcategory', component: () => import('src/pages/ProductSubcategory.vue') },
       { path: '/product_details', component: () => import('src/pages/ProductDetails.vue') },
-      { path: '/search', component: () => import('src/pages/SearchPage.vue') }
+      { path: '/search', component: () => import('src/pages/SearchPage.vue') },
+      { path: '/notifications', component: () => import('src/pages/NotificationPage.vue') },
+      { path: '/chat', component: () => import('src/pages/ChatPage.vue') }
     ]
   },
   // {
