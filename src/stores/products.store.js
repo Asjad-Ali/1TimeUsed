@@ -12,7 +12,7 @@ export const useProductsStore = defineStore('productsStore ', {
 
   state: () => ({
     recentProducts: [],
-    featuredProducts: [],
+    featuredProducts: []
   }),
 
   getters: {
