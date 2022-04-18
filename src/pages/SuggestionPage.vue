@@ -19,14 +19,14 @@
             outlined
             v-model="user.name"
             label="Subject"
-            class="q-mb-md"
+            class="q-mb-md bg-white"
           />
           <q-input
             outlined
             type="textarea"
             v-model="user.name"
             label="Description"
-            class="q-mb-md"
+            class="q-mb-md bg-white"
           />
         </div>
       </div>

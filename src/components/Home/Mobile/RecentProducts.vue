@@ -1,9 +1,7 @@
 <template>
-  <q-page-container
-    class="column items-center justify-center q-ml-auto section-main-div"
-  >
-    <div class="row">
-      <h5 class="self-start">Recent Products</h5>
+  <q-page-container class="column section-main-div">
+    <div class="row text-center">
+      <h5>Recent Products</h5>
       <div class="col-12">
         <q-carousel
           v-model="slide"

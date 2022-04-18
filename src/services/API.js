@@ -1,7 +1,13 @@
-const apiBaseURL = "https://api.dex.proelean.com/api";
-// const csrfToken = document.head.querySelector('meta[name="csrf-token"]');
-const TOKEN = localStorage.getItem('PROELEAN_TOKEN') || null;
-const DEVICE_ID = localStorage.getItem('DEVICE_ID') || getRandomString(32);
+import axios from 'axios'
+
+const apiBaseURL = "https://1timeused.com/api";
+axios.defaults.baseURL = apiBaseURL;
+// const TOKEN = localStorage.getItem('PROELEAN_TOKEN') || null;
+// const DEVICE_ID = localStorage.getItem('DEVICE_ID') || getRandomString(32);
+
+
+const TOKEN = "206|1vIJgkZuOutMb24c3rSLZE6ZHalChV9piVzMJ31s";
+const DEVICE_ID = "sdfdsfsdfddsfsd";
 
 class API {
   async request(
@@ -27,18 +33,22 @@ class API {
     //payload will be sent as form data if content type is multipart/form-data
     if (options.method !== "GET") {
       if (contentType.toLowerCase() == "multipart/form-data") {
-        options.body = convertToFormData(payload);
+        options.data = convertToFormData(payload);
       } else if (payload && typeof payload === "object") {
-        options.body = JSON.stringify(payload);
+        options.data = JSON.stringify(payload);
       }
     } else if (payload) {
       // payload will be appended to the url  if method is GET
       route = this.appendParams(route, payload);
     }
+    options.url = this.url(route);
 
     try {
-      let response = await fetch(this.url(route), options);
-      return { status: response.status, ...(await response.json()) };
+      const response = await axios(options);
+      return {
+        status: response.status,
+        ...(await response.data)
+      };
     } catch (error) {
       console.log(error);
       throw error;
@@ -110,8 +120,7 @@ function convertToFormData(payload) {
       for (let i = 0; i < payload[key].length; i++) {
         formData.append(key + "[]", payload[key][i]);
       }
-    }
-    else
+    } else
       formData.append(key, payload[key]);
   }
   return formData;

@@ -1,5 +1,5 @@
 <template>
-  <div class="login-bg-img">
+  <div class="login-bg-img flex justify-center items-center">
     <div class="container q-py-lg">
       <div class="column items-center w-100">
         <div>
@@ -194,7 +194,7 @@ const options = [
 }
 .login-bg-img {
   background-image: url(../../public/images/img_login.jpg);
-  height: auto;
+  height: 100vh;
 }
 
 .underline-none {

@@ -10,7 +10,7 @@
           @click="$router.push('/subcategory')"
           class="q-ma-sm cursor-pointer"
         >
-          <div class="w-100 flex justify-center">
+          <div class="w-100 flex justify-center q-py-lg">
             <q-icon :name="category.thumbnail" color="primary" size="4.4em" />
           </div>
 

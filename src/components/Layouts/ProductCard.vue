@@ -1,5 +1,9 @@
+
 <template>
-  <q-card class="product-card">
+  <q-card
+    class="product-card cursor-pointer"
+    @click="$router.push('/product_details')"
+  >
     <q-img
       src="https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bW9iaWxlfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
     />
@@ -25,8 +29,3 @@
   </q-card>
 </template>
 
-<script setup>
-</script>
-
-<style lang="scss" scoped>
-</style>
