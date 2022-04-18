@@ -27,38 +27,15 @@
 </template>
 
 <script setup>
-const categories = [
-  {
-    title: "Cloth",
-    thumbnail: "",
-    subcategories: [],
-  },
-  {
-    title: "Jewellery",
-    thumbnail: "",
-    subcategories: [],
-  },
-  {
-    title: "Shoes",
-    thumbnail: "",
-    subcategories: [],
-  },
-  {
-    title: "Watches",
-    thumbnail: "",
-    subcategories: [],
-  },
-  {
-    title: "Fashion",
-    thumbnail: "",
-    subcategories: [],
-  },
-  {
-    title: "Others",
-    thumbnail: "",
-    subcategories: [],
-  },
-];
+import { computed, onMounted } from "@vue/runtime-core";
+import { useCategoryStore } from "src/stores/categories.store.js";
+
+const store = useCategoryStore();
+
+onMounted(() => {
+  store.loadCategories();
+});
+const categories = computed(() => store.categories);
 </script>
 <style scoped lang="scss">
 .categories {
