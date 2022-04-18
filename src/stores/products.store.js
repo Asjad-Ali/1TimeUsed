@@ -8,10 +8,11 @@ import {
 
 import API from 'src/services/API';
 
-export const useProductsStore = defineStore('authStore', {
+export const useProductsStore = defineStore('productsStore ', {
 
   state: () => ({
     recentProducts: [],
+    featuredProducts: []
   }),
 
   getters: {
@@ -19,6 +20,10 @@ export const useProductsStore = defineStore('authStore', {
 
   actions: {
     async loadRecentProducts() {
+      if (this.recentProducts.length) {
+        return;
+      }
+
       const res = await API.get('products/recentlyviewed');
       if (res == 200) {
         console.log(res.data)
@@ -26,6 +31,19 @@ export const useProductsStore = defineStore('authStore', {
       }
       else {
         console.log(res)
+      }
+
+    },
+    async loadFeaturedProducts() {
+      if (!this.featuredProducts.length) {
+        const res = await API.get('products/featured');
+        if (res == 200) {
+          console.log(res.data)
+          this.featuredProducts = res.data;
+        }
+        else {
+          console.log(res)
+        }
       }
     },
   },
