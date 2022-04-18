@@ -1,9 +1,12 @@
 import axios from 'axios'
+import { Cookies } from 'quasar'
+
+if (!Cookies.get('1TIMUSED_DEVICE_ID')) {
+  Cookies.set('1TIMUSED_DEVICE_ID', getRandomString(32))
+}
 
 const apiBaseURL = "https://1timeused.com/api";
 axios.defaults.baseURL = apiBaseURL;
-// const TOKEN = localStorage.getItem('PROELEAN_TOKEN') || null;
-// const DEVICE_ID = localStorage.getItem('DEVICE_ID') || getRandomString(32);
 
 
 const TOKEN = "206|1vIJgkZuOutMb24c3rSLZE6ZHalChV9piVzMJ31s";
@@ -20,8 +23,8 @@ class API {
       method: method,
       headers: {
         "Accept": 'application/json',
-        "Authorization": `Bearer ${TOKEN}`,
-        "Device-Id": DEVICE_ID,
+        "Authorization": `Bearer ${Cookies.get('1TIMEUSED_TOKEN') || null}`,
+        "Device-Id": Cookies.get('1TIMUSED_DEVICE_ID'),
         "Device-Type": 'web'
       },
     };
