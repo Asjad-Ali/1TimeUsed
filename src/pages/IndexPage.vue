@@ -19,6 +19,7 @@ const store = useProductsStore();
 
 onMounted(() => {
   store.loadRecentProducts();
+  store.loadFeaturedProducts();
 });
 
 // onMounted(() => )
