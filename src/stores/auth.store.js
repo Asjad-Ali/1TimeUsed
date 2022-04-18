@@ -16,7 +16,9 @@ export const useAuthStore = defineStore('authStore', {
   actions: {
     async login(creds) {
       const response = await API.post('login', creds);
-      this.authUser = response.data;
+      if (response == 200) {
+        this.authUser = response.data;
+      }
       console.log(response)
       //localStorage.setItem('1timeused_user', JSON.stringify(this.authUser))
     },
