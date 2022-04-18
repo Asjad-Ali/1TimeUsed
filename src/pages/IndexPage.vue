@@ -9,10 +9,20 @@
 </template>
 
 <script setup>
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import CarouselSection from "components/Home/CarouselSection.vue";
 import FeaturedProductsSection from "src/components/Home/FeaturedProductsSection.vue";
 import RecentProducts from "src/components/Home/Mobile/RecentProducts.vue";
+import { useProductsStore } from "../stores/products.store.js";
+
+const store = useProductsStore();
+
+onMounted(() => {
+  store.loadRecentProducts();
+});
+
+// onMounted(() => )
+
 // import { useMeta } from "quasar";
 
 // const metaData = {
