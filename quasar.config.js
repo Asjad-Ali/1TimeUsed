@@ -12,7 +12,9 @@
 const ESLintPlugin = require('eslint-webpack-plugin')
 
 
-const { configure } = require('quasar/wrappers');
+const {
+  configure
+} = require('quasar/wrappers');
 
 module.exports = configure(function (ctx) {
   return {
@@ -55,6 +57,11 @@ module.exports = configure(function (ctx) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
 
+      env: {
+        apiBaseURL: 'https://1timeused.com/api/',
+        imagesBaseURL: 'https://1timeused.com/'
+      },
+
       // transpile: false,
       // publicPath: '/',
 
@@ -77,7 +84,9 @@ module.exports = configure(function (ctx) {
 
       chainWebpack(chain) {
         chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+          .use(ESLintPlugin, [{
+            extensions: ['js', 'vue']
+          }])
       }
 
     },
@@ -131,7 +140,9 @@ module.exports = configure(function (ctx) {
 
       chainWebpackWebserver(chain) {
         chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js'] }])
+          .use(ESLintPlugin, [{
+            extensions: ['js']
+          }])
       },
 
 
@@ -151,7 +162,9 @@ module.exports = configure(function (ctx) {
 
       chainWebpackCustomSW(chain) {
         chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js'] }])
+          .use(ESLintPlugin, [{
+            extensions: ['js']
+          }])
       },
 
 
@@ -163,8 +176,7 @@ module.exports = configure(function (ctx) {
         orientation: 'portrait',
         background_color: '#ffffff',
         theme_color: '#027be3',
-        icons: [
-          {
+        icons: [{
             src: 'icons/icon-128x128.png',
             sizes: '128x128',
             type: 'image/png'
@@ -230,14 +242,18 @@ module.exports = configure(function (ctx) {
 
       chainWebpackMain(chain) {
         chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js'] }])
+          .use(ESLintPlugin, [{
+            extensions: ['js']
+          }])
       },
 
 
 
       chainWebpackPreload(chain) {
         chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js'] }])
+          .use(ESLintPlugin, [{
+            extensions: ['js']
+          }])
       },
 
     }
