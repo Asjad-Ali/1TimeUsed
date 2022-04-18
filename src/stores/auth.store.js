@@ -2,7 +2,9 @@ import {
   defineStore
 } from 'pinia'
 
-import { Cookies } from 'quasar'
+import {
+  Cookies
+} from 'quasar'
 
 import API from 'src/services/API';
 
