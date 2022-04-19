@@ -1,8 +1,8 @@
 <template>
   <q-page-container>
     <div class="conatiner flex justify-center items-center">
-      <div class="column">
-        <h5 class="q-py-lg text-center">Feature Products</h5>
+      <div class="column q-pb-xl">
+        <h5 class="text-center q-pb-xl">Feature Products</h5>
         <div
           class="
             flex

@@ -44,7 +44,7 @@
                 <q-btn
                   flat
                   color="primary"
-                  label="Forgot Password"
+                  label="Forgot Password ?"
                   @click="$router.push('/forgot')"
                 />
                 <p class="text-center q-py-md text-grey">
@@ -61,11 +61,13 @@
                 />
               </div>
               <div class="text-center q-mb-lg">
-                <q-btn
-                  color="orange-10"
-                  icon="facebook"
-                  label="login with Google"
-                ></q-btn>
+                <q-btn label="login with Google ">
+                  <img
+                    src="../../public/icons/google-color.svg"
+                    alt="google "
+                    width="20"
+                  />
+                </q-btn>
               </div>
 
               <div class="register text-center">
