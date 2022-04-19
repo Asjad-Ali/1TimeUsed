@@ -66,6 +66,7 @@
             color="primary"
             glossy
             icon="mail"
+            @click="$router.push('/chat')"
           >
             <q-badge color="red" floating>2</q-badge>
           </q-btn>
@@ -76,6 +77,7 @@
             color="primary"
             glossy
             icon="notifications"
+            @click="$router.push('/notifications')"
           >
             <q-badge color="red" floating>100+</q-badge>
           </q-btn>

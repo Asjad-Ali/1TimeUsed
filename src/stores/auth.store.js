@@ -19,7 +19,10 @@ function getAuthUser(ssrContext) {
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
     authUser: null,
+<<<<<<< HEAD
     loginError: null
+=======
+>>>>>>> ce3ac68a445873693c9a7848e1fe582ebdf0824a
   }),
   getters: {
     authUser(state) {
@@ -29,6 +32,7 @@ export const useAuthStore = defineStore('authStore', {
   actions: {
     async login(creds) {
       const response = await API.post('login', creds);
+<<<<<<< HEAD
       console.log(response);
 
       if (response.status == 200) {
@@ -41,6 +45,13 @@ export const useAuthStore = defineStore('authStore', {
         alert(response.message)
       }
       return response;
+=======
+      if (response == 200) {
+        this.authUser = response.data;
+      }
+      console.log(response)
+      //localStorage.setItem('1timeused_user', JSON.stringify(this.authUser))
+>>>>>>> ce3ac68a445873693c9a7848e1fe582ebdf0824a
     },
 
     async test(message) {

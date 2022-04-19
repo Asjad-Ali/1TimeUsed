@@ -3,9 +3,13 @@ import {
   Cookies
 } from 'quasar'
 
+<<<<<<< HEAD
 
 function setDeviceID(ssrContext) {
 
+=======
+function setDeviceID(ssrContext) {
+>>>>>>> ce3ac68a445873693c9a7848e1fe582ebdf0824a
   const cookies = process.env.SERVER ?
     Cookies.parseSSR(ssrContext) :
     Cookies // otherwise we're on client

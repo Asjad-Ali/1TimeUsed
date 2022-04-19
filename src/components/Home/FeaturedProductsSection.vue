@@ -2,7 +2,7 @@
   <q-page-container>
     <div class="conatiner flex justify-center items-center">
       <div class="column">
-        <h5 class="q-py-lg text-center">Products</h5>
+        <h5 class="q-py-lg text-center">Feature Products</h5>
         <div
           class="
             flex
