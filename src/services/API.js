@@ -4,9 +4,7 @@ import {
 } from 'quasar'
 
 
-
 function setDeviceID(ssrContext) {
-
 
   const cookies = process.env.SERVER ?
     Cookies.parseSSR(ssrContext) :
@@ -32,6 +30,7 @@ class API {
     method = "GET",
     contentType = "application/json"
   ) {
+    setDeviceID();
     let options = {
       method: method,
       headers: {
