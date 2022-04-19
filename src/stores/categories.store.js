@@ -9,11 +9,11 @@ export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({
     categories: [],
   }),
-  getters: {
-    getCategories(state) {
-      return state.categories
-    },
-  },
+  // getters: {
+  //   getCategories(state) {
+  //     return state.categories
+  //   },
+  // },
   actions: {
     async loadCategories() {
       if (this.categories.length) {

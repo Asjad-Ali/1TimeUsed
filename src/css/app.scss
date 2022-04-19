@@ -9,6 +9,7 @@ body{
 }
 .container {
   width: 100%;
+  max-width: 1450px;
   padding-right: 50px;
   padding-left: 50px;
   margin-right: auto;
@@ -22,6 +23,9 @@ body{
   margin-left: auto;
 }
 
+.shadow-sm {
+  box-shadow: 0 1px 2px rgb(0 0 0 / 20%) !important;
+}
 .rounded-10 {
   border-radius: 10px;
 }

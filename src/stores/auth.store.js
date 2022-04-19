@@ -8,6 +8,14 @@ import {
 
 import API from 'src/services/API';
 
+function getAuthUser(ssrContext) {
+  const cookies = process.env.SERVER ?
+    Cookies.parseSSR(ssrContext) :
+    Cookies // otherwise we're on client
+
+  cookies.get('AUTH_USER') || null
+}
+
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
     authUser: null,

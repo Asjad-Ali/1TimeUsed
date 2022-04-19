@@ -2,7 +2,10 @@
   <div class="container">
     <div class="row justify-between items-center">
       <div class="col-md-10 col-6">
-        <h1 class="app-page-title">Notifications</h1>
+        <h1 class="app-page-title">
+          Notifications
+          <q-icon name="notifications_active" color="primary" size="sm" />
+        </h1>
       </div>
       <div class="col-md-2 col-6">
         <q-select
@@ -11,29 +14,29 @@
           v-model="model"
           :options="options"
           label="This Week"
+          class="bg-white"
         />
       </div>
     </div>
     <!-- Notifications Card  -->
     <div
-      class="q-pa-lg bg-white border-bottom osahan-post-header q-mb-md"
+      class="q-pa-lg bg-white osahan-post-header q-mb-md shadow-sm rounded-10"
       v-for="i in 12"
       :key="i"
     >
-      <div class="row flex items-center">
-        <div class="col cursor-pointer">
-          <div class="dropdown-list-image">
+      <div class="row">
+        <div class="col-md-9 col-12 cursor-pointer">
+          <div class="dropdown-list-image flex items-center">
             <img
-              class="rounded-circle"
+              class="rounded-circle q-mr-md"
               src="https://api.dex.proelean.com/uploads/user_snaps/448516476083905.png"
               alt=""
             />
+            <div class="text-h6 ellipsis">Asjad Ali Watto</div>
           </div>
         </div>
-        <div class="col-md-9 col-5 cursor-pointer">
-          <div class="text-weight-bold">Asjad Ali Watto</div>
-        </div>
-        <div class="col ml-auto flex items-center">
+
+        <div class="col-md-3 col-12 flex items-center justify-end">
           <small class="text-grey q-mr-lg">5 days ago</small>
           <div>
             <q-icon
@@ -45,13 +48,24 @@
           </div>
         </div>
       </div>
+
       <div class="row cursor-pointer">
-        <div class="col-10 q-pa-md">
+        <div class="col-12 q-pa-md">
           <div class="text-grey" style="word-break: break-word">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
             repudiandae, distinctio esse nobis consequatur officiis consequuntur
             officia totam hic ad alias, obcaecati harum perspiciatis nulla eos
-            atque sed doloribus minus!
+            atque sed doloribus minus! Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Deserunt repudiandae, distinctio esse nobis
+            consequatur officiis consequuntur officia totam hic ad alias,
+            obcaecati harum perspiciatis nulla eos atque sed doloribus minus!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+            repudiandae, distinctio esse nobis consequatur officiis consequuntur
+            officia totam hic ad alias, obcaecati harum perspiciatis nulla eos
+            atque sed doloribus minus! Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Deserunt repudiandae, distinctio esse nobis
+            consequatur officiis consequuntur officia totam hic ad alias,
+            obcaecati harum perspiciatis nulla eos atque sed doloribus minus!
           </div>
         </div>
       </div>
@@ -82,5 +96,8 @@ export default {
 }
 .rounded-circle {
   border-radius: 50% !important;
+}
+.text-h6 {
+  font-size: 17px;
 }
 </style>
