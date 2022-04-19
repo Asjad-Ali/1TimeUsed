@@ -8,11 +8,11 @@ export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({
     categories: [],
   }),
-  getters: {
-    getCategories(state) {
-      return state.categories
-    },
-  },
+  // getters: {
+  //   getCategories(state) {
+  //     return state.categories
+  //   },
+  // },
   actions: {
     async loadCategories() {
       const lastLoadedTime = localStorage.getItem('categories_loaded_time');

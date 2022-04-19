@@ -6,14 +6,18 @@
           <img src="../../public/images/img_splash_logo.png" width="200" />
         </div>
         <q-form
-          @submit="onSubmit"
+          ref="loginForm"
+          @submit.prevent="onSubmit"
           class="flex justify-center items-center w-100"
+          greedy
         >
           <div class="q-pa-md account-tab">
             <q-input
-              v-model="user.email"
+              v-model="credentials.email"
               label="Enter Your Email"
               class="q-mb-md"
+              :rules="[rules.required, rules.email]"
+              clearable
             >
               <template v-slot:prepend>
                 <q-icon name="person" />
@@ -21,9 +25,11 @@
             </q-input>
 
             <q-input
-              v-model="user.password"
+              v-model="credentials.password"
               label="Enter Your Password"
               type="password"
+              :rules="[rules.required, rules.password]"
+              clearable
             >
               <template v-slot:prepend>
                 <q-icon name="lock" />
@@ -33,12 +39,7 @@
             <q-toggle v-model="accept" label="Show Password" />
             <div class="w-100 q-my-lg">
               <div class="flex justify-between items-center">
-                <q-btn
-                  color="primary"
-                  glossy
-                  label="Login"
-                  @click="handleLogin"
-                />
+                <q-btn type="submit" color="primary" glossy label="Login" />
 
                 <q-btn
                   flat
@@ -46,7 +47,11 @@
                   label="Forgot Password"
                   @click="$router.push('/forgot')"
                 />
+                <p class="text-center q-py-md text-grey">
+                  {{ store.loginError }}
+                </p>
               </div>
+
               <p class="text-center q-py-md text-grey">Or Login With</p>
               <div class="text-center q-mb-lg">
                 <q-btn
@@ -102,19 +107,23 @@
 <script setup>
 import { ref } from "vue";
 import { useAuthStore } from "src/stores/auth.store.js";
+import useValidationRules from "src/composables/useValidationRules";
 import { useRouter } from "vue-router";
 
+const { rules } = useValidationRules();
+const router = useRouter();
 const store = useAuthStore();
-const route = useRouter();
 const accept = ref(false);
-const user = ref({
+const credentials = ref({
   email: "",
   password: null,
 });
 
-const handleLogin = () => {
-  store.login(user.value);
-  route.push({ path: "/" });
+const onSubmit = async () => {
+  const response = await store.login(credentials.value);
+  if (response.status == 200) {
+    router.back();
+  }
 };
 </script>
 
