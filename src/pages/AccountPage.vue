@@ -13,7 +13,14 @@
       <div class="q-pa-md account-tab">
         <q-list bordered class="bg-white rounded">
           <div v-for="(menu, index) in menus" :key="index">
-            <q-item @click="$router.push(menu.to)" clickable>
+            <q-item
+              @click="
+                menu.to.includes('http')
+                  ? openWindow(menu.to)
+                  : $router.push(menu.to)
+              "
+              clickable
+            >
               <q-item-section avatar>
                 <q-icon color="primary" :name="menu.icon" />
               </q-item-section>
@@ -53,12 +60,12 @@ const menus = [
   {
     title: "Terms",
     icon: "notifications_none",
-    to: "/terms",
+    to: "https://1timeused.com/terms-conditions",
   },
   {
     title: "Privacy Policy",
     icon: "perm_contact_calendar",
-    to: "/privacy_policy",
+    to: "https://1timeused.com/privacy-policy",
   },
   {
     title: "Rate the App",
@@ -76,6 +83,10 @@ const menus = [
     to: "/login",
   },
 ];
+
+const openWindow = (url) => {
+  window.open(url, "_blank");
+};
 </script>
 
 

@@ -87,7 +87,7 @@ const options = [
 }
 .login-bg-img {
   background-image: url(../../public/images/img_login.jpg);
-  height: 80vh;
+  height: 100vh;
 }
 
 .text-underline {

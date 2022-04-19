@@ -97,7 +97,7 @@
               <q-menu
                 transition-show="scale"
                 transition-hide="scale"
-                class="gt-md"
+                class="gt-sm"
               >
                 <q-list style="min-width: 200px">
                   <q-item clickable>

@@ -1,6 +1,9 @@
 <template>
   <q-page-container class="column section-main-div">
-    <div class="row">
+    <div class="row text-center">
+      <div class="text-center d-block">
+        <h5>Recent Products</h5>
+      </div>
       <div class="col-12">
         <h5 class="text-center">Recent Products</h5>
         <q-carousel
