@@ -1,8 +1,8 @@
 <template>
   <q-page-container class="column section-main-div">
-    <div class="row text-center">
-      <h5>Recent Products</h5>
+    <div class="row">
       <div class="col-12">
+        <h5 class="text-center">Recent Products</h5>
         <q-carousel
           v-model="slide"
           transition-prev="slide-right"
@@ -68,6 +68,11 @@ h5 {
 
 .section-main-div {
   padding-bottom: 0 !important;
+}
+.section-main-div {
+  @media screen and (max-width: $breakpoint-sm) {
+    overflow-x: hidden;
+  }
 }
 </style>
 
