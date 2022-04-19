@@ -92,26 +92,12 @@
   </div>
 </template>
 
-<script>
-// import { useAuthStore } from "src/stores/auth.store";
-
-// export default {
-//   // ...
-//   preFetch({ store }) {
-//     const authStore = useAuthStore(store)
-//     authStore.test("Hello");
-//   }
-// }
-</script>
-
 <script setup>
 import { ref } from "vue";
 import { useAuthStore } from "src/stores/auth.store.js";
 import useValidationRules from "src/composables/useValidationRules";
-import { useRouter } from "vue-router";
 
 const { rules } = useValidationRules();
-const router = useRouter();
 const store = useAuthStore();
 const accept = ref(false);
 const credentials = ref({
@@ -119,11 +105,8 @@ const credentials = ref({
   password: null,
 });
 
-const onSubmit = async () => {
-  const response = await store.login(credentials.value);
-  if (response.status == 200) {
-    router.back();
-  }
+const onSubmit = () => {
+  const response = store.login(credentials.value);
 };
 </script>
 

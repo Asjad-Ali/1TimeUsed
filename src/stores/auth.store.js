@@ -6,7 +6,9 @@ import {
   Cookies
 } from 'quasar'
 
+import { Notify } from 'quasar'
 import API from 'src/services/API';
+import { useRouter } from "vue-router";
 
 function getAuthUser(ssrContext) {
   const cookies = process.env.SERVER ?
@@ -28,16 +30,22 @@ export const useAuthStore = defineStore('authStore', {
   actions: {
     async login(creds) {
       const response = await API.post('login', creds);
-      if (response == 200) {
-        this.authUser = response.data;
-      }
-      console.log(response)
-      //localStorage.setItem('1timeused_user', JSON.stringify(this.authUser))
-    },
 
-    async test(message) {
-      const response = await API.get('profile');
-      console.log("hello", response)
+      if (response.status == 200) {
+        this.authUser = response.data;
+        Cookies.set('AUTH_USER', JSON.stringify(this.authUser));
+        Cookies.set('1TIMEUSED_TOKEN', response.token);
+        const router = useRouter();
+        router.back();
+      } else {
+        Notify.create({
+          message: response.message,
+          icon: 'warning',
+          position: 'bottom',
+          color: 'negative',
+        })
+      }
+      return response;
     },
   },
 })
