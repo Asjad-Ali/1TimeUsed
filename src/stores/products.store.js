@@ -25,24 +25,24 @@ export const useProductsStore = defineStore('productsStore ', {
       }
 
       const res = await API.get('products/recentlyviewed');
-      if (res == 200) {
-        console.log(res.data)
+      if (res.status == 200) {
+        console.log("Recent Product", res)
         this.recentProducts = res.data;
       }
       else {
-        console.log(res)
+        console.log("Error in Recently viewed", res)
       }
 
     },
     async loadFeaturedProducts() {
       if (!this.featuredProducts.length) {
         const res = await API.get('products/featured');
-        if (res == 200) {
-          console.log(res.data)
+        if (res.status == 200) {
+          console.log("Featured Product", res)
           this.featuredProducts = res.data;
         }
         else {
-          console.log(res)
+          console.log("Error in Featured", res)
         }
       }
     },
