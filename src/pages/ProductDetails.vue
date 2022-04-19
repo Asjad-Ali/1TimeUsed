@@ -28,7 +28,9 @@
         <q-card class="top-card q-px-md q-mb-md" flat bordered>
           <div class="title-date flex justify-between items-center">
             <div class="text-h6 ellipsis common-size">{{ product.title }}</div>
-            <div class="text-grey common-size">25 March 2022</div>
+            <div class="text-grey common-size">
+              {{ product.created_at.substring(0, 10) }}
+            </div>
           </div>
           <div class="title-date flex justify-between items-center">
             <div class="ellipsis text-subtitle1 text-grey common-size">
@@ -36,16 +38,16 @@
             </div>
             <div class="text-subtitle1 common-size text-grey">
               <q-icon name="visibility" color="primary" />
-              59
+              {{ product.views }}
             </div>
           </div>
           <div class="title-date flex justify-between items-center">
             <div class="text-subtitle1 text-grey ellipsis common-size">
-              Sanda kalan Lahore
+              {{ product.city }}
             </div>
             <div class="text-subtitle1 common-size">
               <span class="text-primary">in Stock:</span>
-              <span class="dark">1</span>
+              <span class="dark">{{ product.current_stock }}</span>
             </div>
           </div>
         </q-card>
@@ -60,43 +62,51 @@
             <div class="ellipsis text-subtitle1 text-grey common-size">
               Type
             </div>
-            <div class="text-subtitle1 common-size text-grey">Cloth</div>
+            <div class="text-subtitle1 common-size text-grey">
+              {{ product.category.title }}
+            </div>
           </div>
           <q-separator />
           <div class="title-date flex justify-between items-center">
             <div class="ellipsis text-subtitle1 text-grey common-size">
               Condition
             </div>
-            <div class="text-subtitle1 common-size text-grey">Used</div>
+            <div class="text-subtitle1 common-size text-grey">
+              {{ product.condition }}
+            </div>
           </div>
           <q-separator />
           <div class="title-date flex justify-between items-center">
             <div class="ellipsis text-subtitle1 text-grey common-size">
               Size
             </div>
-            <div class="text-subtitle1 common-size text-grey">Small</div>
+            <div class="text-subtitle1 common-size text-grey">
+              {{ product.size }}
+            </div>
           </div>
           <q-separator />
           <div class="title-date flex justify-between items-center">
             <div class="ellipsis text-subtitle1 text-grey common-size">
               Purpose
             </div>
-            <div class="text-subtitle1 common-size text-grey">Sale</div>
+            <div class="text-subtitle1 common-size text-grey">
+              {{ product.both }}
+            </div>
           </div>
           <q-separator />
           <div class="title-date flex justify-between items-center">
             <div class="ellipsis text-subtitle1 text-grey common-size">
               Brand
             </div>
-            <div class="text-subtitle1 common-size text-grey">Saba Safinaz</div>
+            <div class="text-subtitle1 common-size text-grey">
+              {{ product.brand }}
+            </div>
           </div>
           <q-separator />
           <div class="title q-pt-sm">
             <div class="text-h6 ellipsis common-size">Product Details</div>
             <p class="text-grey common-size">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ad
-              assumenda hic consequuntur. Excepturi quas laudantium nobis
-              assumenda iure deleniti tempore?
+              {{ product.description }}
             </p>
           </div>
           <div class="title">
@@ -114,14 +124,16 @@
               <div class="col-3">
                 <q-btn round>
                   <q-avatar size="42px">
-                    <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
+                    <img :src="imageBaseURL + product.seller.photo" />
                   </q-avatar>
                 </q-btn>
               </div>
               <div class="col-9">
                 <div class="seller-info">
-                  <div class="text-subtitle1">Hafiz Sajjad Motor</div>
-                  <small class="text-grey">member since jan 2021</small>
+                  <div class="text-subtitle1">{{ product.seller.name }}</div>
+                  <small class="text-grey">{{
+                    product.seller.created_at.substring(0, 10)
+                  }}</small>
                 </div>
               </div>
             </div>
@@ -168,8 +180,9 @@ import { useRoute } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 export default {
   async preFetch({ store }) {
+    const route = useRoute();
     const productStore = useProductStore(store);
-    //console.log(route.params.slug);
+    // console.log("Product id",route.params.slug);
     const response = await productStore.loadProductDetails(51);
     console.log(response);
   },
