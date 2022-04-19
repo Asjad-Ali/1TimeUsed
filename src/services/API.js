@@ -1,12 +1,21 @@
 import axios from 'axios'
-import { Cookies } from 'quasar'
+import {
+  Cookies
+} from 'quasar'
 
-if (!Cookies.get('1TIMUSED_DEVICE_ID')) {
-  Cookies.set('1TIMUSED_DEVICE_ID', getRandomString(32))
+function setDeviceID(ssrContext) {
+  const cookies = process.env.SERVER ?
+    Cookies.parseSSR(ssrContext) :
+    Cookies // otherwise we're on client
+
+  if (!cookies.get('1TIMUSED_DEVICE_ID')) {
+    cookies.set('1TIMUSED_DEVICE_ID', getRandomString(32))
+  }
+
+  // "cookies" is equivalent to the global import as in non-SSR builds
 }
 
-const apiBaseURL = "https://1timeused.com/api";
-axios.defaults.baseURL = apiBaseURL;
+const apiBaseURL = process.env.apiBaseURL;
 
 
 const TOKEN = "206|1vIJgkZuOutMb24c3rSLZE6ZHalChV9piVzMJ31s";
@@ -19,6 +28,7 @@ class API {
     method = "GET",
     contentType = "application/json"
   ) {
+    setDeviceID();
     let options = {
       method: method,
       headers: {

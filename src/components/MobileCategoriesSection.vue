@@ -6,14 +6,14 @@
           class="text-center"
           :class="{ 'q-mr-lg': index != categories.length - 1 }"
         >
-          <q-btn
-            size="15px"
-            outline
-            round
-            color="primary"
-            :icon="category.thumbnail"
-          />
-          <span class="q-mt-sm"> {{ category.title }}</span>
+          <q-btn size="15px" outline round color="primary">
+            <q-avatar size="30px">
+              <img :src="`${imageBaseURL}${category.thumbnail}`" />
+            </q-avatar>
+          </q-btn>
+          <span class="text-caption ellipsis q-mt-sm">
+            {{ category.title.substring(0, 10) }}
+          </span>
         </div>
       </div>
     </div>
@@ -21,50 +21,12 @@
 </template>
 
 <script setup>
-const categories = [
-  {
-    title: "Cloth",
-    thumbnail: "checkroom",
-
-    subcategories: [
-      {
-        thumbnail: "jewellery",
-        title: "abc",
-      },
-      {
-        thumbnail: "jewellery",
-        title: "abc",
-      },
-      {
-        thumbnail: "jewellery",
-        title: "abc",
-      },
-    ],
-  },
-  {
-    title: "jewellery",
-    thumbnail: "diamond",
-    subcategories: [],
-  },
-  {
-    title: "Shoes",
-    thumbnail: "loyalty",
-    subcategories: [],
-  },
-  {
-    title: "Watches",
-    thumbnail: "watch_later",
-    subcategories: [],
-  },
-  {
-    title: "Fashion",
-    thumbnail: "face",
-    subcategories: [],
-  },
-  {
-    title: "Others",
-    thumbnail: "view_list",
-    subcategories: [],
-  },
-];
+import { computed, onMounted } from "@vue/runtime-core";
+import { useCategoryStore } from "src/stores/categories.store.js";
+const store = useCategoryStore();
+const imageBaseURL = process.env.imagesBaseURL;
+onMounted(() => {
+  store.loadCategories();
+});
+const categories = computed(() => store.categories);
 </script>
