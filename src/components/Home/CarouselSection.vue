@@ -13,24 +13,39 @@
       class="fit"
     >
       <q-carousel-slide
-        :name="product.title"
-        v-for="product in store.featuredProducts"
-        :key="product"
-        :img-src="imageBaseURL + product.gallery[0].path"
+        :name="banner.id"
+        v-for="banner in banners"
+        :key="banner.id"
+        :img-src="imageBaseURL + banner.image"
       />
     </q-carousel>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useProductsStore } from "../../stores/products.store";
+import { onMounted, ref } from "vue";
+import { persistData, getPersistentData } from "src/helpers/persistentHelper";
+import API from "src/services/API";
+const slide = ref();
+const banners = ref([]);
 
+onMounted(async () => {
+  const dataKey = "banners";
+  const storedBanners = getPersistentData(dataKey, 5);
+  if (storedBanners) {
+    banners.value = storedBanners;
+    slide.value = banners.value.length ? banners.value[0].id : 0;
+    return;
+  }
+
+  const response = await API.get("banners");
+  if (response.status == 200) {
+    banners.value = response.data;
+  }
+  slide.value = banners.value.length ? banners.value[0].id : 0;
+  persistData(dataKey, response.data);
+});
 const imageBaseURL = process.env.imagesBaseURL;
-
-const store = useProductsStore();
-
-slide: ref(1);
 </script>
 <style lang="scss" scoped>
 .slider-main {

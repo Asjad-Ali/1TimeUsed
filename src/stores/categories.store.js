@@ -3,6 +3,7 @@ import {
 } from 'pinia'
 
 import API from 'src/services/API';
+import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
 
 export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({
@@ -15,14 +16,13 @@ export const useCategoryStore = defineStore('categoryStore', {
   },
   actions: {
     async loadCategories() {
-      const lastLoadedTime = localStorage.getItem('categories_loaded_time');
-      const storedCategories = localStorage.getItem('categories');
-      const validLoadedTime = 3 * 60 * 1000;
-
-      // do not hit api if categories were loaded under last 3 minutes
-
-      if (storedCategories && lastLoadedTime && (Date.now() - lastLoadedTime) < validLoadedTime) {
-        this.categories = JSON.parse(storedCategories);
+      if (this.categories.length) {
+        return;
+      }
+      const dataKey = "categories";
+      const categories = getPersistentData(dataKey, 4);
+      if (categories) {
+        this.categories = categories;
         return;
       }
 
@@ -30,9 +30,7 @@ export const useCategoryStore = defineStore('categoryStore', {
 
       if (response.status == 200) {
         this.categories = response.data;
-        console.log(response.data);
-        localStorage.setItem('categories', JSON.stringify(response.data));
-        localStorage.setItem('categories_loaded_time', Date.now());
+        persistData(dataKey, response.data);
       } else {
         console.log(response.message);
       }
