@@ -11,21 +11,22 @@
             items-center
           "
         >
-          <ProductCard v-for="i in 12" :key="i" />
+          <ProductCard
+            :product="product"
+            v-for="product in store.featuredProducts"
+            :key="product"
+          />
         </div>
       </div>
     </div>
   </q-page-container>
 </template>
 
-<script>
+<script setup>
 import ProductCard from "src/components/Layouts/ProductCard.vue";
-export default {
-  components: {
-    ProductCard,
-  },
-  setup() {},
-};
+import { useProductsStore } from "../../stores/products.store.js";
+
+const store = useProductsStore();
 </script>
 
 

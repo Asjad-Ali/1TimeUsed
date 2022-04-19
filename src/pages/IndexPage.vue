@@ -2,8 +2,8 @@
   <q-page>
     <CarouselSection />
     <div class="container">
-      <RecentProducts />
-      <FeaturedProductsSection />
+      <RecentProducts v-if="store.recentProducts.length" />
+      <FeaturedProductsSection v-if="store.featuredProducts.length" />
     </div>
   </q-page>
 </template>
@@ -13,7 +13,7 @@ import { defineComponent, onMounted } from "vue";
 import CarouselSection from "components/Home/CarouselSection.vue";
 import FeaturedProductsSection from "src/components/Home/FeaturedProductsSection.vue";
 import RecentProducts from "src/components/Home/Mobile/RecentProducts.vue";
-import { useProductsStore } from "../stores/products.store.js";
+import { useProductsStore } from "../stores/products.store";
 
 const store = useProductsStore();
 

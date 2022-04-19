@@ -13,35 +13,39 @@
       class="fit"
     >
       <q-carousel-slide
-        :name="1"
-        img-src="https://preview.colorlib.com/theme/shoppers/images/xhero_1.jpg.pagespeed.ic.6alHHFzIKu.webp"
-      />
-      <q-carousel-slide
-        :name="2"
-        img-src="https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow.jpg?v=1637326488"
-      />
-      <q-carousel-slide
-        :name="3"
-        img-src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-milance.gif?v=1639539418"
-      />
-      <q-carousel-slide
-        :name="4"
-        img-src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-jewelry_1920x.gif?v=1639539459"
+        :name="banner.id"
+        v-for="banner in banners"
+        :key="banner.id"
+        :img-src="imageBaseURL + banner.image"
       />
     </q-carousel>
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
+<script setup>
+import { onMounted, ref } from "vue";
+import { persistData, getPersistentData } from "src/helpers/persistentHelper";
+import API from "src/services/API";
+const slide = ref();
+const banners = ref([]);
 
-export default {
-  setup() {
-    return {
-      slide: ref(1),
-    };
-  },
-};
+onMounted(async () => {
+  const dataKey = "banners";
+  const storedBanners = getPersistentData(dataKey, 5);
+  if (storedBanners) {
+    banners.value = storedBanners;
+    slide.value = banners.value.length ? banners.value[0].id : 0;
+    return;
+  }
+
+  const response = await API.get("banners");
+  if (response.status == 200) {
+    banners.value = response.data;
+  }
+  slide.value = banners.value.length ? banners.value[0].id : 0;
+  persistData(dataKey, response.data);
+});
+const imageBaseURL = process.env.imagesBaseURL;
 </script>
 <style lang="scss" scoped>
 .slider-main {
