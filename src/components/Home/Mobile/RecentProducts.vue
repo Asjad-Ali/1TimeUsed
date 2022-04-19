@@ -1,6 +1,13 @@
 <template>
   <q-page-container class="column section-main-div">
+<<<<<<< HEAD
+    <div class="row text-center">
+      <div class="text-center d-block">
+        <h5>Recent Products</h5>
+      </div>
+=======
     <div class="row">
+>>>>>>> 195097b576afacf7eeee5b67113bbbc5fd12bfa1
       <div class="col-12">
         <h5 class="text-center">Recent Products</h5>
         <q-carousel
@@ -30,7 +37,11 @@
                 no-wrap
               "
             >
-              <ProductCard v-for="j in itemsPerPage" :key="j" />
+              <ProductCard
+                v-for="product in store.recentProducts"
+                :key="product"
+                :product="product"
+              />
             </div>
           </q-carousel-slide>
         </q-carousel>
@@ -43,7 +54,9 @@
 import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
+import { useProductsStore } from "../../../stores/products.store";
 
+const store = useProductsStore();
 const slide = ref(1);
 const $q = useQuasar();
 const itemsPerPage = computed(() => {

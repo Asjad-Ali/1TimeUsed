@@ -6,7 +6,6 @@
       <q-avatar size="100px">
         <img src="https://cdn.quasar.dev/img/avatar.png" />
       </q-avatar>
-
       <div class="text-h6 text-center q-pt-sm">Talha Tahir</div>
       <div class="email text-grey">Asif.ali142280@gmail.com</div>
     </div>
@@ -28,6 +27,9 @@
     </div>
   </div>
 </template>
+
+
+
 <script setup>
 import { useRouter } from "vue-router";
 

@@ -7,14 +7,16 @@
     </div>
 
     <div class="q-pa-md row items-start q-gutter-md justify-center">
-      <ProductCard v-for="i in 4" :key="i" />
+      <ProductCard v-for="product in store.wishlist" :key="product" />
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import ProductCard from "src/components/Layouts/ProductCard.vue";
-export default { components: { ProductCard } };
+import { useWishlistStore } from "../stores/wishlist.store";
+
+const store = useWishlistStore();
 </script>
 
 <style>
