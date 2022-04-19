@@ -50,9 +50,9 @@
 import { ref, computed } from "vue";
 import { useQuasar } from "quasar";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
-import { useProductsStore } from "../../../stores/products.store";
+import { useProductStore } from "../../../stores/products.store";
 
-const store = useProductsStore();
+const store = useProductStore();
 const slide = ref(1);
 const $q = useQuasar();
 const itemsPerPage = computed(() => {

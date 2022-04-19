@@ -19,12 +19,11 @@ const {
 module.exports = configure(function (ctx) {
   return {
 
-    //preFetch: true,
     // https://v2.quasar.dev/quasar-cli-webpack/supporting-ts
     supportTS: false,
 
     // https://v2.quasar.dev/quasar-cli-webpack/prefetch-feature
-    // preFetch: true,
+    preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -116,7 +115,7 @@ module.exports = configure(function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Meta', 'Cookies'
+        'Meta', 'Cookies', 'Notify'
       ]
     },
 

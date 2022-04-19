@@ -8,9 +8,9 @@ function setDeviceID(ssrContext) {
     Cookies.parseSSR(ssrContext) :
     Cookies // otherwise we're on client
 
-  if (!cookies.get('1TIMUSED_DEVICE_ID')) {
-    cookies.set('1TIMUSED_DEVICE_ID', getRandomString(32))
-  }
+  // if (!cookies.get('1TIMUSED_DEVICE_ID')) {
+  //   cookies.set('1TIMUSED_DEVICE_ID', getRandomString(32))
+  // }
 
   // "cookies" is equivalent to the global import as in non-SSR builds
 }
@@ -33,8 +33,8 @@ class API {
       method: method,
       headers: {
         "Accept": 'application/json',
-        "Authorization": `Bearer ${Cookies.get('1TIMEUSED_TOKEN') || null}`,
-        "Device-Id": Cookies.get('1TIMUSED_DEVICE_ID'),
+        //"Authorization": `Bearer ${Cookies.get('1TIMEUSED_TOKEN') || null}`,
+        "Device-Id": "sdfsdsd",
         "Device-Type": 'web'
       },
     };
@@ -55,7 +55,6 @@ class API {
       route = this.appendParams(route, payload);
     }
     options.url = this.url(route);
-
     try {
       const response = await axios(options);
       return {
@@ -63,8 +62,8 @@ class API {
         ...(await response.data)
       };
     } catch (error) {
-      console.log(error);
-      throw error;
+      console.log(error.response);
+      return error.response.data;
     }
   }
 

@@ -13,9 +13,9 @@ import { defineComponent, onMounted } from "vue";
 import CarouselSection from "components/Home/CarouselSection.vue";
 import FeaturedProductsSection from "src/components/Home/FeaturedProductsSection.vue";
 import RecentProducts from "src/components/Home/Mobile/RecentProducts.vue";
-import { useProductsStore } from "../stores/products.store";
+import { useProductStore } from "../stores/products.store";
 
-const store = useProductsStore();
+const store = useProductStore();
 
 onMounted(() => {
   store.loadRecentProducts();

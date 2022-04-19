@@ -6,6 +6,7 @@
       navigation
       infinite
       arrows
+      autoplay
       transition-prev="slide-right"
       transition-next="slide-left"
       @mouseenter="autoplay = false"
@@ -13,20 +14,10 @@
       class="fit"
     >
       <q-carousel-slide
-        :name="1"
-        img-src="https://cdn.shopify.com/s/files/1/0256/4594/0810/files/bg-breadcrumb_1920x.jpg?v=1615187740"
-      />
-      <q-carousel-slide
-        :name="2"
-        img-src="https://cdn.shopify.com/s/files/1/0256/4594/0810/files/s-9-1_2048x.jpg?v=1619166921"
-      />
-      <q-carousel-slide
-        :name="3"
-        img-src="https://cdn.shopify.com/s/files/1/0256/4594/0810/files/slideshow_1_2048x.jpg?v=1618200140"
-      />
-      <q-carousel-slide
-        :name="4"
-        img-src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-jewelry_1920x.gif?v=1639539459"
+        v-for="(image, index) in product.gallery"
+        :key="image.id"
+        :name="index"
+        :img-src="imageBaseURL + image.path"
       />
     </q-carousel>
   </div>
@@ -36,12 +27,12 @@
       <div class="col-12 col-md-6 q-pa-sm">
         <q-card class="top-card q-px-md q-mb-md" flat bordered>
           <div class="title-date flex justify-between items-center">
-            <div class="text-h6 ellipsis common-size">Beautiful Frok</div>
+            <div class="text-h6 ellipsis common-size">{{ product.title }}</div>
             <div class="text-grey common-size">25 March 2022</div>
           </div>
           <div class="title-date flex justify-between items-center">
             <div class="ellipsis text-subtitle1 text-grey common-size">
-              RS:500
+              RS:{{ product.price }}
             </div>
             <div class="text-subtitle1 common-size text-grey">
               <q-icon name="visibility" color="primary" />
@@ -162,7 +153,7 @@
                 items-center
               "
             >
-              <ProductCard class="q-my-md" v-for="i in 6" :key="i" />
+              <!-- <ProductCard class="q-my-md" v-for="i in 6" :key="i" /> -->
             </div>
           </div>
         </q-card>
@@ -171,42 +162,60 @@
   </div>
 </template>
 
+
 <script>
-import { ref } from "vue";
+import { useRoute } from "vue-router";
+import { useProductStore } from "src/stores/products.store";
+export default {
+  async preFetch({ store }) {
+    const productStore = useProductStore(store);
+    //console.log(route.params.slug);
+    const response = await productStore.loadProductDetails(51);
+    console.log(response);
+  },
+};
+</script>
+
+<script setup>
+import { ref, computed } from "vue";
+import { useMeta } from "quasar";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
 
-export default {
-  setup() {
-    return {
-      slide: ref(1),
-    };
-  },
-  components: { ProductCard },
-};
+const imageBaseURL = "https://1timeused.com/";
+//const imageBaseURL = process.env.imageBaseURL || "https://1timeused.com/";
+const productStore = useProductStore();
+const product = computed(() => productStore.loadedProduct);
+const slide = ref(0);
 
-const productdetails = [
-  {
-    product_detail_left: "Type",
-    product_detail_right: "Cloth",
+useMeta({
+  title: `${product.value.title} - 1timeused`,
+
+  // meta tags
+  meta: {
+    description: { name: "description", content: product.value.description },
+    keywords: { name: "keywords", content: "1timeused" },
+    // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
+    ogTitle: {
+      property: "og:title",
+      // optional; similar to titleTemplate, but allows templating with other meta properties
+      template(ogTitle) {
+        return `${product.value.title} - 1timeused`;
+      },
+    },
+    ogDescription: {
+      property: "og:description",
+      template(ogDescription) {
+        return product.value.description;
+      },
+    },
+    ogImage: {
+      property: "og:image",
+      template(ogImage) {
+        return imageBaseURL + product.value.gallery[0].path;
+      },
+    },
   },
-  {
-    product_detail_left: "Condition",
-    product_detail_right: "Used",
-  },
-  {
-    product_detail_left: "Size",
-    product_detail_right: "Small",
-  },
-  {
-    product_detail_left: "Purpose",
-    product_detail_right: "Sale",
-  },
-  {
-    product_detail_left: "Brand",
-    product_detail_right: "Saba Safinaz",
-  },
-];
-1;
+});
 </script>
 <style lang="scss" scoped>
 .slider-main {

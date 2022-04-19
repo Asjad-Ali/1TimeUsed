@@ -2,7 +2,7 @@
 <template>
   <q-card
     class="product-card cursor-pointer"
-    @click="$router.push('/product_details')"
+    @click="$router.push(`/product_details/${product.id}`)"
   >
     <q-img :src="imageBaseURL + product.gallery[0].path" />
 

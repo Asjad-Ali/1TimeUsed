@@ -9,11 +9,12 @@ import {
 import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
 import API from 'src/services/API';
 
-export const useProductsStore = defineStore('productsStore ', {
+export const useProductStore = defineStore('productsStore ', {
 
   state: () => ({
     recentProducts: [],
-    featuredProducts: []
+    featuredProducts: [],
+    loadedProduct: null
   }),
 
   getters: {
@@ -62,5 +63,12 @@ export const useProductsStore = defineStore('productsStore ', {
         console.log("Error in Featured", response)
       }
     },
+    async loadProductDetails(slug) {
+      const response = await API.get(`products/${slug}`);
+      if (response.status == 200) {
+        this.loadedProduct = response.data
+      }
+      return response;
+    }
   },
 })
