@@ -13,7 +13,7 @@
           <div class="row q-pa-md account-tab">
             <div class="col-12">
               <q-input
-                v-model="user.name"
+                v-model="credentials.name"
                 :dense="dense"
                 label="Name"
                 class="q-mb-md"
@@ -21,6 +21,7 @@
                   (val) =>
                     val.length >= 3 || 'Password must be atleast 3 characters',
                 ]"
+                clearable
               >
                 <template v-slot:prepend>
                   <q-icon name="person" />
@@ -30,10 +31,12 @@
 
             <div class="col-12">
               <q-input
-                v-model="user.email"
+                v-model="credentials.email"
                 :dense="dense"
                 label="Enter Your Email"
                 class="q-mb-md"
+                :rules="[rules.required, rules.email]"
+                clearable
               >
                 <template v-slot:prepend>
                   <q-icon name="person" />
@@ -59,18 +62,20 @@
             <div class="col-1"></div>
             <div class="col-7">
               <q-input
-                v-model="user.phone"
+                v-model="credentials.phone"
                 :dense="dense"
-                :label="!user.phone ? `301-12345678` : ''"
+                :label="!credentials.phone ? `301-12345678` : ''"
                 class="q-mb-md"
                 maxlength="10"
                 @keyup="validatePhone"
                 type="text"
                 :rules="[
+                  rules.required,
                   (val) =>
-                    val.substring(0, 1) == 3 || 'Phone must start from 3',
-                  (val) => val.length == 10 || 'Phone must be 10 characters',
+                    val.substring(0, 1) == 3 || 'Number must start from 3',
+                  (val) => val.length == 10 || 'Number must be 10 characters',
                 ]"
+                clearable
               >
                 <!-- <template v-slot:prepend>
                   <q-icon name="phone" />
@@ -80,14 +85,12 @@
 
             <div class="col-12">
               <q-input
-                v-model="user.password"
+                v-model="credentials.password"
                 :dense="dense"
                 label="Enter Your Password"
                 type="password"
-                :rules="[
-                  (val) =>
-                    val.length >= 6 || 'Password must be atleast 6 characters',
-                ]"
+                :rules="[rules.required, rules.password]"
+                clearable
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -96,15 +99,17 @@
             </div>
             <div class="col-12">
               <q-input
-                v-model="user.password_confirmation"
+                v-model="credentials.password_confirmation"
                 :dense="dense"
                 label="Confirm Your Password"
                 type="password"
                 :rules="[
                   (val) =>
                     val.length >= 6 || 'Password must be atleast 6 characters',
-                  (val) => val == user.password || 'Password do not match',
+                  (val) =>
+                    val == credentials.password || 'Password do not match',
                 ]"
+                clearable
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
@@ -132,13 +137,13 @@
                 />
               </div>
 
-              <!-- <div class="copyrights text-center">
+              <div class="copyrights text-center">
                 <p class="text-grey">
                   All rights reserved by
                   <a href="#" class="underline-none">1timeused</a><br />
                   powered by <a href="#" class="underline-none">HORIZAM</a>
                 </p>
-              </div> -->
+              </div>
             </div>
           </div>
         </q-form>
@@ -147,46 +152,40 @@
   </div>
 </template>
 
-
 <script setup>
+import { useAuthStore } from "src/stores/auth.store";
 import { ref } from "vue";
+import useValidationRules from "src/composables/useValidationRules";
+
+const { rules } = useValidationRules();
 const accept = ref(false);
 const countryCode = ref("+92");
 const optionsHtml = ref("+92");
+const store = useAuthStore();
 
-const user = ref({
+const credentials = ref({
   name: "",
   email: "",
-  login: "",
-  phone: "3",
+  phone: "",
   password: "",
   password_confirmation: "",
 });
 
 const validatePhone = () => {
-  if (user.value.phone.length <= 1 && user.value.phone.substring(0, 1) != 3) {
-    user.value.phone = "3";
+  if (
+    credentials.value.phone.length <= 1 &&
+    credentials.value.phone.substring(0, 1) != 3
+  ) {
+    credentials.value.phone = "3";
   } else {
-    user.value.phone = user.value.phone.replace(/[^0-9]/g, "");
+    credentials.value.phone = credentials.value.phone.replace(/[^0-9]/g, "");
   }
 };
 
-const onSubmit = (e) => {
-  console.log(e);
+const onSubmit = () => {
+  store.register(credentials.value);
 };
-
-const options = [
-  // {
-  //   label:
-  //     '<span class="text-primary text-bold "><img class="q-mr-1" src="https://flagicons.lipis.dev/flags/4x3/pk.svg" width="15"> &nbsp; +92</span>',
-  //   value: "Google",
-  //   html: true,
-  // },
-];
 </script>
-
-
-
 
 <style lang="scss" scoped>
 .account-tab {
