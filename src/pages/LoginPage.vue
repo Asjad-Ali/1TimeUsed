@@ -36,7 +36,19 @@
               </template>
             </q-input>
 
-            <q-toggle v-model="accept" label="Show Password" />
+            <q-toggle
+              v-model="accept"
+              label="Show Password"
+              :type="
+                passwordInputType == 'password'
+                  ? 'visibility'
+                  : 'visibility_off'
+              "
+              @click="
+                passwordInputType =
+                  passwordInputType == 'password' ? 'text' : 'password'
+              "
+            />
             <div class="w-100 q-my-lg">
               <div class="flex justify-between items-center">
                 <q-btn type="submit" color="primary" glossy label="Login" />
@@ -47,9 +59,6 @@
                   label="Forgot Password ?"
                   @click="$router.push('/forgot')"
                 />
-                <p class="text-center q-py-md text-grey">
-                  {{ store.loginError }}
-                </p>
               </div>
 
               <p class="text-center q-py-md text-grey">Or Login With</p>
@@ -95,20 +104,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useAuthStore } from "src/stores/auth.store.js";
 import useValidationRules from "src/composables/useValidationRules";
 
 const { rules } = useValidationRules();
 const store = useAuthStore();
 const accept = ref(false);
+const passwordInputType = ref("password");
 const credentials = ref({
   email: "",
   password: null,
 });
 
 const onSubmit = () => {
-  const response = store.login(credentials.value);
+  store.login(credentials.value);
 };
 </script>
 
