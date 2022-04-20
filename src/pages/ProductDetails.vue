@@ -58,7 +58,7 @@
           </div>
           <div class="title-date flex justify-between items-center">
             <div class="text-subtitle1 text-grey ellipsis common-size">
-              {{ product.city }}
+              {{ product.neighborhood }}
             </div>
             <div class="text-subtitle1 common-size">
               <span class="text-primary">in Stock:</span>
@@ -102,10 +102,19 @@
           <q-separator />
           <div class="title-date flex justify-between items-center">
             <div class="ellipsis text-subtitle1 text-grey common-size">
+              Colors
+            </div>
+            <div class="text-subtitle1 common-size text-grey">
+              {{ product.color }}
+            </div>
+          </div>
+          <q-separator />
+          <div class="title-date flex justify-between items-center">
+            <div class="ellipsis text-subtitle1 text-grey common-size">
               Purpose
             </div>
             <div class="text-subtitle1 common-size text-grey">
-              {{ product.both }}
+              {{ product.purpose }}
             </div>
           </div>
           <q-separator />
@@ -146,9 +155,10 @@
               <div class="col-9">
                 <div class="seller-info">
                   <div class="text-subtitle1">{{ product.seller.name }}</div>
-                  <small class="text-grey">{{
-                    product.seller.created_at.substring(0, 10)
-                  }}</small>
+                  <small class="text-grey">
+                    Member since
+                    {{ product.seller.created_at.substring(0, 10) }}
+                  </small>
                 </div>
               </div>
             </div>
@@ -163,7 +173,8 @@
 
           <div class="show-number text-center">
             <q-icon name="call" color="primary" />
-            **** <a href="#" class="underline-none text-grey">Show Number</a>
+            *********
+            <a href="#" class="underline-none text-grey">Show Number</a>
           </div>
         </q-card>
       </div>
@@ -173,12 +184,7 @@
 
           <div class="row">
             <div
-              class="
-                flex
-                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-                justify-center
-                items-center
-              "
+              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
             >
               <!-- <ProductCard class="q-my-md" v-for="i in 6" :key="i" /> -->
             </div>
@@ -188,7 +194,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import { useRoute } from "vue-router";
