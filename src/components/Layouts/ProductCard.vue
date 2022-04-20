@@ -2,6 +2,7 @@
 <template>
   <q-card
     class="product-card cursor-pointer my-card"
+    :class="{ 'recent-product': mainDiv == 'recent-products' }"
     @click="$router.push(`/product_details/${product.id}`)"
   >
     <div class="img-holder">
@@ -36,9 +37,13 @@ import { defineProps, toRefs } from "vue";
 const imageBaseURL = process.env.imagesBaseURL;
 const props = defineProps({
   product: Object,
+  mainDiv: {
+    type: String,
+    default: "featured-products",
+  },
 });
 
-const { product } = toRefs(props);
+const { product, mainDiv } = toRefs(props);
 
 const getAddress = (address) => {
   if (address) {
@@ -56,6 +61,8 @@ const getAddress = (address) => {
   return address;
 };
 </script>
+
+
 <style lang="scss" scoped>
 .img-holder {
   height: 160px;
@@ -64,6 +71,12 @@ const getAddress = (address) => {
 
 .my-card {
   width: 210px;
+}
+
+@media (max-width: 1290px) {
+  .my-card {
+    width: 168px;
+  }
 }
 
 @media (max-width: $breakpoint-sm-max) {
@@ -79,9 +92,14 @@ const getAddress = (address) => {
     height: 120px;
   }
 }
+
 @media (max-width: 336px) {
   .my-card {
     width: 120px;
   }
+}
+
+.recent-product {
+  background: red;
 }
 </style>

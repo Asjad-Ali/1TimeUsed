@@ -35,6 +35,7 @@
                 v-for="product in store.recentProducts"
                 :key="product"
                 :product="product"
+                mainDIv="recent-products"
               />
             </div>
           </q-carousel-slide>
@@ -72,9 +73,9 @@ const itemsPerPage = computed(() => {
 h5 {
   margin-bottom: 0;
 }
-.section-main-div {
-  overflow-x: hidden;
-}
+// .section-main-div {
+//   overflow-x: hidden;
+// }
 .section-main-div {
   padding-bottom: 0 !important;
 }
