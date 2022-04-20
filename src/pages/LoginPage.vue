@@ -104,9 +104,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useAuthStore } from "src/stores/auth.store.js";
+import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
+import { useAuthStore } from "src/stores/auth.store";
 
 const { rules } = useValidationRules();
 const store = useAuthStore();
