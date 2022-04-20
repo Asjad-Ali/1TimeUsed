@@ -196,14 +196,13 @@
 </template>
 
 <script>
-import { useRoute } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 export default {
-  async preFetch({ store }) {
-    const route = useRoute();
+  async preFetch({ store, currentRoute }) {
     const productStore = useProductStore(store);
-    // console.log("Product id",route.params.slug);
-    const response = await productStore.loadProductDetails(31);
+    const response = await productStore.loadProductDetails(
+      currentRoute.params.slug
+    );
     console.log(response);
   },
 };

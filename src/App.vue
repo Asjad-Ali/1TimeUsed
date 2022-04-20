@@ -3,9 +3,13 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "App",
-});
+import { useAuthStore } from "src/stores/auth.store";
+export default {
+  async preFetch({ store, currentRoute }) {
+    const authStore = useAuthStore();
+    authStore.loadAuthUser();
+  },
+};
 </script>
+
+<script setup></script>
