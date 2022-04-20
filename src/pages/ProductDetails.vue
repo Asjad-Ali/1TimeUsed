@@ -4,14 +4,16 @@
       animated
       v-model="slide"
       navigation
+      dark
       infinite
       arrows
-      autoplay
+      swipeable
       transition-prev="slide-right"
       transition-next="slide-left"
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
-      class="fit"
+      v-model:fullscreen="fullscreen"
+      class="fit details-carousel"
     >
       <q-carousel-slide
         v-for="(image, index) in product.gallery"
@@ -19,6 +21,19 @@
         :name="index"
         :img-src="imageBaseURL + image.path"
       />
+      <template v-slot:control>
+        <q-carousel-control position="bottom-right" :offset="[18, 18]">
+          <q-btn
+            push
+            round
+            dense
+            color="white"
+            text-color="primary"
+            :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+            @click="fullscreen = !fullscreen"
+          />
+        </q-carousel-control>
+      </template>
     </q-carousel>
   </div>
 
@@ -183,7 +198,7 @@ export default {
     const route = useRoute();
     const productStore = useProductStore(store);
     // console.log("Product id",route.params.slug);
-    const response = await productStore.loadProductDetails(51);
+    const response = await productStore.loadProductDetails(31);
     console.log(response);
   },
 };
@@ -199,6 +214,7 @@ const imageBaseURL = "https://1timeused.com/";
 const productStore = useProductStore();
 const product = computed(() => productStore.loadedProduct);
 const slide = ref(0);
+const fullscreen = ref(false);
 
 useMeta({
   title: `${product.value.title} - 1timeused`,
@@ -230,7 +246,18 @@ useMeta({
   },
 });
 </script>
+
+<style>
+.details-carousel .q-panel.scroll {
+  background: rgb(22, 19, 19);
+}
+</style>
 <style lang="scss" scoped>
+.q-carousel__slide {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
 .slider-main {
   height: 140px;
   width: 100%;
@@ -243,9 +270,9 @@ useMeta({
   }
 }
 
-// .top-card {
-//   margin-top: -20px;
-// }
+.top-card {
+  margin-top: 20px;
+}
 
 .common-size {
   @media screen and (max-width: $breakpoint-sm-max) {
