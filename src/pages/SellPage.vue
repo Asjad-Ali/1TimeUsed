@@ -23,7 +23,12 @@
               </div>
               <div class="text-caption text-grey ellipsis">Rs:18000</div>
               <div class="q-my-sm text-right">
-                <q-btn size="sm" color="primary" label="Activate" />
+                <q-btn
+                  size="sm"
+                  color="primary"
+                  label="Activate"
+                  @click="small = true"
+                />
               </div>
 
               <div class="flex justify-between">
@@ -35,10 +40,10 @@
           <q-btn
             round
             size="sm"
-            color="primary"
-            icon="favorite_border"
+            icon="more_horiz"
             class="absolute"
             style="top: 5px; right: 10px"
+            @click="alert = true"
           />
         </q-card>
       </div>
@@ -47,7 +52,45 @@
       <q-btn round color="primary" glossy icon="add" />
     </div>
   </div>
+  <!-- Modal Alert -->
+  <q-dialog v-model="alert">
+    <q-card style="width: 230px">
+      <div class="q-gutter-sm flex column q-pa-md">
+        <q-radio v-model="shape" val="line" label="Edit" />
+        <q-radio v-model="shape" val="a" label="Delete" />
+      </div>
+    </q-card>
+  </q-dialog>
+
+  <!-- Modal Order Active & Deactive -->
+  <q-dialog v-model="small">
+    <q-card style="width: 230px">
+      <div class="q-gutter-sm flex column q-pa-md">
+        <q-radio v-model="shape" val="line" label="Activate" />
+        <q-radio v-model="shape" val="rectangle" label="Deactivate" />
+        <q-radio v-model="shape" val="ellipse" label="Sold Out" />
+        <q-radio v-model="shape" val="polygon" label="Sold Out/Deactivate" />
+      </div>
+    </q-card>
+  </q-dialog>
 </template>
+<script>
+import { ref } from "vue";
+
+export default {
+  setup() {
+    return {
+      alert: ref(false),
+      shape: ref("line"),
+      small: ref(false),
+      medium: ref(false),
+      fullWidth: ref(false),
+      fullHeight: ref(false),
+    };
+  },
+};
+</script>
+
 <style  lang="scss" scoped>
 .add-button {
   position: absolute;
