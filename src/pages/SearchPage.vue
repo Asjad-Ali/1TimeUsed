@@ -13,6 +13,7 @@
               input-debounce="500"
               dense
               label="Search Here"
+              class="q-pb-md"
               :options="options"
               @filter="filterFn"
               @filter-abort="abortFilterFn"
@@ -29,8 +30,9 @@
                 <q-btn icon="search" size="16px" outline> </q-btn>
               </template>
             </q-select>
-            <h6 class="q-pb-md text-center">
-              Results for "<span class="text-bold">a</span>"
+            <h6 v-show="search" class="q-pb-md text-center">
+              Results for "<span class="text-bold">{{ search }}</span
+              >"
             </h6>
           </div>
         </div>
@@ -77,7 +79,7 @@
             items-center
           "
         >
-          <!-- <ProductCard v-for="i in 12" :key="i" /> -->
+          <ProductCard v-for="product in store.searchProduct" :key="product" />
         </div>
       </div>
     </div>
@@ -87,9 +89,12 @@
  <script setup>
 import { ref } from "vue";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
+import { useProductStore } from "../stores/products.store";
 
+const store = useProductStore();
 const persistent = ref(false);
 const search = ref("");
+const stringOptions = ref(["cloth", "rings"]);
 const shape = ref("line");
 const model = ref(null);
 const options = [
@@ -99,6 +104,27 @@ const options = [
   "Price Hight to Low",
   "All",
 ];
+
+const filterFn = (val, update, abort) => {
+  store.loadSearchProduct(search.value);
+  console.log(search.value);
+  setTimeout(() => {
+    update(() => {
+      if (val === "") {
+        options.value = stringOptions;
+      } else {
+        const needle = val.toLowerCase();
+        options.value = stringOptions.value.filter(
+          (v) => v.toLowerCase().indexOf(needle) > -1
+        );
+      }
+    });
+  }, 500);
+};
+
+const abortFilterFn = () => {
+  console.log("delayed filter aborted");
+};
 </script>
 <style lang="scss" scoped>
 .search-bg {

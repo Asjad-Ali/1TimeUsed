@@ -133,14 +133,14 @@
 <script setup>
 import { ref } from "vue";
 
-const serch = ref("");
+import { useProductStore } from "../../stores/products.store";
+const store = useProductStore();
 
 const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 const options = ref(stringOptions);
-
+const search = ref();
 const filterFn = (val, update, abort) => {
-  // call abort() at any time if you can't retrieve data somehow
-
+  store.loadSearchProduct(search.value);
   setTimeout(() => {
     update(() => {
       if (val === "") {
@@ -153,10 +153,10 @@ const filterFn = (val, update, abort) => {
       }
     });
   }, 500);
+};
 
-  const abortFilterFn = () => {
-    // console.log('delayed filter aborted')
-  };
+const abortFilterFn = () => {
+  console.log("delayed filter aborted");
 };
 </script>
 

@@ -71,6 +71,7 @@ export const useProductStore = defineStore('productsStore ', {
       }
       return response;
     },
+
     async loadSearchProduct(product) {
       const response = await API.get(`search?sort=&q=${product}`);
       if (response.status == 200) {
