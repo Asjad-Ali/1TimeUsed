@@ -3,23 +3,9 @@ import {
   Cookies
 } from 'quasar'
 
-function setDeviceID(ssrContext) {
-  const cookies = process.env.SERVER ?
-    Cookies.parseSSR(ssrContext) :
-    Cookies // otherwise we're on client
-
-  // if (!cookies.get('1TIMUSED_DEVICE_ID')) {
-  //   cookies.set('1TIMUSED_DEVICE_ID', getRandomString(32))
-  // }
-
-  // "cookies" is equivalent to the global import as in non-SSR builds
-}
 
 const apiBaseURL = process.env.apiBaseURL;
 
-
-const TOKEN = "206|1vIJgkZuOutMb24c3rSLZE6ZHalChV9piVzMJ31s";
-const DEVICE_ID = "sdfdsfsdfddsfsd";
 
 class API {
   async request(
@@ -28,13 +14,12 @@ class API {
     method = "GET",
     contentType = "application/json"
   ) {
-    setDeviceID();
     let options = {
       method: method,
       headers: {
         "Accept": 'application/json',
-        //"Authorization": `Bearer ${Cookies.get('1TIMEUSED_TOKEN') || null}`,
-        "Device-Id": "sdfsdsd",
+        "Authorization": `Bearer ${Cookies.get('1TIMEUSED_TOKEN') || null}`,
+        "Device-Id": Cookies.get('1TIMUSED_DEVICE_ID'),
         "Device-Type": 'web'
       },
     };
@@ -55,6 +40,7 @@ class API {
       route = this.appendParams(route, payload);
     }
     options.url = this.url(route);
+
     try {
       const response = await axios(options);
       return {
@@ -62,8 +48,8 @@ class API {
         ...(await response.data)
       };
     } catch (error) {
-      console.log(error.response);
-      return error.response.data;
+      console.log(error);
+      throw error;
     }
   }
 
@@ -120,7 +106,6 @@ function getRandomString(length) {
   for (var i = 0; i < length; i++) {
     result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
   }
-  localStorage.setItem('DEVICE_ID', result)
   return result;
 }
 

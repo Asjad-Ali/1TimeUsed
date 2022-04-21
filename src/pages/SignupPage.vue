@@ -19,7 +19,7 @@
                 class="q-mb-md"
                 :rules="[
                   (val) =>
-                    val.length >= 3 || 'Password must be atleast 3 characters',
+                    val.length >= 3 || 'Name must be atleast 3 characters',
                 ]"
                 clearable
               >
