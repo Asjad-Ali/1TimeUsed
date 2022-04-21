@@ -30,3 +30,9 @@ onMounted(() => {
 });
 const categories = computed(() => store.categories);
 </script>
+
+<style scoped>
+.q-scrollarea:-webkit-scrollbar {
+  display: none;
+}
+</style>

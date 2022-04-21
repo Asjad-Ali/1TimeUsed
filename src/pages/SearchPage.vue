@@ -77,34 +77,28 @@
             items-center
           "
         >
-          <ProductCard v-for="i in 12" :key="i" />
+          <!-- <ProductCard v-for="i in 12" :key="i" /> -->
         </div>
       </div>
     </div>
   </div>
 </template>
 
- <script>
+ <script setup>
 import { ref } from "vue";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
 
-export default {
-  setup() {
-    return {
-      persistent: ref(false),
-      shape: ref("line"),
-      model: ref(null),
-      options: [
-        "Newest First",
-        "Oldest First",
-        "Price Low to High",
-        "Price Hight to Low",
-        "All",
-      ],
-    };
-  },
-  components: { ProductCard },
-};
+const persistent = ref(false);
+const search = ref("");
+const shape = ref("line");
+const model = ref(null);
+const options = [
+  "Newest First",
+  "Oldest First",
+  "Price Low to High",
+  "Price Hight to Low",
+  "All",
+];
 </script>
 <style lang="scss" scoped>
 .search-bg {
