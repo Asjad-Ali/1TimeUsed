@@ -12,15 +12,6 @@ import {
 import API from 'src/services/API';
 import redirect from 'src/helpers/redirect';
 
-function getAuthUser(ssrContext) {
-  const cookies = process.env.SERVER ?
-    Cookies.parseSSR(ssrContext) :
-    Cookies // otherwise we're on client
-
-  cookies.get('AUTH_USER') || null
-}
-
-
 export const useAuthStore = defineStore('authStore', {
   state: () => ({
     authUser: null,
@@ -89,7 +80,12 @@ export const useAuthStore = defineStore('authStore', {
       return response;
     },
 
+    loadAuthUser() {
+      if (!this.authUser) {
+        this.authUser = this.$cookies.get('AUTH_USER')
+        console.log("sdfsadsf", this.authUser)
+      }
+    }
 
-    //async profile(cred)
   },
 })

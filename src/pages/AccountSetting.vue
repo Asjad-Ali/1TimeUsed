@@ -10,38 +10,38 @@
         </div>
       </q-avatar>
 
-      <div class="text-h6 text-center q-pt-sm">Talha Tahir</div>
-      <div class="email text-grey">Asif.ali142280@gmail.com</div>
+      <div class="text-h6 text-center q-pt-sm">{{ profile.name }}</div>
+      <div class="email text-grey">{{ profile.email || profile.phone }}</div>
 
       <div class="flex justify-center items-center w-100">
         <div class="q-pa-md account-tab">
           <q-input
             outlined
-            v-model="user.name"
+            v-model="profile.name"
             label="Enter Full Name"
             class="q-mb-md bg-white"
           />
           <q-input
             outlined
-            v-model="user.city"
+            v-model="profile.city"
             label="Enter City"
             class="q-mb-md bg-white"
           />
           <q-input
             outlined
-            v-model="user.email"
+            v-model="profile.email"
             label="TalhaTahir@gmail.com"
             class="q-mb-md bg-white"
           />
           <q-input
             outlined
-            v-model="user.phone"
+            v-model="profile.phone"
             label="Enter Phone "
             class="q-mb-md bg-white"
           />
           <q-input
             outlined
-            v-model="user.neighbourhood"
+            v-model="profile.neighbourhood"
             label="Enter Neighborhood "
             class="q-mb-md bg-white"
           />
@@ -54,22 +54,13 @@
   </div>
 </template>
 
-
 <script setup>
+import { useAuthStore } from "src/stores/auth.store";
 import { ref } from "vue";
+const authStore = useAuthStore();
+const profile = authStore.authUser;
 const accept = ref(false);
-
-const user = ref({
-  name: "Asif Ali",
-  email: "anyemail@gmail.com",
-  city: "Lahore",
-  neighbourhood: "Johar Town",
-  phone: "+9230012345678",
-});
 </script>
-
-
-
 
 <style lang="scss" scoped>
 .account-tab {

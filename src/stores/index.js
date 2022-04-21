@@ -9,6 +9,9 @@ import {
 } from 'vue';
 
 import route from 'src/router'
+import {
+  Cookies
+} from 'quasar'
 
 /*
  * If not building with SSR mode, you can
@@ -19,13 +22,20 @@ import route from 'src/router'
  * with the Store instance.
  */
 
-export default store(( /* { ssrContext } */ ) => {
+export default store(({
+  ssrContext
+}) => {
   const pinia = createPinia()
   const router = route();
   pinia.use(({
     store
   }) => {
+    const cookies = process.env.SERVER ?
+      Cookies.parseSSR(ssrContext) :
+      Cookies // otherwise we're on client
+
     store.$router = markRaw(router)
+    store.$cookies = markRaw(cookies)
   });
 
   // You can add Pinia plugins here

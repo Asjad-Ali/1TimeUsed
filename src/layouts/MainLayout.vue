@@ -23,24 +23,20 @@
 </template>
 
 <script>
+import { useAuthStore } from "src/stores/auth.store";
+export default {
+  async preFetch({ store, currentRoute }) {
+    const authStore = useAuthStore();
+    authStore.loadAuthUser();
+  },
+};
+</script>
+
+<script setup>
 import { defineComponent } from "vue";
 import HeaderSection from "src/components/Layouts/HeaderSection.vue";
 import BottomNav from "../components/Layouts/BottomNav.vue";
 import FooterMain from "../components/Layouts/FooterMain.vue";
 import CategoriesSection from "src/components/CategoriesSection.vue";
 import MobileCategoriesSection from "src/components/MobileCategoriesSection.vue";
-
-export default defineComponent({
-  name: "MainLayout",
-  components: {
-    HeaderSection,
-    BottomNav,
-    FooterMain,
-    CategoriesSection,
-    MobileCategoriesSection,
-  },
-  setup() {
-    return {};
-  },
-});
 </script>
