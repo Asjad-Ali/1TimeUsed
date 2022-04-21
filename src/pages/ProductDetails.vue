@@ -145,14 +145,14 @@
           </div>
           <div class="title-date">
             <div class="row flex items-center justify-center">
-              <div class="col-3">
+              <div class="col-1">
                 <q-btn round>
                   <q-avatar size="42px">
                     <img :src="imageBaseURL + product.seller.photo" />
                   </q-avatar>
                 </q-btn>
               </div>
-              <div class="col-9">
+              <div class="col-11">
                 <div class="seller-info">
                   <div class="text-subtitle1">{{ product.seller.name }}</div>
                   <small class="text-grey">
@@ -184,7 +184,12 @@
 
           <div class="row">
             <div
-              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+              class="
+                flex
+                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+                justify-center
+                items-center
+              "
             >
               <!-- <ProductCard class="q-my-md" v-for="i in 6" :key="i" /> -->
             </div>
@@ -213,8 +218,8 @@ import { ref, computed } from "vue";
 import { useMeta } from "quasar";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
 
-const imageBaseURL = "https://1timeused.com/";
-//const imageBaseURL = process.env.imageBaseURL || "https://1timeused.com/";
+// const imageBaseURL = "https://1timeused.com/";
+const imageBaseURL = process.env.imagesBaseURL;
 const productStore = useProductStore();
 const product = computed(() => productStore.loadedProduct);
 const slide = ref(0);
