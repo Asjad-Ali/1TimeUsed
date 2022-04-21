@@ -48,6 +48,11 @@ const menus = [
     to: "/wishlist",
   },
   {
+    title: "Sell",
+    icon: "add_circle",
+    to: "/sell",
+  },
+  {
     title: "Account Setting",
     icon: "settings",
     to: "/account_setting",

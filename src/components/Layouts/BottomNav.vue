@@ -38,7 +38,7 @@ const footerLinks = [
   {
     title: "Sell",
     icon: "group",
-    to: "/",
+    to: "/sell",
   },
   {
     title: "Donate",
