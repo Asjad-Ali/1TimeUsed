@@ -1,5 +1,5 @@
 <template>
-  <q-footer bordered elevated>
+  <q-footer bordered elevated class="bottom-nav">
     <q-tabs
       v-model="footerTab"
       indicator-color="white"
@@ -54,3 +54,9 @@ const footerLinks = [
 
 const footerTab = ref("Home");
 </script>
+
+<style lang="scss" >
+.bottom-nav .q-tab__label {
+  font-size: 10px;
+}
+</style>
