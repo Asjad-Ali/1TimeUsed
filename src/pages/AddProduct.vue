@@ -1,9 +1,22 @@
 <template>
   <div class="container">
-    <div class="row justify-center">
-      <div class="col-md-6">
-        <q-form class="q-mb-lg">
-          <div class="q-pa-md">
+    <!-- Stepper -->
+    <div class="w-100 justify-center">
+      <div class="q-pa-md">
+        <q-stepper
+          v-model="step"
+          ref="stepper"
+          color="primary"
+          header-nav
+          animated
+        >
+          <q-step
+            :name="1"
+            title="Product Info"
+            icon="settings"
+            :error="step < 3"
+            :done="step > 1"
+          >
             <!-- Images upload -->
             <div class="col-12 q-my-lg">
               <span>Images:</span>
@@ -94,10 +107,19 @@
                 class="q-mb-md bg-white"
               />
             </div>
-
-            <!-- Neighbourhood -->
+            <!-- Total Items -->
             <div class="col-md-12">
-              <span>Neighbourhood:</span>
+              <span>Total Items:</span>
+              <q-input
+                outlined
+                label="Enter Neighbourhood"
+                class="q-mb-md bg-white"
+              />
+            </div>
+
+            <!-- Description -->
+            <div class="col-md-12">
+              <span>Description:</span>
               <q-input
                 type="textarea"
                 outlined
@@ -105,7 +127,9 @@
                 class="q-mb-md bg-white"
               />
             </div>
-            <div class="text-h6 text-primary">Add Additional Info</div>
+          </q-step>
+
+          <q-step :name="2" title="Additional Info" icon="add_comment">
             <!-- Brand  -->
             <div class="col-md-12">
               <span>Brand (optional)</span>
@@ -138,18 +162,31 @@
                 class="q-mb-md bg-white"
               />
             </div>
-          </div>
-          <div class="col-12 q-px-md">
-            <q-btn
-              color="primary"
-              icon-right="add"
-              label="Add Product"
-              class="w-100"
-            />
-          </div>
-        </q-form>
+          </q-step>
+          <q-step :name="3" title="Review & Submit" icon="add_comment">
+          </q-step>
+
+          <template v-slot:navigation>
+            <q-stepper-navigation>
+              <q-btn
+                @click="$refs.stepper.next()"
+                color="primary"
+                :label="step === 4 ? 'Finish' : 'Next'"
+              />
+              <q-btn
+                v-if="step > 1"
+                flat
+                color="primary"
+                @click="$refs.stepper.previous()"
+                label="Back"
+                class="q-ml-sm"
+              />
+            </q-stepper-navigation>
+          </template>
+        </q-stepper>
       </div>
     </div>
+    <!-- Stepper End -->
   </div>
 </template>
 
@@ -159,6 +196,8 @@ import { ref } from "vue";
 export default {
   setup() {
     return {
+      shape: ref("line"),
+      step: ref(1),
       tab: ref("mails"),
       files: ref(null),
       counterLabelFn({ totalSize, filesNumber, maxFiles }) {
