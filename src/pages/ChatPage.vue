@@ -56,7 +56,12 @@
               </div>
             </div>
             <div class="write-message q-px-lg">
-              <q-input outlined v-model="text" filled label="Write Message" />
+              <q-input
+                outlined
+                v-model="messageValue"
+                filled
+                label="Write Message"
+              />
             </div>
           </div>
         </div>
@@ -64,6 +69,11 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+const messageValue = ref("");
+</script>
 <style lang="scss" scoped>
 .scroll-div {
   height: 80vh;

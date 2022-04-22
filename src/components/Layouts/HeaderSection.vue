@@ -148,17 +148,21 @@
 import { ref } from "vue";
 import { useAuthStore } from "src/stores/auth.store";
 
+<<<<<<< HEAD
+import { useProductStore } from "../../stores/products.store";
+const store = useProductStore();
+=======
 const serch = ref("");
 const imageBaseURL = process.env.imagesBaseURL;
 const authStore = useAuthStore();
 const profile = authStore.authUser;
+>>>>>>> 58e88d07414913561e99fa356355629dd3c24884
 
 const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 const options = ref(stringOptions);
-
+const search = ref();
 const filterFn = (val, update, abort) => {
-  // call abort() at any time if you can't retrieve data somehow
-
+  store.loadSearchProduct(search.value);
   setTimeout(() => {
     update(() => {
       if (val === "") {
@@ -171,10 +175,10 @@ const filterFn = (val, update, abort) => {
       }
     });
   }, 500);
+};
 
-  const abortFilterFn = () => {
-    // console.log('delayed filter aborted')
-  };
+const abortFilterFn = () => {
+  console.log("delayed filter aborted");
 };
 
 function handleLogout() {

@@ -6,17 +6,26 @@
       </h1>
     </div>
 
-    <div class="q-pa-md row items-start q-gutter-md justify-center">
-      <ProductCard v-for="product in store.wishlist" :key="product" />
+    <div
+      v-if="wishlistProduct"
+      class="q-pa-md row items-start q-gutter-md justify-center"
+    >
+      <ProductCard v-for="product in store.wishlistProduct" :key="product" />
+    </div>
+    <div class="text-center m-5" v-else>
+      <h3 class="m-5">No Wishlist Product</h3>
     </div>
   </div>
 </template>
 
 <script setup>
+import { onMounted } from "@vue/runtime-core";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
 import { useWishlistStore } from "../stores/wishlist.store";
 
 const store = useWishlistStore();
+
+onMounted(() => store.loadWishlistProducts());
 </script>
 
 <style>
