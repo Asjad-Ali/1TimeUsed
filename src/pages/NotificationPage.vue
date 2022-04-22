@@ -55,17 +55,7 @@
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
             repudiandae, distinctio esse nobis consequatur officiis consequuntur
             officia totam hic ad alias, obcaecati harum perspiciatis nulla eos
-            atque sed doloribus minus! Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Deserunt repudiandae, distinctio esse nobis
-            consequatur officiis consequuntur officia totam hic ad alias,
-            obcaecati harum perspiciatis nulla eos atque sed doloribus minus!
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            repudiandae, distinctio esse nobis consequatur officiis consequuntur
-            officia totam hic ad alias, obcaecati harum perspiciatis nulla eos
-            atque sed doloribus minus! Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Deserunt repudiandae, distinctio esse nobis
-            consequatur officiis consequuntur officia totam hic ad alias,
-            obcaecati harum perspiciatis nulla eos atque sed doloribus minus!
+            atque sed doloribus
           </div>
         </div>
       </div>

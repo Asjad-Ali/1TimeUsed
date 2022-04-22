@@ -64,6 +64,10 @@ const routes = [{
     component: () => import('src/pages/SellPage.vue')
   },
   {
+    path: '/add_product',
+    component: () => import('src/pages/AddProduct.vue')
+  },
+  {
     path: '/card',
     component: () => import('src/pages/CardPage.vue')
   },
