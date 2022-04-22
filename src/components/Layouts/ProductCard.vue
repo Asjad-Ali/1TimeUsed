@@ -3,9 +3,11 @@
   <q-card
     class="product-card cursor-pointer my-card"
     :class="{ 'recent-product': mainDiv == 'recent-products' }"
-    @click="$router.push(`/product_details/${product.id}`)"
   >
-    <div class="img-holder">
+    <div
+      class="img-holder"
+      @click="$router.push(`/product_details/${product.id}`)"
+    >
       <q-img :src="imageBaseURL + product.gallery[0].path" class="fit" />
     </div>
 
@@ -14,6 +16,18 @@
         round
         outline
         flat
+        @click="addToWishlist(product.id)"
+        size="sm"
+        color="primary"
+        icon="favorite_border"
+        class="absolute bg-white shadow-sm"
+        style="top: 0; right: 12px; transform: translateY(-50%)"
+      />
+      <q-btn
+        round
+        outline
+        flat
+        @click="addToWishlist(product.id)"
         size="sm"
         color="primary"
         icon="favorite_border"
@@ -39,8 +53,11 @@
 </template>
 
 <script setup>
+import { useWishlistStore } from "../../stores/wishlist.store";
 import { defineProps, toRefs } from "vue";
 const imageBaseURL = process.env.imagesBaseURL;
+const store = useWishlistStore();
+
 const props = defineProps({
   product: Object,
   mainDiv: {
@@ -50,6 +67,10 @@ const props = defineProps({
 });
 
 const { product, mainDiv } = toRefs(props);
+
+const addToWishlist = (id) => {
+  store.addWishlist(id);
+};
 
 const getAddress = (address) => {
   if (address) {
