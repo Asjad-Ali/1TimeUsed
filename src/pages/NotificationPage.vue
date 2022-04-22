@@ -71,7 +71,7 @@
 </template>
 
 <script setup>
-import { useNotificationStore } from "../stores/products.store";
+import { useNotificationStore } from "../stores/notification.store";
 import { onMounted, ref } from "vue";
 const model = ref(null);
 const store = useNotificationStore();

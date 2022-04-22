@@ -12,10 +12,12 @@
     <q-card-section>
       <q-btn
         round
+        outline
+        flat
         size="sm"
         color="primary"
         icon="favorite_border"
-        class="absolute"
+        class="absolute bg-white shadow-sm"
         style="top: 0; right: 12px; transform: translateY(-50%)"
       />
 

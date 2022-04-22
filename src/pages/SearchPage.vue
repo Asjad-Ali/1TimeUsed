@@ -10,13 +10,14 @@
               use-input
               hide-selected
               fill-input
-              input-debounce="500"
+              input-debounce="400"
               dense
+              @update:model-value="searchProducts"
               label="Search Here"
               class="q-pb-md"
-              :options="options"
-              @filter="filterFn"
-              @filter-abort="abortFilterFn"
+              @filter="getSearchSuggestions"
+              :options="searchSuggestions"
+              @filter-abort="searchProducts"
               style="max-width: 100%"
               dropdown-icon="false"
             >
@@ -27,7 +28,13 @@
               </template>
 
               <template v-slot:after>
-                <q-btn icon="search" size="16px" outline> </q-btn>
+                <q-btn
+                  @click="searchProducts"
+                  icon="search"
+                  size="16px"
+                  outline
+                >
+                </q-btn>
               </template>
             </q-select>
             <h6 v-show="search" class="q-pb-md text-center">
@@ -59,7 +66,7 @@
               dense
               outlined
               v-model="model"
-              :options="options"
+              :options="searchSuggestions"
               label="Sort By"
               class="bg-white"
             />
@@ -69,7 +76,7 @@
     </div>
 
     <!-- Sort By End -->
-    <div class="conatiner flex justify-center items-center">
+    <div class="container flex justify-center items-center">
       <div class="column">
         <div
           class="
@@ -79,7 +86,11 @@
             items-center
           "
         >
-          <ProductCard v-for="product in store.searchProduct" :key="product" />
+          <ProductCard
+            v-for="product in searchResults"
+            :key="product.id"
+            :product="product"
+          />
         </div>
       </div>
     </div>
@@ -89,42 +100,17 @@
  <script setup>
 import { ref } from "vue";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
-import { useProductStore } from "../stores/products.store";
+import useSearch from "../composables/useSearch";
 
-const store = useProductStore();
-const persistent = ref(false);
-const search = ref("");
-const stringOptions = ref(["cloth", "rings"]);
-const shape = ref("line");
+const {
+  searchSuggestions,
+  getSearchSuggestions,
+  searchProducts,
+  search,
+  searchResults,
+} = useSearch();
+
 const model = ref(null);
-const options = [
-  "Newest First",
-  "Oldest First",
-  "Price Low to High",
-  "Price Hight to Low",
-  "All",
-];
-
-const filterFn = (val, update, abort) => {
-  store.loadSearchProduct(search.value);
-  console.log(search.value);
-  setTimeout(() => {
-    update(() => {
-      if (val === "") {
-        options.value = stringOptions;
-      } else {
-        const needle = val.toLowerCase();
-        options.value = stringOptions.value.filter(
-          (v) => v.toLowerCase().indexOf(needle) > -1
-        );
-      }
-    });
-  }, 500);
-};
-
-const abortFilterFn = () => {
-  console.log("delayed filter aborted");
-};
 </script>
 <style lang="scss" scoped>
 .search-bg {
