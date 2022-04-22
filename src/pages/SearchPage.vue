@@ -10,12 +10,14 @@
               use-input
               hide-selected
               fill-input
-              input-debounce="500"
+              input-debounce="400"
               dense
+              @update:model-value="searchProducts"
               label="Search Here"
-              :options="options"
-              @filter="filterFn"
-              @filter-abort="abortFilterFn"
+              class="q-pb-md"
+              @filter="getSearchSuggestions"
+              :options="searchSuggestions"
+              @filter-abort="searchProducts"
               style="max-width: 100%"
               dropdown-icon="false"
             >
@@ -26,11 +28,18 @@
               </template>
 
               <template v-slot:after>
-                <q-btn icon="search" size="16px" outline> </q-btn>
+                <q-btn
+                  @click="searchProducts"
+                  icon="search"
+                  size="16px"
+                  outline
+                >
+                </q-btn>
               </template>
             </q-select>
-            <h6 class="q-pb-md text-center">
-              Results for "<span class="text-bold">a</span>"
+            <h6 v-show="search" class="q-pb-md text-center">
+              Results for "<span class="text-bold">{{ search }}</span
+              >"
             </h6>
           </div>
         </div>
@@ -57,7 +66,7 @@
               dense
               outlined
               v-model="model"
-              :options="options"
+              :options="searchSuggestions"
               label="Sort By"
               class="bg-white"
             />
@@ -67,7 +76,7 @@
     </div>
 
     <!-- Sort By End -->
-    <div class="conatiner flex justify-center items-center">
+    <div class="container flex justify-center items-center">
       <div class="column">
         <div
           class="
@@ -77,7 +86,11 @@
             items-center
           "
         >
-          <!-- <ProductCard v-for="i in 12" :key="i" /> -->
+          <ProductCard
+            v-for="product in searchResults"
+            :key="product.id"
+            :product="product"
+          />
         </div>
       </div>
     </div>
@@ -87,18 +100,17 @@
  <script setup>
 import { ref } from "vue";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
+import useSearch from "../composables/useSearch";
 
-const persistent = ref(false);
-const search = ref("");
-const shape = ref("line");
+const {
+  searchSuggestions,
+  getSearchSuggestions,
+  searchProducts,
+  search,
+  searchResults,
+} = useSearch();
+
 const model = ref(null);
-const options = [
-  "Newest First",
-  "Oldest First",
-  "Price Low to High",
-  "Price Hight to Low",
-  "All",
-];
 </script>
 <style lang="scss" scoped>
 .search-bg {

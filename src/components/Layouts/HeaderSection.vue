@@ -93,7 +93,15 @@
             />
 
             <q-avatar class="cursor-pointer desktop-only">
-              <img src="https://cdn.quasar.dev/img/avatar.png" />
+              <img
+                :src="
+                  profile.photo
+                    ? imageBaseURL + profile.photo
+                    : `https://www.w3schools.com/w3images/avatar2.png`
+                "
+                alt="img"
+                style="object-fit: cover"
+              />
               <q-menu
                 transition-show="scale"
                 transition-hide="scale"
@@ -115,9 +123,15 @@
                   </q-item>
 
                   <q-separator />
-                  <q-item clickable>
+                  <!-- <q-item clickable>
                     <q-item-section @click="$router.push('/login')"
                       >Sign Out</q-item-section
+                    >
+                  </q-item> -->
+                  <q-item clickable>
+                    <q-item-section @click="handleLogout()"
+                      >Sign
+                      {{ authStore.authUser ? "Out" : "In" }}</q-item-section
                     >
                   </q-item>
                 </q-list>
@@ -132,15 +146,23 @@
 
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "src/stores/auth.store";
 
+<<<<<<< HEAD
+import { useProductStore } from "../../stores/products.store";
+const store = useProductStore();
+=======
 const serch = ref("");
+const imageBaseURL = process.env.imagesBaseURL;
+const authStore = useAuthStore();
+const profile = authStore.authUser;
+>>>>>>> 58e88d07414913561e99fa356355629dd3c24884
 
 const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 const options = ref(stringOptions);
-
+const search = ref();
 const filterFn = (val, update, abort) => {
-  // call abort() at any time if you can't retrieve data somehow
-
+  store.loadSearchProduct(search.value);
   setTimeout(() => {
     update(() => {
       if (val === "") {
@@ -153,11 +175,15 @@ const filterFn = (val, update, abort) => {
       }
     });
   }, 500);
-
-  const abortFilterFn = () => {
-    // console.log('delayed filter aborted')
-  };
 };
+
+const abortFilterFn = () => {
+  console.log("delayed filter aborted");
+};
+
+function handleLogout() {
+  authStore.logout();
+}
 </script>
 
 <style lang="scss" scoped>

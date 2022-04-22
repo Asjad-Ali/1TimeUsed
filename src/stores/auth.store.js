@@ -97,10 +97,10 @@ export const useAuthStore = defineStore('authStore', {
     },
 
     async updateProfile(creds) {
+      creds._method = "PUT";
+      const response = await API.formData('profile', creds);
 
-      const response = await API.put('profile', creds);
-
-      console.log(response.data);
+      console.log("in store>> profile: ", response.data);
       if (response.status == 200) {
         this.authUser = response.data;
         this.$cookies.set('AUTH_USER', response.data);
@@ -124,5 +124,10 @@ export const useAuthStore = defineStore('authStore', {
       return response;
     },
 
-  },
+    async logout() {
+      this.$cookies.remove('AUTH_USER');
+      this.$cookies.remove('1TIMEUSED_TOKEN');
+      redirect('/login');
+    },
+  }
 })
