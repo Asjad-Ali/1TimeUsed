@@ -93,7 +93,15 @@
             />
 
             <q-avatar class="cursor-pointer desktop-only">
-              <img src="https://cdn.quasar.dev/img/avatar.png" />
+              <img
+                :src="
+                  profile.photo
+                    ? imageBaseURL + profile.photo
+                    : `https://www.w3schools.com/w3images/avatar2.png`
+                "
+                alt="img"
+                style="object-fit: cover"
+              />
               <q-menu
                 transition-show="scale"
                 transition-hide="scale"
@@ -115,9 +123,15 @@
                   </q-item>
 
                   <q-separator />
-                  <q-item clickable>
+                  <!-- <q-item clickable>
                     <q-item-section @click="$router.push('/login')"
                       >Sign Out</q-item-section
+                    >
+                  </q-item> -->
+                  <q-item clickable>
+                    <q-item-section @click="handleLogout()"
+                      >Sign
+                      {{ authStore.authUser ? "Out" : "In" }}</q-item-section
                     >
                   </q-item>
                 </q-list>
@@ -132,8 +146,12 @@
 
 <script setup>
 import { ref } from "vue";
+import { useAuthStore } from "src/stores/auth.store";
 
 const serch = ref("");
+const imageBaseURL = process.env.imagesBaseURL;
+const authStore = useAuthStore();
+const profile = authStore.authUser;
 
 const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 const options = ref(stringOptions);
@@ -158,6 +176,10 @@ const filterFn = (val, update, abort) => {
     // console.log('delayed filter aborted')
   };
 };
+
+function handleLogout() {
+  authStore.logout();
+}
 </script>
 
 <style lang="scss" scoped>
