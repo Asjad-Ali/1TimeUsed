@@ -4,9 +4,31 @@
     <!-- Avatar -->
     <div class="profile-avatar column items-center w-100">
       <q-avatar size="100px">
-        <img src="https://www.w3schools.com/w3images/avatar2.png" />
+        <img
+          :src="
+            imageBase64
+              ? imageBase64
+              : profile.photo
+              ? imageBaseURL + profile.photo
+              : `https://www.w3schools.com/w3images/avatar2.png`
+          "
+          alt="img"
+          style="object-fit: cover"
+        />
         <div class="absolute-bottom text-right" style="right: 6px; bottom: 5px">
-          <q-btn round color="black" size="8px" icon="photo_camera" />
+          <input
+            type="file"
+            label="Standard"
+            @change="handleProfileImage($event)"
+            ref="fileInput"
+            hidden
+          />
+          <i
+            class="fa fa-camera cursor-pointer"
+            @click="$refs.fileInput.click()"
+            style="font-size: 20px"
+          >
+          </i>
         </div>
       </q-avatar>
 
@@ -75,29 +97,51 @@ import { useAuthStore } from "src/stores/auth.store";
 import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 
+const imageBaseURL = process.env.imagesBaseURL;
 const { rules } = useValidationRules();
 const authStore = useAuthStore();
-const profile = authStore.authUser;
-
-const userName = ref(profile.name);
-const userEmail = ref(profile.email);
-const userPhone = ref(profile.phone);
+const profile = ref(authStore.authUser);
+const userName = ref(profile.value.name);
+const userEmail = ref(profile.value.email);
+const userPhone = ref(profile.value.phone);
 const accept = ref(false);
+const imageBase64 = ref(null);
 
-const update_profile = async () => {
-  const response = await authStore.updateProfile(profile);
-  if (response.status == 200) {
-    userName.value = profile.name;
-    userEmail.value = profile.email;
-    userPhone.value = profile.phone;
+const validatePhone = () => {
+  if (
+    profile.value.phone.length <= 4 &&
+    profile.value.phone.substring(0, 4) != "+923"
+  ) {
+    profile.value.phone = "+923";
+  } else {
+    profile.value.phone = "+" + profile.value.phone.replace(/[^0-9]/g, "");
   }
 };
 
-const validatePhone = () => {
-  if (profile.phone.length <= 4 && profile.phone.substring(0, 4) != "+923") {
-    profile.phone = "+923";
-  } else {
-    profile.phone = "+" + profile.phone.replace(/[^0-9]/g, "");
+/////////////////     Convert Profile Image into Base64
+const convertFileToBase64 = (file) => {
+  imageBase64.value = file;
+  const reader = new FileReader();
+  reader.onloadend = function () {
+    imageBase64.value = reader.result;
+    //console.log(imageBase64.value);
+  };
+  reader.readAsDataURL(file);
+};
+const handleProfileImage = (e) => {
+  const file = e.target.files[0];
+  profile.value.photo = file;
+  convertFileToBase64(file);
+};
+
+//////////////////     Update Profile Button
+const update_profile = async () => {
+  console.log("profileDAta: ", profile.value);
+  const response = await authStore.updateProfile(profile.value);
+  if (response.status == 200) {
+    userName.value = profile.value.name;
+    userEmail.value = profile.value.email;
+    userPhone.value = profile.value.phone;
   }
 };
 </script>

@@ -31,6 +31,10 @@
         <small> 12 april </small>
       </div>
     </q-card-section>
+    <!-- Feature badge -->
+    <q-badge color="amber" class="featured-baadge">Featured </q-badge>
+    <!-- New badge -->
+    <q-badge color="primary" class="new-baadge">New </q-badge>
   </q-card>
 </template>
 
@@ -70,7 +74,16 @@ const getAddress = (address) => {
   height: 160px;
   width: 100%;
 }
-
+.featured-baadge {
+  position: absolute;
+  top: 40px;
+  right: 0;
+}
+.new-baadge {
+  position: absolute;
+  top: 18px;
+  right: 0;
+}
 .my-card {
   width: 210px;
 }

@@ -4,10 +4,20 @@
     <!-- Avatar -->
     <div class="profile-avatar column items-center vw99">
       <q-avatar size="100px">
-        <img src="https://cdn.quasar.dev/img/avatar.png" />
+        <img
+          :src="
+            imageBase64
+              ? imageBase64
+              : profile.photo
+              ? imageBaseURL + profile.photo
+              : `https://www.w3schools.com/w3images/avatar2.png`
+          "
+          alt="img"
+          style="object-fit: cover"
+        />
       </q-avatar>
-      <div class="text-h6 text-center q-pt-sm">Talha Tahir</div>
-      <div class="email text-grey">Asif.ali142280@gmail.com</div>
+      <div class="text-h6 text-center q-pt-sm">{{ profile.name }}</div>
+      <div class="email text-grey">{{ profile.email }}</div>
     </div>
     <div class="flex justify-center items-center vw99">
       <div class="q-pa-md account-tab">
@@ -35,12 +45,15 @@
   </div>
 </template>
 
-
-
 <script setup>
 import { useRouter } from "vue-router";
+import { useAuthStore } from "src/stores/auth.store";
+import { onMounted } from "vue";
 
-const router = useRouter();
+const imageBaseURL = process.env.imagesBaseURL;
+const authStore = useAuthStore();
+const profile = authStore.authUser;
+
 const menus = [
   {
     title: "Wishlist",
@@ -93,7 +106,6 @@ const openWindow = (url) => {
   window.open(url, "_blank");
 };
 </script>
-
 
 <style lang="scss" scoped>
 .account-tab {

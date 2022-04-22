@@ -50,6 +50,7 @@
           </div>
         </div>
 
+<<<<<<< HEAD
         <div class="row cursor-pointer">
           <div class="col-12 q-pa-md">
             <div class="text-grey" style="word-break: break-word">
@@ -58,6 +59,15 @@
               consequuntur officia totam hic ad alias, obcaecati harum
               perspiciatis nulla eos atque sed doloribus minus!
             </div>
+=======
+      <div class="row cursor-pointer">
+        <div class="col-12 q-pa-md">
+          <div class="text-grey" style="word-break: break-word">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+            repudiandae, distinctio esse nobis consequatur officiis consequuntur
+            officia totam hic ad alias, obcaecati harum perspiciatis nulla eos
+            atque sed doloribus
+>>>>>>> 58e88d07414913561e99fa356355629dd3c24884
           </div>
         </div>
       </div>

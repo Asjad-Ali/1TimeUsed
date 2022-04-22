@@ -1,6 +1,6 @@
 <template>
-  <div class="relative-position">
-    <div class="container">
+  <div class="container">
+    <div class="relative-position">
       <div class="q-pa-md row items-start q-gutter-md justify-center">
         <q-card
           class="my-card"
@@ -48,8 +48,15 @@
         </q-card>
       </div>
     </div>
+    <!-- Add Button -->
     <div class="add-button">
-      <q-btn round color="primary" glossy icon="add" />
+      <q-btn
+        round
+        color="primary"
+        glossy
+        icon="add"
+        @click="$router.push('/add_product')"
+      />
     </div>
   </div>
   <!-- Modal Alert -->
@@ -95,8 +102,8 @@ export default {
 .add-button {
   position: absolute;
   position: fixed;
-  right: 50px;
-  bottom: 40px;
+  right: 20px;
+  bottom: 10%;
 }
 </style>
 
