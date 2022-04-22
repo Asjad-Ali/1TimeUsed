@@ -95,7 +95,7 @@
             <q-avatar class="cursor-pointer desktop-only">
               <img
                 :src="
-                  profile.photo
+                  profile && profile.photo
                     ? imageBaseURL + profile.photo
                     : `https://www.w3schools.com/w3images/avatar2.png`
                 "
@@ -148,15 +148,10 @@
 import { ref } from "vue";
 import { useAuthStore } from "src/stores/auth.store";
 
-<<<<<<< HEAD
-import { useProductStore } from "../../stores/products.store";
-const store = useProductStore();
-=======
 const serch = ref("");
 const imageBaseURL = process.env.imagesBaseURL;
 const authStore = useAuthStore();
 const profile = authStore.authUser;
->>>>>>> 58e88d07414913561e99fa356355629dd3c24884
 
 const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 const options = ref(stringOptions);

@@ -31,7 +31,6 @@ export default function useSearch() {
 
     update(async () => {
       if (val) {
-        console.log("In Search Suggestion")
         const response = await API.get(`searchSuggestions?q=${val}`)
         searchSuggestions.value = response.data.map(search => search.keyword);
       }
