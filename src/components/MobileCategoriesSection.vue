@@ -39,7 +39,6 @@ onMounted(() => {
 });
 const subcategoryPage = (title) => {
   router.push({ path: `/subcategory/${title}` });
-  store.loadSubCategory(title);
 };
 const categories = computed(() => store.categories);
 </script>
