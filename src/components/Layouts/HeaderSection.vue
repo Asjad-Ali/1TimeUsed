@@ -95,7 +95,11 @@
             <q-avatar class="cursor-pointer desktop-only">
               <img
                 :src="
+<<<<<<< HEAD
+                  profile
+=======
                   profile && profile.photo
+>>>>>>> 0a6ae792bbfeba77555d8c9e926627789b50a16a
                     ? imageBaseURL + profile.photo
                     : `https://www.w3schools.com/w3images/avatar2.png`
                 "
@@ -152,6 +156,7 @@ const serch = ref("");
 const imageBaseURL = process.env.imagesBaseURL;
 const authStore = useAuthStore();
 const profile = authStore.authUser;
+console.log(profile);
 
 const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 const options = ref(stringOptions);

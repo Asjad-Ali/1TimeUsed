@@ -6,9 +6,7 @@
       <q-avatar size="100px">
         <img
           :src="
-            imageBase64
-              ? imageBase64
-              : profile.photo
+            profile
               ? imageBaseURL + profile.photo
               : `https://www.w3schools.com/w3images/avatar2.png`
           "
