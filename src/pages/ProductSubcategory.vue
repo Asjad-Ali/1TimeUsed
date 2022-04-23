@@ -1,5 +1,4 @@
-
-  <template>
+<template>
   <div class="container">
     <div class="row q-my-lg q-gutter-md justify-center">
       <div
@@ -28,13 +27,6 @@
     </div>
   </div>
 </template>
-
-
-
-
-
-
-
 
 <script setup>
 const categories = [

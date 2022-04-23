@@ -11,7 +11,8 @@
           class="q-ma-sm cursor-pointer"
         >
           <div class="w-100 flex justify-center q-py-lg">
-            <q-icon :name="category.thumbnail" color="primary" size="4.4em" />
+            <!-- <q-icon :name="category.thumbnail" color="primary" size="4.4em" /> -->
+            <img :src="`${imageBaseURL}${category.thumbnail}`" alt="product" />
           </div>
 
           <q-card-section style="padding: 0px">
@@ -29,38 +30,14 @@
 </template>
 
 <script setup>
-const categories = [
-  {
-    title: "Cloth",
-    thumbnail: "checkroom",
-    subcategories: [],
-  },
-  {
-    title: "jewellery",
-    thumbnail: "diamond",
-    subcategories: [],
-  },
-  {
-    title: "Shoes",
-    thumbnail: "loyalty",
-    subcategories: [],
-  },
-  {
-    title: "Watches",
-    thumbnail: "watch_later",
-    subcategories: [],
-  },
-  {
-    title: "Fashion",
-    thumbnail: "face",
-    subcategories: [],
-  },
-  {
-    title: "Others",
-    thumbnail: "view_list",
-    subcategories: [],
-  },
-];
+import { computed, onMounted } from "@vue/runtime-core";
+import { useCategoryStore } from "src/stores/categories.store";
+
+const imageBaseURL = process.env.imagesBaseURL;
+const store = useCategoryStore();
+
+onMounted(async () => {
+  store.loadCategories();
+});
+const categories = computed(() => store.categories);
 </script>
-
-
