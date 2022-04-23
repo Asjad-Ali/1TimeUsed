@@ -84,6 +84,11 @@ const ProductDetail = (product) => {
   );
   if (index === -1) {
     productStore.recentProducts.unshift(product);
+  } else {
+    productStore.recentProducts = productStore.recentProducts.filter(
+      (pro) => pro.id != product.id
+    );
+    productStore.recentProducts.unshift(product);
   }
 };
 

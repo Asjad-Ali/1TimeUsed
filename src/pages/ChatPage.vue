@@ -11,7 +11,7 @@
                 <q-avatar class="q-mr-md">
                   <img src="https://cdn.quasar.dev/img/avatar.png" />
                 </q-avatar>
-                <div class="text-h6 ellipsis">Asjad tatto</div>
+                <div class="text-h6 ellipsis">Asjad Watto</div>
               </div>
               <div
                 class="
@@ -28,7 +28,7 @@
                 <q-avatar class="q-mr-md">
                   <img src="https://cdn.quasar.dev/img/avatar.png" />
                 </q-avatar>
-                <div class="text-h6 ellipsis">Asjad tatto</div>
+                <div class="text-h6 ellipsis">Asjad Watto</div>
               </div>
             </div>
           </div>
