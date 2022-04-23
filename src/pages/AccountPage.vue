@@ -14,8 +14,10 @@
           style="object-fit: cover"
         />
       </q-avatar>
-      <div class="text-h6 text-center q-pt-sm">{{ profile.name }}</div>
-      <div class="email text-grey">{{ profile.email }}</div>
+      <div v-if="profile" class="text-h6 text-center q-pt-sm">
+        {{ profile.name }}
+      </div>
+      <div v-if="profile" class="email text-grey">{{ profile.email }}</div>
     </div>
     <div class="flex justify-center items-center vw99">
       <div class="q-pa-md account-tab">
