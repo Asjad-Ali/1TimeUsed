@@ -1,7 +1,15 @@
 <template>
   <div class="container">
-    <div class="row justify-center q-pt-xl">
-      <div class="col-md-6">
+    <div class="row justify-between q-pt-xl">
+      <div class="col-md-3 col-6">
+        <q-icon
+          name="grid_view"
+          color="primary"
+          size="sm"
+          class="cursor-pointer"
+        />
+      </div>
+      <div class="col-md-6 col-12">
         <q-select
           filled
           v-model="search"
@@ -30,43 +38,24 @@
             </q-btn>
           </template>
         </q-select>
-        <h6 v-show="search" class="q-pb-md text-center">
+        <h6 v-show="search" class="text-center text-grey q-my-md">
           Results for "<span class="text-bold">{{ search }}</span
           >"
         </h6>
       </div>
+      <div class="col-md-2 col-6">
+        <q-select
+          dense
+          outlined
+          v-model="model"
+          :options="searchSuggestions"
+          label="Sort By"
+          class="bg-white"
+        />
+      </div>
     </div>
   </div>
   <div class="container">
-    <!-- Sort By  -->
-    <div class="row justify-center">
-      <div class="col-md-11 col-12 q-px-lg">
-        <div class="row justify-between items-center">
-          <div class="col-md-6 col-6">
-            <h6 class="app-page-title">
-              <q-icon
-                name="grid_view"
-                color="primary"
-                size="sm"
-                class="cursor-pointer"
-              />
-            </h6>
-          </div>
-          <div class="col-md-2 col-6">
-            <q-select
-              dense
-              outlined
-              v-model="model"
-              :options="searchSuggestions"
-              label="Sort By"
-              class="bg-white"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sort By End -->
     <div class="container flex justify-center items-center">
       <div class="column">
         <div
@@ -106,5 +95,9 @@ const model = ref(null);
 <style lang="scss" scoped>
 .search-bg {
   background: #fff;
+}
+.text-bold {
+  font-weight: 500;
+  color: black;
 }
 </style>
