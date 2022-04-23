@@ -40,7 +40,7 @@ const imageBaseURL = process.env.imagesBaseURL;
 const store = useCategoryStore();
 
 const subcategoryPage = (title) => {
-  router.push({ path: `/subcategory`, params: { title } });
+  router.push({ path: `/subcategory/${title}` });
   store.loadSubCategory(title);
 };
 
