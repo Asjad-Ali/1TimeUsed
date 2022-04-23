@@ -7,10 +7,14 @@
     </div>
 
     <div
-      v-if="wishlistProduct"
+      v-if="store.wishlistProduct"
       class="q-pa-md row items-start q-gutter-md justify-center"
     >
-      <ProductCard v-for="product in store.wishlistProduct" :key="product" />
+      <ProductCard
+        v-for="product in store.wishlistProduct"
+        :key="product"
+        :product="product"
+      />
     </div>
     <div class="text-center m-5" v-else>
       <h3 class="m-5">No Wishlist Product</h3>

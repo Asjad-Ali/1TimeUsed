@@ -6,7 +6,7 @@
         v-for="(subCategory, index) in store.subCategories"
         :key="index"
       >
-        <q-card class="my-card cursor-pointer" @click="ProductDetail(product)">
+        <q-card class="my-card cursor-pointer">
           <div class="img-holder">
             <img :src="imageBaseURL + subCategory.thumbnail" alt="product" />
           </div>
@@ -38,21 +38,6 @@ onMounted(() => {
   store.loadCategories();
   store.loadSubCategory(route.params.name);
 });
-
-const ProductDetail = (product) => {
-  router.push(`/product_details/${product.id}`);
-  const index = productStore.recentProducts.findIndex(
-    (object) => object.id === product.id
-  );
-  if (index === -1) {
-    productStore.recentProducts.unshift(product);
-  } else {
-    productStore.recentProducts = productStore.recentProducts.filter(
-      (pro) => pro.id != product.id
-    );
-    productStore.recentProducts.unshift(product);
-  }
-};
 </script>
 
 <style lang="scss" scoped>
