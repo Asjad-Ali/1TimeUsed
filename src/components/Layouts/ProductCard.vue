@@ -3,28 +3,44 @@
   <q-card
     class="product-card cursor-pointer my-card"
     :class="{ 'recent-product': mainDiv == 'recent-products' }"
-    @click="$router.push(`/product_details/${product.id}`)"
   >
-    <div class="img-holder">
+    <div class="img-holder" @click="ProductDetail(product)">
       <q-img :src="imageBaseURL + product.gallery[0].path" class="fit" />
     </div>
 
     <q-card-section>
       <q-btn
+        :disable="wishlistStore.wishlistLoader == 1"
         round
         outline
         flat
+        @click="addToWishlist(product.id)"
         size="sm"
         color="primary"
-        icon="favorite_border"
         class="absolute bg-white shadow-sm"
         style="top: 0; right: 12px; transform: translateY(-50%)"
-      />
+      >
+        <i
+          v-if="wishlistStore.wishlistLoader == product.id"
+          class="fa fa-repeat fa-2x"
+          aria-hidden="true"
+        ></i>
+        <i
+          v-else
+          class="fa-2x"
+          :class="{
+            'fa fa-heart-o': product.favorite == 0,
+            'fa fa-heart': product.favorite == 1,
+          }"
+          aria-hidden="true"
+        ></i>
+      </q-btn>
+      <div @click="ProductDetail(product)">
+        <p class="ellipsis text-subtitle2 mobile-font">{{ product.title }}</p>
+        <p class="prise text-center">RS:{{ product.price }}</p>
+      </div>
 
-      <p class="ellipsis text-subtitle2 mobile-font">{{ product.title }}</p>
-      <p class="prise text-center">RS:{{ product.price }}</p>
-
-      <div class="flex justify-between">
+      <div @click="ProductDetail(product)" class="flex justify-between">
         <small class="q-mr-sm">
           {{ product.city || getAddress(product.neighborhood) }}
         </small>
@@ -39,8 +55,14 @@
 </template>
 
 <script setup>
+import { useWishlistStore } from "../../stores/wishlist.store";
+import { useProductStore } from "../../stores/products.store";
 import { defineProps, toRefs } from "vue";
+import { useRouter } from "vue-router";
 const imageBaseURL = process.env.imagesBaseURL;
+const wishlistStore = useWishlistStore();
+const productStore = useProductStore();
+const router = useRouter();
 const props = defineProps({
   product: Object,
   mainDiv: {
@@ -50,6 +72,20 @@ const props = defineProps({
 });
 
 const { product, mainDiv } = toRefs(props);
+
+const addToWishlist = (id) => {
+  wishlistStore.addWishlist(id);
+};
+
+const ProductDetail = (product) => {
+  router.push(`/product_details/${product.id}`);
+  const index = productStore.recentProducts.findIndex(
+    (object) => object.id === product.id
+  );
+  if (index === -1) {
+    productStore.recentProducts.unshift(product);
+  }
+};
 
 const getAddress = (address) => {
   if (address) {

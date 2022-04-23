@@ -92,10 +92,10 @@
               @click="$router.push('/search')"
             />
 
-            <q-avatar class="cursor-pointer desktop-only">
+            <q-avatar v-if="profile" class="cursor-pointer desktop-only">
               <img
                 :src="
-                  profile && profile.photo
+                  profile
                     ? imageBaseURL + profile.photo
                     : `https://www.w3schools.com/w3images/avatar2.png`
                 "
@@ -123,11 +123,6 @@
                   </q-item>
 
                   <q-separator />
-                  <!-- <q-item clickable>
-                    <q-item-section @click="$router.push('/login')"
-                      >Sign Out</q-item-section
-                    >
-                  </q-item> -->
                   <q-item clickable>
                     <q-item-section @click="handleLogout()"
                       >Sign
@@ -136,6 +131,14 @@
                   </q-item>
                 </q-list>
               </q-menu>
+            </q-avatar>
+            <q-avatar v-else class="cursor-pointer desktop-only">
+            <img
+                src="https://www.w3schools.com/w3images/avatar2.png"
+                alt="img"
+                style="object-fit: cover"
+                @click="$router.push('/login')"
+              />
             </q-avatar>
           </div>
         </div>
@@ -152,6 +155,7 @@ const serch = ref("");
 const imageBaseURL = process.env.imagesBaseURL;
 const authStore = useAuthStore();
 const profile = authStore.authUser;
+console.log(profile);
 
 const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 const options = ref(stringOptions);

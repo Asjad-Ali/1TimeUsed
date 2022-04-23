@@ -56,7 +56,7 @@
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
               repudiandae, distinctio esse nobis consequatur officiis
               consequuntur officia totam hic ad alias, obcaecati harum
-              perspiciatis nulla eos atque sed doloribus
+              perspiciatis nulla eos atque sed doloribus minus!
             </div>
           </div>
         </div>
