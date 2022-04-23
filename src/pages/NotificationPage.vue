@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 70vh" class="container">
+  <div class="container">
     <div class="row justify-between items-center">
       <div class="col-md-10 col-6">
         <h1 class="app-page-title">
@@ -63,8 +63,11 @@
       </div>
     </div>
     <div v-else>
-      <div class="m-auto text-center">
-        <h3>No Notifications Available</h3>
+      <div class="m-auto text-center" style="height: 55vh">
+        <h5>No Notifications Available</h5>
+        <div class="notify-img">
+          <img src="../../public/icons/notify.svg" alt="notify" width="300" />
+        </div>
       </div>
     </div>
   </div>

@@ -1,48 +1,39 @@
 <template>
-  <div class="search-bg">
-    <div class="container">
-      <div class="search-bg blue-1-bg">
-        <div class="row justify-center q-pt-xl">
-          <div class="col-md-6">
-            <q-select
-              filled
-              v-model="search"
-              use-input
-              hide-selected
-              fill-input
-              input-debounce="400"
-              dense
-              @update:model-value="searchProducts"
-              label="Search Here"
-              class="q-pb-md"
-              @filter="getSearchSuggestions"
-              :options="searchSuggestions"
-              @filter-abort="searchProducts"
-              style="max-width: 100%"
-              dropdown-icon="false"
-            >
-              <template v-slot:no-option>
-                <q-item>
-                  <q-item-section class="text-grey"> No results</q-item-section>
-                </q-item>
-              </template>
+  <div class="container">
+    <div class="row justify-center q-pt-xl">
+      <div class="col-md-6">
+        <q-select
+          filled
+          v-model="search"
+          use-input
+          hide-selected
+          fill-input
+          input-debounce="400"
+          dense
+          @update:model-value="searchProducts"
+          label="Search Here"
+          class="q-pb-md"
+          @filter="getSearchSuggestions"
+          :options="searchSuggestions"
+          @filter-abort="searchProducts"
+          style="max-width: 100%"
+          dropdown-icon="false"
+        >
+          <template v-slot:no-option>
+            <q-item>
+              <q-item-section class="text-grey"> No results</q-item-section>
+            </q-item>
+          </template>
 
-              <template v-slot:after>
-                <q-btn
-                  @click="searchProducts"
-                  icon="search"
-                  size="16px"
-                  outline
-                >
-                </q-btn>
-              </template>
-            </q-select>
-            <h6 v-show="search" class="q-pb-md text-center">
-              Results for "<span class="text-bold">{{ search }}</span
-              >"
-            </h6>
-          </div>
-        </div>
+          <template v-slot:after>
+            <q-btn @click="searchProducts" icon="search" size="16px" outline>
+            </q-btn>
+          </template>
+        </q-select>
+        <h6 v-show="search" class="q-pb-md text-center">
+          Results for "<span class="text-bold">{{ search }}</span
+          >"
+        </h6>
       </div>
     </div>
   </div>
