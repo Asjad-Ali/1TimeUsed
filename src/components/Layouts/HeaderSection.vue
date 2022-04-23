@@ -92,14 +92,10 @@
               @click="$router.push('/search')"
             />
 
-            <q-avatar class="cursor-pointer desktop-only">
+            <q-avatar v-if="profile" class="cursor-pointer desktop-only">
               <img
                 :src="
-<<<<<<< HEAD
                   profile
-=======
-                  profile && profile.photo
->>>>>>> 0a6ae792bbfeba77555d8c9e926627789b50a16a
                     ? imageBaseURL + profile.photo
                     : `https://www.w3schools.com/w3images/avatar2.png`
                 "
@@ -127,11 +123,6 @@
                   </q-item>
 
                   <q-separator />
-                  <!-- <q-item clickable>
-                    <q-item-section @click="$router.push('/login')"
-                      >Sign Out</q-item-section
-                    >
-                  </q-item> -->
                   <q-item clickable>
                     <q-item-section @click="handleLogout()"
                       >Sign
@@ -140,6 +131,14 @@
                   </q-item>
                 </q-list>
               </q-menu>
+            </q-avatar>
+            <q-avatar v-else class="cursor-pointer desktop-only">
+            <img
+                src="https://www.w3schools.com/w3images/avatar2.png"
+                alt="img"
+                style="object-fit: cover"
+                @click="$router.push('/login')"
+              />
             </q-avatar>
           </div>
         </div>
