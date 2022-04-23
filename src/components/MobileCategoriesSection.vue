@@ -6,7 +6,13 @@
           class="text-center"
           :class="{ 'q-mr-lg': index != categories.length - 1 }"
         >
-          <q-btn size="15px" outline round color="primary">
+          <q-btn
+            size="15px"
+            outline
+            round
+            color="primary"
+            @click="$router.push('/subcategory')"
+          >
             <q-avatar size="30px">
               <img :src="`${imageBaseURL}${category.thumbnail}`" />
             </q-avatar>
