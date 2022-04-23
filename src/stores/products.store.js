@@ -2,9 +2,9 @@ import {
   defineStore
 } from 'pinia'
 
-import {
-  Cookies
-} from 'quasar'
+// import {
+//   Cookies
+// } from 'quasar'
 
 import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
 import API from 'src/services/API';
@@ -14,7 +14,8 @@ export const useProductStore = defineStore('productsStore ', {
   state: () => ({
     recentProducts: [],
     featuredProducts: [],
-    loadedProduct: null
+    loadedProduct: null,
+    searchProduct: ''
   }),
 
   getters: {
@@ -67,6 +68,14 @@ export const useProductStore = defineStore('productsStore ', {
       const response = await API.get(`products/${slug}`);
       if (response.status == 200) {
         this.loadedProduct = response.data
+      }
+      return response;
+    },
+
+    async loadSearchProduct(product) {
+      const response = await API.get(`search?sort=&q=${product}`);
+      if (response.status == 200) {
+        this.searchProduct = response.data
       }
       return response;
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div style="height: 70vh" class="container">
     <div class="row justify-between items-center">
       <div class="col-md-10 col-6">
         <h1 class="app-page-title">
@@ -19,61 +19,72 @@
       </div>
     </div>
     <!-- Notifications Card  -->
-    <div
-      class="q-pa-lg bg-white osahan-post-header q-mb-md shadow-sm rounded-10"
-      v-for="i in 12"
-      :key="i"
-    >
-      <div class="row">
-        <div class="col-md-9 col-12 cursor-pointer">
-          <div class="dropdown-list-image flex items-center">
-            <img
-              class="rounded-circle q-mr-md"
-              src="https://api.dex.proelean.com/uploads/user_snaps/448516476083905.png"
-              alt=""
-            />
-            <div class="text-h6 ellipsis">Asjad Ali Watto</div>
+    <div v-if="store.notifications.length">
+      <div
+        class="q-pa-lg bg-white osahan-post-header q-mb-md shadow-sm rounded-10"
+        v-for="notification in store.notifications"
+        :key="notification.id"
+      >
+        <div class="row">
+          <div class="col-md-9 col-12 cursor-pointer">
+            <div class="dropdown-list-image flex items-center">
+              <img
+                class="rounded-circle q-mr-md"
+                src="https://api.dex.proelean.com/uploads/user_snaps/448516476083905.png"
+                alt=""
+              />
+              <div class="text-h6 ellipsis">Asjad Ali Watto</div>
+            </div>
+          </div>
+
+          <div class="col-md-3 col-12 flex items-center justify-end">
+            <small class="text-grey q-mr-lg">5 days ago</small>
+            <div>
+              <q-icon
+                name="delete"
+                color="primary"
+                size="sm"
+                class="cursor-pointer"
+              />
+            </div>
           </div>
         </div>
 
-        <div class="col-md-3 col-12 flex items-center justify-end">
-          <small class="text-grey q-mr-lg">5 days ago</small>
-          <div>
-            <q-icon
-              name="delete"
-              color="primary"
-              size="sm"
-              class="cursor-pointer"
-            />
+        <div class="row cursor-pointer">
+          <div class="col-12 q-pa-md">
+            <div class="text-grey" style="word-break: break-word">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+              repudiandae, distinctio esse nobis consequatur officiis
+              consequuntur officia totam hic ad alias, obcaecati harum
+              perspiciatis nulla eos atque sed doloribus
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="row cursor-pointer">
-        <div class="col-12 q-pa-md">
-          <div class="text-grey" style="word-break: break-word">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-            repudiandae, distinctio esse nobis consequatur officiis consequuntur
-            officia totam hic ad alias, obcaecati harum perspiciatis nulla eos
-            atque sed doloribus
-          </div>
-        </div>
+    </div>
+    <div v-else>
+      <div class="m-auto text-center">
+        <h3>No Notifications Available</h3>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
+<script setup>
+import { useNotificationStore } from "../stores/notification.store";
+import { onMounted, ref } from "vue";
+const model = ref(null);
+const store = useNotificationStore();
 
-export default {
-  setup() {
-    return {
-      model: ref(null),
-      options: ["Last Week", "Last Month", "Last 6 Months", "Last Year", "All"],
-    };
-  },
-};
+const options = [
+  "Last Week",
+  "Last Month",
+  "Last 6 Months",
+  "Last Year",
+  "All",
+];
+
+onMounted(() => store.loadNotification());
 </script>
 
 <style lang="scss" scoped>
