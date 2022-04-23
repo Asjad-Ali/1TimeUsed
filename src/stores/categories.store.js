@@ -8,6 +8,7 @@ import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
 export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({
     categories: [],
+    subCategories: {}
   }),
   // getters: {
   //   getCategories(state) {
@@ -34,7 +35,13 @@ export const useCategoryStore = defineStore('categoryStore', {
       } else {
         console.log(response.message);
       }
+    },
+    loadSubCategory(title) {
+      const selectCategory = this.categories.filter(category => category.title == title)
+      this.subCategories = selectCategory[0].subcategories
     }
   },
+
+
 
 })

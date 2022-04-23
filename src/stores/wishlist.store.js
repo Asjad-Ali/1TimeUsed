@@ -33,6 +33,7 @@ export const useWishlistStore = defineStore("wishlistStore", {
         })
         store.recentProducts = ref(store.recentProducts.map(pro => pro.id == product_id ? { ...pro(pro.favorite == 1 ? pro.favorite = 0 : pro.favorite = 1) } : { ...pro }))
         store.featuredProducts = ref(store.featuredProducts.map(pro => pro.id == product_id ? { ...pro(pro.favorite == 1 ? pro.favorite = 0 : pro.favorite = 1) } : { ...pro }))
+        store.wishlistProduct = ref(store.wishlistProduct.filter(pro => pro.id != product_id))
       }
 
     },

@@ -7,7 +7,7 @@
         :key="index"
       >
         <q-card
-          @click="$router.push('/subcategory')"
+          @click="subcategoryPage(category.title)"
           class="q-ma-sm cursor-pointer"
         >
           <div class="w-100 flex justify-center q-py-lg">
@@ -32,12 +32,17 @@
 <script setup>
 import { computed, onMounted } from "@vue/runtime-core";
 import { useCategoryStore } from "src/stores/categories.store";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const imageBaseURL = process.env.imagesBaseURL;
 const store = useCategoryStore();
 
-onMounted(async () => {
-  store.loadCategories();
-});
+const subcategoryPage = (title) => {
+  router.push({ path: `/subcategory`, params: { title } });
+  store.loadSubCategory(title);
+};
+
 const categories = computed(() => store.categories);
 </script>
