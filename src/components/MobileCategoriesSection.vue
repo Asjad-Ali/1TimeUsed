@@ -11,7 +11,7 @@
             outline
             round
             color="primary"
-            @click="$router.push('/subcategory')"
+            @click="subcategoryPage(category.title)"
           >
             <q-avatar size="30px">
               <img :src="`${imageBaseURL}${category.thumbnail}`" />
@@ -29,11 +29,18 @@
 <script setup>
 import { computed, onMounted } from "@vue/runtime-core";
 import { useCategoryStore } from "src/stores/categories.store.js";
+import { useRouter } from "vue-router";
 const store = useCategoryStore();
+const router = useRouter();
+
 const imageBaseURL = process.env.imagesBaseURL;
 onMounted(() => {
   store.loadCategories();
 });
+const subcategoryPage = (title) => {
+  router.push({ path: `/subcategory/${title}` });
+  store.loadSubCategory(title);
+};
 const categories = computed(() => store.categories);
 </script>
 

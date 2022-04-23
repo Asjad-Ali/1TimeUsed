@@ -36,7 +36,7 @@ const routes = [{
     component: () => import('src/pages/CategoryMobile.vue')
   },
   {
-    path: '/subcategory',
+    path: '/subcategory/:name',
     component: () => import('src/pages/ProductSubcategory.vue')
   },
   {
