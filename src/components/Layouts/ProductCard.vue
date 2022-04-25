@@ -10,7 +10,7 @@
 
     <q-card-section>
       <q-btn
-        :disable="wishlistStore.wishlistLoader == 1"
+        :disable="wishlistStore.wishlistLoader == product.id"
         round
         outline
         flat
@@ -29,7 +29,7 @@
           v-else
           class="fa-2x"
           :class="{
-            'fa fa-heart-o': product.favorite == 0,
+            'fa fa-heart-o': product.favorite != 1,
             'fa fa-heart': product.favorite == 1,
           }"
           aria-hidden="true"

@@ -8,6 +8,7 @@ import {
 
 import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
 import API from 'src/services/API';
+import { ref } from 'vue';
 
 export const useProductStore = defineStore('productsStore ', {
 
