@@ -2,8 +2,8 @@
   <q-page>
     <CarouselSection />
     <div class="container">
-      <RecentProducts v-if="store.recentProducts.length" />
-      <FeaturedProductsSection v-if="store.featuredProducts.length" />
+      <RecentProducts v-if="productStore.recentProducts.length" />
+      <FeaturedProductsSection v-if="productStore.featuredProducts.length" />
     </div>
   </q-page>
 </template>
@@ -13,39 +13,19 @@ import { defineComponent, onMounted } from "vue";
 import CarouselSection from "components/Home/CarouselSection.vue";
 import FeaturedProductsSection from "src/components/Home/FeaturedProductsSection.vue";
 import RecentProducts from "src/components/Home/Mobile/RecentProducts.vue";
+import { useAuthStore } from "../stores/auth.store";
 import { useProductStore } from "../stores/products.store";
+import { useRoute } from "vue-router";
 
-const store = useProductStore();
+const productStore = useProductStore();
+const authStore = useAuthStore();
+const route = useRoute();
 
 onMounted(() => {
-  store.loadRecentProducts();
-  store.loadFeaturedProducts();
+  productStore.loadRecentProducts();
+  productStore.loadFeaturedProducts();
+  if (route.query.code) {
+    authStore.loginWithFacebook(route.query.code);
+  }
 });
-
-// onMounted(() => )
-
-// import { useMeta } from "quasar";
-
-// const metaData = {
-//   // sets document title
-//   title: "Home",
-//   titleTemplate: (title) => `${title} - 1timeused`,
-
-//   // meta tags
-//   meta: {
-//     description: { name: "description", content: "Home Page" },
-//     keywords: {
-//       name: "keywords",
-//       content: "1timeuses, sell old items , pakistan",
-//     },
-//     ogTitle: {
-//       property: "og:title",
-//       // optional; similar to titleTemplate, but allows templating with other meta properties
-//       template(ogTitle) {
-//         return `${ogTitle} - My Website`;
-//       },
-//     },
-//   },
-// };
-// useMeta(metaData);
 </script>

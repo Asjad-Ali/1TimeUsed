@@ -23,14 +23,7 @@
       <div class="q-pa-md account-tab">
         <q-list bordered class="bg-white rounded">
           <div v-for="(menu, index) in menus" :key="index">
-            <q-item
-              @click="
-                menu.to.includes('http')
-                  ? openWindow(menu.to)
-                  : $router.push(menu.to)
-              "
-              clickable
-            >
+            <q-item @click="handleMenuClick(menu)" clickable>
               <q-item-section avatar>
                 <q-icon color="primary" :name="menu.icon" />
               </q-item-section>
@@ -48,14 +41,15 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useAuthStore } from "src/stores/auth.store";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useWishlistStore } from "../stores/wishlist.store";
 const store = useWishlistStore();
 const imageBaseURL = process.env.imagesBaseURL;
+const router = useRouter();
 const authStore = useAuthStore();
-const profile = authStore.authUser;
+const profile = ref(authStore.authUser);
 onMounted(() => store.loadWishlistProducts());
-const menus = [
+const menus = ref([
   {
     title: "Wishlist",
     icon: "favorite_border",
@@ -97,14 +91,24 @@ const menus = [
     to: "/about_us",
   },
   {
-    title: "Sign Out",
+    title: `Sign ${authStore.authUser ? "Out" : "In"}`,
     icon: "logout",
-    to: "/login",
+    to: `/log${authStore.authUser ? "out" : "in"}`,
   },
-];
+]);
 
 const openWindow = (url) => {
   window.open(url, "_blank");
+};
+
+const handleMenuClick = (menu) => {
+  if (menu.to.includes("http")) {
+    openWindow(menu.to);
+  } else if (menu.to == "/logout") {
+    authStore.logout();
+  } else {
+    router.push(menu.to);
+  }
 };
 </script>
 
