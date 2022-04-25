@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <div class="row justify-between q-pt-xl">
+    <div class="row justify-between items-center q-mt-lg">
       <div class="col-md-3 col-6">
         <q-icon
           name="grid_view"
           color="primary"
           size="sm"
-          class="cursor-pointer"
+          class="cursor-pointer mb-10-mobile"
         />
       </div>
       <div class="col-md-6 col-12">
@@ -20,7 +20,6 @@
           dense
           @update:model-value="searchProducts"
           label="Search Here"
-          class="q-pb-md"
           @filter="getSearchSuggestions"
           :options="searchSuggestions"
           @filter-abort="searchProducts"
@@ -43,8 +42,8 @@
           >"
         </h6>
       </div>
-      <div style="height: 40vh" v-show="!searchResults.length"></div>
-      <div class="col-md-2 col-6">
+
+      <div class="col-md-2 col-12">
         <q-select
           dense
           outlined
@@ -58,7 +57,7 @@
   </div>
   <div class="container">
     <div class="container flex justify-center items-center">
-      <div class="column">
+      <div class="column q-mt-md">
         <div
           class="
             flex
@@ -75,6 +74,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="container">
+    <div style="height: 40vh" v-show="!searchResults.length"></div>
   </div>
 </template>
 
@@ -100,5 +102,10 @@ const model = ref(null);
 .text-bold {
   font-weight: 500;
   color: black;
+}
+@media (max-width: 1024px) {
+  .mb-10-mobile {
+    margin-bottom: 10px;
+  }
 }
 </style>
