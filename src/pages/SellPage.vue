@@ -1,53 +1,23 @@
 <template>
   <div class="container">
     <div class="relative-position">
-      <div class="q-pa-md row items-start q-gutter-md justify-center">
-        <q-card
-          class="my-card"
-          flat
-          bordered
-          style="width: 100%; max-width: 410px"
-          v-for="i in 9"
-          :key="i"
-        >
-          <q-card-section horizontal>
-            <q-card-section class="col-5 flex flex-center">
-              <q-img
-                class="rounded-borders"
-                src="https://cdn.quasar.dev/img/parallax2.jpg"
-              />
-            </q-card-section>
-            <q-card-section>
-              <div class="text-h6 q-mt-md ellipsis" style="font-size: 12px">
-                Real me Model cy21caaa
-              </div>
-              <div class="text-caption text-grey ellipsis">Rs:18000</div>
-              <div class="q-my-sm text-right">
-                <q-btn
-                  size="sm"
-                  color="primary"
-                  label="Activate"
-                  @click="small = true"
-                />
-              </div>
-
-              <div class="flex justify-between">
-                <div class="text-caption text-grey ellipsis">Sanda Road</div>
-                <div class="text-caption text-grey ellipsis">7 April</div>
-              </div>
-            </q-card-section>
-          </q-card-section>
-          <q-btn
-            round
-            size="sm"
-            icon="more_horiz"
-            class="absolute"
-            style="top: 5px; right: 10px"
-            @click="alert = true"
-          />
-        </q-card>
+      <div
+        class="q-pa-md row items-start q-gutter-md justify-center"
+        v-if="store.myProducts.length"
+      >
+        <sellProductCard
+          v-for="product in store.myProducts"
+          :key="product"
+          :product="product"
+        />
+      </div>
+      <div v-else>
+        <div class="m-5 text-center">
+          <h2>No Products Available</h2>
+        </div>
       </div>
     </div>
+
     <!-- Add Button -->
     <div class="add-button">
       <q-btn
@@ -82,11 +52,19 @@
   </q-dialog>
 </template>
 <script>
-import { ref } from "vue";
-
+import sellProductCard from "../components/Layouts/ProductCardTile.vue";
+import { onMounted, ref } from "vue";
+import { useProductStore } from "../stores/products.store";
 export default {
+  components: {
+    sellProductCard,
+  },
   setup() {
+    const store = useProductStore();
+    onMounted(() => store.loadMyProducts());
+
     return {
+      store,
       alert: ref(false),
       shape: ref("line"),
       small: ref(false),

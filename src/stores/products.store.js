@@ -15,6 +15,7 @@ export const useProductStore = defineStore('productsStore ', {
   state: () => ({
     recentProducts: [],
     featuredProducts: [],
+    myProducts: [],
     loadedProduct: null,
     searchProduct: ''
   }),
@@ -65,6 +66,29 @@ export const useProductStore = defineStore('productsStore ', {
         console.log("Error in Featured", response)
       }
     },
+
+    async loadMyProducts() {
+      if (this.myProducts.length) {
+        return;
+      }
+
+      const myProducts = getPersistentData('my_products', 1);
+      if (myProducts) {
+        this.myProducts = myProducts;
+        return;
+      }
+
+      const response = await API.get('seller/products');
+      if (response.status == 200) {
+        this.myProducts = response.data;
+        persistData('my_products', response.data);
+      }
+      else {
+        console.log("Error in My Products", response)
+      }
+    },
+
+
     async loadProductDetails(slug) {
       const response = await API.get(`products/${slug}`);
       if (response.status == 200) {
