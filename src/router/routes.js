@@ -40,6 +40,10 @@ const routes = [{
         component: () => import('src/pages/CategoryMobile.vue')
       },
       {
+        path: '/donation',
+        component: () => import('src/pages/DonationPage.vue')
+      },
+      {
         path: '/subcategory/:name',
         component: () => import('src/pages/ProductSubcategory.vue')
       },

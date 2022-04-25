@@ -44,6 +44,7 @@ import { useAuthStore } from "src/stores/auth.store";
 import { onMounted, ref } from "vue";
 import { useWishlistStore } from "../stores/wishlist.store";
 const store = useWishlistStore();
+
 const imageBaseURL = process.env.imagesBaseURL;
 const router = useRouter();
 const authStore = useAuthStore();
@@ -69,6 +70,11 @@ const menus = ref([
     title: "Suggestions",
     icon: "feedback",
     to: "/suggestion",
+  },
+  {
+    title: "Donation",
+    icon: "volunteer_activism",
+    to: "/donation",
   },
   {
     title: "Terms",

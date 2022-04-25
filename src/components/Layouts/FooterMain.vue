@@ -98,7 +98,8 @@ export default {};
 <style lang="scss" scoped>
 footer {
   background: #eceff1;
-  background-image: url(../../../public/images/footer-bg.png);
+  background-image: url(../../../public/images/footerbg.png);
+  background-position: center;
 
   h6 {
     margin: 20px 0;

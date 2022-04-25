@@ -49,7 +49,7 @@ const imageBaseURL = process.env.imagesBaseURL;
 </script>
 <style lang="scss" scoped>
 .slider-main {
-  height: 140px;
+  height: 200px;
   width: 100%;
 
   @media screen and (min-width: $breakpoint-sm-min) {
