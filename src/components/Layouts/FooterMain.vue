@@ -98,7 +98,7 @@ export default {};
 <style lang="scss" scoped>
 footer {
   background: #eceff1;
-  background-image: url(../Layouts/);
+  background-image: url(../../../public/images/footer-bg.png);
 
   h6 {
     margin: 20px 0;
