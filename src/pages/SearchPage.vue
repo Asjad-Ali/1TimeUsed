@@ -43,9 +43,7 @@
           >"
         </h6>
       </div>
-      <div style="height: 40vh" v-show="!searchResults.length">
-        <h1>Asjad</h1>
-      </div>
+      <div style="height: 40vh" v-show="!searchResults.length"></div>
       <div class="col-md-2 col-6">
         <q-select
           dense
