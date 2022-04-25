@@ -6,6 +6,17 @@ import API from 'src/services/API'
 import { useProductStore } from '../stores/products.store'
 import { ref } from 'vue'
 
+
+const toggleFavorite = (productID, products) => {
+  const index = products.findIndex(product => product.id == productID);
+  if (index == -1) {
+    return products;
+  }
+
+  products[index].favorite = products[index].favorite == 1 ? 0 : 1;
+  return products;
+}
+
 export const useWishlistStore = defineStore("wishlistStore", {
 
   state: () => ({
@@ -29,11 +40,15 @@ export const useWishlistStore = defineStore("wishlistStore", {
           message: response.message,
           icon: 'done',
           position: 'bottom',
-          color: 'success',
+          color: 'positive',
         })
-        store.recentProducts = ref(store.recentProducts.map(pro => pro.id == product_id ? { ...pro(pro.favorite == 1 ? pro.favorite = 0 : pro.favorite = 1) } : { ...pro }))
-        store.featuredProducts = ref(store.featuredProducts.map(pro => pro.id == product_id ? { ...pro(pro.favorite == 1 ? pro.favorite = 0 : pro.favorite = 1) } : { ...pro }))
+        store.recentProducts = toggleFavorite(product_id, store.recentProducts)
+        store.featuredProducts = toggleFavorite(product_id, store.featuredProducts)
         this.wishlistProduct = this.wishlistProduct.filter(pro => pro.id != product_id)
+
+        persistData('wishlist_products', this.wishlistProduct);
+        persistData('viewed_products', store.recentProducts);
+        persistData('featured_products', store.featuredProducts);
       }
 
     },

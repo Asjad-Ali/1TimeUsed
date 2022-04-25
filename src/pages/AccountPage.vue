@@ -49,12 +49,11 @@
 import { useRouter } from "vue-router";
 import { useAuthStore } from "src/stores/auth.store";
 import { onMounted } from "vue";
-import { useWishlistStore } from "../stores/wishlist.store";
-const store = useWishlistStore();
+
 const imageBaseURL = process.env.imagesBaseURL;
 const authStore = useAuthStore();
 const profile = authStore.authUser;
-onMounted(() => store.loadWishlistProducts());
+
 const menus = [
   {
     title: "Wishlist",
