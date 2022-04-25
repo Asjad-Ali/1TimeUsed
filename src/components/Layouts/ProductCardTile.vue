@@ -1,50 +1,52 @@
 <template>
-  <q-card class="my-card" flat bordered style="width: 100%; max-width: 410px">
-    <q-card-section horizontal>
-      <q-card-section
-        class="col-5 flex flex-center"
-        @click="ProductDetail(product)"
-      >
-        <q-img
-          class="rounded-borders"
-          :src="imageBaseURL + product.gallery[0].path"
-        />
-      </q-card-section>
-      <q-card-section>
-        <div class="text-h6 q-mt-md ellipsis" style="font-size: 12px">
-          {{ product.title }}
-        </div>
-        <div class="text-caption text-grey ellipsis">
-          RS:{{ product.price }}
-        </div>
-        <div class="q-my-sm text-right">
-          <q-btn
-            size="sm"
-            color="primary"
-            label="Activate"
-            @click="small = true"
+  <div class="q-pa-md row items-start q-gutter-md justify-center">
+    <q-card class="my-card" flat bordered style="width: 100%; max-width: 410px">
+      <q-card-section horizontal>
+        <q-card-section
+          class="col-5 flex flex-center"
+          @click="ProductDetail(product)"
+        >
+          <q-img
+            class="rounded-borders fit"
+            :src="imageBaseURL + product.gallery[0].path"
           />
-        </div>
+        </q-card-section>
+        <q-card-section>
+          <div class="text-h6 q-mt-md ellipsis" style="font-size: 12px">
+            {{ product.title }}
+          </div>
+          <div class="text-caption text-grey ellipsis">
+            RS:{{ product.price }}
+          </div>
+          <div class="q-my-sm text-right">
+            <q-btn
+              size="sm"
+              color="primary"
+              label="Activate"
+              @click="small = true"
+            />
+          </div>
 
-        <div class="flex justify-between" @click="ProductDetail(product)">
-          <div class="text-caption text-grey ellipsis">
-            {{ product.city || getAddress(product.neighborhood) }}
+          <div class="flex justify-between">
+            <div class="text-caption text-grey ellipsis">
+              {{ product.city || getAddress(product.neighborhood) }}
+            </div>
+            <div class="text-caption text-grey ellipsis">
+              {{ new Date(product.created_at).getDate() }}
+            </div>
           </div>
-          <div class="text-caption text-grey ellipsis">
-            {{ new Date(product.created_at).getDate() }}
-          </div>
-        </div>
+        </q-card-section>
       </q-card-section>
-    </q-card-section>
-    <q-btn
-      round
-      size="sm"
-      icon="more_horiz"
-      class="absolute"
-      style="top: 5px; right: 10px"
-      @click="alert = true"
-    />
-  </q-card>
+      <q-btn
+        round
+        size="sm"
+        icon="more_horiz"
+        class="absolute"
+        style="top: 5px; right: 10px"
+        @click="alert = true"
+      />
+    </q-card>
+  </div>
 </template>
 
 <script setup>
