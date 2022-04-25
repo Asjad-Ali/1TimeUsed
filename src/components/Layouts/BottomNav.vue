@@ -43,7 +43,7 @@ const footerLinks = [
   {
     title: "Donate",
     icon: "emoji_events",
-    to: "/",
+    to: "/donation",
   },
   {
     title: "Profile",

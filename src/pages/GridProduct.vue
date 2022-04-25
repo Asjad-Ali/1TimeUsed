@@ -4,7 +4,7 @@
       <q-card-section horizontal>
         <q-card-section class="col-5 flex flex-center">
           <q-img
-            class="rounded-borders"
+            class="rounded-borders fit"
             src="https://cdn.quasar.dev/img/parallax2.jpg"
           />
         </q-card-section>

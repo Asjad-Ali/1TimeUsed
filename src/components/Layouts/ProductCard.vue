@@ -154,8 +154,4 @@ const getAddress = (address) => {
     width: 120px;
   }
 }
-
-.recent-product {
-  background: red;
-}
 </style>

@@ -77,6 +77,11 @@ const menus = [
     to: "/suggestion",
   },
   {
+    title: "Donation",
+    icon: "volunteer_activism",
+    to: "/donation",
+  },
+  {
     title: "Terms",
     icon: "notifications_none",
     to: "https://1timeused.com/terms-conditions",
