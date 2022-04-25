@@ -25,7 +25,9 @@ onMounted(() => {
   productStore.loadRecentProducts();
   productStore.loadFeaturedProducts();
   if (route.query.code) {
-    authStore.loginWithFacebook(route.query.code);
+    authStore.loginWithFacebook(
+      location.href.split("?").pop().replace("code=", "")
+    );
   }
 });
 </script>

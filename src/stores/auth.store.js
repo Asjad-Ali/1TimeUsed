@@ -128,7 +128,8 @@ export const useAuthStore = defineStore('authStore', {
     async loginWithFacebook(fb_token) {
 
       const response = await API.post('login/facebook', {
-        fb_token
+        fb_token,
+        app_url: `https://${location.host}/`
       });
 
       console.log("after facebook login in auth store>>", response.data.user);

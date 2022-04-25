@@ -59,7 +59,7 @@ module.exports = configure(function (ctx) {
       env: {
         apiBaseURL: 'https://1timeused.com/api/',
         imagesBaseURL: 'https://1timeused.com/',
-        appURL: 'https://localhost:8080',
+        appURL: 'https://localhost:8080/',
         facebookAppId: '299758552084907'
       },
 

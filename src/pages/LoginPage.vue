@@ -106,12 +106,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import { useAuthStore } from "src/stores/auth.store";
 
 const facebookAppId = process.env.facebookAppId;
-const appURL = process.env.appURL;
+const appURL = ref(process.env.appURL);
 
 const { rules } = useValidationRules();
 const store = useAuthStore();
@@ -120,6 +120,10 @@ const passwordInputType = ref("password");
 const credentials = ref({
   email: "",
   password: null,
+});
+
+onMounted(() => {
+  appURL.value = `https://${location.host}/`;
 });
 
 const onSubmit = () => {
