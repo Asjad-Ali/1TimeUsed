@@ -277,7 +277,7 @@ export default {
   setup() {
     return {
       shape: ref("line"),
-      step: ref(3),
+      step: ref(1),
       tab: ref("mails"),
       files: ref(null),
       counterLabelFn({ totalSize, filesNumber, maxFiles }) {
