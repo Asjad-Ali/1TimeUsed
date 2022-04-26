@@ -103,6 +103,26 @@ export const useProductStore = defineStore('productsStore ', {
         this.searchProduct = response.data
       }
       return response;
+    },
+    async addMyProduct(product) {
+      const response = await API.formData('seller/products', product);
+      if (response.status == 200) {
+        Notify.create({
+          message: "Product added successfully",
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        })
+      }
+      else {
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'negative',
+        })
+      }
+      return response;
     }
   },
 })
