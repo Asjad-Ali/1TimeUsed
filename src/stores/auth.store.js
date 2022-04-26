@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('authStore', {
 
       const response = await API.post('register', creds);
 
-      if (response.status == 200) {
+      if (response.status === 200) {
         this.authUser = response.data;
 
         Notify.create({

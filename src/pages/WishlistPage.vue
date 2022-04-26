@@ -7,7 +7,7 @@
     </div>
 
     <div
-      v-if="store.wishlistProduct"
+      v-if="store.wishlistProduct.length"
       class="q-pa-md row items-start q-gutter-md justify-center"
     >
       <ProductCard
