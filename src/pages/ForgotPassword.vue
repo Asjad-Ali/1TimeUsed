@@ -12,6 +12,8 @@
               :dense="dense"
               label="Enter Your Email"
               class="q-mb-md"
+              :rules="[rules.required, rules.email]"
+              clearable
             >
               <template v-slot:prepend>
                 <q-icon name="person" />
@@ -40,46 +42,27 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref } from "vue";
-const accept = ref(false);
-const countryCode = ref("+92");
-const optionsHtml = ref("+92");
+import { useAuthStore } from "src/stores/auth.store";
+import { useRouter } from "vue-router";
+import useValidationRules from "src/composables/useValidationRules";
 
+const { rules } = useValidationRules();
+const router = useRouter();
+const store = useAuthStore();
 const user = ref({
-  name: "",
   email: "",
-  login: "",
-  phone: "3",
-  password: "",
-  password_confirmation: "",
 });
 
-const validatePhone = () => {
-  if (user.value.phone.length <= 1 && user.value.phone.substring(0, 1) != 3) {
-    user.value.phone = "3";
-  } else {
-    user.value.phone = user.value.phone.replace(/[^0-9]/g, "");
-  }
+const onSubmit = () => {
+  store.forgot({ email: user.value.email }).then((response) => {
+    if (response.status == 200) {
+      router.push("/reset_password");
+    }
+  });
 };
-
-const onSubmit = (e) => {
-  console.log(e);
-};
-
-const options = [
-  // {
-  //   label:
-  //     '<span class="text-primary text-bold "><img class="q-mr-1" src="https://flagicons.lipis.dev/flags/4x3/pk.svg" width="15"> &nbsp; +92</span>',
-  //   value: "Google",
-  //   html: true,
-  // },
-];
 </script>
-
-
-
 
 <style lang="scss" scoped>
 .account-tab {

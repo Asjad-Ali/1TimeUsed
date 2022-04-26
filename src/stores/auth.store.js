@@ -22,6 +22,7 @@ export const useAuthStore = defineStore('authStore', {
     authUser: null,
     authToken: null,
     deviceId: null,
+    forgotEmail: null
   }),
   // getters: {
   //   getAuthUser(state) {
@@ -157,6 +158,54 @@ export const useAuthStore = defineStore('authStore', {
         setTimeout(() => {
           redirect('/login')
         }, 1000)
+      }
+    },
+
+    async forgot(payload) {
+
+      const response = await API.post('forgot-password', payload);
+
+      if (response.status == 200) {
+        this.forgotEmail = payload.email;
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        });
+
+      } else {
+        Notify.create({
+          message: response.message,
+          icon: 'warning',
+          position: 'bottom',
+          color: 'negative',
+        })
+      }
+      return response;
+    },
+
+    async resetPassword(payload) {
+
+      payload.email = this.forgotEmail;
+      const response = await API.post('reset-password', payload);
+
+      if (response.status == 200) {
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        });
+        redirect('login');
+
+      } else {
+        Notify.create({
+          message: response.message,
+          icon: 'warning',
+          position: 'bottom',
+          color: 'negative',
+        })
       }
     },
 

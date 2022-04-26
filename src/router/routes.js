@@ -102,6 +102,10 @@ const routes = [{
     path: '/forgot',
     component: () => import('src/pages/ForgotPassword.vue'),
   },
+  {
+    path: '/reset_password',
+    component: () => import('src/pages/ResetPassword.vue'),
+  },
 
   // Always leave this as last one,
   {
