@@ -178,11 +178,12 @@ const isPwd = ref(true);
 const isPwd2 = ref(true);
 
 const credentials = ref({
-  name: "",
-  email: "",
-  phone: "",
-  password: "",
-  password_confirmation: "",
+  name: "Asjad Ali",
+  email: "asjadaliwatto@gmail.com",
+  phone: "3087262908",
+  password: "11223344",
+  password_confirmation: "11223344",
+  fcm_token: "xjjxjjxjjx",
 });
 
 const validatePhone = () => {
