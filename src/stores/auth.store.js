@@ -161,6 +161,40 @@ export const useAuthStore = defineStore('authStore', {
       }
     },
 
+    async loginWithGoogle(token) {
+
+      const response = await API.post('login/Google', {
+        token
+      });
+
+      console.log("after google login in auth store>>", response.data.user);
+
+      if (response.status == 200) {
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        });
+        this.authUser = response.data.user;
+        this.$cookies.set('AUTH_USER', response.data.user);
+        this.$cookies.set('1TIMEUSED_TOKEN', response.data.token);
+        redirect('/');
+      } else {
+        console.log(response.message);
+        Notify.create({
+          message: response.message,
+          icon: 'warning',
+          position: 'bottom',
+          color: 'negative',
+        })
+
+        setTimeout(() => {
+          redirect('/login')
+        }, 1000)
+      }
+    },
+
     async forgot(payload) {
 
       const response = await API.post('forgot-password', payload);
