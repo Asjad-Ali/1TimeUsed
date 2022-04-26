@@ -166,7 +166,7 @@ export const useAuthStore = defineStore('authStore', {
       const response = await API.post('forgot-password', payload);
 
       if (response.status == 200) {
-        this.forgotEmail = payload;
+        this.forgotEmail = payload.email;
         Notify.create({
           message: response.message,
           icon: 'done',
