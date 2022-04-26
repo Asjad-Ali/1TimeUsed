@@ -1,16 +1,13 @@
-const routes = [
-  {
+const routes = [{
     path: '/login',
     component: () => import('src/pages/LoginPage.vue'),
   },
-
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [
-      {
+    children: [{
         path: '',
-        component: () => import('pages/IndexPage.vue')
+        component: () => import('pages/IndexPage.vue'),
       },
       {
         path: '/account',
@@ -22,7 +19,11 @@ const routes = [
       },
       {
         path: '/account_setting',
-        component: () => import('src/pages/AccountSetting.vue')
+        component: () => import('src/pages/AccountSetting.vue'),
+        meta: {
+          auth: true
+        }
+
       },
       {
         path: '/suggestion',
@@ -56,11 +57,17 @@ const routes = [
       },
       {
         path: '/notifications',
-        component: () => import('src/pages/NotificationPage.vue')
+        component: () => import('src/pages/NotificationPage.vue'),
+        meta: {
+          auth: true
+        }
       },
       {
         path: '/chat',
-        component: () => import('src/pages/ChatPage.vue')
+        component: () => import('src/pages/ChatPage.vue'),
+        meta: {
+          auth: true
+        }
       },
       {
         path: '/grid',
@@ -68,11 +75,17 @@ const routes = [
       },
       {
         path: '/sell',
-        component: () => import('src/pages/SellPage.vue')
+        component: () => import('src/pages/SellPage.vue'),
+        meta: {
+          auth: true
+        }
       },
       {
         path: '/add_product',
-        component: () => import('src/pages/AddProduct.vue')
+        component: () => import('src/pages/AddProduct.vue'),
+        meta: {
+          auth: true
+        }
       },
       {
         path: '/card',

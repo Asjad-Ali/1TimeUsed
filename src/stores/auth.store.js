@@ -42,11 +42,12 @@ export const useAuthStore = defineStore('authStore', {
           message: response.message,
           icon: 'done',
           position: 'bottom',
-          color: 'success',
+          color: 'positive',
         })
         redirect('');
 
       } else {
+        console.log(response.message);
         Notify.create({
           message: response.message,
           icon: 'warning',
@@ -109,9 +110,9 @@ export const useAuthStore = defineStore('authStore', {
           message: response.message,
           icon: 'done',
           position: 'bottom',
-          color: 'success',
+          color: 'positive',
         })
-        //redirect('');
+        redirect('/account_setting');
 
       } else {
         Notify.create({
@@ -122,6 +123,41 @@ export const useAuthStore = defineStore('authStore', {
         })
       }
       return response;
+    },
+
+    async loginWithFacebook(fb_token) {
+
+      const response = await API.post('login/facebook', {
+        fb_token,
+        app_url: `https://${location.host}/`
+      });
+
+      console.log("after facebook login in auth store>>", response.data.user);
+
+      if (response.status == 200) {
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        });
+        this.authUser = response.data.user;
+        this.$cookies.set('AUTH_USER', response.data.user);
+        this.$cookies.set('1TIMEUSED_TOKEN', response.data.token);
+        redirect('/');
+      } else {
+        console.log(response.message);
+        Notify.create({
+          message: response.message,
+          icon: 'warning',
+          position: 'bottom',
+          color: 'negative',
+        })
+
+        setTimeout(() => {
+          redirect('/login')
+        }, 1000)
+      }
     },
 
     async logout() {
