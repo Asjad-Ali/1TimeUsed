@@ -18,6 +18,7 @@
     "axios": "^0.26.1",
     "bootstrap-icons": "^1.8.1",
     "core-js": "^3.6.5",
+    "firebase": "^9.6.11",
     "pinia": "^2.0.13",
     "quasar": "^2.6.6",
     "vue": "^3.2.32",

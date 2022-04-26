@@ -66,7 +66,7 @@
                 />
               </div>
               <div class="text-center q-mb-lg">
-                <q-btn label="login with Google ">
+                <q-btn label="login with Google" @click="loginWithGoogle">
                   <img
                     src="../../public/icons/google-color.svg"
                     alt="google "
@@ -103,11 +103,13 @@
 import { onMounted, ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import { useAuthStore } from "src/stores/auth.store";
+import useFirebaseAuth from "src/composables/useFirebaseAuth";
 
 const facebookAppId = process.env.facebookAppId;
 const appURL = ref(process.env.appURL);
 const { rules } = useValidationRules();
 const store = useAuthStore();
+const { loginWithGoogle } = useFirebaseAuth();
 
 const password = ref("");
 const isPwd = ref(true);
