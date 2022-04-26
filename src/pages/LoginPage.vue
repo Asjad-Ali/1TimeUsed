@@ -26,29 +26,23 @@
 
             <q-input
               v-model="credentials.password"
+              :type="isPwd ? 'password' : 'text'"
               label="Enter Your Password"
-              type="password"
               :rules="[rules.required, rules.password]"
               clearable
             >
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
             </q-input>
 
-            <q-toggle
-              v-model="accept"
-              label="Show Password"
-              :type="
-                passwordInputType == 'password'
-                  ? 'visibility'
-                  : 'visibility_off'
-              "
-              @click="
-                passwordInputType =
-                  passwordInputType == 'password' ? 'text' : 'password'
-              "
-            />
             <div class="w-100 q-my-lg">
               <div class="flex justify-between items-center">
                 <q-btn type="submit" color="primary" glossy label="Login" />
@@ -112,11 +106,11 @@ import { useAuthStore } from "src/stores/auth.store";
 
 const facebookAppId = process.env.facebookAppId;
 const appURL = ref(process.env.appURL);
-
 const { rules } = useValidationRules();
 const store = useAuthStore();
-const accept = ref(false);
-const passwordInputType = ref("password");
+
+const password = ref("");
+const isPwd = ref(true);
 const credentials = ref({
   email: "",
   password: null,

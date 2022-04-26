@@ -77,32 +77,37 @@
                 ]"
                 clearable
               >
-                <!-- <template v-slot:prepend>
+                <template v-slot:prepend>
                   <q-icon name="phone" />
-                </template> -->
+                </template>
               </q-input>
             </div>
 
             <div class="col-12">
               <q-input
                 v-model="credentials.password"
-                :dense="dense"
+                :type="isPwd ? 'password' : 'text'"
                 label="Enter Your Password"
-                type="password"
                 :rules="[rules.required, rules.password]"
                 clearable
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
                 </template>
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
               </q-input>
             </div>
             <div class="col-12">
               <q-input
                 v-model="credentials.password_confirmation"
-                :dense="dense"
+                :type="isPwd2 ? 'password' : 'text'"
                 label="Confirm Your Password"
-                type="password"
                 :rules="[
                   (val) =>
                     val.length >= 6 || 'Password must be atleast 6 characters',
@@ -113,6 +118,13 @@
               >
                 <template v-slot:prepend>
                   <q-icon name="lock" />
+                </template>
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd2 ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd2 = !isPwd2"
+                  />
                 </template>
               </q-input>
             </div>
@@ -158,17 +170,19 @@ import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 
 const { rules } = useValidationRules();
-const accept = ref(false);
 const countryCode = ref("+92");
 const optionsHtml = ref("+92");
 const store = useAuthStore();
+const password = ref("");
+const isPwd = ref(true);
+const isPwd2 = ref(true);
 
 const credentials = ref({
-  name: "Asjad Ali",
-  email: "asjadaliwatto@gmail.com",
-  phone: "3087262908",
-  password: "11223344",
-  password_confirmation: "11223344",
+  name: "",
+  email: "",
+  phone: "",
+  password: "",
+  password_confirmation: "",
   fcm_token: "xjjxjjxjjx",
 });
 

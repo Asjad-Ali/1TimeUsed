@@ -48,8 +48,8 @@ class API {
         ...(await response.data)
       };
     } catch (error) {
-      console.log(error);
-      throw error;
+      console.log(error.response);
+      return error.response.data;
     }
   }
 

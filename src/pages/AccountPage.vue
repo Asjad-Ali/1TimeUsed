@@ -110,6 +110,8 @@ const openWindow = (url) => {
 const handleMenuClick = (menu) => {
   if (menu.to.includes("http")) {
     openWindow(menu.to);
+  } else if (!profile.value && menu.to == "/account_setting") {
+    menu.to = "/login";
   } else if (menu.to == "/logout") {
     authStore.logout();
   } else {
