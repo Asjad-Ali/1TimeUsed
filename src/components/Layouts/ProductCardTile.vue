@@ -123,10 +123,14 @@ const fullHeight = ref(false);
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 1262px) {
   .my-card {
-    max-width: auto;
+    max-width: 340px;
   }
-  .p-mobile-0 {
-    padding: 0;
+}
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 768px) {
+  .my-card {
+    max-width: 317px;
+    overflow: hidden;
   }
 }
 </style>
