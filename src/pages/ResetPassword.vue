@@ -40,7 +40,7 @@
           </div>
           <div class="col-10">
             <q-input
-              v-model="user.confirmation_password"
+              v-model="user.password_confirmation"
               :type="isPwd2 ? 'password' : 'text'"
               label="Confirm Your Password"
               :rules="[
@@ -92,7 +92,7 @@ const user = ref({
   token: "",
   email: "",
   password: "",
-  confirmation_password: "",
+  password_confirmation: "",
 });
 
 const onSubmit = () => {
