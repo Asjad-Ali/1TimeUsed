@@ -45,7 +45,7 @@ export const useAuthStore = defineStore('authStore', {
           position: 'bottom',
           color: 'positive',
         })
-        redirect('');
+        // redirect(''); redirect in vue file through router.push
 
       } else {
         console.log(response.message);
