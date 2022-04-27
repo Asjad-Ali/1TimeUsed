@@ -104,11 +104,13 @@ import { onMounted, ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import { useAuthStore } from "src/stores/auth.store";
 import useFirebaseAuth from "src/composables/useFirebaseAuth";
+import { useRouter } from "vue-router";
 
 const facebookAppId = process.env.facebookAppId;
 const appURL = ref(process.env.appURL);
 const { rules } = useValidationRules();
 const store = useAuthStore();
+const router = useRouter();
 const { loginWithGoogle } = useFirebaseAuth();
 
 const password = ref("");
@@ -123,7 +125,11 @@ onMounted(() => {
 });
 
 const onSubmit = () => {
-  store.login(credentials.value);
+  store.login(credentials.value).then((response) => {
+    if (response.status == 200) {
+      router.push("/");
+    }
+  });
 };
 </script>
 
