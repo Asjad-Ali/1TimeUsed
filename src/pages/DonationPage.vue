@@ -3,28 +3,19 @@
     <div class="column q-pb-xl">
       <h5 class="text-center">Donation Products</h5>
       <div
-        class="
-          flex
-          q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-          justify-center
-          items-center
-        "
+        class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
       >
         <div
           class="q-card product-card cursor-pointer my-card"
-          v-for="i in 12"
-          :key="i"
+          v-for="donateProduct in donateProducts"
+          :key="donateProduct"
         >
           <div class="img-holder">
             <div class="q-img q-img--menu fit" role="img">
               <div style="padding-bottom: 133.612%"></div>
               <div class="q-img__container absolute-full">
                 <img
-                  class="
-                    q-img__image
-                    q-img__image--with-transition
-                    q-img__image--loaded
-                  "
+                  class="q-img__image q-img__image--with-transition q-img__image--loaded"
                   loading="lazy"
                   fetchpriority="auto"
                   aria-hidden="true"
@@ -38,18 +29,7 @@
           </div>
           <div class="q-card__section q-card__section--vert">
             <button
-              class="
-                q-btn q-btn-item
-                non-selectable
-                no-outline
-                q-btn--flat q-btn--round
-                text-primary
-                q-btn--actionable
-                q-focusable q-hoverable
-                absolute
-                bg-white
-                shadow-sm
-              "
+              class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--round text-primary q-btn--actionable q-focusable q-hoverable absolute bg-white shadow-sm"
               tabindex="0"
               type="button"
               style="
@@ -61,45 +41,30 @@
             >
               <span class="q-focus-helper"></span
               ><span
-                class="
-                  q-btn__content
-                  text-center
-                  col
-                  items-center
-                  q-anchor--skip
-                  justify-center
-                  row
-                "
+                class="q-btn__content text-center col items-center q-anchor--skip justify-center row"
                 ><i class="fa-2x fa fa-heart-o" aria-hidden="true"></i
               ></span>
             </button>
             <div>
               <p class="ellipsis text-subtitle2 mobile-font">
-                2 pcs lawn suit by maria b
+                {{ donateProduct.title }}
               </p>
-              <p class="prise text-center">RS:1500</p>
+              <p class="prise text-center">FREE</p>
             </div>
             <div class="flex justify-between">
-              <small class="q-mr-sm">Providencia, Ñ</small
-              ><small> 12 april </small>
+              <small class="q-mr-sm">{{
+                donateProduct.neighborhood.substr(0, 15)
+              }}</small
+              ><small> {{ donateProduct.created_at.substr(0, 10) }} </small>
             </div>
           </div>
 
           <!-- donation badge -->
           <div
-            class="
-              q-badge
-              flex
-              inline
-              items-center
-              no-wrap
-              q-badge--single-line
-              bg-positive
-              donation-baadge
-            "
+            class="q-badge flex inline items-center no-wrap q-badge--single-line bg-positive donation-baadge"
             role="alert"
           >
-            Donation
+            {{ donateProduct.purpose }}
           </div>
         </div>
       </div>
@@ -107,9 +72,16 @@
   </div>
 </template>
 
+<script setup>
+import { computed, onMounted } from "vue";
+import { useProductStore } from "../stores/products.store";
 
-
-
+const store = useProductStore();
+onMounted(() => {
+  store.loadDonateProducts();
+});
+const donateProducts = computed(() => store.donateProducts);
+</script>
 
 <style lang="scss" scoped>
 .img-holder {
@@ -152,4 +124,3 @@
   }
 }
 </style>
-
