@@ -6,9 +6,14 @@ import {
 //   Cookies
 // } from 'quasar'
 
-import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
+import {
+  persistData,
+  getPersistentData
+} from 'src/helpers/persistentHelper'
 import API from 'src/services/API';
-import { ref } from 'vue';
+import {
+  ref
+} from 'vue';
 
 export const useProductStore = defineStore('productsStore ', {
 
@@ -17,11 +22,11 @@ export const useProductStore = defineStore('productsStore ', {
     featuredProducts: [],
     myProducts: [],
     loadedProduct: null,
-    searchProduct: ''
+    searchProduct: '',
+    donateProducts: []
   }),
 
-  getters: {
-  },
+  getters: {},
 
   actions: {
     async loadRecentProducts() {
@@ -40,8 +45,7 @@ export const useProductStore = defineStore('productsStore ', {
       if (response.status == 200) {
         this.recentProducts = response.data;
         persistData(dataKey, response.data);
-      }
-      else {
+      } else {
         console.log("Error in Recently viewed", response)
       }
 
@@ -61,8 +65,7 @@ export const useProductStore = defineStore('productsStore ', {
       if (response.status == 200) {
         this.featuredProducts = response.data;
         persistData('featured_products', response.data);
-      }
-      else {
+      } else {
         console.log("Error in Featured", response)
       }
     },
@@ -82,8 +85,7 @@ export const useProductStore = defineStore('productsStore ', {
       if (response.status == 200) {
         this.myProducts = response.data;
         persistData('my_products', response.data);
-      }
-      else {
+      } else {
         console.log("Error in My Products", response)
       }
     },
@@ -113,8 +115,7 @@ export const useProductStore = defineStore('productsStore ', {
           position: 'bottom',
           color: 'positive',
         })
-      }
-      else {
+      } else {
         Notify.create({
           message: response.message,
           icon: 'done',
@@ -123,6 +124,14 @@ export const useProductStore = defineStore('productsStore ', {
         })
       }
       return response;
-    }
+    },
+
+    async loadDonateProducts() {
+      const response = await API.get(`donateproducts`);
+      if (response.status == 200) {
+        this.donateProducts = response.data
+      }
+      return response;
+    },
   },
 })

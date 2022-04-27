@@ -282,7 +282,7 @@
 import { useProductStore } from "src/stores/products.store";
 import { useCategoryStore } from "../stores/categories.store";
 import { onMounted, reactive, ref } from "vue";
-import compressImage from "src/composables/useImageCompression";
+import compressImage from "../composables/useImageCompression";
 import useValidationRules from "src/composables/useValidationRules";
 import ReviewProductDetails from "../components/addProduct/reviewProductDetails.vue";
 const productStore = useProductStore();
@@ -349,7 +349,6 @@ const setFiles = async (files) => {
   product.images = compressedImages;
 };
 </script>
-
 
 <style lang="scss" scoped>
 .label-font {
