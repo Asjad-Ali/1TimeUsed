@@ -69,9 +69,6 @@ export const useWishlistStore = defineStore("wishlistStore", {
         this.wishlistProduct = response.data;
         persistData('wishlist_products', response.data);
       }
-      else {
-        console.log("wishlist_products", response)
-      }
     },
   }
 })
