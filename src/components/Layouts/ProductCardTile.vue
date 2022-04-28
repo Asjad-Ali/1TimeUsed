@@ -35,24 +35,36 @@
           </div>
         </div>
       </q-card-section>
+      <div class="inline rounded-borders cursor-pointer">
+        <div class="inline q-ps-lg q-ma-md">
+          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+        </div>
+        <q-menu touch-position>
+          <q-list style="min-width: 100px">
+            <q-item clickable v-close-popup>
+              <q-item-section>Edit</q-item-section>
+            </q-item>
+            <q-item @click="confirm = true" clickable v-close-popup>
+              <q-item-section>Delete</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </div>
     </q-card-section>
-    <q-btn
-      round
-      size="sm"
-      icon="more_horiz"
-      class="absolute"
-      style="top: 5px; right: 10px"
-      @click="alert = true"
-    />
   </q-card>
 
-  <!-- Modal Alert -->
-  <q-dialog v-model="alert">
-    <q-card style="width: 230px">
-      <div class="q-gutter-sm flex column q-pa-md">
-        <q-radio v-model="shape" val="line" label="Edit" />
-        <q-radio v-model="shape" val="a" label="Delete" />
-      </div>
+  <!-- Delete Confirmation Modal -->
+  <q-dialog v-model="confirm" persistent>
+    <q-card>
+      <q-card-section class="row items-center">
+        <span class="q-ml-sm"
+          >Are You sure you want to delete this Product</span
+        >
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn flat label="Cancel" color="primary" v-close-popup />
+        <q-btn flat label="Yes" color="primary" v-close-popup />
+      </q-card-actions>
     </q-card>
   </q-dialog>
 
@@ -108,6 +120,7 @@ const getAddress = (address) => {
   return address;
 };
 
+const confirm = ref(false);
 const alert = ref(false);
 const shape = ref("line");
 const small = ref(false);

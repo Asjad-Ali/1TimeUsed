@@ -323,6 +323,7 @@ import { onMounted, reactive, ref, watch } from "vue";
 import compressImage from "../composables/useImageCompression";
 import useValidationRules from "src/composables/useValidationRules";
 import ReviewProductDetails from "../components/addProduct/reviewProductDetails.vue";
+import router from "src/router";
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
 const { rules } = useValidationRules();
@@ -377,12 +378,9 @@ const loadSubCategory = () => {
 };
 
 const submitForm = () => {
-  console.log(product);
-  productForm.value.validate().then((success) => {
-    if (success) {
-      productStore.addMyProduct(product);
-    } else {
-      console.log("there are errors in form");
+  productStore.addMyProduct(product).then((res) => {
+    if (res.status == 200) {
+      router.push("/account");
     }
   });
 };
