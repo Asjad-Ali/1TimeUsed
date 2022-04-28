@@ -103,7 +103,7 @@ export const useProductStore = defineStore('productsStore ', {
 
 
     async loadProductDetails(slug) {
-      const response = await API.get(`products/${slug}`);
+      const response = await API.get(`products/${slug}?screen=desktop`);
       if (response.status == 200) {
         this.loadedProduct = response.data
       }

@@ -3,6 +3,8 @@ import {
   Cookies
 } from 'quasar'
 
+import { useAuthStore } from 'src/stores/auth.store';
+
 
 const apiBaseURL = process.env.apiBaseURL;
 
@@ -14,12 +16,14 @@ class API {
     method = "GET",
     contentType = "application/json"
   ) {
+
+    const authStore = useAuthStore();
     let options = {
       method: method,
       headers: {
         "Accept": 'application/json',
-        "Authorization": `Bearer ${Cookies.get('1TIMEUSED_TOKEN') || null}`,
-        "Device-Id": Cookies.get('1TIMUSED_DEVICE_ID'),
+        "Authorization": `Bearer ${authStore.authToken}`,
+        "Device-Id": authStore.deviceId,
         "Device-Type": 'web'
       },
     };

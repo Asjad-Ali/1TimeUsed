@@ -1,6 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <HeaderSection />
+    <HeaderSection v-if="$q.screen.gt.sm || $route.path == '/'" />
+    <SecondaryMobileHeader v-else />
 
     <q-page-container>
       <div v-if="$route.path == '/'">
@@ -12,13 +13,6 @@
     </q-page-container>
     <FooterMain v-if="$q.screen.gt.sm" />
     <BottomNav v-else />
-    <!-- <q-btn
-      round
-      color="secondary"
-      icon="add"
-      size="12"
-      class="absolute-bottom-right fixed-center"
-    /> -->
   </q-layout>
 </template>
 
@@ -26,7 +20,7 @@
 import { useAuthStore } from "src/stores/auth.store";
 export default {
   async preFetch({ store, currentRoute }) {
-    const authStore = useAuthStore();
+    const authStore = useAuthStore(store);
     authStore.loadAuthUser();
   },
 };
@@ -35,6 +29,7 @@ export default {
 <script setup>
 import { defineComponent } from "vue";
 import HeaderSection from "src/components/Layouts/HeaderSection.vue";
+import SecondaryMobileHeader from "src/components/Layouts/SecondaryMobileHeader.vue";
 import BottomNav from "../components/Layouts/BottomNav.vue";
 import FooterMain from "../components/Layouts/FooterMain.vue";
 import CategoriesSection from "src/components/CategoriesSection.vue";

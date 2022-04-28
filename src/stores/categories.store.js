@@ -30,8 +30,6 @@ export const useCategoryStore = defineStore('categoryStore', {
       if (response.status == 200) {
         this.categories = response.data;
         persistData(dataKey, response.data);
-      } else {
-        console.log(response.message);
       }
     },
     loadSubCategory(title) {
