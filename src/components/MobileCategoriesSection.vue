@@ -1,10 +1,5 @@
 <template>
-  <q-scroll-area
-    :visible="false"
-    style="height: 110px; max-width: 100%"
-    horizontal-thumb-style="display:none"
-    horizontal-bar-style="display:none"
-  >
+  <q-scroll-area :visible="false" style="height: 110px; max-width: 100%">
     <div class="row no-wrap q-my-lg q-px-md flex justify-center">
       <div v-for="(category, index) in categories" :key="index">
         <div
