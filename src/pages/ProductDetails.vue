@@ -1,14 +1,37 @@
 <template>
   <div class="slider-main">
-    <q-carousel animated v-model="slide" navigation dark infinite arrows swipeable transition-prev="slide-right"
-      transition-next="slide-left" @mouseenter="autoplay = false" @mouseleave="autoplay = true"
-      v-model:fullscreen="fullscreen" class="fit details-carousel">
-      <q-carousel-slide v-for="(image, index) in product.gallery" :key="image.id" :name="index"
-        :img-src="imageBaseURL + image.path" />
+    <q-carousel
+      animated
+      v-model="slide"
+      navigation
+      dark
+      infinite
+      arrows
+      swipeable
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      @mouseenter="autoplay = false"
+      @mouseleave="autoplay = true"
+      v-model:fullscreen="fullscreen"
+      class="fit details-carousel"
+    >
+      <q-carousel-slide
+        v-for="(image, index) in product.gallery"
+        :key="image.id"
+        :name="index"
+        :img-src="imageBaseURL + image.path"
+      />
       <template v-slot:control>
         <q-carousel-control position="bottom-right" :offset="[18, 18]">
-          <q-btn push round dense color="white" text-color="primary"
-            :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'" @click="fullscreen = !fullscreen" />
+          <q-btn
+            push
+            round
+            dense
+            color="white"
+            text-color="primary"
+            :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+            @click="fullscreen = !fullscreen"
+          />
         </q-carousel-control>
       </template>
     </q-carousel>
@@ -130,7 +153,7 @@
                 </q-btn>
               </div>
               <div class="col-11">
-                <div class="seller-info">
+                <div class="seller-info q-pl-lg">
                   <div class="text-subtitle1">{{ product.seller.name }}</div>
                   <small class="text-grey">
                     Member since
@@ -141,7 +164,12 @@
             </div>
           </div>
 
-          <q-btn color="primary" size="sm" label="Chat With Seller" class="w-100 q-my-md" />
+          <q-btn
+            color="primary"
+            size="sm"
+            label="Chat With Seller"
+            class="w-100 q-my-md"
+          />
 
           <div class="show-number text-center">
             <q-icon name="call" color="primary" />
@@ -155,9 +183,20 @@
           <div class="text-h6 q-my-md">Related Products</div>
 
           <div class="row">
-            <div class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center">
-              <ProductCard class="q-my-md" v-for="(relatedProduct, index) in product.related_products" :key="index"
-                :product="relatedProduct" />
+            <div
+              class="
+                flex
+                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+                justify-center
+                items-center
+              "
+            >
+              <ProductCard
+                class="q-my-md"
+                v-for="(relatedProduct, index) in product.related_products"
+                :key="index"
+                :product="relatedProduct"
+              />
             </div>
           </div>
         </q-card>

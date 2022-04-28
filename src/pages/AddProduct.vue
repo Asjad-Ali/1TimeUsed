@@ -28,7 +28,7 @@
                 <div class="label-font">Images:</div>
 
                 <q-uploader
-                  label="Individual upload"
+                  label="images upload"
                   multiple
                   @added="setFiles"
                   @removed="setFiles"
