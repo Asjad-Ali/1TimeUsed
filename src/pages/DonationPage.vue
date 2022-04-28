@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <div class="column q-pb-xl">
+      <h5 class="text-center">Donate Products</h5>
       <div
-        class="flex q-mt-md q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+        class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
       >
         <div
           class="q-card product-card cursor-pointer my-card"
@@ -13,37 +14,42 @@
             <div class="q-img q-img--menu fit" role="img">
               <div style="padding-bottom: 133.612%"></div>
               <div class="q-img__container absolute-full">
-                <img
-                  class="q-img__image q-img__image--with-transition q-img__image--loaded"
-                  loading="lazy"
-                  fetchpriority="auto"
-                  aria-hidden="true"
-                  draggable="false"
-                  src="https://1timeused.com/uploads/products/213916504407571.jpg"
-                  style="object-fit: cover; object-position: 50% 50%"
+                <q-img
+                  :src="imageBaseURL + donateProduct.gallery[0].path"
+                  class="fit"
                 />
               </div>
               <div class="q-img__content absolute-full q-anchor--skip"></div>
             </div>
           </div>
           <div class="q-card__section q-card__section--vert">
-            <button
-              class="q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--round text-primary q-btn--actionable q-focusable q-hoverable absolute bg-white shadow-sm"
-              tabindex="0"
-              type="button"
-              style="
-                font-size: 10px;
-                top: 0px;
-                right: 12px;
-                transform: translateY(-50%);
-              "
+            <span class="q-focus-helper"></span
+            ><q-btn
+              :disable="wishlistStore.wishlistLoader == donateProduct.id"
+              round
+              outline
+              flat
+              @click="addToWishlist(donateProduct.id)"
+              size="sm"
+              color="primary"
+              class="absolute bg-white shadow-sm"
+              style="top: 0; right: 12px; transform: translateY(-50%)"
             >
-              <span class="q-focus-helper"></span
-              ><span
-                class="q-btn__content text-center col items-center q-anchor--skip justify-center row"
-                ><i class="fa-2x fa fa-heart-o" aria-hidden="true"></i
-              ></span>
-            </button>
+              <i
+                v-if="wishlistStore.wishlistLoader == donateProduct.id"
+                class="fa fa-repeat fa-2x"
+                aria-hidden="true"
+              ></i>
+              <i
+                v-else
+                class="fa-2x"
+                :class="{
+                  'fa fa-heart-o': donateProduct.favorite != 1,
+                  'fa fa-heart': donateProduct.favorite == 1,
+                }"
+                aria-hidden="true"
+              ></i>
+            </q-btn>
             <div>
               <p class="ellipsis text-subtitle2 mobile-font">
                 {{ donateProduct.title }}
@@ -54,7 +60,10 @@
               <small class="q-mr-sm">{{
                 donateProduct.neighborhood.substr(0, 15)
               }}</small
-              ><small> {{ donateProduct.created_at.substr(0, 10) }} </small>
+              ><small>
+                <!-- 12 April -->
+                {{ donateProduct.created_at.substr(0, 10) }}
+              </small>
             </div>
           </div>
 
@@ -74,11 +83,17 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import { useProductStore } from "../stores/products.store";
+import { useWishlistStore } from "../stores/wishlist.store";
 
+const imageBaseURL = process.env.imagesBaseURL;
+const wishlistStore = useWishlistStore();
 const store = useProductStore();
 onMounted(() => {
   store.loadDonateProducts();
 });
+const addToWishlist = (id) => {
+  wishlistStore.addWishlist(id);
+};
 const donateProducts = computed(() => store.donateProducts);
 </script>
 

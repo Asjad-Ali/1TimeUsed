@@ -6,7 +6,7 @@
 import { useAuthStore } from "src/stores/auth.store";
 export default {
   async preFetch({ store, currentRoute }) {
-    const authStore = useAuthStore();
+    const authStore = useAuthStore(store);
     authStore.loadAuthUser();
   },
 };
