@@ -6,7 +6,10 @@
         v-for="(subCategory, index) in store.subCategories"
         :key="index"
       >
-        <q-card class="my-card cursor-pointer">
+        <q-card
+          class="my-card cursor-pointer"
+          @click="subCategoryProduct(subCategory.id)"
+        >
           <div class="img-holder">
             <img :src="imageBaseURL + subCategory.thumbnail" alt="product" />
           </div>
@@ -29,6 +32,9 @@
 import { onMounted } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import { useCategoryStore } from "../stores/categories.store";
+import { useProductStore } from "../stores/products.store";
+
+const productStore = useProductStore();
 const store = useCategoryStore();
 const router = useRouter();
 const route = useRoute();
@@ -38,6 +44,9 @@ onMounted(() => {
   store.loadCategories();
   store.loadSubCategory(route.params.name);
 });
+const subCategoryProduct = (id) => {
+  router.push(`/subcategory-product/${id}`);
+};
 </script>
 
 <style lang="scss" scoped>

@@ -20,6 +20,7 @@ export const useProductStore = defineStore('productsStore ', {
   state: () => ({
     recentProducts: [],
     featuredProducts: [],
+    subCategoryProduct: [],
     myProducts: [],
     loadedProduct: null,
     searchProduct: '',
@@ -51,6 +52,7 @@ export const useProductStore = defineStore('productsStore ', {
       }
 
     },
+
     async loadFeaturedProducts() {
       if (this.featuredProducts.length) {
         return;
@@ -66,6 +68,14 @@ export const useProductStore = defineStore('productsStore ', {
       if (response.status == 200) {
         this.featuredProducts = response.data;
         persistData('featured_products', response.data);
+      } else {
+        console.log("Error in Featured", response)
+      }
+    },
+    async loadSubCategoryProduct(id) {
+      const response = await API.get(`sub_categories/${id}/products`);
+      if (response.status == 200) {
+        this.subCategoryProduct = response.data;
       } else {
         console.log("Error in Featured", response)
       }
@@ -112,13 +122,13 @@ export const useProductStore = defineStore('productsStore ', {
       this.btnStatus = 1
       const response = await API.formData('seller/products', product);
       if (response.status == 200) {
+        this.btnStatus = 0
         Notify.create({
           message: "Product added successfully",
           icon: 'done',
           position: 'bottom',
           color: 'positive',
         })
-        this.btnStatus = 0
       } else {
         Notify.create({
           message: response.message,

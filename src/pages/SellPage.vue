@@ -11,11 +11,11 @@
           :product="product"
         />
       </div>
-      <div v-else>
-        <div class="m-5 text-center">
-          <h2>No Products Available</h2>
+      <q-responsive v-else :ratio="4 / 2">
+        <div class="rounded-borders flex flex-center">
+          <h4>Product you add will show up here</h4>
         </div>
-      </div>
+      </q-responsive>
 
       <!-- Add Button -->
       <div class="add-button">
