@@ -23,7 +23,8 @@ export const useProductStore = defineStore('productsStore ', {
     myProducts: [],
     loadedProduct: null,
     searchProduct: '',
-    donateProducts: []
+    donateProducts: [],
+    btnStatus: 0
   }),
 
   getters: {},
@@ -106,7 +107,9 @@ export const useProductStore = defineStore('productsStore ', {
       }
       return response;
     },
+
     async addMyProduct(product) {
+      this.btnStatus = 1
       const response = await API.formData('seller/products', product);
       if (response.status == 200) {
         Notify.create({
@@ -115,6 +118,7 @@ export const useProductStore = defineStore('productsStore ', {
           position: 'bottom',
           color: 'positive',
         })
+        this.btnStatus = 0
       } else {
         Notify.create({
           message: response.message,
