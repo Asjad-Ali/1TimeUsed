@@ -44,7 +44,7 @@ const routes = [{
     component: () => import('src/pages/DonationPage.vue')
   },
   {
-    path: '/subcategory/:name',
+    path: '/subcategory/:id',
     component: () => import('src/pages/ProductSubcategory.vue')
   },
   {

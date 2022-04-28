@@ -42,7 +42,7 @@ const imageBaseURL = process.env.imagesBaseURL;
 
 onMounted(() => {
   store.loadCategories();
-  store.loadSubCategory(route.params.name);
+  store.loadSubCategory(route.params.id);
 });
 const subCategoryProduct = (id) => {
   router.push(`/subcategory-product/${id}`);
