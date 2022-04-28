@@ -20,7 +20,7 @@
               :name="1"
               title="Product Info"
               icon="settings"
-              :error="step < 3"
+              :error="step < 1"
               :done="step > 1"
             >
               <!-- Images upload -->
@@ -36,6 +36,9 @@
                   style="max-width: 300px"
                 />
               </div>
+              <div>
+                <span class="text-primary">{{ imageError }}</span>
+              </div>
 
               <!-- Purpose Tabs -->
               <div class="col-12 q-my-lg">
@@ -44,24 +47,44 @@
                   <q-tabs v-model="product.purpose" class="text-teal">
                     <q-tab
                       class="text-primary"
+                      :class="
+                        product.purpose == 'Rental'
+                          ? 'bg-primary text-white shadow-2'
+                          : 'text-primary'
+                      "
                       value="Rental"
                       name="Rental"
                       label="Rental"
                     />
                     <q-tab
                       class="text-primary"
+                      :class="
+                        product.purpose == 'Sale'
+                          ? 'bg-primary text-white shadow-2'
+                          : 'text-primary'
+                      "
                       value="Sale"
                       name="Sale"
                       label="Sale"
                     />
                     <q-tab
                       class="text-primary"
+                      :class="
+                        product.purpose == 'Both'
+                          ? 'bg-primary text-white shadow-2'
+                          : 'text-primary'
+                      "
                       value="Both"
                       name="Both"
                       label="Both"
                     />
                     <q-tab
                       class="text-primary"
+                      :class="
+                        product.purpose == 'Donate'
+                          ? 'bg-primary text-white shadow-2'
+                          : 'text-primary'
+                      "
                       value="Donate"
                       name="Donate"
                       label="Donate"
@@ -148,29 +171,33 @@
               </div>
 
               <!-- Conditions -->
-              <div class="col-12 q-py-md">
-                <div class="label-font">Conditions:</div>
-                <div class="justify-sm-between flex">
-                  <q-btn
-                    :color="product.condition == 'new' ? 'primary' : 'white'"
-                    class="q-mr-lg"
-                    @click="product.condition = 'new'"
-                    label="New"
-                    :text-color="product.condition == 'new' ? 'white' : 'black'"
-                    style="min-width: 150px"
-                    :icon-right="product.condition == 'new' ? 'check' : ''"
-                  />
-
-                  <q-btn
-                    :color="product.condition == 'used' ? 'primary' : 'white'"
-                    @click="product.condition = 'used'"
-                    :text-color="
-                      product.condition == 'used' ? 'white' : 'black'
-                    "
-                    label="Used"
-                    :icon-right="product.condition == 'used' ? 'check' : ''"
-                    style="min-width: 150px"
-                  />
+              <div class="col-12 q-self-start q-my-lg">
+                <div class="conditions">
+                  <div class="label-font">Conditions:</div>
+                  <q-tabs v-model="product.condition" class="text-teal">
+                    <q-tab
+                      class="text-primary"
+                      :class="
+                        product.condition == 'new'
+                          ? 'bg-primary text-white shadow-2'
+                          : 'text-primary'
+                      "
+                      value="new"
+                      name="new"
+                      label="New"
+                    />
+                    <q-tab
+                      class="text-primary q-mr-lg-md"
+                      :class="
+                        product.condition == 'used'
+                          ? 'bg-primary text-white shadow-2'
+                          : 'text-primary'
+                      "
+                      value="used"
+                      name="used"
+                      label="used"
+                    />
+                  </q-tabs>
                 </div>
               </div>
               <!-- Neighbourhood -->
@@ -202,7 +229,12 @@
               </div>
             </q-step>
 
-            <q-step :name="2" title="Additional Info" icon="add_comment">
+            <q-step
+              :name="2"
+              title="Additional Info"
+              icon="add_comment"
+              :done="step > 2"
+            >
               <!-- Brand  -->
               <div class="col-md-12">
                 <div class="label-font">Brand (optional)</div>
@@ -258,7 +290,13 @@
                   color="primary"
                   label="Next"
                 />
-                <q-btn v-else type="submit" color="primary" label="Submit" />
+                <q-btn
+                  v-else
+                  :disable="productStore.btnStatus == 1"
+                  type="submit"
+                  color="primary"
+                  :label="productStore.btnStatus == 1 ? 'Loading...' : 'Submit'"
+                />
 
                 <q-btn
                   v-if="step > 1"
@@ -281,7 +319,7 @@
 <script setup>
 import { useProductStore } from "src/stores/products.store";
 import { useCategoryStore } from "../stores/categories.store";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import compressImage from "../composables/useImageCompression";
 import useValidationRules from "src/composables/useValidationRules";
 import ReviewProductDetails from "../components/addProduct/reviewProductDetails.vue";
@@ -291,6 +329,7 @@ const { rules } = useValidationRules();
 const productForm = ref(null);
 const stepper = ref(null);
 const step = ref(1);
+const imageError = ref(null);
 
 const product = reactive({
   title: "Cloths",
@@ -304,22 +343,30 @@ const product = reactive({
   current_stock: 1,
   description: "This is a A+ Quality Product and up to 50% off on Every Item",
   images: [],
-  condition: "",
+  condition: "used",
   latitude: "31.4697",
   longitude: "74.2728",
   discountTil: "",
   brand: "Gul Ahmad",
   size: "6 Meters",
-  purpose: "",
+  purpose: "Rental",
 });
 
 onMounted(() => {
   categoryStore.loadCategories();
 });
 
+watch(product, (current) => {
+  if (!current.images.length) {
+    imageError.value = "At least one image must be uploaded";
+  } else {
+    imageError.value = null;
+  }
+});
+
 const goToNextStep = () => {
   productForm.value.validate().then((success) => {
-    if (success) {
+    if (success && product.images.length) {
       stepper.value.next();
     }
   });
