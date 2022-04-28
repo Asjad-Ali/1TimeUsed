@@ -13,6 +13,8 @@
       class="fit"
     >
       <q-carousel-slide
+        class="cursor-pointer"
+        @click="subcategoryPage(banner.id)"
         :name="banner.id"
         v-for="banner in banners"
         :key="banner.id"
@@ -23,11 +25,20 @@
 </template>
 
 <script setup>
+import { useCategoryStore } from "src/stores/categories.store.js";
 import { onMounted, ref } from "vue";
 import { persistData, getPersistentData } from "src/helpers/persistentHelper";
 import API from "src/services/API";
+import { useRouter } from "vue-router";
 const slide = ref();
 const banners = ref([]);
+
+const router = useRouter();
+
+const store = useCategoryStore();
+const subcategoryPage = (id) => {
+  router.push({ path: `/subcategory/${id}` });
+};
 
 onMounted(async () => {
   const dataKey = "banners";
