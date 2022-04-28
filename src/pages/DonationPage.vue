@@ -1,9 +1,8 @@
 <template>
   <div class="container">
     <div class="column q-pb-xl">
-      <h5 class="text-center">Donation Products</h5>
       <div
-        class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+        class="flex q-mt-md q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
       >
         <div
           class="q-card product-card cursor-pointer my-card"
