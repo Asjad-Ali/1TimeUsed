@@ -39,6 +39,10 @@ const router = useRouter();
 const imageBaseURL = process.env.imagesBaseURL;
 const store = useCategoryStore();
 
+onMounted(() => {
+  store.loadCategories();
+});
+
 const subcategoryPage = (title) => {
   router.push({ path: `/subcategory/${title}` });
   store.loadSubCategory(title);
