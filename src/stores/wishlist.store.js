@@ -1,10 +1,23 @@
-import { defineStore } from 'pinia'
-import { store } from 'quasar/wrappers'
-import { Notify } from 'quasar'
-import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
+import {
+  defineStore
+} from 'pinia'
+import {
+  store
+} from 'quasar/wrappers'
+import {
+  Notify
+} from 'quasar'
+import {
+  persistData,
+  getPersistentData
+} from 'src/helpers/persistentHelper'
 import API from 'src/services/API'
-import { useProductStore } from '../stores/products.store'
-import { ref } from 'vue'
+import {
+  useProductStore
+} from '../stores/products.store'
+import {
+  ref
+} from 'vue'
 
 
 const toggleFavorite = (productID, products) => {
@@ -33,7 +46,9 @@ export const useWishlistStore = defineStore("wishlistStore", {
     async addWishlist(product_id) {
       this.wishlistLoader = product_id
       const store = useProductStore()
-      const response = await API.post("wishlist", { product_id })
+      const response = await API.post("wishlist", {
+        product_id
+      })
       if (response.status == 200) {
         this.wishlistLoader = 0
         Notify.create({
@@ -68,8 +83,7 @@ export const useWishlistStore = defineStore("wishlistStore", {
       if (response.status == 200) {
         this.wishlistProduct = response.data;
         persistData('wishlist_products', response.data);
-      }
-      else {
+      } else {
         console.log("wishlist_products", response)
       }
     },
