@@ -11,7 +11,7 @@
             outline
             round
             color="primary"
-            @click="subcategoryPage(category.id)"
+            @click="subcategoryPage(category.id, category.title)"
           >
             <q-avatar size="30px">
               <img :src="`${imageBaseURL}${category.thumbnail}`" />
@@ -37,7 +37,7 @@ const imageBaseURL = process.env.imagesBaseURL;
 onMounted(() => {
   store.loadCategories();
 });
-const subcategoryPage = (id) => {
+const subcategoryPage = (id, title) => {
   router.push({ path: `/subcategory/${id}` });
   store.loadSubCategory(title);
 };

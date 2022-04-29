@@ -2,15 +2,7 @@
   <div class="container">
     <div class="row q-my-lg q-gutter-md justify-center">
       <div
-        class="
-          item
-          row
-          fit
-          justify-center
-          items-center
-          q-gutter-md q-col-gutter
-          no-wrap
-        "
+        class="item row fit justify-center items-center q-gutter-md q-col-gutter wrap"
       >
         <ProductCard
           v-for="product in store.subCategoryProduct"

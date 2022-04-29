@@ -323,7 +323,7 @@ import { onMounted, reactive, ref, watch } from "vue";
 import compressImage from "../composables/useImageCompression";
 import useValidationRules from "src/composables/useValidationRules";
 import ReviewProductDetails from "../components/addProduct/reviewProductDetails.vue";
-import router from "src/router";
+import { useRouter } from "vue-router";
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
 const { rules } = useValidationRules();
@@ -331,6 +331,7 @@ const productForm = ref(null);
 const stepper = ref(null);
 const step = ref(1);
 const imageError = ref(null);
+const router = useRouter();
 
 const product = reactive({
   title: "Cloths",
@@ -380,7 +381,7 @@ const loadSubCategory = () => {
 const submitForm = () => {
   productStore.addMyProduct(product).then((res) => {
     if (res.status == 200) {
-      router.push("/account");
+      router.push("/sell");
     }
   });
 };
