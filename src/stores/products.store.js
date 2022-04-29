@@ -5,7 +5,9 @@ import {
 // import {
 //   Cookies
 // } from 'quasar'
-
+import {
+  Notify
+} from 'quasar'
 import {
   persistData,
   getPersistentData
