@@ -1,58 +1,121 @@
 <template>
   <div class="bg-white">
-    <div class="container" :class="{ 'bg-primary': $q.screen.lt.md, 'bg-white': $q.screen.gt.sm }">
+    <div
+      class="container"
+      :class="{ 'bg-primary': $q.screen.lt.md, 'bg-white': $q.screen.gt.sm }"
+    >
       <div class="row border-bottom items-center">
         <div class="col col-md-4 text-center">
-          <q-input class="q-my-auto" dense filled outlined @focus="$router.push('/search')" label="Search Here"
-            v-if="$q.screen.gt.sm" style="max-width: 100%">
+          <q-input
+            class="q-my-auto"
+            dense
+            filled
+            outlined
+            @focus="$router.push('/search')"
+            label="Search Here"
+            v-if="$q.screen.gt.sm"
+            style="max-width: 100%"
+          >
             <template v-slot:after>
               <q-btn icon="search" size="16px" outline> </q-btn>
             </template>
           </q-input>
-
         </div>
         <div class="col-2 col-md-4 text-center">
           <router-link to="/">
-            <img :src="`https://1timeused.com/assets/img/logo/${$q.screen.lt.md ? `logo-white` : 'logo'
-            }.png`" alt="" class="brand-logo q-py-sm" />
+            <img
+              :src="`https://1timeused.com/assets/img/logo/${
+                $q.screen.lt.md ? `logo-white` : 'logo'
+              }.png`"
+              alt=""
+              class="brand-logo q-py-sm"
+            />
           </router-link>
         </div>
         <div class="col-10 col-md-4 text-center text-right">
           <div>
-            <q-btn :size="$q.screen.lt.md ? 'sm' : `md`" class="q-mr-md" round color="primary" glossy icon="mail"
-              @click="$router.push('/chat')">
+            <q-btn
+              :size="$q.screen.lt.md ? 'sm' : `md`"
+              class="q-mr-md"
+              round
+              color="primary"
+              glossy
+              icon="mail"
+              @click="$router.push('/chat')"
+            >
               <q-badge color="red" floating>2</q-badge>
             </q-btn>
-            <q-btn :size="$q.screen.lt.md ? 'sm' : `md`" class="q-mr-md" round color="primary" glossy
-              icon="notifications" @click="$router.push('/notifications')">
+            <q-btn
+              :size="$q.screen.lt.md ? 'sm' : `md`"
+              class="q-mr-md"
+              round
+              color="primary"
+              glossy
+              icon="notifications"
+              @click="$router.push('/notifications')"
+            >
               <q-badge color="red" floating>100+</q-badge>
             </q-btn>
-            <q-btn :size="$q.screen.lt.md ? 'sm' : `md`" class="q-mr-md" round color="primary" glossy icon="search"
-              @click="$router.push('/search')" />
+            <q-btn
+              round
+              color="primary"
+              icon="category"
+              size="md"
+              class="q-mr-md desktop-only"
+              @click="$router.push('/category')"
+            />
+            <q-btn
+              :size="$q.screen.lt.md ? 'sm' : `md`"
+              class="q-mr-md"
+              round
+              color="primary"
+              glossy
+              icon="search"
+              @click="$router.push('/search')"
+            />
 
             <q-avatar class="cursor-pointer desktop-only">
-              <img :src="
-                profile
-                  ? imageBaseURL + profile.photo
-                  : `https://www.w3schools.com/w3images/avatar2.png`
-              " alt="img" style="object-fit: cover" />
-              <q-menu transition-show="scale" transition-hide="scale" class="gt-sm">
+              <img
+                :src="
+                  profile
+                    ? imageBaseURL + profile.photo
+                    : `https://www.w3schools.com/w3images/avatar2.png`
+                "
+                alt="img"
+                style="object-fit: cover"
+              />
+              <q-menu
+                transition-show="scale"
+                transition-hide="scale"
+                class="gt-sm"
+              >
                 <q-list style="min-width: 200px">
                   <q-item clickable>
-                    <q-item-section class="flex" @click="$router.push('/account')">
-                      Account</q-item-section>
+                    <q-item-section
+                      class="flex"
+                      @click="$router.push('/account')"
+                    >
+                      Account</q-item-section
+                    >
                   </q-item>
                   <q-item clickable>
-                    <q-item-section v-if="profile" @click="$router.push('/account_setting')">
-                      Account Settings</q-item-section>
+                    <q-item-section
+                      v-if="profile"
+                      @click="$router.push('/account_setting')"
+                    >
+                      Account Settings</q-item-section
+                    >
                     <q-item-section v-else @click="$router.push('/login')">
-                      Account Settings</q-item-section>
+                      Account Settings</q-item-section
+                    >
                   </q-item>
 
                   <q-separator />
                   <q-item clickable>
-                    <q-item-section @click="handleLogout()">Sign
-                      {{ authStore.authUser ? "Out" : "In" }}</q-item-section>
+                    <q-item-section @click="handleLogout()"
+                      >Sign
+                      {{ authStore.authUser ? "Out" : "In" }}</q-item-section
+                    >
                   </q-item>
                 </q-list>
               </q-menu>

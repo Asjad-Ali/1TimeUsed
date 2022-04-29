@@ -128,7 +128,7 @@
           </div>
           <q-separator />
           <div class="title q-pt-sm">
-            <div class="text-h6 ellipsis common-size">Product Details</div>
+            <div class="text-h6 ellipsis common-size">Description</div>
             <p class="text-grey common-size">
               {{ product.description }}
             </p>
@@ -179,7 +179,11 @@
         </q-card>
       </div>
       <div class="col-12 col-md-6 q-pa-sm">
-        <q-card class="top-card q-px-md q-mb-md" flat bordered>
+        <q-card
+          class="top-card q-px-md q-mb-md related-product-card"
+          flat
+          bordered
+        >
           <div class="text-h6 q-my-md">Related Products</div>
 
           <div class="row">
@@ -293,6 +297,12 @@ useMeta({
 .common-size {
   @media screen and (max-width: $breakpoint-sm-max) {
     font-size: 12px;
+  }
+}
+.q-card.related-product-card {
+  @media screen and (max-width: $breakpoint-sm-max) {
+    text-align: center;
+    padding: 0;
   }
 }
 </style>
