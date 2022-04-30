@@ -54,10 +54,11 @@ const subCategoryProduct = (id) => {
 <style scoped lang="scss">
 .categories {
   background: #fff;
+
   ul {
     li {
       a {
-        padding: 10px 10px;
+        padding: 5px 10px;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         color: #25262a;

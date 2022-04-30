@@ -32,8 +32,8 @@
         </div>
       </q-avatar>
 
-      <div class="text-h6 text-center q-pt-sm">{{ userName }}</div>
-      <div class="email text-grey">{{ userEmail || userPhone }}</div>
+      <!-- <div class="text-h6 text-center q-pt-sm">{{ userName }}</div>
+      <div class="email text-grey">{{ userEmail || userPhone }}</div> -->
 
       <div class="flex justify-center items-center w-100">
         <div class="q-pa-md account-tab">
@@ -101,9 +101,9 @@ const imageBaseURL = process.env.imagesBaseURL;
 const { rules } = useValidationRules();
 const authStore = useAuthStore();
 const profile = ref(authStore.authUser);
-const userName = ref(profile.value.name);
-const userEmail = ref(profile.value.email);
-const userPhone = ref(profile.value.phone);
+// const userName = ref(profile.value.name);
+// const userEmail = ref(profile.value.email);
+// const userPhone = ref(profile.value.phone);
 const accept = ref(false);
 const imageBase64 = ref(null);
 
@@ -138,11 +138,11 @@ const handleProfileImage = (e) => {
 const update_profile = async () => {
   console.log("profileDAta: ", profile.value);
   const response = await authStore.updateProfile(profile.value);
-  if (response.status == 200) {
-    userName.value = profile.value.name;
-    userEmail.value = profile.value.email;
-    userPhone.value = profile.value.phone;
-  }
+  // if (response.status == 200) {
+  //   userName.value = profile.value.name;
+  //   userEmail.value = profile.value.email;
+  //   userPhone.value = profile.value.phone;
+  // }
 };
 </script>
 
