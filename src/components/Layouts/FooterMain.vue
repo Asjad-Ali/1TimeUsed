@@ -17,8 +17,8 @@
             </div>
           </h6>
           <p>
-            Here you can use rows and columns to organize your footer content.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            On 1timeused app you are able to sell your old and new clothes,
+            shoes, jewellery and any other accessories or equipments.
           </p>
         </div>
         <!-- Grid column -->
@@ -28,16 +28,30 @@
           <!-- Links -->
           <h6 class="text-uppercase fw-bold">Products</h6>
           <p>
-            <a href="#" class="text-reset">Angular</a>
+            <a class="text-reset cursor-pointer" @click="$router.push('/')"
+              >Home</a
+            >
           </p>
           <p>
-            <a href="#" class="text-reset">React</a>
+            <a
+              class="text-reset cursor-pointer"
+              @click="$router.push('/category')"
+              >Category</a
+            >
           </p>
           <p>
-            <a href="#" class="text-reset">Vue</a>
+            <a
+              class="text-reset cursor-pointer"
+              @click="$router.push('/wishlist')"
+              >Wishlist</a
+            >
           </p>
           <p>
-            <a href="#" class="text-reset">Laravel</a>
+            <a
+              class="text-reset cursor-pointer"
+              @click="$router.push('/suggestion')"
+              >Suggestion</a
+            >
           </p>
         </div>
         <!-- Grid column -->
@@ -47,16 +61,26 @@
           <!-- Links -->
           <h6 class="text-uppercase fw-bold">Useful links</h6>
           <p>
-            <a href="#" class="text-reset">Pricing</a>
+            <a class="text-reset cursor-pointer" @click="$router.push('/sell')"
+              >Sell</a
+            >
           </p>
           <p>
-            <a href="#" class="text-reset">Settings</a>
+            <a
+              class="text-reset cursor-pointer"
+              @click="$router.push('/donation')"
+              >Donate</a
+            >
           </p>
           <p>
-            <a href="#" class="text-reset">Orders</a>
+            <a
+              class="text-reset cursor-pointer"
+              @click="$router.push('/account')"
+              >Profile</a
+            >
           </p>
           <p>
-            <a href="#" class="text-reset">Help</a>
+            <a class="text-reset cursor-pointer">Help</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -65,10 +89,10 @@
         <div class="col-3 mx-auto mb-md-0">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold">Contact</h6>
-          <p><q-icon name="home" /> New York, NY 10012, US</p>
+          <p><q-icon name="home" /> Johar Town Lahore</p>
           <p>
             <q-icon name="email" />
-            info@example.com
+            info@1timeused.com
           </p>
           <p><q-icon name="call" />+ 01 234 567 88</p>
           <p><q-icon name="print" /> + 01 234 567 89</p>
@@ -85,8 +109,8 @@
       class="text-center copy-right"
       style="background-color: rgba(0, 0, 0, 0.05)"
     >
-      © 2021 Copyright:
-      <a class="text-reset fw-bold" href="#">1timeused.com</a>
+      © 2022 Copyright:
+      <a class="text-reset fw-bold">1timeused.com</a>
     </div>
     <!-- Copyright -->
   </footer>
