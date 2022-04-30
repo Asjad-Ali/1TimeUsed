@@ -171,10 +171,20 @@
             class="w-100 q-my-md"
           />
 
-          <div class="show-number text-center">
+          <div v-show="product.seller.phone" class="show-number text-center">
             <q-icon name="call" color="primary" />
-            *********
-            <a href="#" class="underline-none text-grey">Show Number</a>
+            <span
+              @click="togglePhone = !togglePhone"
+              v-show="togglePhone"
+              class="cursor-pointer"
+              >{{ product.seller.phone }}</span
+            >
+            <a
+              @click="togglePhone = !togglePhone"
+              v-show="!togglePhone"
+              class="underline-none text-grey cursor-pointer"
+              >********* Show Number</a
+            >
           </div>
         </q-card>
       </div>
@@ -233,6 +243,8 @@ const productStore = useProductStore();
 const product = computed(() => productStore.loadedProduct);
 const slide = ref(0);
 const fullscreen = ref(false);
+
+const togglePhone = ref(false);
 
 useMeta({
   title: `${product.value.title} - 1timeused`,
