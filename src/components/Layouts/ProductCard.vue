@@ -1,4 +1,3 @@
-
 <template>
   <q-card
     class="product-card cursor-pointer my-card"
@@ -37,7 +36,10 @@
       </q-btn>
       <div @click="ProductDetail(product)">
         <p class="ellipsis text-subtitle2 mobile-font">{{ product.title }}</p>
-        <p class="prise text-center">RS:{{ product.price }}</p>
+        <p v-if="product.price" class="prise text-center">
+          RS:{{ product.price }}
+        </p>
+        <p v-else class="prise text-center">FREE</p>
       </div>
 
       <div @click="ProductDetail(product)" class="flex justify-between">
@@ -108,7 +110,6 @@ const getAddress = (address) => {
   return address;
 };
 </script>
-
 
 <style lang="scss" scoped>
 .img-holder {
