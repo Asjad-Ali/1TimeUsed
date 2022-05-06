@@ -130,11 +130,29 @@
           <div class="title q-pt-sm">
             <div class="text-h6 ellipsis common-size">Description</div>
             <p class="text-grey common-size">
-              {{ product.description }}
+              {{ product.description.substr(0, 28) }}
             </p>
           </div>
-          <div class="title">
-            <div class="text-h6 ellipsis common-size">More</div>
+          <div class="title q-pb-sm">
+            <span v-show="toggleText"
+              >{{ product.description.substr(28) }} <br />
+              <a
+                @click="toggleText = !toggleText"
+                class="text-h6 ellipsis common-size cursor-pointer"
+              >
+                <u>Less</u><q-icon name="expand_less" />
+              </a>
+            </span>
+            <a
+              @click="toggleText = !toggleText"
+              v-show="!toggleText"
+              class="text-h6 ellipsis common-size cursor-pointer"
+              ><u>More</u><q-icon name="expand_more" />
+            </a>
+            <!-- <a class="text-h6 ellipsis common-size" @click="myFunction()">
+              <u> More </u>
+            </a> -->
+            <!-- <div id="myDIV">{{ product.description.substr(35) }}</div> -->
           </div>
         </q-card>
 
@@ -198,12 +216,7 @@
 
           <div class="row">
             <div
-              class="
-                flex
-                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-                justify-center
-                items-center
-              "
+              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
             >
               <ProductCard
                 class="q-my-md"
@@ -245,6 +258,16 @@ const slide = ref(0);
 const fullscreen = ref(false);
 
 const togglePhone = ref(false);
+const toggleText = ref(false);
+
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
 
 useMeta({
   title: `${product.value.title} - 1timeused`,
