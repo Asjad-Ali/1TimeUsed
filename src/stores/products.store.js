@@ -125,6 +125,7 @@ export const useProductStore = defineStore('productsStore ', {
       const response = await API.formData('seller/products', product);
       if (response.status == 200) {
         this.btnStatus = 0
+        this.myProducts = response.data;
         Notify.create({
           message: "Product added successfully",
           icon: 'done',
