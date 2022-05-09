@@ -42,7 +42,7 @@
     <div class="item row justify-center items-center wrap">
       <q-spinner
         v-if="store.loadingStatus"
-        class="q-mt-xl"
+        class="absolute-center"
         color="primary"
         size="3em"
       />
