@@ -260,15 +260,6 @@ const fullscreen = ref(false);
 const togglePhone = ref(false);
 const toggleText = ref(false);
 
-function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-
 useMeta({
   title: `${product.value.title} - 1timeused`,
 
