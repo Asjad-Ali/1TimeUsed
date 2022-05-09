@@ -1,4 +1,6 @@
-import { defineStore } from 'pinia'
+import {
+  defineStore
+} from 'pinia'
 import {
   getFirestore,
   collection,
@@ -30,7 +32,7 @@ export const useChatStore = defineStore('chat', {
   actions: {
     async lookForConversationChanges() {
       this.conversationLoadingStatus = "LOADING";
-      if (!this.areConversationListAlreadyLoaded) {
+      if (!this.areConversationsLoaded) {
 
         const db = getFirestore();
         const user = this.$cookies.get('AUTH_USER');
@@ -41,10 +43,14 @@ export const useChatStore = defineStore('chat', {
           orderBy("createdAt", "desc")
         );
 
-    /*const unsubscribe = */ onSnapshot(q, (snapshot) => {
+        /*const unsubscribe = */
+        onSnapshot(q, (snapshot) => {
           snapshot.docChanges().forEach((change) => {
             const id = change.doc.id;
-            const conversation = { id, ...change.doc.data() };
+            const conversation = {
+              id,
+              ...change.doc.data()
+            };
             if (change.type === "added") {
               console.log("added Conversation: ", conversation);
               this.conversations.push(conversation);
