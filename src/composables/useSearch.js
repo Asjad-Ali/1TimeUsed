@@ -1,5 +1,11 @@
 import API from "src/services/API";
-import { ref } from "vue";
+import {
+  ref
+} from "vue";
+import {
+  useProductStore
+} from 'src/stores/products.store'
+const store = useProductStore();
 
 export default function useSearch() {
 
@@ -33,8 +39,7 @@ export default function useSearch() {
       if (val) {
         const response = await API.get(`searchSuggestions?q=${val}`)
         searchSuggestions.value = response.data.map(search => search.keyword);
-      }
-      else {
+      } else {
         searchSuggestions.value = getLocalSearchHistory();
       }
     });
@@ -42,8 +47,10 @@ export default function useSearch() {
 
 
   const searchProducts = async () => {
+    store.loadingStatus = true;
     const query = search.value || searchVal;
     const response = await API.get(`search?q=${query}`);
+    store.loadingStatus = false;
     searchResults.value = response.data;
     if (response.data) {
       addToLocalSearchHistory(query)

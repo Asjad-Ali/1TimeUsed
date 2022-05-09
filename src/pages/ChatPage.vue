@@ -40,11 +40,22 @@
 <script setup>
 import { onMounted } from "vue";
 import { useChatStore } from "src/stores/chat.store";
+import { useAuthStore } from "src/stores/auth.store";
+import useFirebaseAuth from "src/composables/useFirebaseAuth";
 import ConversationsSection from "src/components/Chat/ConversationsSection.vue";
 import ChatInput from "src/components/Chat/ChatInput.vue";
+import { useRouter } from "vue-router";
 const chatStore = useChatStore();
-
+const authStore = useAuthStore();
+const { loginAnonymously } = useFirebaseAuth();
+const router = useRouter();
 onMounted(() => {
+  if (!authStore.authUser) {
+    router.push("/login");
+  }
+  if (!authStore.isUserAuthenticatedOnFirebase) {
+    loginAnonymously();
+  }
   chatStore.lookForConversationChanges();
 });
 </script>

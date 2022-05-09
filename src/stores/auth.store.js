@@ -7,6 +7,11 @@ import {
 } from 'quasar'
 import API from 'src/services/API';
 import redirect from 'src/helpers/redirect';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "firebase/auth";
 
 const getDeviceId = () => {
   const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -22,7 +27,9 @@ export const useAuthStore = defineStore('authStore', {
     authUser: null,
     authToken: null,
     deviceId: null,
-    forgotEmail: null
+    forgotEmail: null,
+    isUserAuthenticatedOnFirebase: false,
+    firebaseUser: null,
   }),
   // getters: {
   //   getAuthUser(state) {
@@ -98,6 +105,19 @@ export const useAuthStore = defineStore('authStore', {
       this.authUser = this.$cookies.get('AUTH_USER')
     },
 
+    loadFirebaseAuth() {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          this.firebaseUser = user;
+          this.isUserAuthenticatedOnFirebase = true;
+        } else {
+          this.isUserAuthenticatedOnFirebase = false;
+        }
+      });
+    },
+
     async updateProfile(creds) {
       creds._method = "PUT";
       const response = await API.formData('profile', creds);
@@ -146,7 +166,6 @@ export const useAuthStore = defineStore('authStore', {
         this.$cookies.set('1TIMEUSED_TOKEN', response.data.token);
         redirect('/');
       } else {
-        console.log(response.message);
         Notify.create({
           message: response.message,
           icon: 'warning',
@@ -180,7 +199,6 @@ export const useAuthStore = defineStore('authStore', {
         this.$cookies.set('1TIMEUSED_TOKEN', response.data.token);
         redirect('/');
       } else {
-        console.log(response.message);
         Notify.create({
           message: response.message,
           icon: 'warning',
@@ -243,9 +261,19 @@ export const useAuthStore = defineStore('authStore', {
     },
 
     async logout() {
-      this.$cookies.remove('AUTH_USER');
-      this.$cookies.remove('1TIMEUSED_TOKEN');
-      redirect('/login');
+      const auth = getAuth();
+
+      //log out from firebase
+      signOut(auth)
+        .then(() => {
+          console.log('Signed Out Successfully');
+          this.$cookies.remove('AUTH_USER');
+          this.$cookies.remove('1TIMEUSED_TOKEN');
+          redirect('/login');
+        })
+        .catch((error) => {
+          console.log('error while logging out')
+        });
     },
   }
 })

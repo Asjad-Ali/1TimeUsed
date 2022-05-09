@@ -86,7 +86,11 @@
 
 <script setup>
 import { defineProps, ref, toRefs } from "vue";
+import { useRouter } from "vue-router";
+import { useProductStore } from "src/stores/products.store";
+const router = useRouter();
 const imageBaseURL = process.env.imagesBaseURL;
+const productStore = useProductStore();
 const props = defineProps({
   product: Object,
 });

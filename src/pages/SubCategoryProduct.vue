@@ -40,7 +40,14 @@
     </div>
 
     <div class="item row justify-center items-center wrap">
+      <q-spinner
+        v-if="store.loadingStatus"
+        class="q-mt-xl"
+        color="primary"
+        size="3em"
+      />
       <div
+        v-else
         v-for="product in store.subCategoryProduct"
         :key="product"
         class="q-ma-sm"

@@ -17,9 +17,9 @@
           use-input
           hide-selected
           fill-input
-          input-debounce="400"
           dense
           @update:model-value="searchProducts"
+          debounce="400"
           label="Search Here"
           @filter="getSearchSuggestions"
           :options="searchSuggestions"
@@ -60,14 +60,16 @@
     <div class="container flex justify-center items-center">
       <div class="column q-mt-md">
         <div
-          class="
-            flex
-            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-            justify-center
-            items-center
-          "
+          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
         >
+          <q-spinner
+            v-if="store.loadingStatus"
+            color="primary"
+            class="q-mt-xl"
+            size="3em"
+          />
           <ProductCard
+            v-else
             v-for="product in searchResults"
             :key="product.id"
             :product="product"
@@ -81,10 +83,13 @@
   </div>
 </template>
 
- <script setup>
+<script setup>
 import { onMounted, ref } from "vue";
 import ProductCard from "src/components/ProductCard.vue";
 import useSearch from "../composables/useSearch";
+import { useProductStore } from "../stores/products.store";
+
+const store = useProductStore();
 const model = ref(null);
 const searchInput = ref();
 

@@ -4,8 +4,6 @@ import {
 // import {
 //   getAnalytics
 // } from "firebase/analytics";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyD___g4E1-hrejER1ucPQAfoMBJ1bRlXQ4",
@@ -22,30 +20,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
 //const db = getFirestore(app);
-
-
-
-//Authenticate user
-const auth = getAuth();
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("Logged in", user);
-    const uid = user.uid;
-    // ...
-  } else {
-    console.log('Logged Out')
-    signInAnonymously(auth)
-      .then(() => {
-        console.log('signedIN')
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage)
-      });
-  }
-});
 
 
 const firebase = {
