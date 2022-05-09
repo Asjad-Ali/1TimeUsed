@@ -74,10 +74,6 @@ const routes = [{
     }
   },
   {
-    path: '/grid',
-    component: () => import('src/pages/GridProduct.vue')
-  },
-  {
     path: '/sell',
     component: () => import('src/pages/SellPage.vue'),
     meta: {

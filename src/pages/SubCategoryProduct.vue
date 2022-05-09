@@ -5,12 +5,16 @@
         <div class="col text-center border-right">
           <q-icon
             name="format_list_bulleted"
+            @click="viewType = 'tile'"
             :size="$q.screen.lt.md ? 'sm' : `md`"
+            :color="viewType != 'grid' ? 'primary' : 'black'"
             class="icons"
           />
         </div>
         <div class="col text-center border-right">
           <q-icon
+            :color="viewType == 'grid' ? 'primary' : 'black'"
+            @click="viewType = 'grid'"
             name="grid_view"
             :size="$q.screen.lt.md ? 'sm' : `md`"
             class="icons"
@@ -34,37 +38,34 @@
         </div>
       </div>
     </div>
-    <div class="row q-my-lg q-gutter-md justify-center">
+
+    <div class="item row justify-center items-center wrap">
       <div
-        class="
-          item
-          row
-          fit
-          justify-center
-          items-center
-          q-gutter-md q-col-gutter
-          wrap
-        "
+        v-for="product in store.subCategoryProduct"
+        :key="product"
+        class="q-ma-sm"
       >
         <ProductCard
-          v-for="product in store.subCategoryProduct"
-          :key="product"
+          v-if="viewType == 'grid'"
           :product="product"
           mainDIv="recent-products"
         />
+        <TileProduct v-else :product="product" mainDIv="recent-products" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "@vue/runtime-core";
-import ProductCard from "src/components/Layouts/ProductCard.vue";
+import { onMounted, ref } from "@vue/runtime-core";
+import ProductCard from "src/components/ProductCard.vue";
 import { useRoute } from "vue-router";
 import { useProductStore } from "../stores/products.store";
+import TileProduct from "../components/TileProduct.vue";
 
 const store = useProductStore();
 const route = useRoute();
+const viewType = ref("grid");
 onMounted(() => store.loadSubCategoryProduct(route.params.id));
 </script>
 

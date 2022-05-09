@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import ProductCard from "src/components/Layouts/ProductCard.vue";
+import ProductCard from "src/components/ProductCard.vue";
 import { useProductStore } from "../../stores/products.store.js";
 
 const store = useProductStore();

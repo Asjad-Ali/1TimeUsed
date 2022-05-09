@@ -51,8 +51,8 @@ export default function useFirebaseAuth() {
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
 
-        //const authStore = useAuthStore();
-        //authStore.loginWithFacebook(accessToken);
+        const authStore = useAuthStore();
+        authStore.loginWithFacebook(accessToken);
       })
       .catch((error) => {
         // Handle Errors here.

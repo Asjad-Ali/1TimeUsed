@@ -11,7 +11,10 @@
         />
       </q-card-section>
       <q-card-section>
-        <div class="text-h6 q-mt-md ellipsis" style="font-size: 12px">
+        <div
+          class="text-h6 q-mt-md ellipsis mobile-font"
+          style="font-size: 12px"
+        >
           {{ product.title }}
         </div>
         <div class="text-caption text-grey ellipsis">
@@ -121,12 +124,8 @@ const getAddress = (address) => {
 };
 
 const confirm = ref(false);
-const alert = ref(false);
 const shape = ref("line");
 const small = ref(false);
-const medium = ref(false);
-const fullWidth = ref(false);
-const fullHeight = ref(false);
 </script>
 <style lang="scss" scoped>
 .my-card {
@@ -144,6 +143,11 @@ const fullHeight = ref(false);
   .my-card {
     max-width: 317px;
     overflow: hidden;
+  }
+}
+@media (max-width: $breakpoint-sm-max) {
+  .mobile-font {
+    font-size: 10px;
   }
 }
 </style>

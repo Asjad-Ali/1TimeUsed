@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup>
-import ProductCardTile from "../components/Layouts/ProductCardTile.vue";
+import ProductCardTile from "../components/ProductCardTile.vue";
 import { onMounted, ref } from "vue";
 import { useProductStore } from "../stores/products.store";
 

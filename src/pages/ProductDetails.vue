@@ -216,7 +216,12 @@
 
           <div class="row">
             <div
-              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+              class="
+                flex
+                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+                justify-center
+                items-center
+              "
             >
               <ProductCard
                 class="q-my-md"
@@ -248,7 +253,7 @@ export default {
 <script setup>
 import { ref, computed } from "vue";
 import { useMeta } from "quasar";
-import ProductCard from "src/components/Layouts/ProductCard.vue";
+import ProductCard from "src/components/ProductCard.vue";
 
 // const imageBaseURL = "https://1timeused.com/";
 const imageBaseURL = process.env.imagesBaseURL;

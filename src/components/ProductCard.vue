@@ -65,8 +65,8 @@
 </template>
 
 <script setup>
-import { useWishlistStore } from "../../stores/wishlist.store";
-import { useProductStore } from "../../stores/products.store";
+import { useWishlistStore } from "../stores/wishlist.store";
+import { useProductStore } from "../stores/products.store";
 import { defineProps, toRefs } from "vue";
 import { useRouter } from "vue-router";
 const imageBaseURL = process.env.imagesBaseURL;

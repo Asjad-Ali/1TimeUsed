@@ -24,7 +24,7 @@
 
 <script setup>
 import { onMounted } from "@vue/runtime-core";
-import ProductCard from "src/components/Layouts/ProductCard.vue";
+import ProductCard from "src/components/ProductCard.vue";
 import { useWishlistStore } from "../stores/wishlist.store";
 
 const store = useWishlistStore();

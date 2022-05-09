@@ -83,7 +83,7 @@
 
  <script setup>
 import { onMounted, ref } from "vue";
-import ProductCard from "src/components/Layouts/ProductCard.vue";
+import ProductCard from "src/components/ProductCard.vue";
 import useSearch from "../composables/useSearch";
 const model = ref(null);
 const searchInput = ref();
