@@ -7,11 +7,11 @@
     </div>
 
     <div
-      v-if="store.wishlistProduct.length"
+      v-if="store.wishlistProducts.length"
       class="q-pa-md row items-start q-gutter-md justify-center"
     >
       <ProductCard
-        v-for="product in store.wishlistProduct"
+        v-for="product in store.wishlistProducts"
         :key="product"
         :product="product"
       />
@@ -29,8 +29,7 @@ import { useWishlistStore } from "../stores/wishlist.store";
 
 const store = useWishlistStore();
 
-onMounted(() => store.loadWishlistProducts());
+onMounted(() => store.loadwishlistProducts());
 </script>
 
-<style>
-</style>
+<style></style>

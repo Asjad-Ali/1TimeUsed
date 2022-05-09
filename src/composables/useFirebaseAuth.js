@@ -2,7 +2,8 @@ import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
-  FacebookAuthProvider
+  FacebookAuthProvider,
+  signInAnonymously
 } from "firebase/auth";
 
 import {
@@ -11,6 +12,20 @@ import {
 
 
 export default function useFirebaseAuth() {
+
+
+  const loginAnonymously = () => {
+    const auth = getAuth();
+    signInAnonymously(auth)
+      .then(() => {
+        console.log('signedIN')
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage)
+      });
+  }
 
   const loginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -68,6 +83,7 @@ export default function useFirebaseAuth() {
   }
 
   return {
+    loginAnonymously,
     loginWithGoogle,
     loginWithFacebook
   };

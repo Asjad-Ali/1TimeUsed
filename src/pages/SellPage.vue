@@ -39,7 +39,7 @@ const store = useProductStore();
 onMounted(() => store.loadMyProducts());
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 .add-button {
   position: absolute;
   position: fixed;
@@ -47,6 +47,3 @@ onMounted(() => store.loadMyProducts());
   bottom: 10%;
 }
 </style>
-
-
-

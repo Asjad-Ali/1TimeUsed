@@ -33,7 +33,7 @@ const toggleFavorite = (productID, products) => {
 export const useWishlistStore = defineStore("wishlistStore", {
 
   state: () => ({
-    wishlistProduct: {},
+    wishlistProducts: [],
     wishlistLoader: 0
   }),
 
@@ -58,30 +58,31 @@ export const useWishlistStore = defineStore("wishlistStore", {
           color: 'positive',
         })
         store.recentProducts = toggleFavorite(product_id, store.recentProducts)
+        store.donateProducts = toggleFavorite(product_id, store.donateProducts)
         store.featuredProducts = toggleFavorite(product_id, store.featuredProducts)
-        this.wishlistProduct = this.wishlistProduct.filter(pro => pro.id != product_id)
+        this.wishlistProducts = this.wishlistProducts.filter(pro => pro.id != product_id)
 
-        persistData('wishlist_products', this.wishlistProduct);
+        persistData('wishlist_products', this.wishlistProducts);
         persistData('viewed_products', store.recentProducts);
         persistData('featured_products', store.featuredProducts);
       }
 
     },
 
-    async loadWishlistProducts() {
-      if (this.wishlistProduct.length) {
+    async loadwishlistProducts() {
+      if (this.wishlistProducts.length) {
         return;
       }
 
-      const wishlistProduct = getPersistentData('wishlist_products', 2);
-      if (wishlistProduct) {
-        this.wishlistProduct = wishlistProduct;
+      const wishlistProducts = getPersistentData('wishlist_products', 2);
+      if (wishlistProducts) {
+        this.wishlistProducts = wishlistProducts;
         return;
       }
 
       const response = await API.get('wishlist');
       if (response.status == 200) {
-        this.wishlistProduct = response.data;
+        this.wishlistProducts = response.data;
         persistData('wishlist_products', response.data);
       }
     },

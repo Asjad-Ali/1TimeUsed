@@ -25,9 +25,10 @@ export const useProductStore = defineStore('productsStore ', {
     subCategoryProduct: [],
     myProducts: [],
     loadedProduct: null,
-    searchProduct: '',
+    searchProducts: [],
     donateProducts: [],
-    btnStatus: 0
+    btnStatus: 0,
+    loadingStatus: false
   }),
 
   getters: {},
@@ -75,7 +76,9 @@ export const useProductStore = defineStore('productsStore ', {
       }
     },
     async loadSubCategoryProduct(id) {
+      this.loadingStatus = true;
       const response = await API.get(`sub_categories/${id}/products`);
+      this.loadingStatus = false;
       if (response.status == 200) {
         this.subCategoryProduct = response.data;
       } else {
@@ -115,7 +118,7 @@ export const useProductStore = defineStore('productsStore ', {
     async loadSearchProduct(product) {
       const response = await API.get(`search?sort=&q=${product}`);
       if (response.status == 200) {
-        this.searchProduct = response.data
+        this.searchProducts = response.data
       }
       return response;
     },
@@ -143,8 +146,15 @@ export const useProductStore = defineStore('productsStore ', {
       return response;
     },
 
-    async loadDonateProducts() {
-      const response = await API.get(`donateproducts`);
+    async loadDonateProducts(searchQuery = '') {
+      this.loadingStatus = true;
+      let path = 'donateproducts';
+      if (searchQuery) {
+        path += `?q=${searchQuery}`;
+      }
+
+      const response = await API.get(path);
+      this.loadingStatus = false;
       if (response.status == 200) {
         this.donateProducts = response.data
       }

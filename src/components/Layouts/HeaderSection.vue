@@ -82,15 +82,7 @@
             />
 
             <q-avatar class="cursor-pointer desktop-only">
-              <img
-                :src="
-                  profile
-                    ? imageBaseURL + profile.photo
-                    : `https://www.w3schools.com/w3images/avatar2.png`
-                "
-                alt="img"
-                style="object-fit: cover"
-              />
+              <img :src="profilePhoto" alt="img" style="object-fit: cover" />
               <q-menu
                 transition-show="scale"
                 transition-hide="scale"
@@ -135,6 +127,7 @@
 </template>
 
 <script setup>
+import { computed } from "@vue/runtime-core";
 import { useAuthStore } from "src/stores/auth.store";
 
 const imageBaseURL = process.env.imagesBaseURL;
@@ -144,6 +137,13 @@ const profile = authStore.authUser;
 function handleLogout() {
   authStore.logout();
 }
+
+const profilePhoto = computed(() => {
+  if (profile) return imageBaseURL + profile.photo;
+  else if (authStore.firebaseUser && authStore.firebaseUser.photoURL)
+    return authStore.firebaseUser.photoURL;
+  else return `https://www.w3schools.com/w3images/avatar2.png`;
+});
 </script>
 
 <style lang="scss" scoped>

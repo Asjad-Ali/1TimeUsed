@@ -14,7 +14,8 @@
             class="text-h6 q-mt-md ellipsis"
             style="font-size: 12px"
           >
-            {{ product.title }}
+            {{ product.title.substr(0, 20) }}
+            {{ product.title.length > 20 ? "..." : "" }}
           </div>
           <p v-if="product.price" class="text-caption text-grey ellipsis">
             RS:{{ product.price }}
@@ -113,13 +114,9 @@ const getAddress = (address) => {
 };
 </script>
 
-
 <style lang="scss" scoped>
 .my-card {
   width: 350px;
   max-width: 350px;
 }
 </style>
-
-
-

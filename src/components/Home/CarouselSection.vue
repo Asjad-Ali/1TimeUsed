@@ -28,14 +28,14 @@
 import { useCategoryStore } from "src/stores/categories.store.js";
 import { onMounted, ref } from "vue";
 import { persistData, getPersistentData } from "src/helpers/persistentHelper";
+
 import API from "src/services/API";
 import { useRouter } from "vue-router";
 const slide = ref();
 const banners = ref([]);
-
 const router = useRouter();
-
 const store = useCategoryStore();
+
 const subcategoryPage = (id) => {
   router.push({ path: `/subcategory/${id}` });
 };

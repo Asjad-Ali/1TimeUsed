@@ -49,7 +49,7 @@ const imageBaseURL = process.env.imagesBaseURL;
 const router = useRouter();
 const authStore = useAuthStore();
 const profile = ref(authStore.authUser);
-onMounted(() => store.loadWishlistProducts());
+onMounted(() => store.loadwishlistProducts());
 const menus = ref([
   {
     title: "Wishlist",

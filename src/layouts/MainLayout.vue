@@ -27,11 +27,15 @@ export default {
 </script>
 
 <script setup>
-import { defineComponent } from "vue";
+import { onMounted } from "vue";
 import HeaderSection from "src/components/Layouts/HeaderSection.vue";
 import SecondaryMobileHeader from "src/components/Layouts/SecondaryMobileHeader.vue";
 import BottomNav from "../components/Layouts/BottomNav.vue";
 import FooterMain from "../components/Layouts/FooterMain.vue";
 import CategoriesSection from "src/components/CategoriesSection.vue";
 import MobileCategoriesSection from "src/components/MobileCategoriesSection.vue";
+const authStore = useAuthStore();
+onMounted(() => {
+  authStore.loadFirebaseAuth();
+});
 </script>

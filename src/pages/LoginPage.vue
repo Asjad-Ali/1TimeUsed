@@ -5,23 +5,41 @@
         <div>
           <img src="../../public/images/img_splash_logo.png" width="200" />
         </div>
-        <q-form ref="loginForm" @submit.prevent="onSubmit" class="flex justify-center items-center w-100" greedy>
+        <q-form
+          ref="loginForm"
+          @submit.prevent="onSubmit"
+          class="flex justify-center items-center w-100"
+          greedy
+        >
           <div class="q-pa-md account-tab">
-            <q-input v-model="credentials.email" label="Enter Your Email" class="q-mb-md"
-              :rules="[rules.required, rules.email]" clearable>
+            <q-input
+              v-model="credentials.email"
+              label="Enter Your Email"
+              class="q-mb-md"
+              :rules="[rules.required, rules.email]"
+              clearable
+            >
               <template v-slot:prepend>
                 <q-icon name="person" />
               </template>
             </q-input>
 
-            <q-input v-model="credentials.password" :type="isPwd ? 'password' : 'text'" label="Enter Your Password"
-              :rules="[rules.required, rules.password]" clearable>
+            <q-input
+              v-model="credentials.password"
+              :type="isPwd ? 'password' : 'text'"
+              label="Enter Your Password"
+              :rules="[rules.required, rules.password]"
+              clearable
+            >
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>
               <template v-slot:append>
-                <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
-                  @click="isPwd = !isPwd" />
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
               </template>
             </q-input>
 
@@ -29,21 +47,40 @@
               <div class="flex justify-between items-center">
                 <q-btn type="submit" color="primary" glossy label="Login" />
 
-                <q-btn flat color="primary" label="Forgot Password ?" @click="$router.push('/forgot')" />
+                <q-btn
+                  flat
+                  color="primary"
+                  label="Forgot Password ?"
+                  @click="$router.push('/forgot')"
+                />
               </div>
 
               <p class="text-center q-py-md text-grey">Or Login With</p>
               <div class="text-center q-mb-lg">
-                <q-btn color="blue" icon="facebook" label="login with facebbok" @click="loginWithFacebook" />
+                <q-btn
+                  color="blue"
+                  icon="facebook"
+                  label="login with facebook"
+                  @click="loginWithFacebook"
+                />
               </div>
               <div class="text-center q-mb-lg">
                 <q-btn label="login with Google" @click="loginWithGoogle">
-                  <img src="../../public/icons/google-color.svg" alt="google " width="20" />
+                  <img
+                    src="../../public/icons/google-color.svg"
+                    alt="google "
+                    width="20"
+                  />
                 </q-btn>
               </div>
 
               <div class="register text-center">
-                <q-btn flat color="primary" label="Register With Email" @click="$router.push('/signup')" />
+                <q-btn
+                  flat
+                  color="primary"
+                  label="Register With Email"
+                  @click="$router.push('/signup')"
+                />
               </div>
 
               <div class="copyrights text-center">
