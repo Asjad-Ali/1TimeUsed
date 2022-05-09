@@ -10,6 +10,7 @@
             class="q-my-auto"
             dense
             filled
+            :disable="$route.path == '/search'"
             outlined
             @focus="$router.push('/search')"
             label="Search Here"
@@ -17,7 +18,13 @@
             style="max-width: 100%"
           >
             <template v-slot:after>
-              <q-btn icon="search" size="16px" outline> </q-btn>
+              <q-btn
+                :disable="$route.path == '/search'"
+                icon="search"
+                size="16px"
+                outline
+              >
+              </q-btn>
             </template>
           </q-input>
         </div>

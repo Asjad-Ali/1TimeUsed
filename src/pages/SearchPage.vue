@@ -11,6 +11,7 @@
       </div>
       <div class="col-md-6 col-12">
         <q-select
+          ref="searchInput"
           filled
           v-model="search"
           use-input
@@ -81,9 +82,11 @@
 </template>
 
  <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
 import useSearch from "../composables/useSearch";
+const model = ref(null);
+const searchInput = ref();
 
 const {
   searchSuggestions,
@@ -93,7 +96,9 @@ const {
   searchResults,
 } = useSearch();
 
-const model = ref(null);
+onMounted(() => {
+  searchInput.value.focus();
+});
 </script>
 <style lang="scss" scoped>
 .search-bg {

@@ -11,33 +11,19 @@
           />
         </div>
         <div class="col-md-6 col-12">
-          <q-select
-            filled
-            v-model="search"
-            use-input
-            hide-selected
-            fill-input
-            input-debounce="400"
+          <q-input
+            class="q-my-auto"
             dense
-            @update:model-value="searchProducts"
+            filled
+            outlined
+            v-model="search"
             label="Search Here"
-            @filter="getSearchSuggestions"
-            :options="searchSuggestions"
-            @filter-abort="searchProducts"
             style="max-width: 100%"
-            dropdown-icon="false"
           >
-            <template v-slot:no-option>
-              <q-item>
-                <q-item-section class="text-grey"> No results</q-item-section>
-              </q-item>
-            </template>
-
             <template v-slot:after>
-              <q-btn @click="searchProducts" icon="search" size="16px" outline>
-              </q-btn>
+              <q-btn icon="search" size="16px" outline> </q-btn>
             </template>
-          </q-select>
+          </q-input>
           <h6 v-show="search" class="text-center text-grey q-my-md">
             Results for "<span class="text-bold">{{ search }}</span
             >"
@@ -59,7 +45,12 @@
       <h5 class="text-center q-pb-md">Donate Products</h5>
 
       <div
-        class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+        class="
+          flex
+          q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+          justify-center
+          items-center
+        "
       >
         <ProductCard
           :product="product"
@@ -78,13 +69,7 @@ import { useWishlistStore } from "../stores/wishlist.store";
 import ProductCard from "src/components/Layouts/ProductCard.vue";
 import useSearch from "../composables/useSearch";
 
-const {
-  searchSuggestions,
-  getSearchSuggestions,
-  searchProducts,
-  search,
-  searchResults,
-} = useSearch();
+const search = ref("");
 
 const model = ref(null);
 const imageBaseURL = process.env.imagesBaseURL;
