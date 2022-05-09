@@ -50,9 +50,17 @@
       </div>
     </q-card-section>
     <!-- Feature badge -->
-    <q-badge color="amber" class="featured-baadge">Featured </q-badge>
+    <q-badge v-if="product.price" color="amber" class="featured-baadge"
+      >Featured
+    </q-badge>
     <!-- New badge -->
-    <q-badge color="primary" class="new-baadge">New </q-badge>
+    <q-badge v-if="product.price" color="primary" class="new-baadge"
+      >New
+    </q-badge>
+    <!-- Donation badge -->
+    <q-badge v-if="!product.price" color="positive" class="donation-baadge"
+      >Donation
+    </q-badge>
   </q-card>
 </template>
 
@@ -125,6 +133,11 @@ const getAddress = (address) => {
   position: absolute;
   top: 18px;
   right: 0;
+}
+.donation-baadge {
+  position: absolute;
+  top: 125px;
+  left: 0;
 }
 .my-card {
   width: 210px;
