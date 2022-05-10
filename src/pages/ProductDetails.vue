@@ -33,6 +33,34 @@
             @click="fullscreen = !fullscreen"
           />
         </q-carousel-control>
+        <q-carousel-control position="top-right" :offset="[10, 30]">
+          <q-btn
+            :disable="wishlistStore.wishlistLoader == product.id"
+            round
+            outline
+            flat
+            @click="addToWishlist(product.id)"
+            size="sm"
+            color="primary"
+            class="absolute bg-white shadow-sm"
+            style="top: 0; right: 12px; transform: translateY(-50%)"
+          >
+            <i
+              v-if="wishlistStore.wishlistLoader == product.id"
+              class="fa fa-repeat fa-2x"
+              aria-hidden="true"
+            ></i>
+            <i
+              v-else
+              class="fa-2x"
+              :class="{
+                'fa fa-heart-o': product.favorite != 1,
+                'fa fa-heart': product.favorite == 1,
+              }"
+              aria-hidden="true"
+            ></i>
+          </q-btn>
+        </q-carousel-control>
       </template>
     </q-carousel>
   </div>
@@ -216,12 +244,7 @@
 
           <div class="row">
             <div
-              class="
-                flex
-                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-                justify-center
-                items-center
-              "
+              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
             >
               <ProductCard
                 class="q-my-md"
@@ -254,8 +277,10 @@ export default {
 import { ref, computed } from "vue";
 import { useMeta } from "quasar";
 import ProductCard from "src/components/ProductCard.vue";
-
+import { useWishlistStore } from "../stores/wishlist.store";
 // const imageBaseURL = "https://1timeused.com/";
+
+const wishlistStore = useWishlistStore();
 const imageBaseURL = process.env.imagesBaseURL;
 const productStore = useProductStore();
 const product = computed(() => productStore.loadedProduct);
@@ -264,6 +289,9 @@ const fullscreen = ref(false);
 
 const togglePhone = ref(false);
 const toggleText = ref(false);
+const addToWishlist = (id) => {
+  wishlistStore.addWishlist(id);
+};
 
 useMeta({
   title: `${product.value.title} - 1timeused`,

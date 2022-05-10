@@ -60,6 +60,8 @@ export const useWishlistStore = defineStore("wishlistStore", {
         store.recentProducts = toggleFavorite(product_id, store.recentProducts)
         store.donateProducts = toggleFavorite(product_id, store.donateProducts)
         store.featuredProducts = toggleFavorite(product_id, store.featuredProducts)
+        store.subCategoryProduct = toggleFavorite(product_id, store.subCategoryProduct)
+        store.loadedProduct.favorite = store.loadedProduct.favorite == 1 ? 0 : 1;
         this.wishlistProducts = this.wishlistProducts.filter(pro => pro.id != product_id)
 
         persistData('wishlist_products', this.wishlistProducts);
