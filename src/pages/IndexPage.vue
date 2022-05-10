@@ -2,10 +2,7 @@
   <q-page>
     <CarouselSection />
     <div class="container">
-      <RecentProducts
-        v-if="productStore.recentProducts.length"
-        class="desktop-only"
-      />
+      <RecentProducts v-if="productStore.recentProducts.length" />
       <FeaturedProductsSection v-if="productStore.featuredProducts.length" />
     </div>
   </q-page>
