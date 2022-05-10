@@ -234,7 +234,7 @@
           </div>
         </q-card>
       </div>
-      <div class="col-12 col-md-6 q-pa-sm">
+      <div class="col-12 col-md-6 q-pa-sm desktop-only">
         <q-card
           class="top-card q-px-md q-mb-md related-product-card"
           flat
