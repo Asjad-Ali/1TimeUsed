@@ -6,7 +6,7 @@
       navigation
       dark
       infinite
-      arrows
+      :arrows="product.gallery.length > 1"
       swipeable
       transition-prev="slide-right"
       transition-next="slide-left"
