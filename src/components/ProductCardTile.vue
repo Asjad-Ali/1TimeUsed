@@ -45,7 +45,7 @@
         <q-menu touch-position>
           <q-list style="min-width: 100px">
             <q-item clickable v-close-popup>
-              <q-item-section>Edit</q-item-section>
+              <q-item-section @click="editProduct">Edit</q-item-section>
             </q-item>
             <q-item @click="confirm = true" clickable v-close-popup>
               <q-item-section>Delete</q-item-section>
@@ -115,6 +115,11 @@ const ProductDetail = (product) => {
     );
     productStore.recentProducts.unshift(product);
   }
+};
+
+const editProduct = () => {
+  productStore.selectedProductForEdit = product.value;
+  router.push("/edit_product");
 };
 
 const deleteProduct = (id) => {

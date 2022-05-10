@@ -106,11 +106,11 @@ const selectedCategoryTitle = computed(() =>
     : ""
 );
 
-const selectedSubcategoryTitle = computed(() =>
-  categoryStore.subCategories.length && product.value.sub_category_id
+const selectedSubcategoryTitle = computed(() => {
+  return categoryStore.subCategories.length && product.value.sub_category_id
     ? categoryStore.subCategories.find(
         (cat) => cat.id == product.value.sub_category_id
       ).title
-    : ""
-);
+    : "";
+});
 </script>

@@ -26,7 +26,6 @@
               <!-- Images upload -->
               <div class="col-12 q-my-lg">
                 <div class="label-font">Images:</div>
-
                 <q-uploader
                   label="images upload"
                   multiple
@@ -38,6 +37,41 @@
               </div>
               <div>
                 <span class="text-primary">{{ imageError }}</span>
+              </div>
+              <div class="row">
+                <div class="col-3 q-my-lg">
+                  <!-- <div
+                    class="img-holder position-relative"
+                    v-for="image in product.gallery"
+                    :key="image"
+                  >
+                    <q-img :src="imageBaseURL + image.path" class="fit" />
+                    <i
+                      style="color: red"
+                      class="fa fa-window-close position-absolute"
+                      aria-hidden="true"
+                    ></i>
+                  </div> -->
+                  <div v-for="(image, index) in product.gallery" :key="index">
+                    <div
+                      class="cursor-pointer position-relative"
+                      style="
+                        height: 90px;
+                        width: 90px;
+                        border: 1px solid grey;
+                        margin: 10px;
+                        background-size: cover;
+                      "
+                      :style="`background-image: url(${`${imageBaseURL}/${image.path}`};`"
+                    >
+                      <i
+                        @click="removeOldImage(index, image.id)"
+                        class="fa fa-window-close position-absolute"
+                        style="top: 1%; right: 1%; font-size: 16px; color: red"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- Purpose Tabs -->
@@ -120,7 +154,7 @@
                     :rules="[rules.required]"
                     :options="categoryStore.categories"
                     @update:model-value="loadSubCategory()"
-                    label="Category"
+                    label="Select Category"
                     class="q-mb-md"
                   />
                 </div>
@@ -137,14 +171,17 @@
                     option-label="title"
                     v-model="product.sub_category_id"
                     :options="categoryStore.subCategories"
-                    label="Category"
+                    label="Select Sub Category"
                     class="q-mb-md"
                   />
                 </div>
               </div>
               <div class="row">
                 <!-- Price -->
-                <div class="col-12 col-md-6 q-pr-md">
+                <div
+                  v-show="product.purpose != 'Donate'"
+                  class="col-12 col-md-6 q-pr-md"
+                >
                   <div class="label-font">Price:</div>
                   <q-input
                     dense
@@ -157,7 +194,10 @@
                   />
                 </div>
                 <!-- Total Items -->
-                <div class="col-12 col-md-6 q-pl-md">
+                <div
+                  class="col-12 col-md-6"
+                  :class="product.purpose != 'Donate' ? 'q-pl-md' : 'q-pr-md'"
+                >
                   <div class="label-font">Total Items:</div>
                   <q-input
                     dense
@@ -295,7 +335,13 @@
                   :disable="productStore.btnStatus == 1"
                   type="submit"
                   color="primary"
-                  :label="productStore.btnStatus == 1 ? 'Loading...' : 'Submit'"
+                  :label="
+                    productStore.btnStatus == 1
+                      ? 'Loading...'
+                      : productStore.selectedProductForEdit
+                      ? 'Update'
+                      : 'Submit'
+                  "
                 />
 
                 <q-btn
@@ -319,81 +365,29 @@
 <script setup>
 import { useProductStore } from "src/stores/products.store";
 import { useCategoryStore } from "../stores/categories.store";
-import { onMounted, reactive, ref, watch } from "vue";
-import compressImage from "../composables/useImageCompression";
+import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
-import ReviewProductDetails from "../components/addProduct/reviewProductDetails.vue";
-import { useRouter } from "vue-router";
+import useAddProduct from "src/composables/useAddProduct";
+import ReviewProductDetails from "src/components/addProduct/ReviewProductDetail.vue";
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
 const { rules } = useValidationRules();
-const productForm = ref(null);
-const stepper = ref(null);
+const imageBaseURL = process.env.imagesBaseURL;
+
 const step = ref(1);
-const imageError = ref(null);
-const router = useRouter();
 
-const product = reactive({
-  title: "Cloths",
-  category_id: "",
-  neighborhood: "Johar Town, Lahore, Punjab, Pakistan",
-  sub_category_id: "",
-  price: "5000",
-  color: "All",
-  purchase_price: 0,
-  discount: 0,
-  current_stock: 1,
-  description: "This is a A+ Quality Product and up to 50% off on Every Item",
-  images: [],
-  condition: "used",
-  latitude: "31.4697",
-  longitude: "74.2728",
-  discountTil: "",
-  brand: "Gul Ahmad",
-  size: "6 Meters",
-  purpose: "Rental",
-});
-
-onMounted(() => {
-  categoryStore.loadCategories();
-});
-
-watch(product, (current) => {
-  if (!current.images.length) {
-    imageError.value = "At least one image must be uploaded";
-  } else {
-    imageError.value = null;
-  }
-});
-
-const goToNextStep = () => {
-  productForm.value.validate().then((success) => {
-    if (success && product.images.length) {
-      stepper.value.next();
-    }
-  });
-};
-
-const loadSubCategory = () => {
-  categoryStore.loadSubCategory(product.category_id);
-};
-
-const submitForm = () => {
-  productStore.addMyProduct(product).then((res) => {
-    if (res.status == 200) {
-      router.push("/sell");
-    }
-  });
-};
-
-const setFiles = async (files) => {
-  const compressedImages = [];
-
-  for (let i = 0; i < files.length && i < 10; i++) {
-    compressedImages[i] = await compressImage(files[i]);
-  }
-  product.images = compressedImages;
-};
+const {
+  product,
+  imageError,
+  productForm,
+  goToNextStep,
+  loadSubCategory,
+  submitForm,
+  setFiles,
+  stepper,
+  formValidated,
+  removeOldImage,
+} = useAddProduct();
 </script>
 
 <style lang="scss" scoped>
@@ -402,11 +396,18 @@ const setFiles = async (files) => {
   font-weight: 500;
   margin-bottom: 10px;
 }
+.img-holder {
+  height: 160px;
+  width: 200px;
+}
 
 @media screen and (max-width: $breakpoint-sm-max) {
   .label-font,
   .info-text {
     font-size: 12px;
+  }
+  .img-holder {
+    height: 120px;
   }
 }
 </style>
