@@ -338,7 +338,7 @@
                   :label="
                     productStore.btnStatus == 1
                       ? 'Loading...'
-                      : productStore.selectedProductForEdit
+                      : actionType == 'edit'
                       ? 'Update'
                       : 'Submit'
                   "
@@ -367,7 +367,7 @@ import { useProductStore } from "src/stores/products.store";
 import { useCategoryStore } from "../stores/categories.store";
 import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
-import useAddProduct from "src/composables/useAddProduct";
+import useProductForm from "src/composables/useProductForm";
 import ReviewProductDetails from "src/components/addProduct/ReviewProductDetail.vue";
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
@@ -387,7 +387,8 @@ const {
   stepper,
   formValidated,
   removeOldImage,
-} = useAddProduct();
+  actionType,
+} = useProductForm();
 </script>
 
 <style lang="scss" scoped>

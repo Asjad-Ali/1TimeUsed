@@ -30,7 +30,6 @@ export const useProductStore = defineStore('productsStore ', {
     donateProducts: [],
     btnStatus: 0,
     loadingStatus: false,
-    selectedProductForEdit: null
   }),
 
   getters: {},

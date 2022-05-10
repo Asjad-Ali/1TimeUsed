@@ -1,16 +1,19 @@
 import { ref, watch, computed, onMounted } from "vue";
-import compressImage from "../composables/useImageCompression";
-import { useRouter } from "vue-router";
+import compressImage from "./useImageCompression";
+import { useRouter, useRoute } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 import { useCategoryStore } from "../stores/categories.store";
+import API from "src/services/API";
 
-export default function useAddProduct() {
+export default function useProductForm() {
   const router = useRouter();
+  const route = useRoute();
   const imageError = ref(null);
   const productStore = useProductStore();
   const productForm = ref(null);
   const categoryStore = useCategoryStore();
   const stepper = ref("");
+  const actionType = ref("add");
 
 
   const product = ref({
@@ -31,19 +34,26 @@ export default function useAddProduct() {
     discountTil: "",
     brand: "Gul Ahmad",
     size: "6 Meters",
-    purpose: "Rental",
+    purpose: "rental",
   });
 
-  onMounted(() => {
-    if (productStore.selectedProductForEdit) {
-      product.value = productStore.selectedProductForEdit
-      categoryStore.loadSubCategory(product.value.category_id);
-    }
+  onMounted(async () => {
     categoryStore.loadCategories();
+
+    if (route.params.id) {
+      const response = await API.get(`products/${route.params.id}`);
+      if (response.status == 200) {
+        product.value = response.data
+        product.value.images = [];
+        actionType.value = "edit";
+        categoryStore.loadSubCategory(product.value.category_id);
+      }
+    }
+
   });
 
   watch(product.value, (current) => {
-    if (productStore.selectedProductForEdit) {
+    if (actionType.value == 'edit') {
       imageError.value = null;
     } else {
       if (!current.images.length) {
@@ -73,8 +83,9 @@ export default function useAddProduct() {
   }
 
   const submitForm = async () => {
+    console.log(product.value)
     let response;
-    if (productStore.selectedProductForEdit) {
+    if (actionType.value == 'edit') {
       response = await productStore.updateProduct(product.value);
     } else {
       response = await productStore.addMyProduct(product.value);
@@ -104,6 +115,7 @@ export default function useAddProduct() {
     submitForm,
     setFiles,
     stepper,
-    removeOldImage
+    removeOldImage,
+    actionType
   }
 }

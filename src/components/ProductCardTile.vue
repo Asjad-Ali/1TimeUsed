@@ -119,7 +119,7 @@ const ProductDetail = (product) => {
 
 const editProduct = () => {
   productStore.selectedProductForEdit = product.value;
-  router.push("/edit_product");
+  router.push(`/edit_product/${product.value.id}`);
 };
 
 const deleteProduct = (id) => {
