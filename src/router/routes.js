@@ -88,6 +88,14 @@ const routes = [{
     }
   },
   {
+    path: '/edit_product',
+    name: "EditProduct",
+    component: () => import('src/pages/AddProduct.vue'),
+    meta: {
+      auth: true
+    }
+  },
+  {
     path: '/card',
     component: () => import('src/pages/CardPage.vue')
   },

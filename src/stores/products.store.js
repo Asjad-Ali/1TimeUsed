@@ -28,7 +28,8 @@ export const useProductStore = defineStore('productsStore ', {
     searchProducts: [],
     donateProducts: [],
     btnStatus: 0,
-    loadingStatus: false
+    loadingStatus: false,
+    selectedProductForEdit: null
   }),
 
   getters: {},
@@ -69,6 +70,7 @@ export const useProductStore = defineStore('productsStore ', {
 
       const response = await API.get('products/featured');
       if (response.status == 200) {
+        console.log(response)
         this.featuredProducts = response.data;
         persistData('featured_products', response.data);
       } else {
@@ -126,11 +128,35 @@ export const useProductStore = defineStore('productsStore ', {
     async addMyProduct(product) {
       this.btnStatus = 1
       const response = await API.formData('seller/products', product);
+      this.btnStatus = 0
       if (response.status == 200) {
-        this.btnStatus = 0
-        this.myProducts = response.data;
+        this.myProducts.unshift(response.data);
         Notify.create({
           message: "Product added successfully",
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        })
+      } else {
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'negative',
+        })
+      }
+      return response;
+    },
+    async updateProduct(product) {
+      console.log("iN store", product)
+      this.btnStatus = 1
+      product._method = 'PUT';
+      const response = await API.formData(`seller/products/${product.id}`, product);
+      this.btnStatus = 0
+      if (response.status == 200) {
+        this.myProducts.push(response.data);
+        Notify.create({
+          message: "Product updated successfully",
           icon: 'done',
           position: 'bottom',
           color: 'positive',
@@ -160,5 +186,6 @@ export const useProductStore = defineStore('productsStore ', {
       }
       return response;
     },
+
   },
 })
