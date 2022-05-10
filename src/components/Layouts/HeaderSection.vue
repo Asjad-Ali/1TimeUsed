@@ -82,7 +82,12 @@
             />
 
             <q-avatar class="cursor-pointer desktop-only">
-              <img :src="profilePhoto" alt="img" style="object-fit: cover" />
+              <img
+                :src="profilePhoto"
+                alt="img"
+                style="object-fit: cover"
+                referrerpolicy="no-referrer"
+              />
               <q-menu
                 transition-show="scale"
                 transition-hide="scale"
@@ -139,7 +144,7 @@ function handleLogout() {
 }
 
 const profilePhoto = computed(() => {
-  if (profile) return imageBaseURL + profile.photo;
+  if (profile && profile.photo) return imageBaseURL + profile.photo;
   else if (authStore.firebaseUser && authStore.firebaseUser.photoURL)
     return authStore.firebaseUser.photoURL;
   else return `https://www.w3schools.com/w3images/avatar2.png`;
