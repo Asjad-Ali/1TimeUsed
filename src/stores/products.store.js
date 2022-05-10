@@ -8,6 +8,7 @@ import {
 import {
   Notify
 } from 'quasar'
+import redirect from 'src/helpers/redirect';
 import {
   persistData,
   getPersistentData
@@ -187,5 +188,25 @@ export const useProductStore = defineStore('productsStore ', {
       return response;
     },
 
+    async deleteAProduct(id) {
+      const response = await API.delete(`seller/products/${id}`);
+      if (response.status == 200) {
+        this.myProducts = response.data;
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        })
+        redirect('/sell');
+      } else {
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'negative',
+        })
+      }
+    },
   },
 })

@@ -66,7 +66,13 @@
       </q-card-section>
       <q-card-actions align="right">
         <q-btn flat label="Cancel" color="primary" v-close-popup />
-        <q-btn flat label="Yes" color="primary" v-close-popup />
+        <q-btn
+          flat
+          label="Yes"
+          color="primary"
+          @click="deleteProduct(product.id)"
+          v-close-popup
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -114,6 +120,10 @@ const ProductDetail = (product) => {
 const editProduct = () => {
   productStore.selectedProductForEdit = product.value;
   router.push("/edit_product");
+};
+
+const deleteProduct = (id) => {
+  productStore.deleteAProduct(id);
 };
 
 const getAddress = (address) => {
