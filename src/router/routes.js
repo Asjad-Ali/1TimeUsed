@@ -82,15 +82,15 @@ const routes = [{
   },
   {
     path: '/add_product',
-    component: () => import('src/pages/AddProduct.vue'),
+    component: () => import('src/pages/productForm.vue'),
     meta: {
       auth: true
     }
   },
   {
-    path: '/edit_product',
+    path: '/edit_product/:id',
     name: "EditProduct",
-    component: () => import('src/pages/AddProduct.vue'),
+    component: () => import('src/pages/productForm.vue'),
     meta: {
       auth: true
     }
