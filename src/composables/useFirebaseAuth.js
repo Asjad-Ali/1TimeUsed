@@ -3,29 +3,27 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  signInAnonymously
+  signInAnonymously,
+  fetchSignInMethodsForEmail,
 } from "firebase/auth";
 
-import {
-  useAuthStore
-} from "src/stores/auth.store";
+import { Notify } from "quasar";
 
+import { useAuthStore } from "src/stores/auth.store";
 
 export default function useFirebaseAuth() {
-
-
   const loginAnonymously = () => {
     const auth = getAuth();
     signInAnonymously(auth)
       .then(() => {
-        console.log('signedIN')
+        console.log("signedIN");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage)
+        console.log(errorMessage);
       });
-  }
+  };
 
   const loginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -39,8 +37,8 @@ export default function useFirebaseAuth() {
         const user = result.user;
         const authStore = useAuthStore();
         authStore.loginWithGoogle(accessToken);
-
-      }).catch((error) => {
+      })
+      .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -48,14 +46,20 @@ export default function useFirebaseAuth() {
         const email = error.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-      });
-  }
 
+        Notify.create({
+          message: errorMessage,
+          icon: "warning",
+          position: "bottom",
+          color: "negative",
+        });
+      });
+  };
 
   const loginWithFacebook = () => {
+    const authStore = useAuthStore();
     const provider = new FacebookAuthProvider();
-    provider.addScope('email');
+    provider.addScope("email");
     const auth = getAuth();
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -66,7 +70,6 @@ export default function useFirebaseAuth() {
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
 
-        const authStore = useAuthStore();
         authStore.loginWithFacebook(accessToken);
       })
       .catch((error) => {
@@ -78,13 +81,26 @@ export default function useFirebaseAuth() {
         // The AuthCredential type that was used.
         const credential = FacebookAuthProvider.credentialFromError(error);
 
-        // ...
+        if (
+          errorCode == "auth/account-exists-with-different-credential" &&
+          credential &&
+          credential.accessToken
+        ) {
+          authStore.loginWithFacebook(credential.accessToken);
+        } else {
+          Notify.create({
+            message: errorMessage,
+            icon: "warning",
+            position: "bottom",
+            color: "negative",
+          });
+        }
       });
-  }
+  };
 
   return {
     loginAnonymously,
     loginWithGoogle,
-    loginWithFacebook
+    loginWithFacebook,
   };
 }
