@@ -16,7 +16,7 @@
         style="text-transform: capitalize"
         >{{
           $route.path.includes("/subcategory/")
-            ? $route.params.name
+            ? $route.params.name || $route.params.id
             : $route.path.split("/")[1]
         }}</span
       >
@@ -24,5 +24,4 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
