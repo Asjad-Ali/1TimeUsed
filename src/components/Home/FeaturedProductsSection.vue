@@ -1,16 +1,11 @@
 <template>
   <q-page-container>
     <div class="conatiner flex justify-center items-center">
-      <div class="column q-pb-xl">
-        <h5 class="text-center q-pb-xl">Feature Products</h5>
+      <div class="column q-pb-xl q-mt-md">
+        <h5 class="text-center q-pb-lg">Feature Products</h5>
 
         <div
-          class="
-            flex
-            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-            justify-center
-            items-center
-          "
+          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
         >
           <ProductCard
             :product="product"
@@ -29,7 +24,6 @@ import { useProductStore } from "../../stores/products.store.js";
 
 const store = useProductStore();
 </script>
-
 
 <style lang="scss" scoped>
 h5 {
