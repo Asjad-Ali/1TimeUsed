@@ -13,7 +13,12 @@
 
           <div class="row">
             <div
-              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+              class="
+                flex
+                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+                justify-center
+                items-center
+              "
             >
               <ProductCard
                 class="q-my-md"
@@ -55,8 +60,8 @@ const imageBaseURL = process.env.imagesBaseURL;
 const productStore = useProductStore();
 const product = computed(() => productStore.loadedProduct);
 
-const addToWishlist = (product) => {
-  wishlistStore.addWishlist(product);
+const addToWishlist = (id) => {
+  wishlistStore.addWishlist(id);
 };
 
 useMeta({
