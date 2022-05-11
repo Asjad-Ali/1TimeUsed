@@ -190,14 +190,13 @@ export const useProductStore = defineStore('productsStore ', {
     async deleteAProduct(id) {
       const response = await API.delete(`seller/products/${id}`);
       if (response.status == 200) {
-        this.myProducts = response.data;
+        this.myProducts = this.myProducts.filter(product => product.id != id)
         Notify.create({
           message: response.message,
           icon: 'done',
           position: 'bottom',
           color: 'positive',
         })
-        redirect('/sell');
       } else {
         Notify.create({
           message: response.message,
