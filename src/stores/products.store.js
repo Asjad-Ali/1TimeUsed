@@ -207,5 +207,30 @@ export const useProductStore = defineStore('productsStore ', {
         })
       }
     },
+
+    async productStatus(payload) {
+
+      console.log("in store: ", payload)
+      const response = await API.post('seller/product_status', payload);
+
+      if (response.status === 200) {
+        //this.myProducts.status = this.myProducts(product => product.id == payload.id)
+
+        Notify.create({
+          message: response.message,
+          icon: 'done',
+          position: 'bottom',
+          color: 'positive',
+        });
+      } else {
+        Notify.create({
+          message: response.message,
+          icon: 'warning',
+          position: 'bottom',
+          color: 'negative',
+        })
+      }
+      return response;
+    },
   },
 })

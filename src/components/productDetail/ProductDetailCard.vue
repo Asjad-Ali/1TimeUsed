@@ -118,7 +118,12 @@
           </div>
           <div class="col-11">
             <div class="seller-info q-pl-lg">
-              <div class="text-subtitle1">{{ product.seller.name }}</div>
+              <div
+                class="text-subtitle1 cursor-pointer"
+                @click="$router.push('/sellerprofile')"
+              >
+                {{ product.seller.name }}
+              </div>
               <small class="text-grey">
                 Member since
                 {{ product.seller.created_at.substring(0, 10) }}

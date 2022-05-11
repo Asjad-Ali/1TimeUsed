@@ -1,15 +1,14 @@
-import imageCompression from 'browser-image-compression';
+import imageCompression from "browser-image-compression";
 
 export default async function compressImage(imageFile, type = null) {
-
-  console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+  console.log("originalFile instanceof Blob", imageFile instanceof Blob); // true
   console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
   const options = {
-    maxSizeMB: type && type == 'profile-img' ? 0.2 : 0.5,
+    maxSizeMB: type && type == "profile-img" ? 0.15 : 0.5,
     maxWidthOrHeight: 1920,
-    useWebWorker: true
-  }
+    useWebWorker: true,
+  };
 
   const compressedImage = await imageCompression(imageFile, options);
   // console.log('compressedFile instanceof Blob', compressedImage instanceof Blob); // true
