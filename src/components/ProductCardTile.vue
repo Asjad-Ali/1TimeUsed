@@ -22,9 +22,24 @@
         </div>
         <div class="q-my-sm text-right">
           <q-btn
+            v-if="payload.status == 1"
             size="sm"
             color="primary"
             label="Activate"
+            @click="small = true"
+          />
+          <q-btn
+            v-if="payload.status == 0"
+            size="sm"
+            color="primary"
+            label="Deactivate"
+            @click="small = true"
+          />
+          <q-btn
+            v-if="payload.status == 2"
+            size="sm"
+            color="primary"
+            label="Sold out"
             @click="small = true"
           />
         </div>
@@ -81,10 +96,30 @@
   <q-dialog v-model="small">
     <q-card style="width: 230px">
       <div class="q-gutter-sm flex column q-pa-md">
-        <q-radio v-model="shape" val="line" label="Activate" />
-        <q-radio v-model="shape" val="rectangle" label="Deactivate" />
-        <q-radio v-model="shape" val="ellipse" label="Sold Out" />
-        <q-radio v-model="shape" val="polygon" label="Sold Out/Deactivate" />
+        <q-radio
+          v-model="shape"
+          val="line"
+          label="Activate"
+          @click="changeStatus(1)"
+        />
+        <q-radio
+          v-model="shape"
+          val="rectangle"
+          label="Deactivate"
+          @click="changeStatus(0)"
+        />
+        <q-radio
+          v-model="shape"
+          val="ellipse"
+          label="Sold Out"
+          @click="changeStatus(2)"
+        />
+        <q-radio
+          v-model="shape"
+          val="polygon"
+          label="Sold Out/Deactivate"
+          @click="changeStatus(3)"
+        />
       </div>
     </q-card>
   </q-dialog>
@@ -101,6 +136,10 @@ const props = defineProps({
   product: Object,
 });
 const { product } = toRefs(props);
+const payload = ref({
+  id: product.value.id,
+  status: product.value.status,
+});
 
 const ProductDetail = (product) => {
   router.push(`/product_details/${product.id}`);
@@ -124,6 +163,11 @@ const editProduct = () => {
 
 const deleteProduct = (id) => {
   productStore.deleteAProduct(id);
+};
+
+const changeStatus = (status) => {
+  payload.value.status = status;
+  productStore.productStatus(payload.value);
 };
 
 const getAddress = (address) => {
