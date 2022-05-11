@@ -1,5 +1,6 @@
 import API from "src/services/API";
 import {
+  onMounted,
   ref
 } from "vue";
 import {
@@ -9,10 +10,12 @@ const store = useProductStore();
 
 export default function useSearch() {
 
-
+  let hasMorePages = false;
+  let currentPage = 1;
+  let lastApiCallTime = Date.now();
   const search = ref("");
   const searchSuggestions = ref();
-  const searchResults = ref([])
+  const scrollObserver = ref('')
   let searchVal = '';
 
   const getLocalSearchHistory = () => {
@@ -45,27 +48,44 @@ export default function useSearch() {
     });
   }
 
-
   const searchProducts = async () => {
+    if (currentPage == 1) {
+      store.searchResults = [];
+    }
     store.loadingStatus = true;
     const query = search.value || searchVal;
-    const response = await API.get(`search?q=${query}`);
+    const response = await API.get(`search?q=${query}&page=${currentPage}`);
     store.loadingStatus = false;
-    searchResults.value = response.data;
+    store.searchResults = [...store.searchResults, ...response.data];
+    console.log(response)
+    hasMorePages = response.links.next ? true : false;
+    currentPage = response.meta.current_page;
     if (response.data) {
       addToLocalSearchHistory(query)
     }
   }
 
-  const handleScroll = () => {
-    console.log("Scrolling")
-  }
+  onMounted(() => {
+    window.addEventListener('scroll', () => {
+      if ((Date.now() - lastApiCallTime) < 1200) {
+        return false;
+      }
+      if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+        console.log('scrolled to bottom')
+        console.log(hasMorePages)
+        if (hasMorePages) {
+          currentPage++;
+          searchProducts();
+          lastApiCallTime = Date.now();
+        }
+      }
+    })
+  });
 
   return {
     searchSuggestions,
     getSearchSuggestions,
     searchProducts,
-    search,
-    searchResults
+    search
   };
 }

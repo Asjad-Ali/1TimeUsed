@@ -4,7 +4,12 @@
     :class="{ 'recent-product': mainDiv == 'recent-products' }"
   >
     <div class="img-holder" @click="ProductDetail(product)">
-      <q-img :src="imageBaseURL + product.gallery[0].path" class="fit" />
+      <q-img
+        :src="
+          product.gallery.length ? imageBaseURL + product.gallery[0].path : ''
+        "
+        class="fit"
+      />
     </div>
 
     <q-card-section>

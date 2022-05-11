@@ -11,7 +11,7 @@
           :product="product"
         />
       </div>
-      <q-responsive v-else :ratio="4 / 2">
+      <q-responsive v-else v-show="!store.myProducts.length" :ratio="4 / 2">
         <div class="rounded-borders flex flex-center">
           <h4>Products you add will show up here</h4>
         </div>
