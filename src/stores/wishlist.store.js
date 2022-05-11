@@ -72,7 +72,6 @@ export const useWishlistStore = defineStore("wishlistStore", {
           this.wishlistProducts.unshift(product);
         }
 
-
         persistData('wishlist_products', this.wishlistProducts);
         persistData('viewed_products', store.recentProducts);
         persistData('featured_products', store.featuredProducts);

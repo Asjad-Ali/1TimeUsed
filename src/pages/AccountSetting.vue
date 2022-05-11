@@ -118,7 +118,6 @@ const validatePhone = () => {
     profile.value.phone = "+" + profile.value.phone.replace(/[^0-9]/g, "");
   }
 };
-
 /////////////////     Convert Profile Image into Base64
 const convertFileToBase64 = (file) => {
   imageBase64.value = file;

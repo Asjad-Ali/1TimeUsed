@@ -27,7 +27,6 @@ import { onMounted } from "@vue/runtime-core";
 import ProductCard from "src/components/ProductCard.vue";
 import { useWishlistStore } from "src/stores/wishlist.store";
 const store = useWishlistStore();
-
 onMounted(() => {
   store.loadwishlistProducts();
 });

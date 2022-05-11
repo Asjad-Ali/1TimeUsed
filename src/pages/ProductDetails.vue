@@ -54,7 +54,6 @@ const wishlistStore = useWishlistStore();
 const imageBaseURL = process.env.imagesBaseURL;
 const productStore = useProductStore();
 const product = computed(() => productStore.loadedProduct);
-
 const addToWishlist = (product) => {
   wishlistStore.addWishlist(product);
 };

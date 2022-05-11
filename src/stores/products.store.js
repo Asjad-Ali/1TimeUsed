@@ -213,6 +213,7 @@ export const useProductStore = defineStore('productsStore ', {
       console.log("in store: ", payload)
       const response = await API.post('seller/product_status', payload);
 
+
       if (response.status === 200) {
         const index = this.myProducts.findIndex(product => product.id == payload.id)
         if (index > -1) {
