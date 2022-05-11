@@ -61,8 +61,20 @@ export const useWishlistStore = defineStore("wishlistStore", {
         store.donateProducts = toggleFavorite(product_id, store.donateProducts)
         store.featuredProducts = toggleFavorite(product_id, store.featuredProducts)
         store.subCategoryProduct = toggleFavorite(product_id, store.subCategoryProduct)
+<<<<<<< HEAD
+        if (store.loadedProduct && store.loadedProduct.id == product_id) {
+          store.loadedProduct.favorite = store.loadedProduct.favorite == 1 ? 0 : 1;
+        }
+        console.log(response)
+        if (response.message.includes('removed')) {
+          this.wishlistProducts = this.wishlistProducts.filter(pro => pro.id != product_id)
+        } else {
+          this.wishlistProducts.unshift(product);
+        }
+=======
         store.loadedProduct.favorite = store.loadedProduct.favorite == 1 ? 0 : 1;
         this.wishlistProducts = this.wishlistProducts.filter(pro => pro.id != product_id)
+>>>>>>> 735b27796c4b3a5c74aa671cf12ef43bcee014d1
 
         persistData('wishlist_products', this.wishlistProducts);
         persistData('viewed_products', store.recentProducts);

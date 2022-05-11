@@ -34,7 +34,6 @@
 import ProductCardTile from "../components/ProductCardTile.vue";
 import { onMounted, ref } from "vue";
 import { useProductStore } from "../stores/products.store";
-
 const store = useProductStore();
 onMounted(() => store.loadMyProducts());
 </script>

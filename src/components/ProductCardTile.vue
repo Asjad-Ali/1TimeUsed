@@ -140,7 +140,6 @@ const payload = ref({
   id: product.value.id,
   status: product.value.status,
 });
-
 const ProductDetail = (product) => {
   router.push(`/product_details/${product.id}`);
   const index = productStore.recentProducts.findIndex(

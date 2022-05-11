@@ -85,7 +85,6 @@ const props = defineProps({
     default: "featured-products",
   },
 });
-
 const { product, mainDiv } = toRefs(props);
 
 const addToWishlist = (id) => {

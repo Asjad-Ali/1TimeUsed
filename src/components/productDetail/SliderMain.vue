@@ -79,7 +79,6 @@ const props = defineProps({
 });
 const slide = ref(0);
 const fullscreen = ref(false);
-
 const { product } = toRefs(props);
 const addToWishlist = (id) => {
   wishlistStore.addWishlist(id);
