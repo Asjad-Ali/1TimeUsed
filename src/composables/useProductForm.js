@@ -77,9 +77,9 @@ export default function useProductForm() {
     product.value.sub_category_id = "";
   };
 
-  const removeOldImage = (index, path) => {
-    console.log("Image Index", index, path)
+  const removeOldImage = (index, id) => {
     product.value.gallery.splice(index, 1)
+    productStore.deleteThumbnail(id)
   }
 
   const submitForm = async () => {

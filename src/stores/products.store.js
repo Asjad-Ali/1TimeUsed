@@ -207,5 +207,11 @@ export const useProductStore = defineStore('productsStore ', {
         })
       }
     },
+    async deleteThumbnail(id) {
+      const response = await API.delete(`products/gallery/${id}`)
+      if (response.status == 200) {
+        console.log(response.status)
+      }
+    }
   },
 })

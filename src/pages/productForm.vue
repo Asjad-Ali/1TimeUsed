@@ -24,56 +24,50 @@
               :done="step > 1"
             >
               <!-- Images upload -->
-              <div class="col-12 q-my-lg">
-                <div class="label-font">Images:</div>
-                <q-uploader
-                  label="images upload"
-                  multiple
-                  @added="setFiles"
-                  @removed="setFiles"
-                  accept=".jpg,.png,.jpeg,.JPEG,.JPG"
-                  style="max-width: 300px"
-                />
-              </div>
-              <div>
-                <span class="text-primary">{{ imageError }}</span>
-              </div>
               <div class="row">
-                <div class="col-3 q-my-lg">
-                  <!-- <div
-                    class="img-holder position-relative"
-                    v-for="image in product.gallery"
-                    :key="image"
-                  >
-                    <q-img :src="imageBaseURL + image.path" class="fit" />
-                    <i
-                      style="color: red"
-                      class="fa fa-window-close position-absolute"
-                      aria-hidden="true"
-                    ></i>
-                  </div> -->
-                  <div v-for="(image, index) in product.gallery" :key="index">
-                    <div
-                      class="cursor-pointer position-relative"
-                      style="
-                        height: 90px;
-                        width: 90px;
-                        border: 1px solid grey;
-                        margin: 10px;
-                        background-size: cover;
-                      "
-                      :style="`background-image: url(${`${imageBaseURL}/${image.path}`};`"
-                    >
-                      <i
-                        @click="removeOldImage(index, image.id)"
-                        class="fa fa-window-close position-absolute"
-                        style="top: 1%; right: 1%; font-size: 16px; color: red"
-                      ></i>
+                <div class="col-4 q-my-lg">
+                  <div class="label-font">Images:</div>
+                  <q-uploader
+                    label="images upload"
+                    multiple
+                    @added="setFiles"
+                    @removed="setFiles"
+                    accept=".jpg,.png,.jpeg,.JPEG,.JPG"
+                    style="max-width: 300px"
+                  />
+                  <div>
+                    <span class="text-primary">{{ imageError }}</span>
+                  </div>
+                </div>
+                <div class="col-8 flex wrap-sm justify-center">
+                  <div class="flex">
+                    <div v-for="(image, index) in product.gallery" :key="index">
+                      <div
+                        class="cursor-pointer position-relative"
+                        style="
+                          height: 90px;
+                          width: 90px;
+                          border: 1px solid grey;
+                          margin: 10px;
+                          background-size: cover;
+                        "
+                        :style="`background-image: url(${`${imageBaseURL}/${image.path}`};`"
+                      >
+                        <i
+                          @click="removeOldImage(index, image.id)"
+                          class="fa fa-window-close position-absolute"
+                          style="
+                            top: 1%;
+                            right: 1%;
+                            font-size: 16px;
+                            color: red;
+                          "
+                        ></i>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-
               <!-- Purpose Tabs -->
               <div class="col-12 q-my-lg">
                 <div class="purpose">
