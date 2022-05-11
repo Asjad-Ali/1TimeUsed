@@ -15,10 +15,7 @@
           alt="img"
           style="object-fit: cover"
         />
-        <div
-          class="absolute-bottom text-right"
-          style="right: -3px; bottom: 1px"
-        >
+        <div class="absolute-bottom text-right" style="right: 6px; bottom: 5px">
           <input
             type="file"
             label="Standard"

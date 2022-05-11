@@ -39,7 +39,7 @@
             round
             outline
             flat
-            @click="addToWishlist(product)"
+            @click="addToWishlist(product.id)"
             size="sm"
             color="primary"
             class="absolute bg-white shadow-sm"
@@ -80,10 +80,11 @@ const props = defineProps({
 const slide = ref(0);
 const fullscreen = ref(false);
 const { product } = toRefs(props);
-const addToWishlist = (product) => {
-  wishlistStore.addWishlist(product);
+const addToWishlist = (id) => {
+  wishlistStore.addWishlist(id);
 };
 </script>
+
 
 <style>
 .details-carousel .q-panel.scroll {

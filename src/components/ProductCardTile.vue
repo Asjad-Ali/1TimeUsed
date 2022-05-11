@@ -42,27 +42,20 @@
             label="Sold out"
             @click="small = true"
           />
-          <q-btn
-            v-if="payload.status == 3"
-            size="sm"
-            color="primary"
-            label="Sold Out/Deactivate"
-            @click="small = true"
-          />
         </div>
 
-        <div class="flex justify-between column">
+        <div class="flex justify-between">
           <div class="text-caption text-grey ellipsis">
             {{ product.city || getAddress(product.neighborhood) }}
           </div>
           <div class="text-caption text-grey ellipsis">
-            {{ product.created_at.substr(0, 10) }}
+            {{ new Date(product.created_at).getDate() }}
           </div>
         </div>
       </q-card-section>
-      <div class="inline rounded-borders">
+      <div class="inline rounded-borders cursor-pointer">
         <div class="inline q-ps-lg q-ma-md">
-          <i class="fa fa-ellipsis-v cursor-pointer" aria-hidden="true"></i>
+          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
         </div>
         <q-menu touch-position>
           <q-list style="min-width: 100px">
@@ -108,28 +101,24 @@
           val="line"
           label="Activate"
           @click="changeStatus(1)"
-          v-close-popup
         />
         <q-radio
           v-model="shape"
           val="rectangle"
           label="Deactivate"
           @click="changeStatus(0)"
-          v-close-popup
         />
         <q-radio
           v-model="shape"
           val="ellipse"
           label="Sold Out"
           @click="changeStatus(2)"
-          v-close-popup
         />
         <q-radio
           v-model="shape"
           val="polygon"
           label="Sold Out/Deactivate"
           @click="changeStatus(3)"
-          v-close-popup
         />
       </div>
     </q-card>
