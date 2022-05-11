@@ -144,7 +144,10 @@ function handleLogout() {
 }
 
 const profilePhoto = computed(() => {
-  if (profile && profile.photo) return imageBaseURL + profile.photo;
+  if (profile && profile.photo)
+    return (
+      (!profile.photo.includes("http") ? imageBaseURL : "") + profile.photo
+    );
   else if (authStore.firebaseUser && authStore.firebaseUser.photoURL)
     return authStore.firebaseUser.photoURL;
   else return `https://www.w3schools.com/w3images/avatar2.png`;

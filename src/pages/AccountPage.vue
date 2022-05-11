@@ -4,15 +4,7 @@
     <!-- Avatar -->
     <div class="profile-avatar column items-center vw99">
       <q-avatar size="100px">
-        <img
-          :src="
-            profile
-              ? imageBaseURL + profile.photo
-              : `https://www.w3schools.com/w3images/avatar2.png`
-          "
-          alt="img"
-          style="object-fit: cover"
-        />
+        <img :src="profilePhoto" alt="img" style="object-fit: cover" />
       </q-avatar>
       <div v-if="profile" class="text-h6 text-center q-pt-sm">
         {{ profile.name }}
@@ -41,15 +33,26 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { useAuthStore } from "src/stores/auth.store";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useWishlistStore } from "../stores/wishlist.store";
 const store = useWishlistStore();
 
 const imageBaseURL = process.env.imagesBaseURL;
 const router = useRouter();
 const authStore = useAuthStore();
-const profile = ref(authStore.authUser);
+const profile = authStore.authUser;
 onMounted(() => store.loadwishlistProducts());
+
+const profilePhoto = computed(() => {
+  if (profile && profile.photo)
+    return (
+      (!profile.photo.includes("http") ? imageBaseURL : "") + profile.photo
+    );
+  else if (authStore.firebaseUser && authStore.firebaseUser.photoURL)
+    return authStore.firebaseUser.photoURL;
+  else return `https://www.w3schools.com/w3images/avatar2.png`;
+});
+
 const menus = ref([
   {
     title: "Wishlist",

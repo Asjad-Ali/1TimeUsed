@@ -96,14 +96,12 @@
 import { useAuthStore } from "src/stores/auth.store";
 import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
+import compressImage from "src/composables/useImageCompression";
 
 const imageBaseURL = process.env.imagesBaseURL;
 const { rules } = useValidationRules();
 const authStore = useAuthStore();
 const profile = ref(authStore.authUser);
-// const userName = ref(profile.value.name);
-// const userEmail = ref(profile.value.email);
-// const userPhone = ref(profile.value.phone);
 const accept = ref(false);
 const imageBase64 = ref(null);
 
@@ -128,21 +126,16 @@ const convertFileToBase64 = (file) => {
   };
   reader.readAsDataURL(file);
 };
-const handleProfileImage = (e) => {
+const handleProfileImage = async (e) => {
   const file = e.target.files[0];
-  profile.value.photo = file;
+
+  profile.value.photo = await compressImage(file, "profile-img");
   convertFileToBase64(file);
 };
 
 //////////////////     Update Profile Button
 const update_profile = async () => {
-  console.log("profileDAta: ", profile.value);
   const response = await authStore.updateProfile(profile.value);
-  // if (response.status == 200) {
-  //   userName.value = profile.value.name;
-  //   userEmail.value = profile.value.email;
-  //   userPhone.value = profile.value.phone;
-  // }
 };
 </script>
 
