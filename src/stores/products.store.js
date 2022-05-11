@@ -214,7 +214,11 @@ export const useProductStore = defineStore('productsStore ', {
       const response = await API.post('seller/product_status', payload);
 
       if (response.status === 200) {
-        //this.myProducts.status = this.myProducts(product => product.id == payload.id)
+        const index = this.myProducts.findIndex(product => product.id == payload.id)
+        if (index > -1) {
+          this.myProducts[index].status = payload.status;
+        }
+        persistData('my_products', this.myProducts);
 
         Notify.create({
           message: response.message,

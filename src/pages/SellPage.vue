@@ -13,7 +13,7 @@
       </div>
       <q-responsive v-else v-show="!store.myProducts.length" :ratio="4 / 2">
         <div class="rounded-borders flex flex-center">
-          <h4>Product you add will show up here</h4>
+          <h4>Products you add will show up here</h4>
         </div>
       </q-responsive>
 
