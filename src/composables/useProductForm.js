@@ -17,7 +17,7 @@ export default function useProductForm() {
 
 
   const product = ref({
-    title: "",
+    title: "Cloths",
     category_id: "",
     neighborhood: "Johar Town, Lahore",
     sub_category_id: "",
@@ -34,7 +34,7 @@ export default function useProductForm() {
     discountTil: "",
     brand: "Gul Ahmad",
     size: "6 Meters",
-    purpose: "rental",
+    purpose: "Rental",
   });
 
   onMounted(async () => {
@@ -77,9 +77,9 @@ export default function useProductForm() {
     product.value.sub_category_id = "";
   };
 
-  const removeOldImage = (index, id) => {
-    product.value.gallery.splice(index, 1)
-    productStore.deleteThumbnail(id)
+  const removeOldImage = async (index, id) => {
+    product.value.gallery.slice(index, 1)
+    await API.delete(`seller/products/gallery/${id}`)
   }
 
   const submitForm = async () => {
@@ -102,8 +102,9 @@ export default function useProductForm() {
     for (let i = 0; i < files.length && i < 10; i++) {
       compressedImages[i] = await compressImage(files[i]);
     }
-    product.value.images = compressedImages;
+    product.value.images.push(compressedImages[0]);
   };
+
 
   return {
     productForm,

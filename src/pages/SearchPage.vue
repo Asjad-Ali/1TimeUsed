@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @scroll="handleScroll">
     <div class="row justify-between items-center q-mt-lg">
       <div class="col-md-3 col-6">
         <q-icon
@@ -60,7 +60,13 @@
     <div class="container flex justify-center items-center">
       <div class="column q-mt-md">
         <div
-          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+          id="productsDiv"
+          class="
+            flex
+            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+            justify-center
+            items-center
+          "
         >
           <q-spinner
             v-if="store.loadingStatus"
@@ -70,7 +76,7 @@
           />
           <ProductCard
             v-else
-            v-for="product in searchResults"
+            v-for="product in store.searchResults"
             :key="product.id"
             :product="product"
           />
@@ -79,7 +85,10 @@
     </div>
   </div>
   <div class="container">
-    <div style="height: 40vh" v-show="!searchResults.length"></div>
+    <div
+      style="height: 40vh"
+      v-show="!store.searchResults || !store.searchResults.length"
+    ></div>
   </div>
 </template>
 
@@ -93,13 +102,8 @@ const store = useProductStore();
 const model = ref(null);
 const searchInput = ref();
 
-const {
-  searchSuggestions,
-  getSearchSuggestions,
-  searchProducts,
-  search,
-  searchResults,
-} = useSearch();
+const { searchSuggestions, getSearchSuggestions, searchProducts, search } =
+  useSearch();
 
 onMounted(() => {
   searchInput.value.focus();

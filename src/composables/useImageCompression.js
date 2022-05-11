@@ -13,6 +13,6 @@ export default async function compressImage(imageFile, type = null) {
 
   const compressedImage = await imageCompression(imageFile, options);
   // console.log('compressedFile instanceof Blob', compressedImage instanceof Blob); // true
-  // console.log(`compressedFile size ${compressedImage.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+  console.log(`compressedFile size ${compressedImage.size / 1024 / 1024} MB`); // smaller than maxSizeMB
   return compressedImage;
 }

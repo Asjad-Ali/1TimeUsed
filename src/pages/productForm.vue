@@ -39,7 +39,7 @@
                     <span class="text-primary">{{ imageError }}</span>
                   </div>
                 </div>
-                <div class="col-8 flex wrap-sm justify-center">
+                <div class="col-8 flex wrap-sm items-center">
                   <div class="flex">
                     <div v-for="(image, index) in product.gallery" :key="index">
                       <div
@@ -54,6 +54,7 @@
                         :style="`background-image: url(${`${imageBaseURL}/${image.path}`};`"
                       >
                         <i
+                          v-if="product.gallery.length != 1"
                           @click="removeOldImage(index, image.id)"
                           class="fa fa-window-close position-absolute"
                           style="
@@ -352,7 +353,20 @@
         </q-form>
       </div>
     </div>
-    <!-- Stepper End -->
+    <!-- Delete Confirmation Modal -->
+    <!-- <q-dialog v-model="confirm" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm"
+            >Are You sure you want to delete this Product</span
+          >
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn flat label="Yes" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog> -->
   </div>
 </template>
 
