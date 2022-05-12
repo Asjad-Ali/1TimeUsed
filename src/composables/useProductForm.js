@@ -77,10 +77,6 @@ export default function useProductForm() {
     product.value.sub_category_id = "";
   };
 
-  const removeOldImage = async (index, id) => {
-    product.value.gallery.slice(index, 1)
-    await API.delete(`seller/products/gallery/${id}`)
-  }
 
   const submitForm = async () => {
     console.log(product.value)
@@ -116,7 +112,6 @@ export default function useProductForm() {
     submitForm,
     setFiles,
     stepper,
-    removeOldImage,
     actionType
   }
 }
