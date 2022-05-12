@@ -28,7 +28,6 @@ export const useProductStore = defineStore('productsStore ', {
     loadedProduct: null,
     searchProducts: [],
     donateProducts: [],
-    searchResults: [],
     btnStatus: 0,
     loadingStatus: false,
   }),
