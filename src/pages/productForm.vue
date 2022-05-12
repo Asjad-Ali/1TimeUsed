@@ -55,7 +55,7 @@
                       >
                         <i
                           v-if="product.gallery.length != 1"
-                          @click="removeOldImage(index, image.id)"
+                          @click="confirmationModal(index, image.id)"
                           class="fa fa-window-close position-absolute"
                           style="
                             top: 1%;
@@ -352,21 +352,27 @@
           </q-stepper>
         </q-form>
       </div>
+      <!-- Delete Confirmation Modal -->
+      <q-dialog v-model="confirm" persistent>
+        <q-card>
+          <q-card-section class="row items-center">
+            <span class="q-ml-sm"
+              >Are You sure you want to delete this Picture</span
+            >
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn flat label="Cancel" color="primary" v-close-popup />
+            <q-btn
+              flat
+              label="Yes"
+              color="primary"
+              @click="removeOldImage(index, imageId)"
+              v-close-popup
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
-    <!-- Delete Confirmation Modal -->
-    <!-- <q-dialog v-model="confirm" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <span class="q-ml-sm"
-            >Are You sure you want to delete this Product</span
-          >
-        </q-card-section>
-        <q-card-actions align="right">
-          <q-btn flat label="Cancel" color="primary" v-close-popup />
-          <q-btn flat label="Yes" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog> -->
   </div>
 </template>
 
@@ -381,8 +387,16 @@ const productStore = useProductStore();
 const categoryStore = useCategoryStore();
 const { rules } = useValidationRules();
 const imageBaseURL = process.env.imagesBaseURL;
-
+const confirm = ref(false);
 const step = ref(1);
+const index = ref();
+const imageId = ref();
+
+const confirmationModal = (imageIndex, id) => {
+  confirm.value = true;
+  index.value = imageIndex;
+  imageId.value = id;
+};
 
 const {
   product,
@@ -394,8 +408,8 @@ const {
   setFiles,
   stepper,
   formValidated,
-  removeOldImage,
   actionType,
+  removeOldImage,
 } = useProductForm();
 </script>
 
