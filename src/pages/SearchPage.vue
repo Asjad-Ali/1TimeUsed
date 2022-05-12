@@ -13,6 +13,7 @@
         <q-select
           ref="searchInput"
           filled
+          @keydown.enter.prevent="searchProducts"
           v-model="search"
           use-input
           hide-selected
@@ -81,6 +82,14 @@
             :product="product"
           />
         </div>
+        <div
+          v-if="!store.searchResults.length && !store.loadingStatus"
+          style="height: 10vh"
+        >
+          <div class="rounded-borders flex flex-center">
+            <h4>No result found</h4>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -109,6 +118,9 @@ onMounted(() => {
   searchInput.value.focus();
 });
 </script>
+
+
+
 <style lang="scss" scoped>
 .search-bg {
   background: #fff;

@@ -1,12 +1,13 @@
 <template>
   <div v-if="store.loadingStatus" class="container">
-    <div class="text-center q-m-lg q-p-lg" style="height: 40vh">
+    <div class="text-center q-my-lg q-py-lg" style="height: 40vh">
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
   <div v-else class="container">
     <div class="relative-position">
       <div
+        :style="store.myProducts.length < 3 ? 'height: 60vh' : 'height: 10vh'"
         class="q-pa-md row items-start q-gutter-md justify-center"
         v-if="store.myProducts.length"
       >
@@ -21,7 +22,6 @@
           <h4>Product you add will show up here</h4>
         </div>
       </q-responsive>
-
       <!-- Add Button -->
       <div class="add-button">
         <q-btn

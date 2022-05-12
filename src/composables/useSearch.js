@@ -24,6 +24,9 @@ export default function useSearch() {
   }
 
   const addToLocalSearchHistory = (query) => {
+    if (!query || query.length < 3) {
+      return;
+    }
     let localHistory = getLocalSearchHistory();
     const index = localHistory.findIndex(val => val == query);
     if (index > -1) {
