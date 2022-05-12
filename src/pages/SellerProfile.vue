@@ -1,9 +1,9 @@
 <template>
   <div class="container q-mb-lg">
-    <div class="row flex justify-center">
-      <div class="col-md-6">
+    <div class="row flex justify-center q-my-lg">
+      <div class="col-md-4 col-12">
         <!-- Seller Profile -->
-        <q-card class="my-card q-pa-md q-my-lg" flat bordered>
+        <q-card class="my-card q-pa-md" flat bordered>
           <div class="title-date">
             <div class="row flex items-center justify-center">
               <div class="col-1">
@@ -22,14 +22,11 @@
                     Kiran Hussain Unique Store
                   </div>
                   <small class="text-grey"> 10 April 2022</small>
-                  <div class="seller-rating">
-                    <small class="text-grey"> 100% Postive Seller Rating</small>
-                    <div class="followers">
-                      <small class="text-grey">
-                        <i class="fa fa-user"></i>
-                        1.5k</small
-                      >
-                    </div>
+                  <!-- <div class="seller-rating"><small class="text-grey"> 100% Postive Seller Rating</small></div> -->
+                  <div class="followers">
+                    <small class="text-grey"
+                      ><i class="fa fa-user"></i>1.5k</small
+                    >
                   </div>
                 </div>
               </div>
@@ -44,9 +41,10 @@
           />
         </q-card>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
+
+      <div class="col-md-8 col-12">
+        <div class="text-h4 text-center q-pt-md">All Products</div>
+        <hr class="hr-4" />
         <div
           class="
             flex
@@ -78,5 +76,26 @@ onMounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
+hr {
+  background-color: #fff;
+  padding: 0;
+  margin: 40px 80px 40px 80px;
+}
+hr.hr-4 {
+  padding: 0;
+  border: none;
+  border-top: medium double #8c8c8c;
+  color: #8c8c8c;
+  text-align: center;
+}
+hr.hr-4:after {
+  content: "§";
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.5em;
+  padding: 0 0.25em;
+  background: #fff;
+}
 </style>
