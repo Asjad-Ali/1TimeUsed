@@ -83,7 +83,7 @@ const addToWishlist = (product) => {
 };
 
 const ProductDetail = (product) => {
-  router.push(`/product_details/${product.id}`);
+  router.push(`/product_details/${product.slug}`);
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id
   );

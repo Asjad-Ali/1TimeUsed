@@ -152,7 +152,7 @@ const payload = ref({
   status: product.value.status,
 });
 const ProductDetail = (product) => {
-  router.push(`/product_details/${product.id}`);
+  router.push(`/product_details/${product.slug}`);
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id
   );
