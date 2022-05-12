@@ -28,8 +28,9 @@ import ProductCard from "src/components/ProductCard.vue";
 import { useWishlistStore } from "../stores/wishlist.store";
 
 const store = useWishlistStore();
-
-onMounted(() => store.loadwishlistProducts());
+onMounted(() => {
+  store.loadwishlistProducts();
+});
 </script>
 
 <style></style>

@@ -35,7 +35,7 @@
         round
         outline
         flat
-        @click="addToWishlist(product.id)"
+        @click="addToWishlist(product)"
         size="sm"
         color="primary"
         class="absolute shadow-sm"
@@ -76,11 +76,10 @@ const props = defineProps({
     default: "featured-products",
   },
 });
-
 const { product, mainDiv } = toRefs(props);
 
-const addToWishlist = (id) => {
-  wishlistStore.addWishlist(id);
+const addToWishlist = (product) => {
+  wishlistStore.addWishlist(product);
 };
 
 const ProductDetail = (product) => {
