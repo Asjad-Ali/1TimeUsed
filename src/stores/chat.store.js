@@ -76,7 +76,7 @@ export const useChatStore = defineStore('chat', {
         });
       }
       this.conversationLoadingStatus = "COMPLETED";
-      this.setConversationsAreLoaded = true;
+      this.areConversationsLoaded = true;
     },
 
 
@@ -102,7 +102,7 @@ export const useChatStore = defineStore('chat', {
         db,
         `Conversations/${selectedConversation.id}/Messages`
       );
-      const limitRecords = 8;
+      const limitRecords = 15;
       const q = query(chatRef, orderBy("sentAt"), limitToLast(limitRecords));
       this.selectedChatListenerRef = onSnapshot(q, (snapshot) => {
 

@@ -1,13 +1,21 @@
 <template>
   <div class="scroll-div">
     <div
-      class="user q-pa-sm flex cursor-pointer items-center border-bottom bg-grey-3"
       v-for="conversation in conversations"
       :key="conversation.id"
       @click="openConversation(conversation)"
+      class="user q-pa-sm flex cursor-pointer items-center border-bottom"
+      :class="{
+        ' bg-grey-3':
+          chatStore.selectedConversation &&
+          chatStore.selectedConversation.id == conversation.id,
+      }"
     >
       <q-avatar class="q-mr-md">
-        <img :src="otherMember(conversation).photo" />
+        <img
+          :src="otherMember(conversation).photo"
+          referrerpolicy="no-referrer"
+        />
       </q-avatar>
       <div class="col">
         <div class="row items-center justify-between">
@@ -18,9 +26,15 @@
           <div class="text-caption">{{ timeDiff(conversation.sentAt) }}</div>
         </div>
 
-        <span class="text-caption ellipsis">{{
-          conversation.lastMessage
-        }}</span>
+        <span class="text-caption ellipsis"
+          >{{
+            conversation.senderID == authStore.authUser.id
+              ? "Me"
+              : otherMember(conversation).name.split(" ")[0]
+          }}
+          : {{ conversation.lastMessage.substring(0, 25) }}
+          {{ conversation.lastMessage.length > 25 ? "..." : "" }}</span
+        >
       </div>
     </div>
   </div>

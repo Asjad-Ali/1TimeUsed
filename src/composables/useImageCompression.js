@@ -5,7 +5,7 @@ export default async function compressImage(imageFile, type = null) {
   console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
 
   const options = {
-    maxSizeMB: type && type == "profile-img" ? 0.15 : 0.5,
+    maxSizeMB: type && type == "profile-img" ? 0.13 : 0.4,
     maxWidthOrHeight: 1920,
     useWebWorker: true,
   };

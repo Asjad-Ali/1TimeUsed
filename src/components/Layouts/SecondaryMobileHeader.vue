@@ -28,7 +28,9 @@
         <q-avatar class="q-mr-sm">
           <img :src="chatMember.photo" />
         </q-avatar>
-        <span class="text-white text-h6">{{ chatMember.name }}</span>
+        <span class="text-white" style="font-size: 1.1rem">{{
+          chatMember.name
+        }}</span>
       </div>
 
       <span

@@ -3,7 +3,7 @@
     <q-carousel
       animated
       v-model="slide"
-      navigation
+      :navigation="product.gallery.length > 1"
       dark
       infinite
       :arrows="product.gallery.length > 1"

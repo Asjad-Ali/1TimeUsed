@@ -2,7 +2,7 @@
   <div class="chat-container">
     <div class="container">
       <div class="chat-hight">
-        <div class="row q-lg-my-xl q-my-md">
+        <div class="row q-my-sm">
           <div
             v-if="chatStore.viewType === 'conversations' || $q.screen.gt.sm"
             class="col-md-3 col-12 bg-white rounded-10"
@@ -12,11 +12,22 @@
           <div class="col-md-1"></div>
           <div
             v-if="chatStore.viewType != 'conversations' || $q.screen.gt.sm"
-            class="col-md-8 col-12 bg-white rounded-10 chat-box"
+            class="
+              col-md-8 col-12
+              bg-white
+              rounded-10
+              chat-box
+              relative-position
+            "
           >
             <div class="scroll-div">
               <div class="q-pa-md row justify-center">
-                <div style="width: 100%">
+                <q-scroll-area
+                  delay="300"
+                  class="chat-scroller"
+                  style="width: 100%"
+                  :visible="false"
+                >
                   <!-- <q-chat-message label="Sunday, 19th" /> -->
 
                   <q-spinner
@@ -50,7 +61,7 @@
                       :stamp="timeDiff(message.sentAt)"
                     />
                   </div>
-                </div>
+                </q-scroll-area>
               </div>
             </div>
             <ChatInput />
@@ -105,9 +116,42 @@ const getMember = (id) => {
 }
 
 .chat-box {
+  height: 80vh;
+
   @media screen and (max-width: $breakpoint-sm-max) {
     height: 80vh;
-    margin-top: 20px;
+    margin-top: 10px;
   }
+
+  @media (max-width: 991.98px) {
+    height: 86vh;
+    .chat-scroller {
+      height: 78vh;
+    }
+  }
+  @media (max-width: 767.98px) {
+    height: 82.5vh;
+    .chat-scroller {
+      height: 72vh;
+    }
+  }
+
+  @media (max-width: 370px) and (max-height: 760px) {
+    height: 81vh;
+    .chat-scroller {
+      height: 73vh;
+    }
+  }
+
+  @media (max-width: 340px) and (max-height: 660px) {
+    height: 79vh;
+    .chat-scroller {
+      height: 70vh;
+    }
+  }
+}
+
+.chat-scroller {
+  height: 68vh;
 }
 </style>
