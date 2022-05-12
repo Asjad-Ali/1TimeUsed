@@ -77,10 +77,6 @@ export default function useProductForm() {
     product.value.sub_category_id = "";
   };
 
-  const removeOldImage = async (index, id) => {
-    product.value.gallery.slice(index, 1)
-    await API.delete(`seller/products/gallery/${id}`)
-  }
 
   const submitForm = async () => {
     console.log(product.value)
@@ -102,7 +98,15 @@ export default function useProductForm() {
     for (let i = 0; i < files.length && i < 10; i++) {
       compressedImages[i] = await compressImage(files[i]);
     }
-    product.value.images.push(compressedImages[0]);
+    for (let i = 0; i < compressedImages.length && i < 10; i++) {
+      product.value.images.push(compressedImages[i]);
+    }
+
+  };
+  const removeOldImage = (index, imageId) => {
+    console.log(index, imageId);
+    product.value.gallery.splice(index, 1)
+    API.delete(`seller/products/gallery/${imageId}`)
   };
 
 
@@ -116,7 +120,7 @@ export default function useProductForm() {
     submitForm,
     setFiles,
     stepper,
-    removeOldImage,
-    actionType
+    actionType,
+    removeOldImage
   }
 }

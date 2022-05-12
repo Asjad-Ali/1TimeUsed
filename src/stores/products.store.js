@@ -90,17 +90,21 @@ export const useProductStore = defineStore('productsStore ', {
     },
 
     async loadMyProducts() {
+      this.loadingStatus = true
       if (this.myProducts.length) {
+        this.loadingStatus = false
         return;
       }
 
       const myProducts = getPersistentData('my_products', 1);
       if (myProducts) {
         this.myProducts = myProducts;
+        this.loadingStatus = false
         return;
       }
 
       const response = await API.get('seller/products');
+      this.loadingStatus = false
       if (response.status == 200) {
         this.myProducts = response.data;
         persistData('my_products', response.data);

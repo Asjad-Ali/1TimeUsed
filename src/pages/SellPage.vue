@@ -1,5 +1,10 @@
 <template>
-  <div class="container">
+  <div v-if="store.loadingStatus" class="container">
+    <div class="text-center q-m-lg q-p-lg" style="height: 40vh">
+      <q-spinner color="primary" size="5em" />
+    </div>
+  </div>
+  <div v-else class="container">
     <div class="relative-position">
       <div
         class="q-pa-md row items-start q-gutter-md justify-center"
