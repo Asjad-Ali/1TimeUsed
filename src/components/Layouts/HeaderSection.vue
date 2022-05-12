@@ -83,7 +83,7 @@
 
             <q-avatar class="cursor-pointer desktop-only">
               <img
-                :src="profilePhoto"
+                :src="authStore.profilePhoto"
                 alt="img"
                 style="object-fit: cover"
                 referrerpolicy="no-referrer"
@@ -134,24 +134,12 @@
 <script setup>
 import { computed } from "@vue/runtime-core";
 import { useAuthStore } from "src/stores/auth.store";
-
-const imageBaseURL = process.env.imagesBaseURL;
 const authStore = useAuthStore();
 const profile = authStore.authUser;
 
 function handleLogout() {
   authStore.logout();
 }
-
-const profilePhoto = computed(() => {
-  if (profile && profile.photo)
-    return (
-      (!profile.photo.includes("http") ? imageBaseURL : "") + profile.photo
-    );
-  else if (authStore.firebaseUser && authStore.firebaseUser.photoURL)
-    return authStore.firebaseUser.photoURL;
-  else return `https://www.w3schools.com/w3images/avatar2.png`;
-});
 </script>
 
 <style lang="scss" scoped>

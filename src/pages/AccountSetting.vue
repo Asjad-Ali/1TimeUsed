@@ -19,8 +19,13 @@
           class="absolute-bottom text-right"
           style="right: -3px; bottom: 1px"
         >
-          x; bottom: 5px"> type="file" label="Standard"
-          @change="handleProfileImage($event)" ref="fileInput" hidden />
+          <input
+            type="file"
+            label="Standard"
+            @change="handleProfileImage($event)"
+            ref="fileInput"
+            hidden
+          />
           <i
             class="fa fa-camera cursor-pointer"
             @click="$refs.fileInput.click()"
@@ -113,8 +118,8 @@ const validatePhone = () => {
     profile.value.phone = "+" + profile.value.phone.replace(/[^0-9]/g, "");
   }
 };
-////
-/////////////     Convert Profile Image into Base64
+
+/////////////////     Convert Profile Image into Base64
 const convertFileToBase64 = (file) => {
   imageBase64.value = file;
   const reader = new FileReader();

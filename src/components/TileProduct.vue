@@ -1,12 +1,14 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
+  <div class="row items-start">
     <q-card class="my-card" flat bordered>
       <q-card-section horizontal>
         <q-card-section class="col-5 flex flex-center">
-          <q-img
-            class="rounded-borders fit"
-            :src="imageBaseURL + product.gallery[0].path"
-          />
+          <div class="img-holder">
+            <img
+              class="rounded-borders fit"
+              :src="imageBaseURL + product.gallery[0].path"
+            />
+          </div>
         </q-card-section>
         <q-card-section>
           <div
@@ -25,7 +27,7 @@
             <div class="text-caption text-grey ellipsis">
               {{ product.city || getAddress(product.neighborhood) }}
             </div>
-            <div class="text-caption text-grey ellipsis">7 April</div>
+            <div class="text-caption text-grey ellipsis">8 April</div>
           </div>
         </q-card-section>
       </q-card-section>
@@ -83,7 +85,7 @@ const addToWishlist = (product) => {
 };
 
 const ProductDetail = (product) => {
-  router.push(`/product_details/${product.id}`);
+  router.push(`/product_details/${product.slug}`);
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id
   );
@@ -115,7 +117,14 @@ const getAddress = (address) => {
 
 <style lang="scss" scoped>
 .my-card {
+  height: 145px;
   width: 350px;
   max-width: 350px;
+}
+.img-holder {
+  height: 110px;
+}
+.img-holder > img {
+  object-fit: cover;
 }
 </style>

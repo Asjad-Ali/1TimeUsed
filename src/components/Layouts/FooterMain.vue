@@ -92,7 +92,7 @@
           <p><q-icon name="home" /> Johar Town Lahore</p>
           <p>
             <q-icon name="email" />
-            info@1timeused.com
+            horizamtech@gmail.com
           </p>
           <p><q-icon name="call" />+ 01 234 567 88</p>
           <p><q-icon name="print" /> + 01 234 567 89</p>

@@ -30,6 +30,8 @@ export const useAuthStore = defineStore('authStore', {
     forgotEmail: null,
     isUserAuthenticatedOnFirebase: false,
     firebaseUser: null,
+    profilePhoto: null,
+    defaultAvatar: `https://www.w3schools.com/w3images/avatar2.png`,
   }),
   // getters: {
   //   getAuthUser(state) {
@@ -103,6 +105,10 @@ export const useAuthStore = defineStore('authStore', {
       this.deviceId = this.$cookies.get(deviceIdKey);
       this.authToken = this.$cookies.get('1TIMEUSED_TOKEN');
       this.authUser = this.$cookies.get('AUTH_USER')
+
+      if (this.authUser && this.authUser.photo)
+        this.profilePhoto = (!this.authUser.photo.includes("http") ? process.env.imagesBaseURL : "") + this.authUser.photo
+      else this.profilePhoto = this.defaultAvatar;
     },
 
     loadFirebaseAuth() {
@@ -112,6 +118,10 @@ export const useAuthStore = defineStore('authStore', {
           const uid = user.uid;
           this.firebaseUser = user;
           this.isUserAuthenticatedOnFirebase = true;
+
+          if (!this.authUser.photo && this.firebaseUser && this.firebaseUser.photoURL)
+            this.profilePhoto = this.firebaseUser.photoURL;
+
         } else {
           this.isUserAuthenticatedOnFirebase = false;
         }
