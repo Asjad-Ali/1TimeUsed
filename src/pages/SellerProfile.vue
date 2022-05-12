@@ -19,26 +19,27 @@
               <div class="col-11">
                 <div class="seller-info q-pl-lg">
                   <div class="text-subtitle1 text-uppercase">
-                    Kiran Hussain Unique Store
+                    {{ store.seller.name }}
                   </div>
-                  <small class="text-grey"> 10 April 2022</small>
+                  <small class="text-grey">
+                    {{ store.seller.created_at }}</small
+                  >
                   <!-- <div class="seller-rating"><small class="text-grey"> 100% Postive Seller Rating</small></div> -->
                   <div class="followers">
-                    <small class="text-grey"
-                      ><i class="fa fa-user"></i>1.5k</small
-                    >
+                    <!-- <small class="text-grey"
+                      ><i class="fa fa-user"></i> 1.5k</small> -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <q-btn
+          <!-- <q-btn
             color="primary"
             size="sm"
             label="Follow"
             class="w-100 q-my-md"
-          />
+          /> -->
         </q-card>
       </div>
 
@@ -55,7 +56,7 @@
         >
           <ProductCard
             :product="product"
-            v-for="product in store.featuredProducts"
+            v-for="product in store.sellerProducts"
             :key="product"
           />
         </div>
@@ -67,12 +68,13 @@
 <script setup>
 import { onMounted } from "@vue/runtime-core";
 import ProductCard from "src/components/ProductCard.vue";
-import { useProductStore } from "../stores/products.store.js";
-
-const store = useProductStore();
+import { useRoute } from "vue-router";
+import { useSellerStore } from "../stores/seller.store";
+const route = useRoute();
+const store = useSellerStore();
 
 onMounted(() => {
-  store.loadFeaturedProducts();
+  store.loadSellerProducts(route.params.id);
 });
 </script>
 

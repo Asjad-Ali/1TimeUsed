@@ -24,6 +24,9 @@ export default function useSearch() {
   }
 
   const addToLocalSearchHistory = (query) => {
+    if (!query || query.length < 3) {
+      return;
+    }
     let localHistory = getLocalSearchHistory();
     const index = localHistory.findIndex(val => val == query);
     if (index > -1) {
@@ -48,15 +51,16 @@ export default function useSearch() {
     });
   }
 
-  const searchProducts = async () => {
-    if (currentPage == 1) {
-      store.searchResults = [];
+  const searchProducts = async (paginated = false) => {
+    if (currentPage == 1 || !paginated) {
+      store.searchProducts = [];
     }
     store.loadingStatus = true;
     const query = search.value || searchVal;
+
     const response = await API.get(`search?q=${query}&page=${currentPage}`);
     store.loadingStatus = false;
-    store.searchResults = [...store.searchResults, ...response.data];
+    store.searchProducts = [...store.searchProducts, ...response.data];
     console.log(response)
     hasMorePages = response.links.next ? true : false;
     currentPage = response.meta.current_page;
@@ -75,7 +79,7 @@ export default function useSearch() {
         console.log(hasMorePages)
         if (hasMorePages) {
           currentPage++;
-          searchProducts();
+          searchProducts(true);
           lastApiCallTime = Date.now();
         }
       }
