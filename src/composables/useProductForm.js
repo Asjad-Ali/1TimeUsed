@@ -98,7 +98,15 @@ export default function useProductForm() {
     for (let i = 0; i < files.length && i < 10; i++) {
       compressedImages[i] = await compressImage(files[i]);
     }
-    product.value.images.push(compressedImages[0]);
+    for (let i = 0; i < compressedImages.length && i < 10; i++) {
+      product.value.images.push(compressedImages[i]);
+    }
+
+  };
+  const removeOldImage = (index, imageId) => {
+    console.log(index, imageId);
+    product.value.gallery.splice(index, 1)
+    API.delete(`seller/products/gallery/${imageId}`)
   };
 
 
@@ -112,6 +120,7 @@ export default function useProductForm() {
     submitForm,
     setFiles,
     stepper,
-    actionType
+    actionType,
+    removeOldImage
   }
 }
