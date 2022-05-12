@@ -60,8 +60,11 @@
           </div>
         </div>
       </q-card-section>
-      <div class="inline rounded-borders cursor-pointer">
-        <div class="inline q-ps-lg q-ma-md">
+      <div
+        style="position: absolute; top: 3%; right: 3%"
+        class="inline rounded-borders"
+      >
+        <div class="inline cursor-pointer">
           <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
         </div>
         <q-menu touch-position>

@@ -120,7 +120,7 @@
             <div class="seller-info q-pl-lg">
               <div
                 class="text-subtitle1 cursor-pointer"
-                @click="$router.push('/sellerprofile')"
+                @click="$router.push(`/seller_profile/${product.seller.id}`)"
               >
                 {{ product.seller.name }}
               </div>
