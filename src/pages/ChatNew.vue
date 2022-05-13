@@ -7,9 +7,7 @@
 
         <q-page-container class="bg-grey-2">
           <div class="q-pa-md row justify-center">
-            <div
-              style="width: 100%; max-width: 100%; height: calc(100vh - 132px)"
-            >
+            <div style="width: 100%; max-width: 100%">
               <!-- <q-chat-message label="Sunday, 19th" /> -->
 
               <q-spinner
@@ -43,6 +41,14 @@
                   :stamp="timeDiff(message.sentAt)"
                 />
               </div>
+            </div>
+          </div>
+          <div class="desktop-only" v-if="!chatStore.selectedConversation">
+            <div class="row flex justify-center items-center">
+              <img src="../../public/images/chat.svg" alt="chat" width="30%" />
+            </div>
+            <div class="text-h6 text-center q-py-xl text-grey">
+              Choose a conversation from the left
             </div>
           </div>
         </q-page-container>
@@ -98,52 +104,13 @@ const getMember = (id) => {
 };
 </script>
 
-<!-- <style  lang="sass">
-.WAL
-    width: 100%
-    height: 100%
-    padding-top: 20px
-    padding-bottom: 20px
-&:before
-    content: ''
-    height: 127px
-    position: fixed
-    top: 0
-    width: 100%
-    background-color: #009688
-&__layout
-    margin: 0 auto
-    z-index: 4000
-    height: 100%
-    width: 90%
-    max-width: 950px
-    border-radius: 5px
-&__field.q-field--outlined .q-field__control:before
-    border: none
-.q-drawer--standard
-    .WAL__drawer-close
-        display: none
-@media (max-width: 850px)
-.WAL
-    padding: 0
-    &__layout
-        width: 100%
-        border-radius: 0
-@media (min-width: 691px)
-.WAL
-    &__drawer-open
-        display: none
-.conversation__summary
-    margin-top: 4px
-.conversation__more
-    margin-top: 0!important
-    font-size: 1.4rem
-</style> -->
 <style scoped>
 .WAL {
   height: calc(100vh - 100px);
   padding-bottom: 10px;
+  background: #f5f5f5 !important;
 }
+
 @media (max-width: 768px) {
   .WAL {
     height: calc(100vh - 120px);

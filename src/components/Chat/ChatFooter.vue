@@ -1,19 +1,10 @@
 <template>
-  <q-footer>
+  <q-footer
+    v-if="chatStore.selectedConversation || chatStore.newConversationUser"
+  >
     <q-toolbar class="bg-grey-3 text-black row">
-      <q-btn
-        round
-        flat
-        icon="collections"
-        class="q-mr-sm"
-        :disable="
-          !chatStore.selectedConversation && !chatStore.newConversationUser
-        "
-      />
+      <q-btn round flat icon="collections" class="q-mr-sm" />
       <q-input
-        :disable="
-          !chatStore.selectedConversation && !chatStore.newConversationUser
-        "
         rounded
         outlined
         dense
@@ -23,15 +14,7 @@
         placeholder="Type a message"
       />
       <!-- <q-btn round flat icon="mic" /> -->
-      <q-btn
-        @click="sendMessage"
-        round
-        flat
-        icon="send"
-        :disable="
-          !chatStore.selectedConversation && !chatStore.newConversationUser
-        "
-      />
+      <q-btn @click="sendMessage" round flat icon="send" />
     </q-toolbar>
   </q-footer>
 </template>

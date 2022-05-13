@@ -1,5 +1,5 @@
 <template>
-  <q-header elevated>
+  <q-header elevated v-if="chatStore.selectedConversation">
     <q-toolbar class="bg-grey-3 text-black">
       <q-btn
         round
@@ -9,13 +9,13 @@
         @click="chatStore.leftDrawerOpen = !chatStore.leftDrawerOpen"
       />
 
-      <q-btn round flat v-if="chatStore.selectedConversation">
+      <q-btn round flat>
         <q-avatar>
           <img :src="chatMember.photo" />
         </q-avatar>
       </q-btn>
 
-      <span class="q-subtitle-1 q-pl-md" v-if="chatStore.selectedConversation">
+      <span class="q-subtitle-1 q-pl-md">
         {{ chatMember.name }}
       </span>
 
