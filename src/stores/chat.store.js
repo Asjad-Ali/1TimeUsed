@@ -33,6 +33,7 @@ export const useChatStore = defineStore('chat', {
     areConversationsLoaded: false,
     leftDrawerOpen: true,
     newConversationUser: null,
+    showScrollButton: false,
   }),
   actions: {
 
@@ -198,16 +199,16 @@ export const useChatStore = defineStore('chat', {
     },
 
     scrollToBottom() {
+
       setTimeout(() => {
         const messagesDiv = document.getElementById("messages-main-div");
         if (messagesDiv) {
-          messagesDiv.scrollTo({
-            top: messagesDiv.scrollHeight,
-            left: 0,
-            behavior: 'smooth'
-          });
+          messagesDiv.scrollTop = parseInt(messagesDiv.scrollHeight);
+          //console.log(messagesDiv.scrollHeight, messagesDiv.scrollTop)
         }
+
       }, 300);
+
     }
   }
 })
