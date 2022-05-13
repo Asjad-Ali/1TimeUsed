@@ -29,6 +29,7 @@ export const useChatStore = defineStore('chat', {
     hasMoreMessages: true,
     areConversationsLoaded: false,
     viewType: 'conversations',
+    leftDrawerOpen: true,
   }),
   actions: {
 
