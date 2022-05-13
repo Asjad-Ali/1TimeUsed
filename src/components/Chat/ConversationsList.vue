@@ -57,7 +57,10 @@
       </q-toolbar>
 
       <q-scroll-area style="height: calc(100% - 100px)">
-        <q-list>
+        <ConversationLoadingSkeleton
+          v-if="chatStore.conversationLoadingStatus"
+        />
+        <q-list v-else>
           <q-item
             v-for="(conversation, index) in chatStore.conversations"
             :key="conversation.id"
@@ -105,6 +108,7 @@ import { ref, computed } from "vue";
 import { useChatStore } from "src/stores/chat.store";
 import { useAuthStore } from "src/stores/auth.store";
 import useChat from "src/composables/useChat";
+import ConversationLoadingSkeleton from "src/components/Chat/ConversationLoadingSkeleton.vue";
 
 const chatStore = useChatStore();
 const authStore = useAuthStore();

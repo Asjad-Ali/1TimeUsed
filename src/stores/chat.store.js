@@ -25,8 +25,8 @@ export const useChatStore = defineStore('chat', {
     selectedConversation: null,
     isConversationNew: true,
     referrerMsg: false,
-    conversationLoadingStatus: null,
-    chatLoadingStatus: null,
+    conversationLoadingStatus: false,
+    chatLoadingStatus: false,
     selectedChatListenerRef: null,
     messages: [],
     hasMoreMessages: true,
@@ -46,7 +46,7 @@ export const useChatStore = defineStore('chat', {
     },
 
     async lookForConversationChanges() {
-      this.conversationLoadingStatus = "LOADING";
+      this.conversationLoadingStatus = true;
       if (!this.areConversationsLoaded) {
 
         const db = getFirestore();
@@ -60,6 +60,7 @@ export const useChatStore = defineStore('chat', {
 
         /*const unsubscribe = */
         onSnapshot(q, (snapshot) => {
+          this.conversationLoadingStatus = false;
           snapshot.docChanges().forEach((change) => {
             const id = change.doc.id;
             const conversation = {

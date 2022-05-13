@@ -34,7 +34,7 @@
                   :text="[
                     message.attachmentType == 0
                       ? message.message
-                      : `<img src='${message.message}' style='max-width:200px' />`,
+                      : `<div> <img src='${message.message}' style='max-width:200px' /> </div>`,
                   ]"
                   :text-html="message.attachmentType != 0 ? true : false"
                   :sent="authStore.authUser.id == message.senderID"
@@ -50,6 +50,7 @@
                   icon="arrow_downward"
                   color="accent"
                 />
+                <!-- <ImagePreview /> -->
               </div>
             </div>
           </div>
@@ -74,6 +75,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import ConversationsList from "src/components/Chat/ConversationsList.vue";
+import ImagePreview from "src/components/Chat/ImagePreview.vue";
 import ChatHeader from "src/components/Chat/ChatHeader.vue";
 import ChatFooter from "src/components/Chat/ChatFooter.vue";
 import { useChatStore } from "src/stores/chat.store";
