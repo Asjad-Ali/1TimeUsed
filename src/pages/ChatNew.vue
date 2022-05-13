@@ -54,97 +54,103 @@
           </q-toolbar>
         </q-header>
         <!-- Side Bar -->
-        <q-drawer
-          v-model="leftDrawerOpen"
-          show-if-above
-          bordered
-          :breakpoint="690"
-        >
-          <q-toolbar class="bg-grey-3">
-            <q-avatar class="cursor-pointer">
-              <img
-                src="https://1timeused.com/uploads/profiles/813516520823832."
+        <div class="side-bar">
+          <q-drawer
+            v-model="leftDrawerOpen"
+            show-if-above
+            bordered
+            :breakpoint="690"
+          >
+            <q-toolbar class="bg-grey-3">
+              <q-avatar class="cursor-pointer">
+                <img
+                  src="https://1timeused.com/uploads/profiles/813516520823832."
+                />
+              </q-avatar>
+
+              <q-space />
+
+              <q-btn round flat icon="more_vert">
+                <q-menu auto-close :offset="[110, 8]">
+                  <q-list style="min-width: 150px">
+                    <q-item clickable>
+                      <q-item-section>Profile</q-item-section>
+                    </q-item>
+                    <q-item clickable>
+                      <q-item-section>Archived</q-item-section>
+                    </q-item>
+                    <q-item clickable>
+                      <q-item-section>Favorites</q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+
+              <q-btn
+                round
+                flat
+                icon="close"
+                class="WAL__drawer-close"
+                @click="toggleLeftDrawer"
               />
-            </q-avatar>
+            </q-toolbar>
 
-            <q-space />
-
-            <q-btn round flat icon="more_vert">
-              <q-menu auto-close :offset="[110, 8]">
-                <q-list style="min-width: 150px">
-                  <q-item clickable>
-                    <q-item-section>Profile</q-item-section>
-                  </q-item>
-                  <q-item clickable>
-                    <q-item-section>Archived</q-item-section>
-                  </q-item>
-                  <q-item clickable>
-                    <q-item-section>Favorites</q-item-section>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-btn>
-
-            <q-btn
-              round
-              flat
-              icon="close"
-              class="WAL__drawer-close"
-              @click="toggleLeftDrawer"
-            />
-          </q-toolbar>
-
-          <q-toolbar class="bg-grey-2">
-            <q-input
-              rounded
-              outlined
-              dense
-              class="WAL__field full-width"
-              bg-color="white"
-              v-model="search"
-              placeholder="Search or start a new conversation"
-            >
-              <template v-slot:prepend>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </q-toolbar>
-
-          <q-scroll-area style="height: calc(100% - 100px)">
-            <q-list>
-              <q-item
-                v-for="(conversation, index) in conversations"
-                :key="conversation.id"
-                clickable
-                v-ripple
-                @click="setCurrentConversation(index)"
+            <q-toolbar class="bg-grey-2">
+              <q-input
+                rounded
+                outlined
+                dense
+                class="WAL__field full-width"
+                bg-color="white"
+                v-model="search"
+                placeholder="Search or start a new conversation"
               >
-                <q-item-section avatar>
-                  <q-avatar>
-                    <img :src="conversation.avatar" />
-                  </q-avatar>
-                </q-item-section>
+                <template v-slot:prepend>
+                  <q-icon name="search" />
+                </template>
+              </q-input>
+            </q-toolbar>
 
-                <q-item-section>
-                  <q-item-label lines="1">
-                    {{ conversation.person }}
-                  </q-item-label>
-                  <q-item-label class="conversation__summary" caption>
-                    <q-icon name="check" v-if="conversation.sent" />
-                    <q-icon name="not_interested" v-if="conversation.deleted" />
-                    {{ conversation.caption }}
-                  </q-item-label>
-                </q-item-section>
+            <q-scroll-area style="height: calc(100% - 100px)">
+              <q-list>
+                <q-item
+                  v-for="(conversation, index) in conversations"
+                  :key="conversation.id"
+                  clickable
+                  v-ripple
+                  @click="setCurrentConversation(index)"
+                >
+                  <q-item-section avatar>
+                    <q-avatar>
+                      <img :src="conversation.avatar" />
+                    </q-avatar>
+                  </q-item-section>
 
-                <q-item-section side>
-                  <q-item-label caption>
-                    {{ conversation.time }}
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-scroll-area>
-        </q-drawer>
+                  <q-item-section>
+                    <q-item-label lines="1">
+                      {{ conversation.person }}
+                    </q-item-label>
+                    <q-item-label class="conversation__summary" caption>
+                      <q-icon name="check" v-if="conversation.sent" />
+                      <q-icon
+                        name="not_interested"
+                        v-if="conversation.deleted"
+                      />
+                      {{ conversation.caption }}
+                    </q-item-label>
+                  </q-item-section>
+
+                  <q-item-section side>
+                    <q-item-label caption>
+                      {{ conversation.time }}
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-scroll-area>
+          </q-drawer>
+        </div>
+
         <!-- Conversation -->
         <q-page-container>
           <div class="q-pa-md row justify-center">
@@ -350,5 +356,11 @@ export default {
     height: calc(100vh - 120px);
     padding-bottom: 0;
   }
+}
+</style>
+
+<style>
+.side-bar aside.q-drawer {
+  width: 100% !important;
 }
 </style>
