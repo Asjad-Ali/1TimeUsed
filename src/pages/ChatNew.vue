@@ -17,7 +17,7 @@
                 class="absolute-center"
               />
 
-              <div v-else>
+              <div v-else id="messages-main-div" style="overflow-y: scroll">
                 <q-chat-message
                   v-for="message in chatStore.messages"
                   :key="message.id"
