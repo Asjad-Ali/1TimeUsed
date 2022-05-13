@@ -30,6 +30,8 @@ export const useProductStore = defineStore('productsStore ', {
     donateProducts: [],
     btnStatus: 0,
     loadingStatus: false,
+    currentPage: 1,
+    hasMorePages: false
   }),
 
   getters: {},
@@ -77,12 +79,17 @@ export const useProductStore = defineStore('productsStore ', {
         console.log("Error in Featured", response)
       }
     },
-    async loadSubCategoryProduct(id) {
+    async loadSubCategoryProduct(id, paginated = false) {
+      if (this.currentPage == 1 || !paginated) {
+        this.sellerProducts = [];
+      }
       this.loadingStatus = true;
       const response = await API.get(`sub_categories/${id}/products`);
       this.loadingStatus = false;
       if (response.status == 200) {
-        this.subCategoryProduct = response.data;
+        this.subCategoryProduct = [...this.subCategoryProduct, ...response.data]
+        this.currentPage = response.meta.current_page;
+        this.hasMorePages = response.links.next ? true : false;
       } else {
         console.log("Error in Featured", response)
       }

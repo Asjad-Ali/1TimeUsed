@@ -1,6 +1,11 @@
 <template>
-  <div class="container q-mb-lg">
-    <div class="row flex justify-center q-my-lg">
+  <div v-if="store.loadingStatus" class="container">
+    <div class="text-center q-my-lg q-py-lg" style="height: 60vh">
+      <q-spinner color="primary" size="5em" />
+    </div>
+  </div>
+  <div v-else class="container q-mb-lg" @scroll="handleScroll">
+    <div v-if="store.sellerProducts" class="row flex justify-center q-my-lg">
       <div class="col-md-4 col-12">
         <!-- Seller Profile -->
         <q-card class="my-card q-pa-md" flat bordered>
@@ -72,9 +77,24 @@ import { useRoute } from "vue-router";
 import { useSellerStore } from "../stores/seller.store";
 const route = useRoute();
 const store = useSellerStore();
+let lastApiCallTime = Date.now();
 
 onMounted(() => {
   store.loadSellerProducts(route.params.id);
+  window.addEventListener("scroll", () => {
+    if (Date.now() - lastApiCallTime < 1200) {
+      return false;
+    }
+    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+      console.log("scrolled to bottom");
+      console.log(store.hasMorePages);
+      if (store.hasMorePages) {
+        store.currentPage++;
+        loadSellerProducts(route.params.id, true);
+        lastApiCallTime = Date.now();
+      }
+    }
+  });
 });
 </script>
 
