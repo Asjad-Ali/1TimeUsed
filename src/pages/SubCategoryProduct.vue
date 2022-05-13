@@ -44,13 +44,16 @@
 
     <div class="item row justify-center items-center wrap">
       <q-spinner
+        style="height: 50vh"
         v-if="store.loadingStatus"
-        class="absolute-center"
         color="primary"
         size="3em"
       />
       <div
         v-else
+        :style="
+          store.subCategoryProduct.length < 3 ? 'height: 50vh' : 'height: 10vh'
+        "
         v-for="product in store.subCategoryProduct"
         :key="product"
         class="q-ma-sm"
@@ -104,12 +107,29 @@ import ProductCard from "src/components/ProductCard.vue";
 import { useRoute } from "vue-router";
 import { useProductStore } from "../stores/products.store";
 import TileProduct from "../components/TileProduct.vue";
-
+let lastApiCallTime = Date.now();
 const store = useProductStore();
 const route = useRoute();
 const sortModal = ref(false);
 const viewType = ref("grid");
-onMounted(() => store.loadSubCategoryProduct(route.params.id));
+
+onMounted(() => {
+  store.loadSubCategoryProduct(route.params.id);
+  window.addEventListener("scroll", () => {
+    if (Date.now() - lastApiCallTime < 1200) {
+      return false;
+    }
+    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+      console.log("scrolled to bottom");
+      console.log(store.hasMorePages);
+      if (store.hasMorePages) {
+        store.currentPage++;
+        loadSubCategoryProduct(route.params.id, true);
+        lastApiCallTime = Date.now();
+      }
+    }
+  });
+});
 </script>
 
 <style lang="scss" scoped>

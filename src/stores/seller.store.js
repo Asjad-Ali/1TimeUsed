@@ -2,31 +2,37 @@ import {
   defineStore
 } from 'pinia'
 
-import {
-  persistData,
-  getPersistentData
-} from 'src/helpers/persistentHelper'
 import API from 'src/services/API';
-import {
-  ref
-} from 'vue';
+
 
 export const useSellerStore = defineStore('sellerStore ', {
 
   state: () => ({
     sellerProducts: {},
-    seller: {}
+    seller: {},
+    loadingStatus: '',
+    currentPage: 1,
+    hasMorePages: false,
   }),
 
   getters: {},
   actions: {
-    async loadSellerProducts(id) {
-      const response = await API.get(`sellerProfile/${id}`)
+    async loadSellerProducts(id, paginated = false) {
+      if (this.currentPage == 1 || !paginated) {
+        this.sellerProducts = [];
+      }
+      this.loadingStatus = true
+      // const response = await API.get(`sellerProfile/${id}`)
+      const response = await API.get(`sellerProfile/${id}?page=${this.currentPage}`)
+      this.loadingStatus = false
       if (response.status == 200) {
         console.log("Seller", response.data)
-        this.sellerProducts = response.data
+        this.sellerProducts = [...this.sellerProducts, ...response.data]
+        this.currentPage = response.meta.current_page;
+        this.hasMorePages = response.links.next ? true : false;
         this.seller = response.data[0].seller
       }
     }
   }
 })
+
