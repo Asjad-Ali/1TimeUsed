@@ -6,8 +6,8 @@
         <ConversationsList />
 
         <q-page-container class="bg-grey-2">
-          <div class="q-pa-md row justify-center">
-            <div style="width: 100%; max-width: 100%">
+          <div class="q-pa-md row justify-center items-center">
+            <div style="width: 100%">
               <!-- <q-chat-message label="Sunday, 19th" /> -->
 
               <q-spinner
@@ -53,11 +53,13 @@
               </div>
             </div>
           </div>
-          <div class="desktop-only" v-if="!chatStore.selectedConversation">
-            <div class="row flex justify-center items-center">
-              <img src="../../public/images/chat.svg" alt="chat" width="30%" />
-            </div>
-            <div class="text-h6 text-center q-py-xl text-grey">
+          <div
+            class="desktop-only flex justify-center items-center column"
+            v-if="!chatStore.selectedConversation"
+          >
+            <img src="../../public/images/chat.svg" alt="chat" width="30%" />
+
+            <div class="text-h6 q-py-md text-grey column">
               Choose a conversation from the left
             </div>
           </div>
@@ -124,6 +126,12 @@ const scrollToBottom = () => {
   height: calc(100vh - 100px);
   padding-bottom: 10px;
   background: #f5f5f5 !important;
+}
+.desktop-only {
+  height: calc(100vh - 150px);
+}
+.text-h6 {
+  font-size: 16px;
 }
 
 @media (max-width: 768px) {
