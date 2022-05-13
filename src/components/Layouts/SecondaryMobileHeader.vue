@@ -6,10 +6,8 @@
     >
       <q-icon
         @click="
-          $route.path == '/chat' &&
-          chatStore.viewType == 'chat' &&
-          $q.screen.lt.md
-            ? (chatStore.viewType = 'conversations')
+          $route.path == '/chat' && !chatStore.leftDrawerOpen && $q.screen.lt.md
+            ? (chatStore.leftDrawerOpen = true)
             : $router.back()
         "
         name="keyboard_backspace"
@@ -20,9 +18,7 @@
       <div
         class="q-ml-lg"
         v-if="
-          $route.path == '/chat' &&
-          chatStore.viewType == 'chat' &&
-          $q.screen.lt.md
+          $route.path == '/chat' && !chatStore.leftDrawerOpen && $q.screen.lt.md
         "
       >
         <q-avatar class="q-mr-sm">
