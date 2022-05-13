@@ -15,6 +15,9 @@ import {
   getDocs,
   limitToLast,
 } from "firebase/firestore";
+import {
+  useAuthStore
+} from './auth.store';
 
 export const useChatStore = defineStore('chat', {
   state: () => ({
@@ -28,7 +31,9 @@ export const useChatStore = defineStore('chat', {
     messages: [],
     hasMoreMessages: true,
     areConversationsLoaded: false,
-    viewType: 'conversations',
+    leftDrawerOpen: true,
+    newConversationUser: null,
+    showScrollButton: false,
   }),
   actions: {
 
@@ -81,7 +86,6 @@ export const useChatStore = defineStore('chat', {
 
 
     openSelectedConversation(conversation) {
-
       this.chatLoadingStatus = true;
 
       const selectedConversation = this.conversations.find(
@@ -116,6 +120,7 @@ export const useChatStore = defineStore('chat', {
           };
           if (change.type === "added") {
             this.messages.push(message);
+            this.scrollToBottom();
           }
           if (change.type === "modified") {
             console.log("Modified Message: ", message);
@@ -128,5 +133,82 @@ export const useChatStore = defineStore('chat', {
       });
 
     },
+
+    async sendMessage(
+      payload
+    ) {
+      if (!this.selectedConversation && !this.newConversationUser) {
+        return;
+      } else if (this.newConversationUser && !this.selectedConversation) {
+        await this.createNewConversation();
+      }
+
+      const db = getFirestore();
+      const newDocId = new Date().getTime().toString() + "id";
+
+      if (!this.selectedConversation) {
+        return;
+      }
+
+      const chatRef = doc(
+        collection(db, `Conversations/${this.selectedConversation.id}/Messages`),
+        newDocId
+      );
+
+      const newMessage = {
+        message: payload.message,
+        attachmentType: payload.attachmentType,
+        sentAt: new Date(new Date().toISOString()).getTime(),
+        senderID: payload.senderID,
+        productMessageModel: payload.productMessageModel,
+        id: newDocId,
+      };
+
+      console.log("New Message", newMessage);
+      setDoc(chatRef, newMessage);
+
+
+      this.updateConversation(newMessage);
+    },
+
+
+    updateConversation(message) {
+
+      const authStore = useAuthStore();
+      const conversation = this.selectedConversation;
+      const db = getFirestore();
+      const user = authStore.authUser;
+      const conversationRef = doc(db, "Conversations", conversation.id);
+
+      conversation.membersInfo.forEach((member) => {
+        if (member.id == user.id) {
+          member.name = user.name;
+          member.photo = authStore.profilePhoto;
+          member.hasReadLastMessage = true;
+          member.type = "available";
+        }
+      });
+
+      updateDoc(conversationRef, {
+        sentAt: new Date(new Date().toISOString()).getTime(),
+        senderName: user.name,
+        senderID: user.id,
+        lastMessage: message.attachmentType == 0 ? message.message : 'Sent an image',
+        membersInfo: conversation.membersInfo,
+      });
+    },
+
+    scrollToBottom() {
+
+      setTimeout(() => {
+        const messagesDiv = document.getElementById("messages-main-div");
+        if (messagesDiv) {
+          messagesDiv.scrollTop = parseInt(messagesDiv.scrollHeight);
+          //console.log(messagesDiv.scrollHeight, messagesDiv.scrollTop)
+        }
+
+      }, 300);
+
+    }
   }
 })
