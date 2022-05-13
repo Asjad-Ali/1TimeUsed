@@ -43,7 +43,7 @@
               </div>
             </div>
           </div>
-          <div class="desktop-only">
+          <div class="desktop-only" v-if="!chatStore.selectedConversation">
             <div class="row flex justify-center items-center">
               <img src="../../public/images/chat.svg" alt="chat" width="30%" />
             </div>
@@ -104,9 +104,6 @@ const getMember = (id) => {
 };
 </script>
 
-
-
-
 <style scoped>
 .WAL {
   height: calc(100vh - 100px);
@@ -121,4 +118,3 @@ const getMember = (id) => {
   }
 }
 </style>
-

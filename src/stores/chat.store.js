@@ -28,8 +28,8 @@ export const useChatStore = defineStore('chat', {
     messages: [],
     hasMoreMessages: true,
     areConversationsLoaded: false,
-    viewType: 'conversations',
     leftDrawerOpen: true,
+    newConversationUser: null,
   }),
   actions: {
 
@@ -82,7 +82,6 @@ export const useChatStore = defineStore('chat', {
 
 
     openSelectedConversation(conversation) {
-
       this.chatLoadingStatus = true;
 
       const selectedConversation = this.conversations.find(
@@ -128,6 +127,43 @@ export const useChatStore = defineStore('chat', {
         this.chatLoadingStatus = false;
       });
 
+    },
+
+    async sendMessage(
+      payload
+    ) {
+      if (!this.selectedConversation && !this.newConversationUser) {
+        return;
+      } else if (this.newConversationUser && !this.selectedConversation) {
+        await this.createNewConversation();
+      }
+
+      const db = getFirestore();
+      const newDocId = new Date().getTime().toString() + "id";
+
+      if (!this.selectedConversation) {
+        return;
+      }
+
+      const chatRef = doc(
+        collection(db, `Conversations/${this.selectedConversation.id}/Messages`),
+        newDocId
+      );
+
+      const newMessage = {
+        message: payload.message,
+        attachmentType: payload.attachmentType,
+        sentAt: new Date(new Date().toISOString()).getTime(),
+        senderID: payload.senderID,
+        productMessageModel: payload.productMessageModel,
+        id: newDocId,
+      };
+
+      console.log("New Message", newMessage);
+      setDoc(chatRef, newMessage);
+
+
+      //this.updateConversation(newMessage);
     },
   }
 })
