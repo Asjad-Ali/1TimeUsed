@@ -2,6 +2,7 @@
   <div class="container">
     <div class="WAL position-relative">
       <q-layout view="lHh Lpr lFf" class="WAL__layout shadow-3" container>
+        <!-- Top Header -->
         <q-header elevated>
           <q-toolbar class="bg-grey-3 text-black">
             <q-btn
@@ -52,7 +53,7 @@
             </q-btn>
           </q-toolbar>
         </q-header>
-
+        <!-- Side Bar -->
         <q-drawer
           v-model="leftDrawerOpen"
           show-if-above
@@ -144,12 +145,10 @@
             </q-list>
           </q-scroll-area>
         </q-drawer>
-
-        <q-page-container class="bg-grey-2">
+        <!-- Conversation -->
+        <q-page-container>
           <div class="q-pa-md row justify-center">
-            <div
-              style="width: 100%; max-width: 100%; height: calc(100vh - 132px)"
-            >
+            <div style="width: 100%; max-width: 100%">
               <q-chat-message label="Sunday, 19th" />
 
               <q-chat-message
@@ -158,17 +157,21 @@
                 :text="['hey, how are you?']"
                 sent
                 stamp="7 minutes ago"
+                v-for="i in 12"
+                :key="i"
               />
               <q-chat-message
                 name="Jane"
                 avatar="https://cdn.quasar.dev/img/avatar3.jpg"
                 :text="['doing fine, how r you?']"
                 stamp="4 minutes ago"
+                v-for="i in 12"
+                :key="i"
               />
             </div>
           </div>
         </q-page-container>
-
+        <!-- Write Message -->
         <q-footer>
           <q-toolbar class="bg-grey-3 text-black row">
             <q-btn round flat icon="collections" class="q-mr-sm" />
@@ -220,6 +223,38 @@ const conversations = [
   },
   {
     id: 4,
+    person: "Allan Gaunt",
+    avatar: "https://cdn.quasar.dev/team/allan_gaunt.png",
+    caption: "I'm working on Quasar!",
+    time: "17:00",
+    sent: true,
+  },
+  {
+    id: 5,
+    person: "Allan Gaunt",
+    avatar: "https://cdn.quasar.dev/team/allan_gaunt.png",
+    caption: "I'm working on Quasar!",
+    time: "17:00",
+    sent: true,
+  },
+  {
+    id: 6,
+    person: "Allan Gaunt",
+    avatar: "https://cdn.quasar.dev/team/allan_gaunt.png",
+    caption: "I'm working on Quasar!",
+    time: "17:00",
+    sent: true,
+  },
+  {
+    id: 7,
+    person: "Allan Gaunt",
+    avatar: "https://cdn.quasar.dev/team/allan_gaunt.png",
+    caption: "I'm working on Quasar!",
+    time: "17:00",
+    sent: true,
+  },
+  {
+    id: 8,
     person: "Allan Gaunt",
     avatar: "https://cdn.quasar.dev/team/allan_gaunt.png",
     caption: "I'm working on Quasar!",
@@ -307,7 +342,9 @@ export default {
 .WAL {
   height: calc(100vh - 100px);
   padding-bottom: 10px;
+  background: #f5f5f5 !important;
 }
+
 @media (max-width: 768px) {
   .WAL {
     height: calc(100vh - 120px);
