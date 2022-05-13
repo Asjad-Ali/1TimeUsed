@@ -62,6 +62,7 @@ export const useWishlistStore = defineStore("wishlistStore", {
         store.donateProducts = toggleFavorite(product_id, store.donateProducts)
         store.featuredProducts = toggleFavorite(product_id, store.featuredProducts)
         store.subCategoryProduct = toggleFavorite(product_id, store.subCategoryProduct)
+        store.searchProducts = toggleFavorite(product_id, store.searchProducts)
         if (store.loadedProduct && store.loadedProduct.id == product_id) {
           store.loadedProduct.favorite = store.loadedProduct.favorite == 1 ? 0 : 1;
         }

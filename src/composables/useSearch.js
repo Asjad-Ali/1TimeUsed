@@ -15,7 +15,6 @@ export default function useSearch() {
   let lastApiCallTime = Date.now();
   const search = ref("");
   const searchSuggestions = ref();
-  const scrollObserver = ref('')
   let searchVal = '';
 
   const getLocalSearchHistory = () => {

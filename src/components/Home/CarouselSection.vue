@@ -37,7 +37,7 @@ const router = useRouter();
 const store = useCategoryStore();
 
 const subcategoryPage = (id) => {
-  router.push({ path: `/subcategory/${id}` });
+  router.push(`/subcategory-product/${id}`);
 };
 
 onMounted(async () => {

@@ -107,31 +107,31 @@
     <q-card style="width: 230px">
       <div class="q-gutter-sm flex column q-pa-md">
         <q-radio
-          v-model="shape"
-          val="line"
-          label="Activate"
+          v-model="payload.status"
           @click="changeStatus(1)"
+          :val="1"
+          label="Activate"
           v-close-popup
         />
         <q-radio
-          v-model="shape"
-          val="rectangle"
-          label="Deactivate"
           @click="changeStatus(0)"
+          v-model="payload.status"
+          :val="0"
+          label="Deactivate"
           v-close-popup
         />
         <q-radio
-          v-model="shape"
-          val="ellipse"
-          label="Sold Out"
           @click="changeStatus(2)"
+          v-model="payload.status"
+          :val="2"
+          label="Sold Out"
           v-close-popup
         />
         <q-radio
-          v-model="shape"
-          val="polygon"
-          label="Sold Out/Deactivate"
           @click="changeStatus(3)"
+          v-model="payload.status"
+          :val="3"
+          label="Sold Out/Deactivate"
           v-close-popup
         />
       </div>
@@ -154,6 +154,7 @@ const payload = ref({
   id: product.value.id,
   status: product.value.status,
 });
+
 const ProductDetail = (product) => {
   router.push(`/product_details/${product.slug}`);
   const index = productStore.recentProducts.findIndex(
