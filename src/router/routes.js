@@ -78,6 +78,13 @@ const routes = [{
     }
   },
   {
+    path: '/chatnew',
+    component: () => import('src/pages/ChatNew.vue'),
+    meta: {
+      auth: true
+    }
+  },
+  {
     path: '/sell',
     component: () => import('src/pages/SellPage.vue'),
     meta: {
