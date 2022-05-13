@@ -40,6 +40,16 @@
                   :sent="authStore.authUser.id == message.senderID"
                   :stamp="timeDiff(message.sentAt)"
                 />
+
+                <q-btn
+                  v-if="chatStore.showScrollButton"
+                  @click="scrollToBottom"
+                  class="fixed-bottom q-mx-auto"
+                  fab
+                  style="max-width: 40px; bottom: 55px; z-index: 9999"
+                  icon="arrow_downward"
+                  color="accent"
+                />
               </div>
             </div>
           </div>
@@ -103,6 +113,11 @@ const getMember = (id) => {
     : (!user.photo.includes("http") ? process.env.imagesBaseURL : "") +
       user.photo;
   return user;
+};
+
+const scrollToBottom = () => {
+  console.log("tes");
+  chatStore.scrollToBottom();
 };
 </script>
 
