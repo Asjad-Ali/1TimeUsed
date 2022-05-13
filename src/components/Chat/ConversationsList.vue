@@ -62,7 +62,7 @@
         />
         <q-list v-else>
           <q-item
-            v-for="(conversation, index) in chatStore.conversations"
+            v-for="(conversation, index) in conversations"
             :key="conversation.id"
             clickable
             @click="openConversation(conversation)"
@@ -139,6 +139,19 @@ const openConversation = (conversation) => {
   }
   chatStore.openSelectedConversation(conversation);
 };
+
+const conversations = computed(() => {
+  if (!search.value?.trim()) {
+    return chatStore.conversations;
+  }
+
+  return chatStore.conversations.filter((conversation) => {
+    const otherMember = conversation.membersInfo.find(
+      (member) => member.id != authStore.authUser.id
+    );
+    return otherMember.name.toLowerCase().includes(search.value.toLowerCase());
+  });
+});
 </script>
 <style>
 @media (max-width: 768px) {

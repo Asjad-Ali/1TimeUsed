@@ -46,8 +46,9 @@ export const useChatStore = defineStore('chat', {
     },
 
     async lookForConversationChanges() {
-      this.conversationLoadingStatus = true;
+
       if (!this.areConversationsLoaded) {
+        this.conversationLoadingStatus = true;
 
         const db = getFirestore();
         const user = this.$cookies.get('AUTH_USER');
