@@ -7,8 +7,10 @@
   >
     <q-toolbar class="bg-grey-3">
       <q-avatar class="cursor-pointer">
-        <img src="https://1timeused.com/uploads/profiles/813516520823832." />
+        <img :src="authStore.profilePhoto" />
       </q-avatar>
+
+      <span class="q-ml-md">Conversations</span>
 
       <q-space />
 

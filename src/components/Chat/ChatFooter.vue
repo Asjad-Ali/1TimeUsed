@@ -1,8 +1,19 @@
 <template>
   <q-footer>
     <q-toolbar class="bg-grey-3 text-black row">
-      <q-btn round flat icon="collections" class="q-mr-sm" />
+      <q-btn
+        round
+        flat
+        icon="collections"
+        class="q-mr-sm"
+        :disable="
+          !chatStore.selectedConversation && !chatStore.newConversationUser
+        "
+      />
       <q-input
+        :disable="
+          !chatStore.selectedConversation && !chatStore.newConversationUser
+        "
         rounded
         outlined
         dense
@@ -12,12 +23,40 @@
         placeholder="Type a message"
       />
       <!-- <q-btn round flat icon="mic" /> -->
-      <q-btn round flat icon="send" />
+      <q-btn
+        @click="sendMessage"
+        round
+        flat
+        icon="send"
+        :disable="
+          !chatStore.selectedConversation && !chatStore.newConversationUser
+        "
+      />
     </q-toolbar>
   </q-footer>
 </template>
 
 <script setup>
+import { useAuthStore } from "src/stores/auth.store";
+import { useChatStore } from "src/stores/chat.store";
 import { ref } from "vue";
 const message = ref("");
+
+const chatStore = useChatStore();
+const authStore = useAuthStore();
+
+const sendMessage = async () => {
+  if (!message.value?.trim()) {
+    return;
+  }
+
+  await chatStore.sendMessage({
+    message: message.value,
+    attachmentType: 0,
+    senderID: authStore.authUser.id,
+    productMessageModel: null,
+  });
+
+  message.value = "";
+};
 </script>
