@@ -15,6 +15,9 @@ import {
   getDocs,
   limitToLast,
 } from "firebase/firestore";
+import {
+  useAuthStore
+} from './auth.store';
 
 export const useChatStore = defineStore('chat', {
   state: () => ({
@@ -116,6 +119,7 @@ export const useChatStore = defineStore('chat', {
           };
           if (change.type === "added") {
             this.messages.push(message);
+            this.scrollToBottom();
           }
           if (change.type === "modified") {
             console.log("Modified Message: ", message);
@@ -163,7 +167,47 @@ export const useChatStore = defineStore('chat', {
       setDoc(chatRef, newMessage);
 
 
-      //this.updateConversation(newMessage);
+      this.updateConversation(newMessage);
     },
+
+
+    updateConversation(message) {
+
+      const authStore = useAuthStore();
+      const conversation = this.selectedConversation;
+      const db = getFirestore();
+      const user = authStore.authUser;
+      const conversationRef = doc(db, "Conversations", conversation.id);
+
+      conversation.membersInfo.forEach((member) => {
+        if (member.id == user.id) {
+          member.name = user.name;
+          member.photo = authStore.profilePhoto;
+          member.hasReadLastMessage = true;
+          member.type = "available";
+        }
+      });
+
+      updateDoc(conversationRef, {
+        sentAt: new Date(new Date().toISOString()).getTime(),
+        senderName: user.name,
+        senderID: user.id,
+        lastMessage: message.attachmentType == 0 ? message.message : 'Sent an image',
+        membersInfo: conversation.membersInfo,
+      });
+    },
+
+    scrollToBottom() {
+      setTimeout(() => {
+        const messagesDiv = document.getElementById("messages-main-div");
+        if (messagesDiv) {
+          messagesDiv.scrollTo({
+            top: messagesDiv.scrollHeight,
+            left: 0,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+    }
   }
 })
