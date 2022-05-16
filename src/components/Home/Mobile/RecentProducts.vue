@@ -7,16 +7,11 @@
           v-for="(i, index) in totalItems"
           :key="index"
           :style="{ 'margin-right': `${itemMarginRight}px` }"
-          class="
-            item
-            row
-            fit
-            justify-center
-            items-center
-            q-gutter-md q-col-gutter
-            no-wrap
-          "
+          class="item row fit justify-center items-center q-gutter-md q-col-gutter no-wrap"
         >
+          <span v-if="store.loadingStatus">
+            <ProductCardSkeleton v-for="card in 5" :key="card" />
+          </span>
           <ProductCard
             v-for="product in store.recentProducts"
             :key="product"
@@ -65,7 +60,7 @@ import { useQuasar } from "quasar";
 import ProductCard from "src/components/ProductCard.vue";
 import { useProductStore } from "../../../stores/products.store";
 import CardPage from "src/pages/CardPage.vue";
-
+import ProductCardSkeleton from "src/components/ProductCardSkeleton.vue";
 const $q = useQuasar();
 const store = useProductStore();
 const slide = ref(0);
@@ -160,4 +155,3 @@ h5 {
   margin-top: -27.5px;
 }
 </style>
-

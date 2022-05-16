@@ -48,7 +48,7 @@
           class="WAL__field full-width"
           bg-color="white"
           v-model="search"
-          placeholder="Search or start a new conversation"
+          placeholder="Search User"
         >
           <template v-slot:prepend>
             <q-icon name="search" />

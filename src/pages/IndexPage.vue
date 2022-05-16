@@ -2,7 +2,10 @@
   <q-page>
     <CarouselSection />
     <div class="container">
-      <RecentProducts v-if="productStore.recentProducts.length" />
+      <div v-if="productStore.loadingStatus">
+        <ProductCardSkeleton v-for="card in 5" :key="card" />
+      </div>
+      <RecentProducts v-else />
       <FeaturedProductsSection v-if="productStore.featuredProducts.length" />
     </div>
   </q-page>
@@ -12,6 +15,7 @@
 import { defineComponent, onMounted } from "vue";
 import CarouselSection from "components/Home/CarouselSection.vue";
 import FeaturedProductsSection from "src/components/Home/FeaturedProductsSection.vue";
+import ProductCardSkeleton from "src/components/ProductCardSkeleton.vue";
 import RecentProducts from "src/components/Home/Mobile/RecentProducts.vue";
 import { useAuthStore } from "../stores/auth.store";
 import { useProductStore } from "../stores/products.store";

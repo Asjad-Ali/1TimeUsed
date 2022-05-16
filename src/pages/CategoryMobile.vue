@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="desktop-only">
-      <h1>Categories</h1>
+      <h1 class="text-grey-8">Categories</h1>
     </div>
     <div class="row q-mb-lg">
       <div
@@ -55,7 +55,7 @@ const categories = computed(() => store.categories);
 </script>
 <style lang="scss" scoped>
 h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 400;
   line-height: 6rem;
   position: relative;

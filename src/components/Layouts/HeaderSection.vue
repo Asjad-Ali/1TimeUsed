@@ -50,6 +50,7 @@
               icon="mail"
               @click="$router.push('/chat')"
             >
+              <q-tooltip class="grey-10">Chat</q-tooltip>
               <q-badge color="red" floating>2</q-badge>
             </q-btn>
             <q-btn
@@ -61,6 +62,7 @@
               icon="notifications"
               @click="$router.push('/notifications')"
             >
+              <q-tooltip class="grey-10">Notifications</q-tooltip>
               <q-badge color="red" floating>100+</q-badge>
             </q-btn>
             <q-btn
@@ -70,7 +72,9 @@
               size="md"
               class="q-mr-md desktop-only"
               @click="$router.push('/category')"
-            />
+            >
+              <q-tooltip class="grey-10">Categories</q-tooltip>
+            </q-btn>
             <q-btn
               :size="$q.screen.lt.md ? 'sm' : `md`"
               class="q-mr-md"
@@ -79,7 +83,9 @@
               glossy
               icon="search"
               @click="$router.push('/search')"
-            />
+            >
+              <q-tooltip class="grey-10">Search</q-tooltip>
+            </q-btn>
 
             <q-avatar class="cursor-pointer desktop-only">
               <img
@@ -88,6 +94,7 @@
                 style="object-fit: cover"
                 referrerpolicy="no-referrer"
               />
+              <q-tooltip class="grey-10">Profile</q-tooltip>
               <q-menu
                 transition-show="scale"
                 transition-hide="scale"

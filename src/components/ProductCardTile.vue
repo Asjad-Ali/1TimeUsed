@@ -5,10 +5,12 @@
         class="col-5 flex flex-center"
         @click="ProductDetail(product)"
       >
-        <q-img
-          class="rounded-borders fit img-holder"
-          :src="imageBaseURL + product.gallery[0].path"
-        />
+        <div class="img-holder">
+          <img
+            class="rounded-borders fit"
+            :src="imageBaseURL + product.gallery[0].path"
+          />
+        </div>
       </q-card-section>
       <q-card-section>
         <div
@@ -207,7 +209,10 @@ const small = ref(false);
 <style lang="scss" scoped>
 .my-card {
   width: 350px;
-  max-width: 350px;
+}
+
+.img-holder {
+  height: 110px;
 }
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 1262px) {
