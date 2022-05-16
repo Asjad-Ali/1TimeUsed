@@ -42,16 +42,7 @@ const imageBaseURL = process.env.imagesBaseURL;
 
 onMounted(() => {
   store.loadCategories();
-<<<<<<< HEAD
   store.loadSubCategory(route.params.slug);
-=======
-  store.loadSubCategory(route.params.id);
-  // const subCategoryName = store.subCategories.filter(
-  //   (cat) => cat.id == route.params.id
-  // );
-  // console.log(subCategoryName[0].title);
-  // store.subCategoryTitle = subCategoryName[0].title;
->>>>>>> 94dbe179fc98d7f5c99d69ed70f339a57cbd191d
 });
 const subCategoryProduct = (slug) => {
   router.push(`/subcategory-product/${slug}`);

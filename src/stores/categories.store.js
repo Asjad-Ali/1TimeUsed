@@ -36,13 +36,8 @@ export const useCategoryStore = defineStore('categoryStore', {
         persistData(dataKey, response.data);
       }
     },
-<<<<<<< HEAD
     loadSubCategory(slug) {
       const category = this.categories.find(category => category.slug == slug || category.id == slug)
-=======
-    loadSubCategory(title) {
-      const category = this.categories.find(category => category.slug == title || category.id == title)
->>>>>>> 94dbe179fc98d7f5c99d69ed70f339a57cbd191d
       this.subCategories = category.subcategories
     }
   },
