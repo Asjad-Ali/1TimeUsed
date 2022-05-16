@@ -7,7 +7,7 @@
   <div v-else class="container">
     <div class="relative-position">
       <div
-        :style="store.myProducts.length < 3 ? 'height: 60vh' : 'height: 10vh'"
+        :style="store.myProducts.length < 4 ? 'height: 60vh' : 'height: 10vh'"
         class="q-pa-md row items-start q-gutter-md justify-center"
         v-if="store.myProducts.length"
       >

@@ -4,7 +4,12 @@
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
-  <div v-else class="container q-mb-lg" @scroll="handleScroll">
+  <div
+    v-else
+    class="container q-mb-lg"
+    :style="store.sellerProducts.length > 3 ? 'height: 60vh' : 'height: 10vh'"
+    @scroll="handleScroll"
+  >
     <div v-if="store.sellerProducts" class="row flex justify-center q-my-lg">
       <div class="col-md-4 col-12">
         <!-- Seller Profile -->

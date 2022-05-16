@@ -25,7 +25,7 @@
             >
               <!-- Images upload -->
               <div class="row">
-                <div class="col-4 q-my-lg">
+                <div class="col-4 col-md-12 col-sm-12 q-my-lg">
                   <div class="label-font">Images:</div>
                   <q-uploader
                     label="images upload"
@@ -39,7 +39,9 @@
                     <span class="text-primary">{{ imageError }}</span>
                   </div>
                 </div>
-                <div class="col-8 flex wrap-sm items-center">
+                <div
+                  class="col-8 col-md-12 col-sm-12 flex wrap-sm items-center"
+                >
                   <div class="flex">
                     <div v-for="(image, index) in product.gallery" :key="index">
                       <div
@@ -174,14 +176,14 @@
               <div class="row">
                 <!-- Price -->
                 <div
-                  v-show="product.purpose != 'Donate'"
+                  v-if="product.purpose != 'Donate'"
                   class="col-12 col-md-6 q-pr-md"
                 >
                   <div class="label-font">Price:</div>
                   <q-input
                     dense
                     v-model="product.price"
-                    :rules="[rules.required]"
+                    :rules="[rules.required, rules.number, rules.gt0]"
                     type="number"
                     outlined
                     label="Enter Price"
@@ -383,6 +385,7 @@ import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import useProductForm from "src/composables/useProductForm";
 import ReviewProductDetails from "src/components/addProduct/ReviewProductDetail.vue";
+// import { computed } from "@vue/reactivity";
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
 const { rules } = useValidationRules();
@@ -411,6 +414,16 @@ const {
   actionType,
   removeOldImage,
 } = useProductForm();
+
+// const priceRules = computed(() => {
+//   const priceRules = [rules.required, rules.number];
+
+//   if (product.value.purpose !== "Donate") {
+//     priceRules.push(rules.gt0);
+//   }
+
+//   return priceRules;
+// });
 </script>
 
 <style lang="scss" scoped>

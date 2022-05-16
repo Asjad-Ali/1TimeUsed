@@ -10,6 +10,7 @@ export default function useValidationRules() {
     password: (val) => val.length > 5 || 'Password must be at least 6 characters long',
     min5: (val) => val.length >= 5 || 'Must be at least 5 characters long',
     number: (val) => !isNaN(val) || 'Must be number',
+    gt0: (val) => parseInt(val) > 0 || 'Must be more than 0',
   };
 
   return {
