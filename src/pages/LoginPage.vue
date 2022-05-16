@@ -59,7 +59,7 @@
               <div class="text-center q-mb-lg">
                 <q-btn
                   color="blue"
-                  icon="facebook"
+                  icon-right="facebook"
                   label="login with facebook"
                   @click="loginWithFacebook"
                 />
@@ -70,6 +70,7 @@
                     src="../../public/icons/google-color.svg"
                     alt="google "
                     width="20"
+                    class="q-mx-md"
                   />
                 </q-btn>
               </div>
