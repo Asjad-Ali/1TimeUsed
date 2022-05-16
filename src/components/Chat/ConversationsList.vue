@@ -4,7 +4,7 @@
       v-model="chatStore.leftDrawerOpen"
       show-if-above
       bordered
-      :breakpoint="690"
+      :breakpoint="600"
     >
       <q-toolbar class="bg-grey-3">
         <q-avatar class="cursor-pointer">
@@ -85,8 +85,18 @@
                     ? "Me"
                     : otherMember(conversation).name.split(" ")[0]
                 }}
-                : {{ conversation.lastMessage.substring(0, 25) }}
-                {{ conversation.lastMessage.length > 25 ? "..." : "" }}
+                :
+                {{
+                  conversation.lastMessage
+                    ? conversation.lastMessage.substring(0, 25)
+                    : ""
+                }}
+                {{
+                  conversation.lastMessage &&
+                  conversation.lastMessage.length > 25
+                    ? "..."
+                    : ""
+                }}
               </q-item-label>
             </q-item-section>
 

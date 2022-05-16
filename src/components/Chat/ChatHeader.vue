@@ -1,5 +1,8 @@
 <template>
-  <q-header elevated v-if="chatStore.selectedConversation">
+  <q-header
+    elevated
+    v-if="chatStore.selectedConversation || chatStore.newConversationUser"
+  >
     <q-toolbar class="bg-grey-3 text-black">
       <q-btn
         round
@@ -59,9 +62,11 @@ const chatStore = useChatStore();
 const authStore = useAuthStore();
 
 const chatMember = computed(() => {
-  const user = chatStore.selectedConversation.membersInfo.find(
-    (user) => user.id != authStore.authUser.id
-  );
+  const user = chatStore.selectedConversation
+    ? chatStore.selectedConversation.membersInfo.find(
+        (user) => user.id != authStore.authUser.id
+      )
+    : chatStore.newConversationUser;
 
   user.photo = !user.photo
     ? authStore.defaultAvatar

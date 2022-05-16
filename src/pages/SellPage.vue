@@ -1,15 +1,14 @@
 <template>
   <div v-if="store.loadingStatus" class="container">
-    <div class="text-center q-my-lg q-py-lg" style="height: 40vh">
+    <div class="flex items-center justify-center" style="height: 40vh">
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
   <div v-else class="container">
-    <div class="relative-position">
+    <div v-if="store.myProducts.length" class="relative-position">
       <div
         :style="store.myProducts.length < 4 ? 'height: 60vh' : 'height: 10vh'"
         class="q-pa-md row items-start q-gutter-md justify-center"
-        v-if="store.myProducts.length"
       >
         <ProductCardTile
           v-for="product in store.myProducts"
@@ -17,21 +16,25 @@
           :product="product"
         />
       </div>
-      <q-responsive v-else v-show="!store.myProducts.length" :ratio="4 / 2">
-        <div class="rounded-borders flex flex-center">
-          <h4>Product you add will show up here</h4>
-        </div>
-      </q-responsive>
-      <!-- Add Button -->
-      <div class="add-button">
-        <q-btn
-          round
-          color="primary"
-          glossy
-          icon="add"
-          @click="$router.push('/add_product')"
-        />
+    </div>
+    <q-responsive
+      v-else
+      v-show="!store.myProducts.length"
+      style="margin-bottom: 70vh"
+    >
+      <div class="rounded-borders flex flex-center q-mt-sm">
+        <h6>Product you add will show up here</h6>
       </div>
+    </q-responsive>
+    <!-- Add Button -->
+    <div class="add-button">
+      <q-btn
+        round
+        color="primary"
+        glossy
+        icon="add"
+        @click="$router.push('/add_product')"
+      />
     </div>
   </div>
 </template>
@@ -49,5 +52,10 @@ onMounted(() => store.loadMyProducts());
   position: fixed;
   right: 20px;
   bottom: 10%;
+}
+.q-responsive {
+  position: unset;
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>
