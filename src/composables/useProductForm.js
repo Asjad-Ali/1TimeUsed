@@ -80,6 +80,9 @@ export default function useProductForm() {
 
   const submitForm = async () => {
     console.log(product.value)
+    if (product.value.purpose == 'Donate') {
+      product.value.price = 0
+    }
     let response;
     if (actionType.value == 'edit') {
       response = await productStore.updateProduct(product.value);

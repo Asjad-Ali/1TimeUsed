@@ -6,7 +6,7 @@
         @click="ProductDetail(product)"
       >
         <q-img
-          class="rounded-borders fit img-holder"
+          class="rounded-borders fit img-holder cursor-pointer"
           :src="imageBaseURL + product.gallery[0].path"
         />
       </q-card-section>
@@ -65,7 +65,7 @@
         class="inline rounded-borders"
       >
         <div class="inline cursor-pointer">
-          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+          <i class="fa fa-ellipsis-v q-pa-md" aria-hidden="true"></i>
         </div>
         <q-menu touch-position>
           <q-list style="min-width: 100px">
