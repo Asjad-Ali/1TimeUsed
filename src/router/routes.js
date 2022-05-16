@@ -71,7 +71,7 @@ const routes = [{
         }
       },
       {
-        path: '/chat',
+        path: '/chat/:id?',
         component: () => import('src/pages/ChatNew.vue'),
         meta: {
           auth: true
