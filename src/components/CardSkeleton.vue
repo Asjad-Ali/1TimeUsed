@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-card style="max-width: 210px">
+    <q-card style="width: 210px">
       <q-skeleton height="160px" square />
       <q-item>
         <q-item-section>

@@ -8,8 +8,17 @@
         </div>
       </div>
       <div class="title-date flex justify-between items-center">
-        <div class="ellipsis text-subtitle1 text-grey common-size">
+        <div
+          v-if="product.price"
+          class="ellipsis text-subtitle1 text-grey common-size"
+        >
           RS:{{ product.price }}
+        </div>
+        <div
+          v-if="!product.price"
+          class="ellipsis text-subtitle1 text-grey common-size"
+        >
+          FREE
         </div>
         <div class="text-subtitle1 common-size text-grey">
           <q-icon name="visibility" color="primary" />

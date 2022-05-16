@@ -48,7 +48,7 @@ const routes = [{
         component: () => import('src/pages/DonationPage.vue')
       },
       {
-        path: '/subcategory/:id',
+        path: '/subcategory/:slug',
         component: () => import('src/pages/ProductSubcategory.vue')
       },
       {
@@ -79,8 +79,8 @@ const routes = [{
       },
 
       {
-        path: '/sell',
-        component: () => import('src/pages/SellPage.vue'),
+        path: '/my_products',
+        component: () => import('src/pages/MyProducts.vue'),
         meta: {
           auth: true
         }

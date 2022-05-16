@@ -61,8 +61,10 @@
           <!-- Links -->
           <h6 class="text-uppercase fw-bold">Useful links</h6>
           <p>
-            <a class="text-reset cursor-pointer" @click="$router.push('/sell')"
-              >Sell</a
+            <a
+              class="text-reset cursor-pointer"
+              @click="$router.push('/my_products')"
+              >My Products</a
             >
           </p>
           <p>

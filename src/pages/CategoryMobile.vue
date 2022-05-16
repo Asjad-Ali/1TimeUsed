@@ -10,7 +10,7 @@
         :key="index"
       >
         <q-card
-          @click="subcategoryPage(category.title)"
+          @click="subcategoryPage(category.slug)"
           class="q-ma-sm cursor-pointer"
         >
           <div class="w-100 flex justify-center q-py-lg">
@@ -46,9 +46,9 @@ onMounted(() => {
   store.loadCategories();
 });
 
-const subcategoryPage = (title) => {
-  router.push({ path: `/subcategory/${title}` });
-  store.loadSubCategory(title);
+const subcategoryPage = (slug) => {
+  router.push({ path: `/subcategory/${slug}` });
+  store.loadSubCategory(slug);
 };
 
 const categories = computed(() => store.categories);

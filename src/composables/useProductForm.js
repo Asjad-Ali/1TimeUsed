@@ -1,8 +1,20 @@
-import { ref, watch, computed, onMounted } from "vue";
+import {
+  ref,
+  watch,
+  computed,
+  onMounted
+} from "vue";
 import compressImage from "./useImageCompression";
-import { useRouter, useRoute } from "vue-router";
-import { useProductStore } from "src/stores/products.store";
-import { useCategoryStore } from "../stores/categories.store";
+import {
+  useRouter,
+  useRoute
+} from "vue-router";
+import {
+  useProductStore
+} from "src/stores/products.store";
+import {
+  useCategoryStore
+} from "../stores/categories.store";
 import API from "src/services/API";
 
 export default function useProductForm() {
@@ -91,12 +103,7 @@ export default function useProductForm() {
     }
 
     if (response.status == 200) {
-      if (response.data.purpose == 'Donate') {
-        router.push("/sell");
-      }
-      else {
-        router.push("/sell");
-      }
+      router.push("/my_products");
     }
   };
 

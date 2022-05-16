@@ -60,9 +60,9 @@ const menus = ref([
     to: "/wishlist",
   },
   {
-    title: "Sell",
+    title: "My Products",
     icon: "add_circle",
-    to: "/sell",
+    to: "/my_products",
   },
   {
     title: "Account Setting",
