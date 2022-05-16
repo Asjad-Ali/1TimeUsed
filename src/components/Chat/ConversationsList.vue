@@ -4,7 +4,7 @@
       v-model="chatStore.leftDrawerOpen"
       show-if-above
       bordered
-      :breakpoint="690"
+      :breakpoint="600"
     >
       <q-toolbar class="bg-grey-3">
         <q-avatar class="cursor-pointer">
@@ -60,7 +60,7 @@
         <ConversationLoadingSkeleton
           v-if="chatStore.conversationLoadingStatus"
         />
-        <q-list v-else>
+        <q-list v-else-if="conversations.length">
           <q-item
             v-for="(conversation, index) in conversations"
             :key="conversation.id"
@@ -85,8 +85,18 @@
                     ? "Me"
                     : otherMember(conversation).name.split(" ")[0]
                 }}
-                : {{ conversation.lastMessage.substring(0, 25) }}
-                {{ conversation.lastMessage.length > 25 ? "..." : "" }}
+                :
+                {{
+                  conversation.lastMessage
+                    ? conversation.lastMessage.substring(0, 25)
+                    : ""
+                }}
+                {{
+                  conversation.lastMessage &&
+                  conversation.lastMessage.length > 25
+                    ? "..."
+                    : ""
+                }}
               </q-item-label>
             </q-item-section>
 
@@ -97,6 +107,9 @@
             </q-item-section>
           </q-item>
         </q-list>
+        <span v-else class="absolute-center text-center text-subtitle2">
+          No Conversation yet
+        </span>
       </q-scroll-area>
     </q-drawer>
   </div>

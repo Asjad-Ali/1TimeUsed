@@ -41,9 +41,7 @@ export const useProductStore = defineStore("productsStore ", {
         this.recentProducts = viewedProducts;
         return;
       }
-
       const response = await API.get("products/recentlyviewed");
-      this.loadingStatus = false;
       if (response.status == 200) {
         this.recentProducts = response.data;
         persistData(dataKey, response.data);
@@ -62,8 +60,9 @@ export const useProductStore = defineStore("productsStore ", {
         this.featuredProducts = featuredProducts;
         return;
       }
-
+      this.loadingStatus = true;
       const response = await API.get("products/featured");
+      this.loadingStatus = false;
       if (response.status == 200) {
         console.log(response);
         this.featuredProducts = response.data;
@@ -122,7 +121,6 @@ export const useProductStore = defineStore("productsStore ", {
       }
       return response;
     },
-
     async loadSearchProduct(product) {
       const response = await API.get(`search?sort=&q=${product}`);
       if (response.status == 200) {
@@ -163,7 +161,10 @@ export const useProductStore = defineStore("productsStore ", {
       );
       this.btnStatus = 0;
       if (response.status == 200) {
-        this.myProducts.push(response.data);
+        const index = this.myProducts.findIndex(
+          (pro) => pro.id == response.data.id
+        );
+        this.myProducts[index] = response.data;
         Notify.create({
           message: "Product updated successfully",
           icon: "done",

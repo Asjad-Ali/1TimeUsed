@@ -13,6 +13,7 @@
             <ProductCardSkeleton v-for="card in 5" :key="card" />
           </span>
           <ProductCard
+            v-else
             v-for="product in store.recentProducts"
             :key="product"
             :product="product"

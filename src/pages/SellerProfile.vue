@@ -1,10 +1,15 @@
 <template>
   <div v-if="store.loadingStatus" class="container">
-    <div class="text-center q-my-lg q-py-lg" style="height: 60vh">
+    <div class="flex items-center justify-center" style="height: 60vh">
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
-  <div v-else class="container q-mb-lg" @scroll="handleScroll">
+  <div
+    v-else
+    class="container q-mb-lg"
+    :style="store.sellerProducts.length > 3 ? 'height: 60vh' : 'height: 10vh'"
+    @scroll="handleScroll"
+  >
     <div v-if="store.sellerProducts" class="row flex justify-center q-my-lg">
       <div class="col-md-4 col-12">
         <!-- Seller Profile -->
@@ -52,12 +57,7 @@
         <div class="text-h4 text-center q-pt-md">All Products</div>
         <hr class="hr-4" />
         <div
-          class="
-            flex
-            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-            justify-center
-            items-center
-          "
+          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
         >
           <ProductCard
             :product="product"
