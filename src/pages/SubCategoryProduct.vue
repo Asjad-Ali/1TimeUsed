@@ -50,10 +50,6 @@
         size="3em"
       />
       <div
-        v-else
-        :style="
-          store.subCategoryProduct.length < 3 ? 'height: 50vh' : 'height: 10vh'
-        "
         v-for="product in store.subCategoryProduct"
         :key="product"
         class="q-ma-sm"
