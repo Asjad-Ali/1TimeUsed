@@ -76,6 +76,16 @@
               <q-tooltip class="grey-10">Categories</q-tooltip>
             </q-btn>
             <q-btn
+              round
+              color="primary"
+              icon="add_circle"
+              size="md"
+              class="q-mr-md desktop-only"
+              @click="$router.push('/sell')"
+            >
+              <q-tooltip class="grey-10">Sell</q-tooltip>
+            </q-btn>
+            <q-btn
               :size="$q.screen.lt.md ? 'sm' : `md`"
               class="q-mr-md"
               round

@@ -103,7 +103,16 @@ export default function useProductForm() {
     }
 
     if (response.status == 200) {
+<<<<<<< HEAD
       router.push("/my_products");
+=======
+      if (response.data.purpose == 'Donate') {
+        router.push("/sell");
+      }
+      else {
+        router.push("/sell");
+      }
+>>>>>>> 94dbe179fc98d7f5c99d69ed70f339a57cbd191d
     }
   };
 
