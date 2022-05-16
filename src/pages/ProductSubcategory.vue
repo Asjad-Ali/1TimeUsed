@@ -8,7 +8,7 @@
       >
         <q-card
           class="my-card cursor-pointer"
-          @click="subCategoryProduct(subCategory.id)"
+          @click="subCategoryProduct(subCategory.slug)"
         >
           <div class="img-holder">
             <img :src="imageBaseURL + subCategory.thumbnail" alt="product" />
@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "@vue/runtime-core";
+import { computed, onMounted } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import { useCategoryStore } from "../stores/categories.store";
 import { useProductStore } from "../stores/products.store";
@@ -43,9 +43,14 @@ const imageBaseURL = process.env.imagesBaseURL;
 onMounted(() => {
   store.loadCategories();
   store.loadSubCategory(route.params.id);
+  // const subCategoryName = store.subCategories.filter(
+  //   (cat) => cat.id == route.params.id
+  // );
+  // console.log(subCategoryName[0].title);
+  // store.subCategoryTitle = subCategoryName[0].title;
 });
-const subCategoryProduct = (id) => {
-  router.push(`/subcategory-product/${id}`);
+const subCategoryProduct = (slug) => {
+  router.push(`/subcategory-product/${slug}`);
 };
 </script>
 

@@ -25,7 +25,7 @@
             >
               <!-- Images upload -->
               <div class="row">
-                <div class="col-4 col-md-12 col-sm-12 q-my-lg">
+                <div class="col-12 q-my-lg">
                   <div class="label-font">Images:</div>
                   <q-uploader
                     label="images upload"
@@ -39,9 +39,7 @@
                     <span class="text-primary">{{ imageError }}</span>
                   </div>
                 </div>
-                <div
-                  class="col-8 col-md-12 col-sm-12 flex wrap-sm items-center"
-                >
+                <div class="col-12 flex wrap-sm items-center">
                   <div class="flex">
                     <div v-for="(image, index) in product.gallery" :key="index">
                       <div
