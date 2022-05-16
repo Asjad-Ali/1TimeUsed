@@ -35,7 +35,7 @@
         style="text-transform: capitalize"
         >{{
           $route.path.includes("/subcategory/")
-            ? $route.params.name || $route.params.id
+            ? $route.params.name || $route.params.slug
             : $route.path.split("/")[1]
         }}</span
       >

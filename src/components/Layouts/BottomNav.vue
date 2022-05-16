@@ -21,7 +21,7 @@
   </q-footer>
 </template>
 
-<script  setup>
+<script setup>
 import { ref } from "vue";
 
 const footerLinks = [
@@ -36,9 +36,9 @@ const footerLinks = [
     to: "/category",
   },
   {
-    title: "Sell",
+    title: "Products",
     icon: "add_circle",
-    to: "/sell",
+    to: "/my_products",
   },
   {
     title: "Donate",
@@ -55,7 +55,7 @@ const footerLinks = [
 const footerTab = ref("Home");
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .bottom-nav .q-tab__label {
   font-size: 10px;
 }

@@ -1,13 +1,18 @@
-import { defineStore } from "pinia";
+import {
+  defineStore
+} from "pinia";
 
-// import {
-//   Cookies
-// } from 'quasar'
-import { Notify } from "quasar";
-import redirect from "src/helpers/redirect";
-import { persistData, getPersistentData } from "src/helpers/persistentHelper";
+
+import {
+  Notify
+} from "quasar";
+
+import {
+  persistData,
+  getPersistentData
+} from "src/helpers/persistentHelper";
 import API from "src/services/API";
-import { ref } from "vue";
+
 
 export const useProductStore = defineStore("productsStore ", {
   state: () => ({
@@ -20,6 +25,8 @@ export const useProductStore = defineStore("productsStore ", {
     donateProducts: [],
     btnStatus: 0,
     loadingStatus: "",
+    featuredProductsLoader: false,
+    recentProductsLoader: false,
     currentPage: 1,
     hasMorePages: false,
   }),
@@ -28,20 +35,24 @@ export const useProductStore = defineStore("productsStore ", {
 
   actions: {
     async loadRecentProducts() {
-      this.loadingStatus = true;
       if (this.recentProducts.length) {
         this.loadingStatus = false;
         return;
       }
 
+      this.recentProductsLoader = true;
       const dataKey = "viewed_products";
       const viewedProducts = getPersistentData(dataKey, 1);
       if (viewedProducts) {
-        this.loadingStatus = false;
+        this.recentProductsLoader = false;
         this.recentProducts = viewedProducts;
         return;
       }
+
+
+
       const response = await API.get("products/recentlyviewed");
+      this.recentProductsLoader = false;
       if (response.status == 200) {
         this.recentProducts = response.data;
         persistData(dataKey, response.data);
@@ -54,15 +65,14 @@ export const useProductStore = defineStore("productsStore ", {
       if (this.featuredProducts.length) {
         return;
       }
-
       const featuredProducts = getPersistentData("featured_products", 2);
       if (featuredProducts) {
         this.featuredProducts = featuredProducts;
         return;
       }
-      this.loadingStatus = true;
+      this.featuredProductsLoader = true;
       const response = await API.get("products/featured");
-      this.loadingStatus = false;
+      this.featuredProductsLoader = false;
       if (response.status == 200) {
         console.log(response);
         this.featuredProducts = response.data;
@@ -73,7 +83,7 @@ export const useProductStore = defineStore("productsStore ", {
     },
     async loadSubCategoryProduct(id, paginated = false) {
       if (this.currentPage == 1 || !paginated) {
-        this.sellerProducts = [];
+        this.subCategoryProduct = [];
       }
       this.loadingStatus = true;
       const response = await API.get(`sub_categories/${id}/products`);

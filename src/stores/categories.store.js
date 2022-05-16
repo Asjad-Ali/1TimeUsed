@@ -3,7 +3,10 @@ import {
 } from 'pinia'
 
 import API from 'src/services/API';
-import { persistData, getPersistentData } from 'src/helpers/persistentHelper'
+import {
+  persistData,
+  getPersistentData
+} from 'src/helpers/persistentHelper'
 
 export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({
@@ -32,8 +35,8 @@ export const useCategoryStore = defineStore('categoryStore', {
         persistData(dataKey, response.data);
       }
     },
-    loadSubCategory(title) {
-      const category = this.categories.find(category => category.title == title || category.id == title)
+    loadSubCategory(slug) {
+      const category = this.categories.find(category => category.slug == slug || category.id == slug)
       this.subCategories = category.subcategories
     }
   },

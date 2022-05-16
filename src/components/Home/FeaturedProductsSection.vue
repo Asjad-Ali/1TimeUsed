@@ -5,6 +5,14 @@
         <h5 class="text-center q-pb-lg">Feature Products</h5>
 
         <div
+          v-if="store.featuredProductsLoader"
+          class="row q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+        >
+          <CardSkeleton v-for="i in 10" :key="i" />
+        </div>
+
+        <div
+          v-else
           class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
         >
           <ProductCard
@@ -20,7 +28,8 @@
 
 <script setup>
 import ProductCard from "src/components/ProductCard.vue";
-import { useProductStore } from "../../stores/products.store.js";
+import CardSkeleton from "src/components/CardSkeleton";
+import { useProductStore } from "src/stores/products.store.js";
 
 const store = useProductStore();
 </script>

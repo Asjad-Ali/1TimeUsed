@@ -54,6 +54,8 @@ const credentials = ref({
 
 const add_suggestion = () => {
   sellerStore.suggestion(credentials.value);
+  credentials.value.subject = "";
+  credentials.value.description = "";
 };
 </script>
 
