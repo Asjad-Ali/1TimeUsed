@@ -8,7 +8,6 @@
     <div class="relative-position">
       <div
         v-if="store.myProducts.length"
-        :style="store.myProducts.length < 4 ? 'height: 60vh' : 'height: 10vh'"
         class="q-pa-md row items-start q-gutter-md justify-center"
       >
         <ProductCardTile
@@ -34,7 +33,9 @@
         glossy
         icon="add"
         @click="$router.push('/add_product')"
-      />
+      >
+        <q-tooltip class="grey-10">Add Your Products</q-tooltip>
+      </q-btn>
     </div>
   </div>
 </template>

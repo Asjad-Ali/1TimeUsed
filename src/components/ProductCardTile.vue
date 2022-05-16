@@ -207,7 +207,10 @@ const small = ref(false);
 <style lang="scss" scoped>
 .my-card {
   width: 350px;
-  max-width: 350px;
+}
+
+.img-holder {
+  height: 110px;
 }
 // Small devices (landscape phones, less than 768px)
 @media (max-width: 1262px) {

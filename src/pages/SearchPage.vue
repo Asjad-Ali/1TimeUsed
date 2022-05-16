@@ -62,12 +62,7 @@
       <div class="column q-mt-md">
         <div
           id="productsDiv"
-          class="
-            flex
-            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-            justify-center
-            items-center
-          "
+          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
         >
           <q-spinner
             v-if="store.loadingStatus"
@@ -84,7 +79,7 @@
         </div>
         <div
           v-if="!store.searchProducts.length && !store.loadingStatus"
-          style="height: 10vh"
+          class="empty_space"
         >
           <div class="rounded-borders flex flex-center">
             <h4>No result found</h4>
@@ -119,8 +114,6 @@ onMounted(() => {
 });
 </script>
 
-
-
 <style lang="scss" scoped>
 .search-bg {
   background: #fff;
@@ -129,6 +122,10 @@ onMounted(() => {
   font-weight: 500;
   color: black;
 }
+.empty_space {
+  height: calc(50vh - 371px);
+}
+
 @media (max-width: 1024px) {
   .mb-10-mobile {
     margin-bottom: 10px;
