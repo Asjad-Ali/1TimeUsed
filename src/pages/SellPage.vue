@@ -8,7 +8,7 @@
     <div class="relative-position">
       <div
         v-if="store.myProducts.length"
-        class="q-pa-md row items-start q-gutter-md justify-center"
+        class="q-pa-md row items-start q-gutter-md justify-center empty_space"
       >
         <ProductCardTile
           v-for="product in store.myProducts"
@@ -58,5 +58,8 @@ onMounted(() => store.loadMyProducts());
   position: unset;
   max-width: 100%;
   max-height: 100%;
+}
+.empty_space {
+  min-height: 65vh;
 }
 </style>
