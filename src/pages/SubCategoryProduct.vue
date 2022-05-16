@@ -61,6 +61,16 @@
         />
         <TileProduct v-else :product="product" mainDIv="recent-products" />
       </div>
+      <div
+        v-if="!store.subCategoryProduct.length && !store.loadingStatus"
+        class="justify-center items-center"
+      >
+        <div style="height: 60vh; width: 100vw" class="relative-position">
+          <span class="absolute-center text-h6 text-center"
+            >No Product Available</span
+          >
+        </div>
+      </div>
     </div>
     <!-- Sort by Modal -->
     <q-dialog v-model="sortModal">
