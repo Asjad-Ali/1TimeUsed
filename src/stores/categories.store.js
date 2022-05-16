@@ -9,6 +9,7 @@ export const useCategoryStore = defineStore('categoryStore', {
   state: () => ({
     categories: [],
     subCategories: [],
+    subCategoryTitle: ''
   }),
   getters: {
 
@@ -33,7 +34,7 @@ export const useCategoryStore = defineStore('categoryStore', {
       }
     },
     loadSubCategory(title) {
-      const category = this.categories.find(category => category.title == title || category.id == title)
+      const category = this.categories.find(category => category.slug == title || category.id == title)
       this.subCategories = category.subcategories
     }
   },

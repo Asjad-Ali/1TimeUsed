@@ -91,21 +91,18 @@ export const useProductStore = defineStore("productsStore ", {
     },
 
     async loadMyProducts() {
-      this.loadingStatus = true;
+
       if (this.myProducts.length) {
-        this.loadingStatus = false;
         return;
       }
-
-      const myProducts = getPersistentData("my_products", 1);
+      const myProducts = getPersistentData('my_products', 1);
       if (myProducts) {
         this.myProducts = myProducts;
-        this.loadingStatus = false;
         return;
       }
-
-      const response = await API.get("seller/products");
-      this.loadingStatus = false;
+      this.loadingStatus = true
+      const response = await API.get('seller/products');
+      this.loadingStatus = false
       if (response.status == 200) {
         this.myProducts = response.data;
         persistData("my_products", response.data);
@@ -134,7 +131,11 @@ export const useProductStore = defineStore("productsStore ", {
       const response = await API.formData("seller/products", product);
       this.btnStatus = 0;
       if (response.status == 200) {
-        this.myProducts.unshift(response.data);
+        if (response.data.purpose == "Donate") {
+          this.donateProducts.unshift(response.data);
+        } else {
+          this.myProducts.unshift(response.data);
+        }
         Notify.create({
           message: "Product added successfully",
           icon: "done",

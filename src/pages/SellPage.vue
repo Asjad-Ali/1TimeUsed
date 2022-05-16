@@ -5,8 +5,9 @@
     </div>
   </div>
   <div v-else class="container">
-    <div v-if="store.myProducts.length" class="relative-position">
+    <div class="relative-position">
       <div
+        v-if="store.myProducts.length"
         class="q-pa-md row items-start q-gutter-md justify-center empty_space"
       >
         <ProductCardTile
@@ -15,16 +16,15 @@
           :product="product"
         />
       </div>
+      <q-responsive v-else style="height: 50vh">
+        <div
+          v-if="!store.myProducts.length"
+          class="rounded-borders flex flex-center q-mt-sm"
+        >
+          <h6>Product you add will show up here</h6>
+        </div>
+      </q-responsive>
     </div>
-    <q-responsive
-      v-else
-      v-show="!store.myProducts.length"
-      style="margin-bottom: 70vh"
-    >
-      <div class="rounded-borders flex flex-center q-mt-sm">
-        <h6>Product you add will show up here</h6>
-      </div>
-    </q-responsive>
     <!-- Add Button -->
     <div class="add-button">
       <q-btn

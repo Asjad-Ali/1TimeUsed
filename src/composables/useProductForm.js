@@ -91,7 +91,12 @@ export default function useProductForm() {
     }
 
     if (response.status == 200) {
-      router.push("/sell");
+      if (response.data.purpose == 'Donate') {
+        router.push("/sell");
+      }
+      else {
+        router.push("/sell");
+      }
     }
   };
 
