@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.loadingStatus" class="container">
-    <div class="text-center q-my-lg q-py-lg" style="height: 40vh">
+    <div class="flex items-center justify-center" style="height: 40vh">
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
@@ -17,7 +17,11 @@
         />
       </div>
     </div>
-    <q-responsive v-else v-show="!store.myProducts.length">
+    <q-responsive
+      v-else
+      v-show="!store.myProducts.length"
+      style="margin-bottom: 70vh"
+    >
       <div class="rounded-borders flex flex-center q-mt-sm">
         <h6>Product you add will show up here</h6>
       </div>
