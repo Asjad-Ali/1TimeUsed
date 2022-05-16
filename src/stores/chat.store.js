@@ -24,7 +24,6 @@ export const useChatStore = defineStore('chat', {
     conversations: [],
     selectedConversation: null,
     isConversationNew: true,
-    referrerMsg: false,
     conversationLoadingStatus: false,
     chatLoadingStatus: false,
     selectedChatListenerRef: null,
@@ -34,6 +33,8 @@ export const useChatStore = defineStore('chat', {
     leftDrawerOpen: true,
     newConversationUser: null,
     showScrollButton: false,
+    paramsSellerId: null,
+    reffererProduct: null,
   }),
   actions: {
 
@@ -46,6 +47,8 @@ export const useChatStore = defineStore('chat', {
     },
 
     async lookForConversationChanges() {
+      this.selectedConversation = null;
+      this.messages = [];
 
       if (!this.areConversationsLoaded) {
         this.conversationLoadingStatus = true;
@@ -69,8 +72,11 @@ export const useChatStore = defineStore('chat', {
               ...change.doc.data()
             };
             if (change.type === "added") {
-              console.log("added Conversation: ", conversation);
+              //console.log("added Conversation: ", conversation);
               this.conversations.push(conversation);
+
+              // auto open conversation if already have a chat with user id of seller in params
+              this.autoOpenChatIfExist(conversation);
             }
             if (change.type === "modified") {
               console.log("Modified Conversation: ", conversation);
@@ -79,21 +85,29 @@ export const useChatStore = defineStore('chat', {
             if (change.type === "removed") {
               console.log("Removed Conversation: ", conversation);
             }
+
           });
         });
+      } else {
+        this.conversations.forEach(conversation => {
+          this.autoOpenChatIfExist(conversation);
+        })
       }
-      this.conversationLoadingStatus = "COMPLETED";
       this.areConversationsLoaded = true;
     },
 
 
     openSelectedConversation(conversation) {
+
       this.chatLoadingStatus = true;
+      this.newConversationUser = null;
+      this.paramsSellerId = null;
 
       const selectedConversation = this.conversations.find(
         (conv) => conv.id == conversation.id
       );
-      this.selectedConversation = selectedConversation;
+
+      this.selectedConversation = selectedConversation || conversation;
       this.messages = [];
       this.hasMoreMessages = true;
 
@@ -142,7 +156,8 @@ export const useChatStore = defineStore('chat', {
       if (!this.selectedConversation && !this.newConversationUser) {
         return;
       } else if (this.newConversationUser && !this.selectedConversation) {
-        await this.createNewConversation();
+        this.createNewConversation(payload);
+        return;
       }
 
       const db = getFirestore();
@@ -200,6 +215,47 @@ export const useChatStore = defineStore('chat', {
       });
     },
 
+    async createNewConversation(messagePayload) {
+      const authStore = useAuthStore();
+      const db = getFirestore();
+      const authUser = authStore.authUser;
+      const newConvId = new Date().getTime().toString() + "convId";
+      const conversationRef = doc(db, "Conversations", newConvId);
+      const user = this.newConversationUser;
+
+      const membersInfo = [{
+          id: "" + user.id,
+          name: user.name,
+          photo: user.photo,
+          type: "available",
+          hasReadLastMessage: false,
+        },
+        {
+          id: "" + authUser.id,
+          name: authUser.name,
+          photo: authStore.profilePhoto,
+          type: "available",
+          hasReadLastMessage: true,
+        },
+      ];
+      const members = ["" + user.id, "" + authUser.id];
+
+      const newConv = {
+        id: newConvId,
+        senderName: authUser.name,
+        senderID: authUser.id,
+        lastMessage: '',
+        members,
+        membersInfo,
+        sentAt: new Date(new Date().toISOString()).getTime(),
+        createdAt: new Date(new Date().toISOString()).getTime(),
+      };
+      await setDoc(conversationRef, newConv);
+      this.selectedConversation = newConv;
+      this.openSelectedConversation(newConv);
+      this.sendMessage(messagePayload)
+    },
+
     scrollToBottom() {
 
       setTimeout(() => {
@@ -211,6 +267,13 @@ export const useChatStore = defineStore('chat', {
 
       }, 300);
 
-    }
+    },
+    autoOpenChatIfExist(conversation) {
+      // auto open conversation if already have a chat with user id of seller in params
+      if (this.paramsSellerId && conversation.membersInfo.find(member => member.id == this.paramsSellerId)) {
+        this.selectedConversation = conversation;
+        this.openSelectedConversation(conversation)
+      }
+    },
   }
 })

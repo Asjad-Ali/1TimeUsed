@@ -2,7 +2,7 @@
   <div class="container">
     <div class="WAL position-relative">
       <q-layout view="lHh Lpr lFf" class="WAL__layout shadow-3" container>
-        <ChatHeader v-if="$q.screen.gt.sm" />
+        <ChatHeader v-if="$q.screen.gt.xs" />
         <ConversationsList />
 
         <q-page-container class="bg-grey-2">
@@ -51,7 +51,9 @@
           </div>
           <div
             class="desktop-only flex justify-center items-center column"
-            v-if="!chatStore.selectedConversation"
+            v-if="
+              !chatStore.selectedConversation && !chatStore.newConversationUser
+            "
           >
             <img src="../../public/images/chat.svg" alt="chat" width="30%" />
 
@@ -61,7 +63,9 @@
           </div>
         </q-page-container>
 
-        <ChatFooter />
+        <ChatFooter
+          v-if="chatStore.selectedConversation || chatStore.newConversationUser"
+        />
       </q-layout>
     </div>
   </div>
@@ -77,13 +81,14 @@ import ChatFooter from "src/components/Chat/ChatFooter.vue";
 import { useChatStore } from "src/stores/chat.store";
 import { useAuthStore } from "src/stores/auth.store";
 import useFirebaseAuth from "src/composables/useFirebaseAuth";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import useChat from "src/composables/useChat";
 
 const chatStore = useChatStore();
 const authStore = useAuthStore();
 
 const router = useRouter();
+const route = useRoute();
 const { timeDiff } = useChat();
 
 const { loginAnonymously } = useFirebaseAuth();
@@ -98,6 +103,7 @@ onMounted(() => {
     loginAnonymously();
   }
   chatStore.lookForConversationChanges();
+  chatStore.paramsSellerId = route.params.id ? parseInt(route.params.id) : null;
 });
 
 const getMember = (id) => {

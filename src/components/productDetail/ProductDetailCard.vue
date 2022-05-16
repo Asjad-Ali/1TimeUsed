@@ -138,6 +138,7 @@
         size="sm"
         label="Chat With Seller"
         class="w-100 q-my-md"
+        @click="redirectToChat"
       />
 
       <div v-show="product.seller.phone" class="show-number text-center">
@@ -161,19 +162,29 @@
 
 <script setup>
 const { toRefs, ref } = require("@vue/reactivity");
+const { useChatStore } = require("src/stores/chat.store");
+const { useRouter } = require("vue-router");
 const imageBaseURL = process.env.imagesBaseURL;
 const toggleText = ref(false);
 const togglePhone = ref(false);
+
+const router = useRouter();
+const chatStore = useChatStore();
 
 const props = defineProps({
   product: Object,
 });
 
 const { product } = toRefs(props);
+
+const redirectToChat = () => {
+  chatStore.reffererProduct = product.value;
+  chatStore.newConversationUser = product.value.seller;
+  router.push(`/chat/${product.value.seller.id}`);
+};
 </script>
 
-<style>
-</style>
+<style></style>
 
 <style scoped lang="scss">
 .top-card {
