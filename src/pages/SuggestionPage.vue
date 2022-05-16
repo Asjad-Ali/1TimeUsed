@@ -17,37 +17,45 @@
         <div class="q-pa-md account-tab">
           <q-input
             outlined
-            v-model="user.name"
+            v-model="credentials.subject"
             label="Subject"
             class="q-mb-md bg-white"
           />
           <q-input
             outlined
             type="textarea"
-            v-model="user.name"
+            v-model="credentials.description"
             label="Description"
             class="q-mb-md bg-white"
           />
         </div>
       </div>
 
-      <q-btn color="primary" glossy label="Add Suggestion" />
+      <q-btn
+        color="primary"
+        glossy
+        label="Add Suggestion"
+        @click="add_suggestion()"
+      />
     </div>
   </div>
 </template>
 
-
 <script setup>
+import { useSellerStore } from "src/stores/seller.store";
 import { ref } from "vue";
-const accept = ref(false);
 
-const user = ref({
-  name: "",
+const sellerStore = useSellerStore();
+
+const credentials = ref({
+  subject: "this user have no complete info",
+  description: "this user is not have complete information",
 });
+
+const add_suggestion = () => {
+  sellerStore.suggestion(credentials.value);
+};
 </script>
-
-
-
 
 <style lang="scss" scoped>
 .account-tab {
