@@ -60,7 +60,7 @@
         <ConversationLoadingSkeleton
           v-if="chatStore.conversationLoadingStatus"
         />
-        <q-list v-else>
+        <q-list v-else-if="conversations.length">
           <q-item
             v-for="(conversation, index) in conversations"
             :key="conversation.id"
@@ -97,6 +97,9 @@
             </q-item-section>
           </q-item>
         </q-list>
+        <span v-else class="absolute-center text-center text-subtitle2">
+          No Conversation yet
+        </span>
       </q-scroll-area>
     </q-drawer>
   </div>

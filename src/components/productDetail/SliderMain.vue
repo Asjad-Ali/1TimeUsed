@@ -97,7 +97,7 @@ const addToWishlist = (product) => {
 </style>
 <style lang="scss" scoped>
 .slider-main {
-  height: 160px;
+  height: 190px;
   width: 100%;
 
   @media screen and (min-width: $breakpoint-sm-min) {
