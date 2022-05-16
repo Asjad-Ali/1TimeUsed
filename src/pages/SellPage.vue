@@ -6,10 +6,7 @@
   </div>
   <div v-else class="container">
     <div v-if="store.myProducts.length" class="relative-position">
-      <div
-        :style="store.myProducts.length < 4 ? 'height: 60vh' : 'height: 10vh'"
-        class="q-pa-md row items-start q-gutter-md justify-center"
-      >
+      <div class="q-pa-md row items-start q-gutter-md justify-center">
         <ProductCardTile
           v-for="product in store.myProducts"
           :key="product"
@@ -34,7 +31,9 @@
         glossy
         icon="add"
         @click="$router.push('/add_product')"
-      />
+      >
+        <q-tooltip class="grey-10">Add Your Products</q-tooltip>
+      </q-btn>
     </div>
   </div>
 </template>
