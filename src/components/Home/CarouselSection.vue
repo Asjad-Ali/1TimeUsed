@@ -46,6 +46,7 @@ onMounted(async () => {
   if (storedBanners) {
     banners.value = storedBanners;
     slide.value = banners.value.length ? banners.value[0].id : 0;
+    console.log(banners.value);
     return;
   }
 
@@ -53,6 +54,7 @@ onMounted(async () => {
   if (response.status == 200) {
     banners.value = response.data;
   }
+
   slide.value = banners.value.length ? banners.value[0].id : 0;
   persistData(dataKey, response.data);
 });

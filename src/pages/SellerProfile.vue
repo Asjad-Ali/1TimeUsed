@@ -5,12 +5,11 @@
     </div>
   </div>
   <div
-    v-else
     class="container q-mb-lg"
-    :style="store.sellerProducts.length > 3 ? 'height: 60vh' : 'height: 10vh'"
     @scroll="handleScroll"
+    :class="{ 'relative-position': $q.screen.gt.sm }"
   >
-    <div v-if="store.sellerProducts" class="row flex justify-center q-my-lg">
+    <div v-if="store.sellerProducts.length" class="row justify-center q-my-lg">
       <div class="col-md-4 col-12">
         <!-- Seller Profile -->
         <q-card class="my-card q-pa-md" flat bordered>
@@ -67,6 +66,9 @@
         </div>
       </div>
     </div>
+    <div v-else class="text-center absolute-center w-100">
+      This profile has not added any products
+    </div>
   </div>
 </template>
 
@@ -98,7 +100,15 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.container {
+  min-height: 60vh;
+
+  @media screen and (max-width: 768px) {
+    min-height: 88vh;
+  }
+}
+
 hr {
   background-color: #fff;
   padding: 0;
