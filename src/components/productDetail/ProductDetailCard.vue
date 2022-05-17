@@ -92,12 +92,12 @@
           {{ product.description.substr(0, 28) }}
         </p>
       </div>
-      <div class="title q-pb-sm">
+      <div class="title text-grey q-pb-sm">
         <span v-show="toggleText"
           >{{ product.description.substr(28) }} <br />
           <a
             @click="toggleText = !toggleText"
-            class="text-h6 ellipsis common-size cursor-pointer"
+            class="text-subtitle2 text-blue cursor-pointer"
           >
             <u>Less</u><q-icon name="expand_less" />
           </a>
@@ -105,7 +105,7 @@
         <a
           @click="toggleText = !toggleText"
           v-show="!toggleText"
-          class="text-h6 ellipsis common-size cursor-pointer"
+          class="text-subtitle2 text-blue cursor-pointer"
           ><u>More</u><q-icon name="expand_more" />
         </a>
       </div>
