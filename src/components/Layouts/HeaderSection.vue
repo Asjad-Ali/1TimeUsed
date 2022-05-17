@@ -51,7 +51,7 @@
               @click="$router.push('/chat')"
             >
               <q-tooltip class="grey-10">Chat</q-tooltip>
-              <q-badge color="red" floating>2</q-badge>
+              <!-- <q-badge color="red" floating>2</q-badge> -->
             </q-btn>
             <q-btn
               :size="$q.screen.lt.md ? 'sm' : `md`"
@@ -63,7 +63,7 @@
               @click="$router.push('/notifications')"
             >
               <q-tooltip class="grey-10">Notifications</q-tooltip>
-              <q-badge color="red" floating>100+</q-badge>
+              <!-- <q-badge color="red" floating>100+</q-badge> -->
             </q-btn>
             <q-btn
               round

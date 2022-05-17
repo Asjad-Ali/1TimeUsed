@@ -6,14 +6,14 @@
       <q-avatar size="100px">
         <img :src="profilePhoto" alt="img" style="object-fit: cover" />
       </q-avatar>
-      <div v-if="profile" class="text-h6 text-center q-pt-sm">
+      <div v-if="profile" class="text-subtitle1 text-center q-pt-sm">
         {{ profile.name }}
       </div>
       <div v-if="profile" class="email text-grey">{{ profile.email }}</div>
     </div>
     <div class="flex justify-center items-center vw99">
-      <div class="q-pa-md account-tab">
-        <q-list bordered class="bg-white rounded">
+      <div class="q-mt-md account-tab">
+        <q-list bordered class="bg-white rounded" style="border-radius: 10px">
           <div v-for="(menu, index) in menus" :key="index">
             <q-item @click="handleMenuClick(menu)" clickable>
               <q-item-section avatar>
@@ -126,6 +126,8 @@ const handleMenuClick = (menu) => {
 <style lang="scss" scoped>
 .account-tab {
   width: 50%;
+  // border: 1px solid red;
+  // border-radius: 4px;
 }
 
 @media (max-width: $breakpoint-sm-max) {

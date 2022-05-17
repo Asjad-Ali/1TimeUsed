@@ -1,9 +1,12 @@
 <template>
-  <div class="container q-py-lg">
+  <div
+    class="container q-py-lg"
+    :class="{ 'relative-position': $q.screen.gt.sm }"
+  >
     <div>
-      <h1 class="text-h5 text-center">
-        <span style="border-bottom: 2px solid #ddd">Wishlist</span>
-      </h1>
+      <div class="ttext-subtitle1 text-center">
+        <span style="border-bottom: 2px solid #ddd">Wishlist Products</span>
+      </div>
     </div>
 
     <div
@@ -16,8 +19,8 @@
         :product="product"
       />
     </div>
-    <div class="text-center m-5" v-else>
-      <h3 class="m-5">No Wishlist Product</h3>
+    <div class="m-5 text-center absolute-center w-100" v-else>
+      <div class="m-5 text-subtitle1">No Wishlist Product</div>
     </div>
   </div>
 </template>
@@ -33,4 +36,13 @@ onMounted(() => {
 });
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.container {
+  min-height: 60vh;
+
+  @media screen and (max-width: 768px) {
+    min-height: 88vh;
+  }
+}
+</style>
+>

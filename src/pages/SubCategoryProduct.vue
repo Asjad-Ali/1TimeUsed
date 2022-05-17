@@ -17,11 +17,7 @@
         :key="product"
         class="q-ma-sm"
       >
-        <ProductCard
-          v-if="viewType == 'grid'"
-          :product="product"
-          mainDIv="recent-products"
-        />
+        <ProductCard v-if="viewType == 'grid'" :product="product" />
         <TileProduct v-else :product="product" mainDIv="recent-products" />
       </div>
       <div

@@ -36,10 +36,13 @@
             </q-btn>
           </template>
         </q-select>
-        <h6 v-show="search" class="text-center text-grey q-my-md">
+        <div
+          v-show="search"
+          class="text-center text-grey q-my-md text-subtitle1"
+        >
           Results for "<span class="text-bold">{{ search }}</span
           >"
-        </h6>
+        </div>
       </div>
     </div>
   </div>
@@ -60,7 +63,7 @@
           class="empty_space"
         >
           <div class="rounded-borders flex flex-center">
-            <h4>No result found</h4>
+            <div class="text-subtitle1">No result found</div>
           </div>
         </div>
       </div>
