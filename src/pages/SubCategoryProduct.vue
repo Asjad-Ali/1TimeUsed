@@ -83,7 +83,7 @@
 import { onMounted, ref } from "@vue/runtime-core";
 import ProductCard from "src/components/ProductCard.vue";
 import { useRoute } from "vue-router";
-import { useProductStore } from "../stores/products.store";
+import { useProductStore } from "src/stores/products.store";
 import TileProduct from "../components/TileProduct.vue";
 import ProductsHeader from "src/components/ProductsHeader.vue";
 let lastApiCallTime = Date.now();
