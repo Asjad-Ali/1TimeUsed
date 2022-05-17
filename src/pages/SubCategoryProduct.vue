@@ -35,6 +35,47 @@
         </div>
       </div>
     </div>
+    <!-- Sort by Modal -->
+    <q-dialog v-model="sortModal">
+      <q-card style="width: 300px">
+        <q-card-section>
+          <div class="text-h6 text-center">Sort By</div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
+          <div class="q-gutter-sm flex column q-pa-md">
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`desc`)"
+              :val="`desc`"
+              label="Newest First"
+              v-close-popup
+            />
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`asc`)"
+              :val="`asc`"
+              label="Oldest First"
+              v-close-popup
+            />
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`price<`)"
+              :val="`price<`"
+              label="Price Low to High"
+              v-close-popup
+            />
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`price>`)"
+              :val="`price>`"
+              label="Price High to Low"
+              v-close-popup
+            />
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <!-- Sort by Modal End -->
   </div>
 </template>
 
@@ -49,6 +90,7 @@ let lastApiCallTime = Date.now();
 const store = useProductStore();
 const route = useRoute();
 const viewType = ref("grid");
+const sort_products = ref("");
 
 onMounted(() => {
   store.loadSubCategoryProduct(route.params.id);
@@ -67,4 +109,8 @@ onMounted(() => {
     }
   });
 });
+
+const sortProducts = (sort) => {
+  store.loadSearchProduct(sort);
+};
 </script>

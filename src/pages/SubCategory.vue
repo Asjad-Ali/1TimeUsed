@@ -8,7 +8,7 @@
       >
         <q-card
           class="my-card cursor-pointer"
-          @click="subCategoryProduct(subCategory.slug)"
+          @click="subCategoryProduct(subCategory.id)"
         >
           <div class="img-holder">
             <img :src="imageBaseURL + subCategory.thumbnail" alt="product" />
@@ -44,8 +44,8 @@ onMounted(() => {
   store.loadCategories();
   store.loadSubCategory(route.params.slug);
 });
-const subCategoryProduct = (slug) => {
-  router.push(`/subcategory-product/${slug}`);
+const subCategoryProduct = (id) => {
+  router.push(`/subcategory-product/${id}`);
 };
 </script>
 
