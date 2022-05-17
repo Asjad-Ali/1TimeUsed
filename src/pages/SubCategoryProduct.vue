@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{ 'relative-position': $q.screen.gt.sm }">
     <ProductsHeader
       :viewType="viewType"
       @toggleViewType="viewType = viewType == 'grid' ? 'tile' : 'grid'"
@@ -22,12 +22,10 @@
       </div>
       <div
         v-if="!store.subCategoryProduct.length && !store.loadingStatus"
-        class="justify-center items-center"
+        class="text-center absolute-center w-100"
       >
-        <div style="height: 60vh; width: 97vw" class="relative-position">
-          <span class="absolute-center text-h6 text-center"
-            >No Product Available</span
-          >
+        <div>
+          <span class="text-subtitle1">No Product Available</span>
         </div>
       </div>
     </div>
@@ -110,3 +108,12 @@ const sortProducts = (sort) => {
   store.loadSearchProduct(sort);
 };
 </script>
+<style lang="scss" scoped>
+.container {
+  min-height: 60vh;
+
+  @media screen and (max-width: 768px) {
+    min-height: 88vh;
+  }
+}
+</style>
