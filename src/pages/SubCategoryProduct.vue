@@ -78,29 +78,38 @@
         <q-card-section>
           <div class="text-h6 text-center">Sort By</div>
         </q-card-section>
-
         <q-card-section class="q-pt-none">
-          <div class="flex items-center justify-between">
-            <p>Newest First</p>
-            <q-radio v-model="shape" val="line1" />
-          </div>
-          <div class="flex items-center justify-between">
-            <p>Oldest First</p>
-            <q-radio v-model="shape" val="line2" />
-          </div>
-          <div class="flex items-center justify-between">
-            <p>Price Low to High</p>
-            <q-radio v-model="shape" val="line3" />
-          </div>
-          <div class="flex items-center justify-between">
-            <p>Price High to Low</p>
-            <q-radio v-model="shape" val="line4" />
+          <div class="q-gutter-sm flex column q-pa-md">
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`desc`)"
+              :val="`desc`"
+              label="Newest First"
+              v-close-popup
+            />
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`asc`)"
+              :val="`asc`"
+              label="Oldest First"
+              v-close-popup
+            />
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`price<`)"
+              :val="`price<`"
+              label="Price Low to High"
+              v-close-popup
+            />
+            <q-radio
+              v-model="sort_products"
+              @click="sortProducts(`price>`)"
+              :val="`price>`"
+              label="Price High to Low"
+              v-close-popup
+            />
           </div>
         </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="OK" color="primary" v-close-popup />
-        </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- Sort by Modal End -->
@@ -118,6 +127,7 @@ const store = useProductStore();
 const route = useRoute();
 const sortModal = ref(false);
 const viewType = ref("grid");
+const sort_products = ref("");
 
 onMounted(() => {
   store.loadSubCategoryProduct(route.params.id);
@@ -136,6 +146,10 @@ onMounted(() => {
     }
   });
 });
+
+const sortProducts = (sort) => {
+  store.loadSearchProduct(sort);
+};
 </script>
 
 <style lang="scss" scoped>
