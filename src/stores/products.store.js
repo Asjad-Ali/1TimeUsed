@@ -129,9 +129,12 @@ export const useProductStore = defineStore("productsStore ", {
       return response;
     },
     async loadSearchProduct(sort) {
+      this.subCategoryProduct = [];
+      this.loadingStatus = true;
       const response = await API.get(`search?sort=${sort}`);
+      this.loadingStatus = false;
       if (response.status == 200) {
-        //this.searchProducts = response.data;
+        this.searchProducts = response.data;
         this.subCategoryProduct = response.data;
       }
       return response;

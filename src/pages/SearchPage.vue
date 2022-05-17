@@ -46,17 +46,73 @@
       </div>
 
       <div class="col-md-2 col-12">
-        <q-select
+        <div
+          class="col text-center border-right cursor-pointer bg-white"
+          outlined
+          @click="sortModal = true"
+        >
+          <q-icon
+            name="filter_list"
+            :size="$q.screen.lt.md ? 'sm' : `md`"
+            class="icons"
+          />
+          <span>Sort By</span>
+        </div>
+        <!-- <q-select
           dense
           outlined
           v-model="model"
           :options="searchSuggestions"
           label="Sort By"
           class="bg-white"
-        />
+          @click="sortModal = true"
+        /> -->
       </div>
     </div>
   </div>
+
+  <!-- Sort by Modal -->
+  <q-dialog v-model="sortModal">
+    <q-card style="width: 300px">
+      <q-card-section>
+        <div class="text-h6 text-center">Sort By</div>
+      </q-card-section>
+      <q-card-section class="q-pt-none">
+        <div class="q-gutter-sm flex column q-pa-md">
+          <q-radio
+            v-model="sort_products"
+            @click="sortProducts(`desc`)"
+            :val="`desc`"
+            label="Newest First"
+            v-close-popup
+          />
+          <q-radio
+            v-model="sort_products"
+            @click="sortProducts(`asc`)"
+            :val="`asc`"
+            label="Oldest First"
+            v-close-popup
+          />
+          <q-radio
+            v-model="sort_products"
+            @click="sortProducts(`price<`)"
+            :val="`price<`"
+            label="Price Low to High"
+            v-close-popup
+          />
+          <q-radio
+            v-model="sort_products"
+            @click="sortProducts(`price>`)"
+            :val="`price>`"
+            label="Price High to Low"
+            v-close-popup
+          />
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+  <!-- Sort by Modal End -->
+
   <div class="container">
     <div class="container flex justify-center items-center">
       <div class="column q-mt-md">
@@ -100,8 +156,10 @@
 import { onMounted, ref } from "vue";
 import ProductCard from "src/components/ProductCard.vue";
 import useSearch from "../composables/useSearch";
-import { useProductStore } from "../stores/products.store";
+import { useProductStore } from "src/stores/products.store";
 
+const sort_products = ref("");
+const sortModal = ref(false);
 const store = useProductStore();
 const model = ref(null);
 const searchInput = ref();
@@ -112,6 +170,10 @@ const { searchSuggestions, getSearchSuggestions, searchProducts, search } =
 onMounted(() => {
   searchInput.value.focus();
 });
+
+const sortProducts = (sort) => {
+  store.loadSearchProduct(sort);
+};
 </script>
 
 <style lang="scss" scoped>
