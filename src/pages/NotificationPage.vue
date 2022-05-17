@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{ 'relative-position': $q.screen.gt.sm }">
     <div class="row justify-between items-center">
       <div class="col-md-10 col-6">
         <h1 class="app-page-title">
@@ -62,9 +62,9 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      <div class="m-auto text-center" style="height: 55vh">
-        <h5>No Notifications Available</h5>
+    <div v-else class="absolute-center w-100">
+      <div class="m-auto text-center">
+        <h5 class="text-h6 text-grey">No Notifications Available</h5>
         <div class="notify-img">
           <img src="../../public/icons/notify.svg" alt="notify" width="300" />
         </div>
@@ -91,6 +91,13 @@ onMounted(() => store.loadNotification());
 </script>
 
 <style lang="scss" scoped>
+.container {
+  min-height: 60vh;
+
+  @media screen and (max-width: 768px) {
+    min-height: 88vh;
+  }
+}
 .app-page-title {
   font-size: 1.5rem;
 }

@@ -1,19 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;1,100;1,200;1,500;1,600;1,700&display=swap');
-body{
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;1,100;1,200;1,500;1,600;1,700&display=swap");
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-  background-color: #EFF2FB;
-  font-family: 'Poppins', sans-serif;
+  background-color: #eff2fb;
+  font-family: "Poppins", sans-serif;
 }
 .container {
   width: 100%;
   max-width: 1450px;
-  padding-right: 50px;
-  padding-left: 50px;
+
   margin-right: auto;
   margin-left: auto;
+
+  @media screen and (min-width: 600px) {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
 }
 .container-desktop {
   width: 50%;
@@ -38,7 +42,6 @@ body{
   background-color: transparent !important;
 }
 
-
 hr {
   background-color: #fff;
   padding: 0;
@@ -55,37 +58,30 @@ hr.hr-1 {
   );
 }
 
-
-
-
-
-.w-100{
-width: 100%;
+.w-100 {
+  width: 100%;
 }
 
-.w-50{
+.w-50 {
   width: 50%;
 }
 
-
-.border-bottom{
+.border-bottom {
   border-bottom: 1px solid #f3f3f4;
 }
 
-
-.container{
-@media screen and (max-width: $breakpoint-sm-max) {
-  width: 100%;
-  padding-right: 10px;
-  padding-left: 10px;
+.container {
+  @media screen and (max-width: $breakpoint-sm-max) {
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 }
-}
 
-.container-desktop{
+.container-desktop {
   @media screen and (max-width: $breakpoint-sm) {
     width: 100%;
     padding-right: 10px;
     padding-left: 10px;
   }
-  }
-
+}

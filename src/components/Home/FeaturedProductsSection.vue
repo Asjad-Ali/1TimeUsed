@@ -13,7 +13,7 @@
 
         <div
           v-else
-          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+          class="flex q-gutter-y-md q-gutter-x-sm q-mb-lg justify-center items-center"
         >
           <ProductCard
             :product="product"
