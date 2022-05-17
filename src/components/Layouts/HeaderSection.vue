@@ -81,7 +81,7 @@
               icon="add_circle"
               size="md"
               class="q-mr-md desktop-only"
-              @click="$router.push('/sell')"
+              @click="$router.push('/my_products')"
             >
               <q-tooltip class="grey-10">Sell</q-tooltip>
             </q-btn>
