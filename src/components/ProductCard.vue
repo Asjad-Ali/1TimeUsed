@@ -1,7 +1,7 @@
 <template>
   <q-card
-    class="product-card cursor-pointer my-card"
-    :class="{ 'recent-product': mainDiv == 'recent-products' }"
+    class="cursor-pointer"
+    :class="{ 'product-card': parentDiv !== 'recent-products' }"
   >
     <div class="img-holder" @click="ProductDetail(product)">
       <q-img
@@ -80,12 +80,12 @@ const productStore = useProductStore();
 const router = useRouter();
 const props = defineProps({
   product: Object,
-  mainDiv: {
-    type: String,
+  parentDiv: {
+    Type: String,
     default: "featured-products",
   },
 });
-const { product, mainDiv } = toRefs(props);
+const { product, parentDiv } = toRefs(props);
 
 const addToWishlist = (product) => {
   wishlistStore.addWishlist(product);
@@ -143,33 +143,33 @@ const getAddress = (address) => {
   top: 125px;
   left: 0;
 }
-.my-card {
+.product-card {
   width: 210px;
-}
 
-@media (max-width: 1290px) {
-  .my-card {
-    width: 168px;
+  @media (max-width: 331px) {
+    width: 46.9%;
+  }
+
+  @media (min-width: 332px) and (max-width: 511px) {
+    width: 47.5%;
+  }
+
+  @media (min-width: 512px) and (max-width: 600px) {
+    width: 48.4%;
+  }
+
+  @media (min-width: 601px) and (max-width: $breakpoint-sm-max) {
+    width: 31.5%;
+    font-size: 11px;
   }
 }
 
 @media (max-width: $breakpoint-sm-max) {
-  .my-card {
-    width: 150px;
-    max-width: 170px;
-    font-size: 11px;
-  }
   .mobile-font {
     font-size: 10px;
   }
   .img-holder {
     height: 120px;
-  }
-}
-
-@media (max-width: 336px) {
-  .my-card {
-    width: 120px;
   }
 }
 </style>

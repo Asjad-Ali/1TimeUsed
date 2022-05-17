@@ -1,46 +1,9 @@
 <template>
   <div class="container">
-    <div class="border-bottom">
-      <div class="row flex justify-between items-center">
-        <div class="col text-center border-right">
-          <q-icon
-            name="format_list_bulleted"
-            @click="viewType = 'tile'"
-            :size="$q.screen.lt.md ? 'sm' : `md`"
-            :color="viewType != 'grid' ? 'primary' : 'black'"
-            class="icons"
-          />
-        </div>
-        <div class="col text-center border-right">
-          <q-icon
-            :color="viewType == 'grid' ? 'primary' : 'black'"
-            @click="viewType = 'grid'"
-            name="grid_view"
-            :size="$q.screen.lt.md ? 'sm' : `md`"
-            class="icons"
-          />
-        </div>
-        <div
-          @click="sortModal = true"
-          class="col text-center border-right cursor-pointer"
-        >
-          <q-icon
-            name="filter_list"
-            :size="$q.screen.lt.md ? 'sm' : `md`"
-            class="icons"
-          />
-          <span>Sort By</span>
-        </div>
-        <div class="col text-center">
-          <q-icon
-            name="filter_alt"
-            :size="$q.screen.lt.md ? 'sm' : `md`"
-            class="icons"
-          />
-          <span>Filter</span>
-        </div>
-      </div>
-    </div>
+    <ProductsHeader
+      :viewType="viewType"
+      @toggleViewType="viewType = viewType == 'grid' ? 'tile' : 'grid'"
+    />
 
     <div class="item row justify-center items-center wrap">
       <q-spinner
@@ -122,10 +85,10 @@ import ProductCard from "src/components/ProductCard.vue";
 import { useRoute } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 import TileProduct from "../components/TileProduct.vue";
+import ProductsHeader from "src/components/ProductsHeader.vue";
 let lastApiCallTime = Date.now();
 const store = useProductStore();
 const route = useRoute();
-const sortModal = ref(false);
 const viewType = ref("grid");
 const sort_products = ref("");
 
@@ -151,20 +114,3 @@ const sortProducts = (sort) => {
   store.loadSearchProduct(sort);
 };
 </script>
-
-<style lang="scss" scoped>
-.icons {
-  cursor: pointer;
-  padding: 5px 0px;
-}
-span {
-  color: rgb(78, 78, 78);
-}
-
-.border-right {
-  border-right: 1px solid #dcdcdc;
-}
-.border-bottom {
-  border-bottom: 1px solid #dcdcdc;
-}
-</style>

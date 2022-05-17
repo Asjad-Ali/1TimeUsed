@@ -27,7 +27,7 @@
             hidden
           />
           <i
-            class="fa fa-camera cursor-pointer"
+            class="fa fa-camera cursor-pointer shadow-sm bg-white q-pa-xs rounded"
             @click="$refs.fileInput.click()"
             style="font-size: 20px"
           >
@@ -41,32 +41,36 @@
       <div class="flex justify-center items-center w-100">
         <div class="q-pa-md account-tab">
           <q-input
+            bg-color="white"
             outlined
             v-model="profile.name"
             label="Enter Full Name"
-            class="q-mb-md bg-white"
+            class="q-mb-md"
             :rules="[
               (val) => val.length >= 3 || 'Name must be atleast 3 characters',
             ]"
           />
           <q-input
+            bg-color="white"
             outlined
             v-model="profile.city"
             label="Enter City"
-            class="q-mb-md bg-white"
+            class="q-mb-md"
           />
           <q-input
+            bg-color="white"
             outlined
             v-model="profile.email"
             label="example@mail.com"
-            class="q-mb-md bg-white"
+            class="q-mb-md"
             :rules="[rules.required, rules.email]"
           />
           <q-input
+            bg-color="white"
             outlined
             v-model="profile.phone"
             label="Enter Phone "
-            class="q-mb-md bg-white"
+            class="q-mb-md"
             maxlength="13"
             type="text"
             @keyup="validatePhone"
@@ -76,10 +80,11 @@
             ]"
           />
           <q-input
+            bg-color="white"
             outlined
             v-model="profile.neighborhood"
             label="Enter Neighborhood "
-            class="q-mb-md bg-white"
+            class="q-mb-md"
           />
           <q-toggle v-model="accept" label="Show my phone number in ads" />
         </div>
@@ -143,6 +148,9 @@ const update_profile = async () => {
 </script>
 
 <style lang="scss" scoped>
+.rounded {
+  border-radius: 10px;
+}
 .account-tab {
   width: 50%;
 }
