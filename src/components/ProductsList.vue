@@ -1,0 +1,33 @@
+<template>
+  <div
+    class="item row justify-center items-center q-gutter-y-md q-gutter-x-sm q-mb-lg"
+  >
+    <div v-if="loader" class="product-card">
+      <CardSkeleton v-for="i in 10" :key="i" />
+    </div>
+
+    <div v-for="product in products" :key="product" class="product-card">
+      <ProductCard v-if="viewType == 'grid'" :product="product" />
+      <TileProduct v-else :product="product" />
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { toRefs } from "@vue/reactivity";
+import CardSkeleton from "src/components/CardSkeleton";
+import ProductCard from "src/components/ProductCard.vue";
+import TileProduct from "./TileProduct.vue";
+const props = defineProps({
+  products: Array,
+  loader: {
+    type: Boolean,
+    default: false,
+  },
+  viewType: {
+    type: String,
+    default: "grid",
+  },
+});
+const { products, loader, viewType } = toRefs(props);
+</script>

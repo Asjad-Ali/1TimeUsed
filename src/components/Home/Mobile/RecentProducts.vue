@@ -21,7 +21,6 @@
                 ? store.recentProducts[index]
                 : store.recentProducts[0]
             "
-            parentDiv="recent-products"
             style="width: 180px"
           />
         </div>

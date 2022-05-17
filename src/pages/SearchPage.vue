@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @scroll="handleScroll">
+  <div class="container q-mb-md" @scroll="handleScroll">
     <ProductsHeader
       :viewType="viewType"
       @toggleViewType="viewType = viewType == 'grid' ? 'tile' : 'grid'"
@@ -44,41 +44,23 @@
           >"
         </div>
       </div>
-
-      <div class="col-md-0 col-12">
-        <!-- <q-select
-          dense
-          outlined
-          v-model="model"
-          :options="searchSuggestions"
-          label="Sort By"
-          class="bg-white"
-          @click="sortModal = true"
-        /> -->
-      </div>
     </div>
   </div>
 
   <div class="container">
-    <div class="container flex justify-center items-center">
-      <div class="column q-mt-md">
-        <div
-          id="productsDiv"
-          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
-        >
-          <div v-for="product in store.searchProducts" :key="product.id">
-            <ProductCard v-if="viewType == 'grid'" :product="product" />
-            <TileProduct v-else :product="product" mainDIv="recent" />
-          </div>
-        </div>
-        <div
-          v-if="!store.searchProducts.length && !store.loadingStatus"
-          class="empty_space"
-        >
-          <div class="rounded-borders flex flex-center">
-            <div class="text-subtitle1">No result found</div>
-          </div>
-        </div>
+    <ProductsList
+      id="productsDiv"
+      :products="store.searchProducts"
+      :viewType="viewType"
+      :loader="store.searchLoader"
+    />
+
+    <div
+      v-if="!store.searchProducts.length && !store.searchLoader"
+      class="empty_space"
+    >
+      <div class="rounded-borders flex flex-center">
+        <div class="text-subtitle1">No result found</div>
       </div>
     </div>
   </div>
@@ -92,14 +74,12 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import ProductCard from "src/components/ProductCard.vue";
 import useSearch from "../composables/useSearch";
 import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
-import TileProduct from "src/components/TileProduct.vue";
+import ProductsList from "src/components/ProductsList.vue";
 
 const store = useProductStore();
-const model = ref(null);
 const searchInput = ref();
 const viewType = ref("grid");
 

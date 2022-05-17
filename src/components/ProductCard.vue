@@ -1,8 +1,5 @@
 <template>
-  <q-card
-    class="cursor-pointer"
-    :class="{ 'product-card': parentDiv !== 'recent-products' }"
-  >
+  <q-card class="cursor-pointer">
     <div class="img-holder" @click="ProductDetail(product)">
       <q-img
         :src="
@@ -72,7 +69,7 @@
 <script setup>
 import { useWishlistStore } from "../stores/wishlist.store";
 import { useProductStore } from "../stores/products.store";
-import { defineProps, toRefs } from "vue";
+import { toRefs } from "vue";
 import { useRouter } from "vue-router";
 const imageBaseURL = process.env.imagesBaseURL;
 const wishlistStore = useWishlistStore();
@@ -80,10 +77,6 @@ const productStore = useProductStore();
 const router = useRouter();
 const props = defineProps({
   product: Object,
-  parentDiv: {
-    Type: String,
-    default: "featured-products",
-  },
 });
 const { product, parentDiv } = toRefs(props);
 
@@ -142,26 +135,6 @@ const getAddress = (address) => {
   position: absolute;
   top: 125px;
   left: 0;
-}
-.product-card {
-  width: 210px;
-
-  @media (max-width: 331px) {
-    width: 46.9%;
-  }
-
-  @media (min-width: 332px) and (max-width: 511px) {
-    width: 47.5%;
-  }
-
-  @media (min-width: 512px) and (max-width: 600px) {
-    width: 48.4%;
-  }
-
-  @media (min-width: 601px) and (max-width: $breakpoint-sm-max) {
-    width: 31.5%;
-    font-size: 11px;
-  }
 }
 
 @media (max-width: $breakpoint-sm-max) {

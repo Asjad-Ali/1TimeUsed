@@ -89,7 +89,7 @@
 <script setup>
 import { computed } from "@vue/reactivity";
 import { useCategoryStore } from "src/stores/categories.store";
-import { defineProps, toRefs } from "vue";
+import { toRefs } from "vue";
 const imageBaseURL = process.env.imagesBaseURL;
 const props = defineProps({
   product: Object,

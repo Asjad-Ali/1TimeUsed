@@ -1,18 +1,9 @@
-import {
-  defineStore
-} from "pinia";
+import { defineStore } from "pinia";
 
+import { Notify } from "quasar";
 
-import {
-  Notify
-} from "quasar";
-
-import {
-  persistData,
-  getPersistentData
-} from "src/helpers/persistentHelper";
+import { persistData, getPersistentData } from "src/helpers/persistentHelper";
 import API from "src/services/API";
-
 
 export const useProductStore = defineStore("productsStore ", {
   state: () => ({
@@ -27,6 +18,7 @@ export const useProductStore = defineStore("productsStore ", {
     loadingStatus: "",
     featuredProductsLoader: false,
     recentProductsLoader: false,
+    searchLoader: false,
     currentPage: 1,
     hasMorePages: false,
   }),
@@ -48,8 +40,6 @@ export const useProductStore = defineStore("productsStore ", {
         this.recentProducts = viewedProducts;
         return;
       }
-
-
 
       const response = await API.get("products/recentlyviewed");
       this.recentProductsLoader = false;
@@ -101,18 +91,17 @@ export const useProductStore = defineStore("productsStore ", {
     },
 
     async loadMyProducts() {
-
       if (this.myProducts.length) {
         return;
       }
-      const myProducts = getPersistentData('my_products', 1);
+      const myProducts = getPersistentData("my_products", 1);
       if (myProducts) {
         this.myProducts = myProducts;
         return;
       }
-      this.loadingStatus = true
-      const response = await API.get('seller/products');
-      this.loadingStatus = false
+      this.loadingStatus = true;
+      const response = await API.get("seller/products");
+      this.loadingStatus = false;
       if (response.status == 200) {
         this.myProducts = response.data;
         persistData("my_products", response.data);
@@ -130,9 +119,9 @@ export const useProductStore = defineStore("productsStore ", {
     },
     async loadSearchProduct(sort) {
       this.subCategoryProduct = [];
-      this.loadingStatus = true;
+      this.searchLoader = true;
       const response = await API.get(`search?sort=${sort}`);
-      this.loadingStatus = false;
+      this.searchLoader = false;
       if (response.status == 200) {
         this.searchProducts = response.data;
         this.subCategoryProduct = response.data;

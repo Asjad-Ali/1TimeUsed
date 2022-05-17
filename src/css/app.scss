@@ -85,3 +85,24 @@ hr.hr-1 {
     padding-left: 10px;
   }
 }
+
+.product-card {
+  width: 210px;
+
+  @media (max-width: 331px) {
+    width: 46.9%;
+  }
+
+  @media (min-width: 332px) and (max-width: 511px) {
+    width: 47.5%;
+  }
+
+  @media (min-width: 512px) and (max-width: 600px) {
+    width: 48.4%;
+  }
+
+  @media (min-width: 601px) and (max-width: $breakpoint-sm-max) {
+    width: 31.5%;
+    font-size: 11px;
+  }
+}

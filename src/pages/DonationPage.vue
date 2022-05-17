@@ -27,17 +27,11 @@
 
       <h5 class="text-center q-pb-md">Donate Products</h5>
 
-      <div
-        class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
-      >
-        <q-spinner v-if="store.loadingStatus" color="primary" size="3em" />
-        <ProductCard
-          v-else
-          :product="product"
-          v-for="product in store.donateProducts"
-          :key="product"
-        />
-      </div>
+      <ProductsList
+        id="productsDiv"
+        :products="store.donateProducts"
+        :loader="store.loadingStatus"
+      />
     </div>
   </div>
 </template>
@@ -46,8 +40,8 @@
 import { ref, computed, onMounted } from "vue";
 import { useProductStore } from "../stores/products.store";
 import { useWishlistStore } from "../stores/wishlist.store";
-import ProductCard from "src/components/ProductCard.vue";
 import useSearch from "../composables/useSearch";
+import ProductsList from "src/components/ProductsList.vue";
 
 const search = ref("");
 

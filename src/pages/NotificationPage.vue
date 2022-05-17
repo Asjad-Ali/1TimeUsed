@@ -64,7 +64,7 @@
     </div>
     <div v-else class="absolute-center w-100">
       <div class="m-auto text-center">
-        <h5 class="text-h6 text-grey">No Notifications Available</h5>
+        <h5 class="text-subtitle1 text-grey">No Notifications Available</h5>
         <div class="notify-img">
           <img src="../../public/icons/notify.svg" alt="notify" width="300" />
         </div>
