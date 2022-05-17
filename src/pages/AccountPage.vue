@@ -1,6 +1,6 @@
 <template>
   <div class="container q-py-lg">
-    <h1 class="text-h5 text-center vw99">Account</h1>
+    <h1 class="text-subtitle1 text-center vw99 desktop-only">Account</h1>
     <!-- Avatar -->
     <div class="profile-avatar column items-center vw99">
       <q-avatar size="100px">
