@@ -16,10 +16,11 @@
       <div class="flex justify-center items-center w-100">
         <div class="q-pa-md account-tab">
           <q-input
+            bg-color="white"
             outlined
             v-model="credentials.subject"
             label="Subject"
-            class="q-mb-md bg-white"
+            class="q-mb-md"
             :rules="[
               rules.required,
               (val) => val.length >= 3 || 'Subject atleast 3 characters',
@@ -27,10 +28,11 @@
           />
           <q-input
             outlined
+            bg-color="white"
             type="textarea"
             v-model="credentials.description"
             label="Description"
-            class="q-mb-md bg-white"
+            class="q-mb-md"
             :rules="[
               rules.required,
               (val) => val.length >= 24 || 'Description atleast 24 characters',

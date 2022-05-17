@@ -1,7 +1,7 @@
 <template>
-  <q-page-container>
+  <div>
     <div class="conatiner flex justify-center items-center">
-      <div class="column q-pb-xl q-mt-md">
+      <div class="column q-mt-md">
         <h5 class="text-center q-pb-lg">Feature Products</h5>
 
         <div
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-  </q-page-container>
+  </div>
 </template>
 
 <script setup>
