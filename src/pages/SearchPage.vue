@@ -44,8 +44,21 @@
           >"
         </div>
       </div>
+
+      <div class="col-md-0 col-12">
+        <!-- <q-select
+          dense
+          outlined
+          v-model="model"
+          :options="searchSuggestions"
+          label="Sort By"
+          class="bg-white"
+          @click="sortModal = true"
+        /> -->
+      </div>
     </div>
   </div>
+
   <div class="container">
     <div class="container flex justify-center items-center">
       <div class="column q-mt-md">
@@ -81,7 +94,7 @@
 import { onMounted, ref } from "vue";
 import ProductCard from "src/components/ProductCard.vue";
 import useSearch from "../composables/useSearch";
-import { useProductStore } from "../stores/products.store";
+import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
 import TileProduct from "src/components/TileProduct.vue";
 

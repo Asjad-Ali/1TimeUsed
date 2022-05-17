@@ -121,7 +121,13 @@
           <div class="col-1">
             <q-btn round>
               <q-avatar size="42px">
-                <img :src="imageBaseURL + product.seller.photo" />
+                <img
+                  :src="
+                    product.seller.photo
+                      ? imageBaseURL + product.seller.photo
+                      : `https://www.w3schools.com/w3images/avatar2.png`
+                  "
+                />
               </q-avatar>
             </q-btn>
           </div>

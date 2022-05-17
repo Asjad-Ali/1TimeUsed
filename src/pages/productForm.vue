@@ -239,9 +239,9 @@
               <div class="col-md-12">
                 <div class="label-font">Neighborhood:</div>
                 <q-input
+                  for="neighborhood"
                   dense
                   :rules="[rules.required]"
-                  readonly
                   v-model="product.neighborhood"
                   outlined
                   class="q-mb-md"
@@ -379,7 +379,7 @@
 <script setup>
 import { useProductStore } from "src/stores/products.store";
 import { useCategoryStore } from "../stores/categories.store";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import useProductForm from "src/composables/useProductForm";
 import ReviewProductDetails from "src/components/addProduct/ReviewProductDetail.vue";
@@ -413,15 +413,34 @@ const {
   removeOldImage,
 } = useProductForm();
 
-// const priceRules = computed(() => {
-//   const priceRules = [rules.required, rules.number];
+onMounted(() => {
+  const input = document.getElementById("neighborhood");
+  const options = {
+    //bounds: defaultBounds,
+    componentRestrictions: { country: "pk" },
+    fields: ["address_components", "geometry", "icon", "name"],
+    strictBounds: false,
+    types: ["establishment"],
+  };
 
-//   if (product.value.purpose !== "Donate") {
-//     priceRules.push(rules.gt0);
-//   }
+  const searchBox = new google.maps.places.Autocomplete(input, options);
+  console.log(searchBox);
 
-//   return priceRules;
-// });
+  searchBox.addListener("places_changed", () => {
+    const places = searchBox.getPlaces();
+
+    console.log(places);
+
+    if (places.length) {
+      places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+      });
+    }
+  });
+});
 </script>
 
 <style lang="scss" scoped>
