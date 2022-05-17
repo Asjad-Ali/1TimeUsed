@@ -14,7 +14,7 @@
     >
       <q-carousel-slide
         class="cursor-pointer"
-        @click="subcategoryPage(banner.id)"
+        @click="subcategoryPage(banner)"
         :name="banner.id"
         v-for="banner in banners"
         :key="banner.id"
@@ -36,8 +36,15 @@ const banners = ref([]);
 const router = useRouter();
 const store = useCategoryStore();
 
-const subcategoryPage = (id) => {
-  router.push(`/subcategory-product/${id}`);
+const subcategoryPage = (subcategory) => {
+  console.log(subcategory);
+  if ((subcategory.content_type = "category")) {
+    router.push(`/category/${subcategory.content_id}`);
+  } else if ((subcategory.content_type = "subcategory")) {
+    router.push(`/subcategory-product/${subcategory.content_id}`);
+  } else {
+    router.push(`/product_details/${subcategory.content_id}`);
+  }
 };
 
 onMounted(async () => {

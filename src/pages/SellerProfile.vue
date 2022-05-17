@@ -19,10 +19,7 @@
               <div class="col-1">
                 <q-btn round>
                   <q-avatar size="42px">
-                    <img
-                      src="https://www.w3schools.com/w3images/avatar2.png"
-                      alt=""
-                    />
+                    <img :src="imageBaseURL + store.seller.photo" />
                   </q-avatar>
                 </q-btn>
               </div>
@@ -57,7 +54,12 @@
         <div class="text-h4 text-center q-pt-md">All Products</div>
         <hr class="hr-4" />
         <div
-          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+          class="
+            flex
+            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+            justify-center
+            items-center
+          "
         >
           <ProductCard
             :product="product"
@@ -78,6 +80,7 @@ import { useSellerStore } from "../stores/seller.store";
 const route = useRoute();
 const store = useSellerStore();
 let lastApiCallTime = Date.now();
+const imageBaseURL = process.env.imagesBaseURL;
 
 onMounted(() => {
   store.loadSellerProducts(route.params.id);
