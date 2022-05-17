@@ -1,15 +1,7 @@
 <template>
   <div class="container">
     <div class="column q-pb-xl">
-      <div class="row justify-between items-center q-mt-lg">
-        <div class="col-md-3 col-6">
-          <q-icon
-            name="grid_view"
-            color="primary"
-            size="sm"
-            class="cursor-pointer mb-10-mobile"
-          />
-        </div>
+      <div class="row justify-center items-center q-mt-lg">
         <div class="col-md-6 col-12">
           <q-input
             @update:model-value="searchDonatedProduct"
@@ -30,17 +22,6 @@
             Results for "<span class="text-bold">{{ search }}</span
             >"
           </h6>
-        </div>
-
-        <div class="col-md-2 col-12">
-          <q-select
-            dense
-            outlined
-            v-model="model"
-            :options="searchSuggestions"
-            label="Sort By"
-            class="bg-white"
-          />
         </div>
       </div>
 
