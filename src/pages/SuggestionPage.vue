@@ -20,6 +20,10 @@
             v-model="credentials.subject"
             label="Subject"
             class="q-mb-md bg-white"
+            :rules="[
+              rules.required,
+              (val) => val.length >= 3 || 'Subject atleast 3 characters',
+            ]"
           />
           <q-input
             outlined
@@ -27,6 +31,10 @@
             v-model="credentials.description"
             label="Description"
             class="q-mb-md bg-white"
+            :rules="[
+              rules.required,
+              (val) => val.length >= 24 || 'Description atleast 24 characters',
+            ]"
           />
         </div>
       </div>
@@ -43,8 +51,9 @@
 
 <script setup>
 import { useSellerStore } from "src/stores/seller.store";
+import useValidationRules from "src/composables/useValidationRules";
 import { ref } from "vue";
-
+const { rules } = useValidationRules();
 const sellerStore = useSellerStore();
 
 const credentials = ref({
