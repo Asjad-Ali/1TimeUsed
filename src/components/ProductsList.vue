@@ -6,7 +6,11 @@
       <CardSkeleton v-for="i in 10" :key="i" />
     </div>
 
-    <div v-for="product in products" :key="product" class="product-card">
+    <div
+      v-for="product in products"
+      :key="product"
+      :class="{ 'product-card': viewType == 'grid' }"
+    >
       <ProductCard v-if="viewType == 'grid'" :product="product" />
       <TileProduct v-else :product="product" />
     </div>

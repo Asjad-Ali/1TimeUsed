@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="column q-pb-xl">
-      <div class="row justify-center items-center q-mt-lg">
+      <div class="row justify-center items-center q-my-md">
         <div class="col-md-6 col-12">
           <q-input
             @update:model-value="searchDonatedProduct"
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <h5 class="text-center q-pb-md">Donate Products</h5>
+      <!-- <h5 class="text-center q-pb-md">Donate Products</h5> -->
 
       <ProductsList
         id="productsDiv"

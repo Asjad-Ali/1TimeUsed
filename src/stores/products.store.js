@@ -1,8 +1,15 @@
-import { defineStore } from "pinia";
+import {
+  defineStore
+} from "pinia";
 
-import { Notify } from "quasar";
+import {
+  Notify
+} from "quasar";
 
-import { persistData, getPersistentData } from "src/helpers/persistentHelper";
+import {
+  persistData,
+  getPersistentData
+} from "src/helpers/persistentHelper";
 import API from "src/services/API";
 
 export const useProductStore = defineStore("productsStore ", {
@@ -111,7 +118,9 @@ export const useProductStore = defineStore("productsStore ", {
     },
 
     async loadProductDetails(slug) {
-      const response = await API.get(`products/${slug}?screen=desktop`);
+      const response = await API.get(
+        `products/${slug}${1 == 1 ? "?screen=desktop" : ""}`
+      );
       if (response.status == 200) {
         this.loadedProduct = response.data;
       }

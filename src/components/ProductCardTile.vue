@@ -140,7 +140,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, toRefs } from "vue";
+import { ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 const router = useRouter();

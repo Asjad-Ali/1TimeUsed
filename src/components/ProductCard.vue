@@ -37,7 +37,9 @@
         ></i>
       </q-btn>
       <div @click="ProductDetail(product)">
-        <p class="ellipsis text-subtitle2 mobile-font">{{ product.title }}</p>
+        <p class="ellipsis text-subtitle2 mobile-font">
+          {{ product.title }}
+        </p>
         <p v-if="product.price" class="prise text-center">
           RS:{{ product.price }}
         </p>
@@ -48,7 +50,7 @@
         <small class="q-mr-sm">
           {{ product.city || getAddress(product.neighborhood) }}
         </small>
-        <small> 12 april </small>
+        <small> {{ product.created_at.split("T")[0] }}</small>
       </div>
     </q-card-section>
     <!-- Feature badge -->

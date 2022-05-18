@@ -4,8 +4,12 @@
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
-  <div v-else class="container">
-    <div class="relative-position">
+  <div
+    v-else
+    class="container"
+    :class="{ 'relative-position': $q.screen.gt.sm }"
+  >
+    <div>
       <div
         v-if="store.myProducts.length"
         class="q-pa-md row items-start q-gutter-md justify-center empty_space"
@@ -16,14 +20,10 @@
           :product="product"
         />
       </div>
-      <q-responsive v-else style="height: 50vh">
-        <div
-          v-if="!store.myProducts.length"
-          class="rounded-borders flex flex-center q-mt-sm"
-        >
-          <h6>Product you add will show up here</h6>
-        </div>
-      </q-responsive>
+
+      <div v-else class="text-center absolute-center w-100">
+        This profile has not added any products
+      </div>
     </div>
     <!-- Add Button -->
     <div class="add-button">
@@ -48,6 +48,13 @@ onMounted(() => store.loadMyProducts());
 </script>
 
 <style lang="scss" scoped>
+.container {
+  min-height: 60vh;
+  @media screen and (max-width: 768px) {
+    min-height: 88vh;
+  }
+}
+
 .add-button {
   position: absolute;
   position: fixed;

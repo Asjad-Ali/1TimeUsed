@@ -5,7 +5,8 @@
       v-model="slide"
       navigation
       infinite
-      arrows
+      swipeable
+      :arrows="$q.screen.gt.xs"
       transition-prev="slide-right"
       transition-next="slide-left"
       @mouseenter="autoplay = false"
