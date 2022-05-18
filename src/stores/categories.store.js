@@ -41,7 +41,4 @@ export const useCategoryStore = defineStore('categoryStore', {
       this.subCategories = category.subcategories
     }
   },
-
-
-
 })
