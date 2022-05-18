@@ -53,7 +53,7 @@
 
         <div class="flex justify-between column">
           <div class="text-caption text-grey ellipsis">
-            {{ product.city || getAddress(product.neighborhood) }}
+            {{ product.neighborhood }}
           </div>
           <div class="text-caption text-grey ellipsis">
             {{ product.created_at.substr(0, 10) }}
