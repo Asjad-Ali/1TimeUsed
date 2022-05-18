@@ -9,7 +9,9 @@
       <div class="col-md-6 col-12">
         <q-select
           ref="searchInput"
-          filled
+          bg-color="white"
+          rounded
+          outlined
           @keydown.enter.prevent="searchProducts"
           v-model="search"
           use-input
@@ -32,7 +34,13 @@
           </template>
 
           <template v-slot:after>
-            <q-btn @click="searchProducts" icon="search" size="16px" outline>
+            <q-btn
+              @click="searchProducts"
+              color="white"
+              text-color="primary"
+              icon="search"
+              round
+            >
             </q-btn>
           </template>
         </q-select>

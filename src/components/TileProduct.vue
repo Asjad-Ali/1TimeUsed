@@ -117,12 +117,14 @@ const getAddress = (address) => {
 
 <style lang="scss" scoped>
 .my-card {
-  height: 145px;
+  height: 130px;
   width: 350px;
-  max-width: 350px;
+  @media (max-width: $breakpoint-xs-max) {
+    width: 97vw;
+  }
 }
 .img-holder {
-  height: 110px;
+  height: 100px;
 }
 .img-holder > img {
   object-fit: cover;
