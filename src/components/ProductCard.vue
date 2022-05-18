@@ -50,7 +50,9 @@
         <small class="q-mr-sm">
           {{ product.city || getAddress(product.neighborhood) }}
         </small>
-        <small> {{ product.created_at.split("T")[0] }}</small>
+        <small>
+          {{ formatDate(product.created_at) }}
+        </small>
       </div>
     </q-card-section>
     <!-- Feature badge -->
@@ -80,6 +82,21 @@ const router = useRouter();
 const props = defineProps({
   product: Object,
 });
+
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 const { product, parentDiv } = toRefs(props);
 
 const addToWishlist = (product) => {
@@ -115,6 +132,11 @@ const getAddress = (address) => {
       .substring(1, 15);
   }
   return address;
+};
+
+const formatDate = (date) => {
+  date = new Date(date);
+  return `${date.getDate()} ${months[date.getMonth()]}`;
 };
 </script>
 

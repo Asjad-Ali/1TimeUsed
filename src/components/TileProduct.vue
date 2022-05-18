@@ -13,7 +13,7 @@
         <q-card-section>
           <div
             @click="ProductDetail(product)"
-            class="text-h6 q-mt-md ellipsis"
+            class="text-h6 ellipsis"
             style="font-size: 12px"
           >
             {{ product.title.substr(0, 20) }}
@@ -27,7 +27,9 @@
             <div class="text-caption text-grey ellipsis">
               {{ product.city || getAddress(product.neighborhood) }}
             </div>
-            <div class="text-caption text-grey ellipsis">8 April</div>
+            <div class="text-caption text-grey ellipsis">
+              {{ formatDate(product.created_at) }}
+            </div>
           </div>
         </q-card-section>
       </q-card-section>
@@ -58,6 +60,18 @@
           aria-hidden="true"
         ></i>
       </q-btn>
+      <!--Featured Badge  -->
+      <q-badge v-if="product.price" color="warning" class="badge shadow-sm">
+        Featured
+      </q-badge>
+      <!-- New badge -->
+      <q-badge v-if="product.price" color="primary" class="new-baadge shadow-sm"
+        >New
+      </q-badge>
+      <!-- Donation badge -->
+      <q-badge v-if="!product.price" color="positive" class="badge shadow-sm"
+        >Donation
+      </q-badge>
     </q-card>
   </div>
 </template>
@@ -113,18 +127,50 @@ const getAddress = (address) => {
   }
   return address;
 };
+
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const formatDate = (date) => {
+  date = new Date(date);
+  return `${date.getDate()} ${months[date.getMonth()]}`;
+};
 </script>
 
 <style lang="scss" scoped>
 .my-card {
   height: 130px;
   width: 350px;
+  position: relative;
   @media (max-width: $breakpoint-xs-max) {
     width: 97vw;
   }
 }
+.badge {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+}
+.new-baadge {
+  position: absolute;
+  top: 35%;
+  right: 2px;
+}
+
 .img-holder {
   height: 100px;
+  width: 100%;
 }
 .img-holder > img {
   object-fit: cover;
