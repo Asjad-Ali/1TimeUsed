@@ -77,12 +77,12 @@ export const useProductStore = defineStore("productsStore ", {
         console.log("Error in Featured", response);
       }
     },
-    async loadSubCategoryProduct(id, paginated = false) {
+    async loadSubCategoryProduct(id, sort, paginated = false) {
       if (this.currentPage == 1 || !paginated) {
         this.subCategoryProduct = [];
       }
       this.loadingStatus = true;
-      const response = await API.get(`sub_categories/${id}/products`);
+      const response = await API.get(`sub_categories/${id}/products?sort=${sort}`);
       this.loadingStatus = false;
       if (response.status == 200) {
         this.subCategoryProduct = [
@@ -126,13 +126,11 @@ export const useProductStore = defineStore("productsStore ", {
       return response;
     },
     async loadSearchProduct(sort) {
-      //this.subCategoryProduct = [];
       this.searchLoader = true;
       const response = await API.get(`search?sort=${sort}`);
       this.searchLoader = false;
       if (response.status == 200) {
         this.searchProducts = response.data;
-        //this.subCategoryProduct = response.data;
       }
       return response;
     },

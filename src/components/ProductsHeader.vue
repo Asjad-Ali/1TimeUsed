@@ -86,7 +86,6 @@
 <script setup>
 import { ref, toRefs } from "@vue/reactivity";
 import { useProductStore } from "src/stores/products.store";
-import { useCategoryStore } from "src/stores/categories.store";
 import { useRoute } from "vue-router";
 
 const props = defineProps({
@@ -98,11 +97,9 @@ const props = defineProps({
 const route = useRoute();
 //console.log("route path: ", route.path));
 const productStore = useProductStore();
-const categoryStore = useCategoryStore();
 const { viewType } = toRefs(props);
 const sort_products = ref("");
 const sortModal = ref(false);
-const sort = ref("newest");
 
 const sortProducts = (sort) => {
   if (route.path.includes("/search")) {
@@ -110,7 +107,7 @@ const sortProducts = (sort) => {
     productStore.loadSearchProduct(sort);
   } else if (route.path.includes("/subcategory-product/")) {
     console.log("subcategory");
-    //categoryStore.sortSubCategoryProducts(sort);
+    productStore.loadSubCategoryProduct(route.params.id, sort);
   }
 };
 </script>
