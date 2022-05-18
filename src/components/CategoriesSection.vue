@@ -46,8 +46,6 @@ const toggleMenu = (categoryID) => {
 };
 const categories = computed(() => store.categories);
 const subCategoryProduct = (id) => {
-  console.log(id);
-  productStore.loadSubCategoryProduct(id);
   router.push(`/subcategory-product/${id}`);
 };
 </script>

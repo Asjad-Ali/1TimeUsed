@@ -12,7 +12,7 @@
     />
   </div>
   <div
-    v-show="store.subCategoryProduct"
+    v-show="!store.subCategoryProduct"
     class="text-center absolute-center w-100"
   >
     <div class="text-subtitle1">Product not Available</div>
