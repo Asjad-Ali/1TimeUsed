@@ -97,7 +97,7 @@ import ChatFooter from "src/components/Chat/ChatFooter.vue";
 import { useChatStore } from "src/stores/chat.store";
 import { useAuthStore } from "src/stores/auth.store";
 import useFirebaseAuth from "src/composables/useFirebaseAuth";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import useChat from "src/composables/useChat";
 import { useQuasar } from "quasar";
 
@@ -115,7 +115,12 @@ const $q = useQuasar();
 
 onMounted(() => {
   if (!authStore.authUser) {
-    router.push("/login");
+    router.push(
+      router.options.history.state.back == "/login" ||
+        router.options.history.state.forward == "/login"
+        ? router.options.history.state.back
+        : "/login"
+    );
   }
   if (!authStore.isUserAuthenticatedOnFirebase) {
     loginAnonymously();

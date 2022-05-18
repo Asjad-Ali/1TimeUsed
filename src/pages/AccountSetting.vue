@@ -27,7 +27,14 @@
             hidden
           />
           <i
-            class="fa fa-camera cursor-pointer shadow-sm bg-white q-pa-xs rounded"
+            class="
+              fa fa-camera
+              cursor-pointer
+              shadow-sm
+              bg-white
+              q-pa-xs
+              rounded
+            "
             @click="$refs.fileInput.click()"
             style="font-size: 20px"
           >

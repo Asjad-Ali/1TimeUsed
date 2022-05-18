@@ -13,7 +13,12 @@
 
           <div class="row">
             <div
-              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+              class="
+                flex
+                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+                justify-center
+                items-center
+              "
             >
               <ProductCard
                 class="q-my-md"
@@ -30,20 +35,31 @@
 </template>
 
 <script>
+import { Screen } from "quasar";
+import { useMeta } from "quasar";
 export default {
   async preFetch({ store, currentRoute }) {
+    let screen = "application";
+    if (!process.env.SERVER) {
+      if (Screen.gt.sm) {
+        screen = "desktop";
+      }
+    }
+
     const productStore = useProductStore(store);
-    const response = await productStore.loadProductDetails(
-      currentRoute.params.slug
-    );
-    console.log(response);
+    if (!productStore.loadedProduct) {
+      const response = await productStore.loadProductDetails(
+        currentRoute.params.slug,
+        screen
+      );
+    }
   },
 };
 </script>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useMeta } from "quasar";
+import { computed } from "vue";
+
 import ProductCard from "src/components/ProductCard.vue";
 import { useProductStore } from "src/stores/products.store";
 import { useWishlistStore } from "src/stores/wishlist.store";
