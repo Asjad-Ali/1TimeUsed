@@ -272,6 +272,7 @@ export const useChatStore = defineStore('chat', {
       // auto open conversation if already have a chat with user id of seller in params
       if (this.paramsSellerId && conversation.membersInfo.find(member => member.id == this.paramsSellerId)) {
         this.selectedConversation = conversation;
+        this.newConversationUser = null;
         this.openSelectedConversation(conversation)
       }
     },

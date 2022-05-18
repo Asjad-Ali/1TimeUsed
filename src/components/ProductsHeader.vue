@@ -95,6 +95,7 @@ const props = defineProps({
 });
 const store = useProductStore();
 const { viewType } = toRefs(props);
+const sort_products = ref("");
 const sortModal = ref(false);
 const sort = ref("newest");
 

@@ -1,11 +1,15 @@
 import API from "src/services/API";
 import {
+  onBeforeUnmount,
   onMounted,
   ref
 } from "vue";
 import {
   useProductStore
 } from 'src/stores/products.store'
+import {
+  useRoute
+} from "vue-router";
 const store = useProductStore();
 
 export default function useSearch() {
@@ -14,6 +18,7 @@ export default function useSearch() {
   let currentPage = 1;
   let lastApiCallTime = Date.now();
   const search = ref("");
+  const route = useRoute();
   const searchSuggestions = ref();
   let searchVal = '';
 
@@ -68,21 +73,31 @@ export default function useSearch() {
     }
   }
 
+  const handlePagination = () => {
+    console.log("handle pagination called")
+    if (route.path != '/search') {
+      return
+    }
+    if ((Date.now() - lastApiCallTime) < 1200) {
+      return false;
+    }
+    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+      console.log('scrolled to bottom')
+      console.log(hasMorePages)
+      if (hasMorePages) {
+        currentPage++;
+        searchProducts(true);
+        lastApiCallTime = Date.now();
+      }
+    }
+  }
+
   onMounted(() => {
-    window.addEventListener('scroll', () => {
-      if ((Date.now() - lastApiCallTime) < 1200) {
-        return false;
-      }
-      if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-        console.log('scrolled to bottom')
-        console.log(hasMorePages)
-        if (hasMorePages) {
-          currentPage++;
-          searchProducts(true);
-          lastApiCallTime = Date.now();
-        }
-      }
-    })
+    window.addEventListener('scroll', handlePagination)
+  });
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('scroll', handlePagination)
   });
 
   return {
