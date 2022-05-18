@@ -39,7 +39,17 @@ export const useCategoryStore = defineStore('categoryStore', {
     loadSubCategory(slug) {
       const category = this.categories.find(category => category.slug == slug || category.id == slug)
       this.subCategories = category.subcategories
-    }
+    },
+    async sortSubCategoryProducts(sort) {
+      this.subCategoryProduct = [];
+      this.searchLoader = true;
+      //const response = await API.get(`search?sort=${sort}`);
+      this.searchLoader = false;
+      if (response.status == 200) {
+        //this.searchProducts = response.data;
+        this.subCategoryProduct = response.data;
+      }
+    },
   },
 
 

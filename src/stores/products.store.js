@@ -127,13 +127,13 @@ export const useProductStore = defineStore("productsStore ", {
       return response;
     },
     async loadSearchProduct(sort) {
-      this.subCategoryProduct = [];
+      //this.subCategoryProduct = [];
       this.searchLoader = true;
       const response = await API.get(`search?sort=${sort}`);
       this.searchLoader = false;
       if (response.status == 200) {
         this.searchProducts = response.data;
-        this.subCategoryProduct = response.data;
+        //this.subCategoryProduct = response.data;
       }
       return response;
     },
