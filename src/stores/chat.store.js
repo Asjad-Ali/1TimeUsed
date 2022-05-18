@@ -54,6 +54,9 @@ export const useChatStore = defineStore("chat", {
 
         const db = getFirestore();
         const user = this.$cookies.get("AUTH_USER");
+        if (!user) {
+          return;
+        }
         const conversationRef = collection(db, "Conversations");
         const q = query(
           conversationRef,

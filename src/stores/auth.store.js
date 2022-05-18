@@ -119,9 +119,8 @@ export const useAuthStore = defineStore('authStore', {
           this.firebaseUser = user;
           this.isUserAuthenticatedOnFirebase = true;
 
-          if (!this.authUser.photo && this.firebaseUser && this.firebaseUser.photoURL)
+          if ((this.authUser && !this.authUser.photo) && this.firebaseUser && this.firebaseUser.photoURL)
             this.profilePhoto = this.firebaseUser.photoURL;
-
         } else {
           this.isUserAuthenticatedOnFirebase = false;
         }

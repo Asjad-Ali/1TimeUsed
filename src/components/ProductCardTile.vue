@@ -143,9 +143,11 @@
 import { ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
+import { useQuasar } from "quasar";
 const router = useRouter();
 const imageBaseURL = process.env.imagesBaseURL;
 const productStore = useProductStore();
+const $q = useQuasar();
 const props = defineProps({
   product: Object,
 });
@@ -156,6 +158,7 @@ const payload = ref({
 });
 
 const ProductDetail = (product) => {
+  productStore.loadedProduct = $q.screen.gt.md ? null : product;
   router.push(`/product_details/${product.slug}`);
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id

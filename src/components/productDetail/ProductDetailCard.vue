@@ -139,7 +139,7 @@
               >
                 {{ product.seller.name }}
               </div>
-              <small class="text-grey">
+              <small class="text-grey" v-if="product.seller.created_at">
                 Member since
                 {{ product.seller.created_at.substring(0, 10) }}
               </small>

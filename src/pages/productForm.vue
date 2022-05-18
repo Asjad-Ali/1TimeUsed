@@ -382,12 +382,14 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "src/stores/auth.store";
 import { useProductStore } from "src/stores/products.store";
 import { useCategoryStore } from "../stores/categories.store";
 import { onMounted, ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import useProductForm from "src/composables/useProductForm";
 import ReviewProductDetails from "src/components/addProduct/ReviewProductDetail.vue";
+import { useRouter } from "vue-router";
 // import { computed } from "@vue/reactivity";
 const productStore = useProductStore();
 const categoryStore = useCategoryStore();
@@ -397,13 +399,13 @@ const confirm = ref(false);
 const step = ref(1);
 const index = ref();
 const imageId = ref();
-
+const router = useRouter();
 const confirmationModal = (imageIndex, id) => {
   confirm.value = true;
   index.value = imageIndex;
   imageId.value = id;
 };
-
+const authStore = useAuthStore();
 const {
   product,
   productError,
@@ -419,6 +421,14 @@ const {
 } = useProductForm();
 
 onMounted(() => {
+  if (!authStore.authUser) {
+    router.push(
+      router.options.history.state.back == "/login" ||
+        router.options.history.state.forward == "/login"
+        ? router.options.history.state.back
+        : "/login"
+    );
+  }
   const input = document.getElementById("neighborhood");
   const options = {
     //bounds: defaultBounds,
