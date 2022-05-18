@@ -20,7 +20,6 @@ import API from "src/services/API";
 export default function useProductForm() {
   const router = useRouter();
   const route = useRoute();
-  const imageError = ref(null);
   const productStore = useProductStore();
   const productForm = ref(null);
   const categoryStore = useCategoryStore();
@@ -31,22 +30,29 @@ export default function useProductForm() {
   const product = ref({
     title: "Cloths",
     category_id: "",
-    neighborhood: "Johar Town, Lahore",
+    neighborhood: "",
     sub_category_id: "",
     price: "5000",
     color: "All",
     purchase_price: 0,
     discount: 0,
+    color: '',
+    meta_tag: '',
     current_stock: 1,
     description: "This is a A+ Quality Product and up to 50% off on Every Item",
     images: [],
     condition: "used",
-    latitude: "31.4697",
-    longitude: "74.2728",
+    latitude: '',
+    longitude: '',
     discountTil: "",
     brand: "Gul Ahmad",
     size: "6 Meters",
     purpose: "Rental",
+  });
+
+  const productError = ref({
+    images: null,
+    Location: null
   });
 
   onMounted(async () => {
@@ -61,20 +67,30 @@ export default function useProductForm() {
         categoryStore.loadSubCategory(product.value.category_id);
       }
     }
-
   });
 
   watch(product.value, (current) => {
     if (actionType.value == 'edit') {
-      imageError.value = null;
+      productError.value.images = null;
+      if (!current.latitude || !current.longitude) {
+        productError.value.Location = "Select location from given Locations"
+      } else {
+        productError.value.Location = null
+      }
     } else {
       if (!current.images.length) {
-        imageError.value = "At least one image must be uploaded";
+        productError.value.images = "At least one image must be uploaded";
       } else {
-        imageError.value = null;
+        productError.value.images = null;
+      }
+      if (!current.latitude || !current.longitude) {
+        productError.value.Location = "Select location from given Locations"
+      } else {
+        productError.value.Location = null
       }
     }
   });
+
 
   const goToNextStep = () => {
     productForm.value.validate().then((success) => {
@@ -128,7 +144,7 @@ export default function useProductForm() {
   return {
     productForm,
     product,
-    imageError,
+    productError,
     formValidated: computed(() => productForm.value && productForm.value.validate()),
     goToNextStep,
     loadSubCategory,

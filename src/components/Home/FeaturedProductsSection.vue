@@ -3,7 +3,6 @@
     <div class="conatiner flex justify-center items-center">
       <div class="column q-mt-md">
         <h5 class="text-center q-pb-lg">Feature Products</h5>
-
         <ProductsList
           :products="store.featuredProducts"
           :loader="store.featuredProductsLoader"
