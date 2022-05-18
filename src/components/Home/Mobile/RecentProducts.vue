@@ -12,7 +12,7 @@
           class="item row fit justify-center items-center q-gutter-md q-col-gutter no-wrap"
         >
           <CardSkeleton
-            style="height: 300px"
+            style="height: 266px; width: 180px"
             v-if="store.recentProductsLoader"
           />
           <ProductCard

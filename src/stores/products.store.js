@@ -64,7 +64,6 @@ export const useProductStore = defineStore("productsStore ", {
       const response = await API.get("products/featured");
       this.featuredProductsLoader = false;
       if (response.status == 200) {
-        console.log(response);
         this.featuredProducts = response.data;
         persistData("featured_products", response.data);
       } else {

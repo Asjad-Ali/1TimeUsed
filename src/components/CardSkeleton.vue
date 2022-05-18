@@ -1,5 +1,5 @@
 <template>
-  <q-card class="w-100">
+  <q-card>
     <q-skeleton height="160px" square />
     <q-item>
       <q-item-section>

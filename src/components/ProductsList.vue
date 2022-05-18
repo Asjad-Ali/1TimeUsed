@@ -1,11 +1,12 @@
 <template>
   <div
-    class="item row justify-center items-center q-gutter-y-md q-gutter-x-sm q-mb-lg"
+    v-if="loader"
+    class="row justify-center q-gutter-y-md q-gutter-x-sm q-mb-lg"
   >
-    <div v-if="loader" class="product-card">
-      <CardSkeleton v-for="i in 10" :key="i" />
-    </div>
+    <CardSkeleton v-for="i in 10" :key="i" class="product-card" />
+  </div>
 
+  <div v-else class="row justify-center q-gutter-y-md q-gutter-x-sm q-mb-lg">
     <div
       v-for="product in products"
       :key="product"

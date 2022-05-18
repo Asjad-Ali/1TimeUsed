@@ -3,23 +3,17 @@
     class="container q-py-lg"
     :class="{ 'relative-position': $q.screen.gt.sm }"
   >
-    <div>
-      <div class="ttext-subtitle1 text-center">
-        <span style="border-bottom: 2px solid #ddd">Wishlist Products</span>
-      </div>
+    <div class="text-center desktop-only">
+      <q-icon name="favorite_border" color="grey-7" size="4rem" />
+      <div class="text-h3 q-my-md text-grey-9">My Wishlist</div>
     </div>
 
+    <ProductsList :products="store.wishlistProducts" view-type="tile" />
+
     <div
-      v-if="store.wishlistProducts.length"
-      class="q-pa-md row items-start q-gutter-md justify-center"
+      class="m-5 text-center absolute-center w-100"
+      v-if="!store.wishlistProducts.length"
     >
-      <ProductCard
-        v-for="product in store.wishlistProducts"
-        :key="product"
-        :product="product"
-      />
-    </div>
-    <div class="m-5 text-center absolute-center w-100" v-else>
       <div class="m-5 text-subtitle1">No Wishlist Product</div>
     </div>
   </div>
@@ -29,6 +23,7 @@
 import { onMounted } from "@vue/runtime-core";
 import ProductCard from "src/components/ProductCard.vue";
 import { useWishlistStore } from "../stores/wishlist.store";
+import ProductsList from "src/components/ProductsList.vue";
 
 const store = useWishlistStore();
 onMounted(() => {
