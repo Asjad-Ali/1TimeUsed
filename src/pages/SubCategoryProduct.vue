@@ -9,6 +9,7 @@
       :products="store.subCategoryProduct"
       :viewType="viewType"
       :loader="store.loadingStatus"
+      class="q-mt-sm"
     />
   </div>
 </template>

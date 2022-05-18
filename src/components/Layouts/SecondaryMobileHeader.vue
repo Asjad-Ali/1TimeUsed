@@ -37,8 +37,9 @@
         style="text-transform: capitalize"
         >{{
           $route.path.includes("/category/")
-            ? $route.params.name || $route.params.slug
-            : $route.path.split("/")[1]
+            ? $route.params.name ||
+              $route.params.slug.replace("_", " ").replace("-", " ")
+            : $route.path.split("/")[1].replace("_", " ").replace("-", " ")
         }}</span
       >
     </div>
