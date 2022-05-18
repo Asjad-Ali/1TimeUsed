@@ -2,7 +2,7 @@
   <div class="container">
     <div class="WAL position-relative">
       <q-layout view="lHh Lpr lFf" class="WAL__layout shadow-3" container>
-        <ChatHeader v-if="$q.screen.gt.xs" />
+        <ChatHeader v-if="$q.screen.gt.sm" />
         <ConversationsList />
 
         <q-page-container class="bg-grey-2">
@@ -27,13 +27,29 @@
                       : getMember(message.senderID).photo
                   "
                   :text="[
-                    message.attachmentType == 0
+                    message.attachmentType == 0 && !message.productMessageModel
                       ? message.message
-                      : `<div> <img src='${message.message}' style='max-width:200px' /> </div>`,
+                      : message.attachmentType
+                      ? `<div> <img src='${message.message}' style='max-width:200px' /> </div>`
+                      : relatedProductDesign(message),
                   ]"
-                  :text-html="message.attachmentType != 0 ? true : false"
+                  :text-html="
+                    message.attachmentType != 0 || message.productMessageModel
+                      ? true
+                      : false
+                  "
                   :sent="authStore.authUser.id == message.senderID"
                   :stamp="timeDiff(message.sentAt)"
+                  :bg-color="
+                    authStore.authUser.id == message.senderID
+                      ? 'green-5'
+                      : 'grey-4'
+                  "
+                  :text-color="
+                    authStore.authUser.id == message.senderID
+                      ? 'white'
+                      : 'black'
+                  "
                 />
 
                 <q-btn
@@ -141,9 +157,43 @@ const scrollToBottom = () => {
   console.log("tes");
   chatStore.scrollToBottom();
 };
+
+const relatedProductDesign = (message) => {
+  const product = message.productMessageModel;
+  const productImage = product.productImage.includes("http")
+    ? product.productImage
+    : process.env.imagesBaseURL + product.productImage;
+
+  return `
+  <div style="max-width:210px">
+  <div class="column">
+    <span class="q-mb-md">${sanitizeHTML(message.message)}</span>
+    <span style="font-size:0.6rem; margin-bottom:2px">This message is related to:</span>
+  </div>
+    <div class="row items-center">
+        <div class="col-5">
+              <img class="rounded-borders fit" style="max-width:110px"
+                src="${productImage}"
+                />
+        </div>
+        <div class="col-7">
+          <div class="text-h6 text-center" style="font-size: 12px; line-height:1rem">${
+            product.productName
+          }</div>
+        </div>
+  </div>
+  </div>
+  `;
+};
+
+function sanitizeHTML(text) {
+  var element = document.createElement("div");
+  element.innerText = text;
+  return element.innerHTML;
+}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .WAL {
   height: calc(100vh - 100px);
   padding-bottom: 10px;

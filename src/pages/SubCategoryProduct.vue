@@ -13,9 +13,9 @@
   </div>
   <div
     v-show="store.subCategoryProduct"
-    class="m-5 text-center absolute-center w-100"
+    class="text-center absolute-center w-100"
   >
-    <div class="m-5 text-subtitle1">Product not Available</div>
+    <div class="text-subtitle1">Product not Available</div>
   </div>
 </template>
 

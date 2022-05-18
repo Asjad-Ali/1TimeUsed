@@ -146,7 +146,8 @@ const otherMember = (conversation) => {
 };
 
 const openConversation = (conversation) => {
-  console.log(conversation);
+  chatStore.productMessageModel = null;
+  chatStore.newConversationUser = null;
   if ($q.screen.lt.md) {
     chatStore.leftDrawerOpen = false;
   }

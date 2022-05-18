@@ -1,6 +1,4 @@
-import {
-  defineStore
-} from 'pinia'
+import { defineStore } from "pinia";
 import {
   getFirestore,
   collection,
@@ -15,11 +13,9 @@ import {
   getDocs,
   limitToLast,
 } from "firebase/firestore";
-import {
-  useAuthStore
-} from './auth.store';
+import { useAuthStore } from "./auth.store";
 
-export const useChatStore = defineStore('chat', {
+export const useChatStore = defineStore("chat", {
   state: () => ({
     conversations: [],
     selectedConversation: null,
@@ -35,12 +31,15 @@ export const useChatStore = defineStore('chat', {
     showScrollButton: false,
     paramsSellerId: null,
     reffererProduct: null,
+    messageInput: {},
+    productMessageModel: null,
   }),
   actions: {
-
     updateConversationInState(updatedConversation) {
       const conversations = this.conversations;
-      const index = conversations.findIndex((conv) => conv.id == updatedConversation.id);
+      const index = conversations.findIndex(
+        (conv) => conv.id == updatedConversation.id
+      );
       conversations.splice(index, 1);
       conversations.unshift(updatedConversation);
       this.conversations = conversations;
@@ -54,7 +53,7 @@ export const useChatStore = defineStore('chat', {
         this.conversationLoadingStatus = true;
 
         const db = getFirestore();
-        const user = this.$cookies.get('AUTH_USER');
+        const user = this.$cookies.get("AUTH_USER");
         const conversationRef = collection(db, "Conversations");
         const q = query(
           conversationRef,
@@ -69,7 +68,7 @@ export const useChatStore = defineStore('chat', {
             const id = change.doc.id;
             const conversation = {
               id,
-              ...change.doc.data()
+              ...change.doc.data(),
             };
             if (change.type === "added") {
               //console.log("added Conversation: ", conversation);
@@ -85,20 +84,17 @@ export const useChatStore = defineStore('chat', {
             if (change.type === "removed") {
               console.log("Removed Conversation: ", conversation);
             }
-
           });
         });
       } else {
-        this.conversations.forEach(conversation => {
+        this.conversations.forEach((conversation) => {
           this.autoOpenChatIfExist(conversation);
-        })
+        });
       }
       this.areConversationsLoaded = true;
     },
 
-
     openSelectedConversation(conversation) {
-
       this.chatLoadingStatus = true;
       this.newConversationUser = null;
       this.paramsSellerId = null;
@@ -125,14 +121,14 @@ export const useChatStore = defineStore('chat', {
       const limitRecords = 15;
       const q = query(chatRef, orderBy("sentAt"), limitToLast(limitRecords));
       this.selectedChatListenerRef = onSnapshot(q, (snapshot) => {
-
-        this.hasMoreMessages = snapshot.docs.length == limitRecords ? true : false;
+        this.hasMoreMessages =
+          snapshot.docs.length == limitRecords ? true : false;
 
         snapshot.docChanges().forEach((change) => {
           const id = change.doc.id;
           const message = {
             id,
-            ...change.doc.data()
+            ...change.doc.data(),
           };
           if (change.type === "added") {
             this.messages.push(message);
@@ -147,12 +143,9 @@ export const useChatStore = defineStore('chat', {
         });
         this.chatLoadingStatus = false;
       });
-
     },
 
-    async sendMessage(
-      payload
-    ) {
+    async sendMessage(payload) {
       if (!this.selectedConversation && !this.newConversationUser) {
         return;
       } else if (this.newConversationUser && !this.selectedConversation) {
@@ -168,7 +161,10 @@ export const useChatStore = defineStore('chat', {
       }
 
       const chatRef = doc(
-        collection(db, `Conversations/${this.selectedConversation.id}/Messages`),
+        collection(
+          db,
+          `Conversations/${this.selectedConversation.id}/Messages`
+        ),
         newDocId
       );
 
@@ -176,21 +172,19 @@ export const useChatStore = defineStore('chat', {
         message: payload.message,
         attachmentType: payload.attachmentType,
         sentAt: new Date(new Date().toISOString()).getTime(),
-        senderID: payload.senderID,
-        productMessageModel: payload.productMessageModel,
+        senderID: "" + payload.senderID,
+        productMessageModel: this.productMessageModel,
         id: newDocId,
       };
 
       console.log("New Message", newMessage);
       setDoc(chatRef, newMessage);
 
-
       this.updateConversation(newMessage);
+      this.productMessageModel = null;
     },
 
-
     updateConversation(message) {
-
       const authStore = useAuthStore();
       const conversation = this.selectedConversation;
       const db = getFirestore();
@@ -210,7 +204,8 @@ export const useChatStore = defineStore('chat', {
         sentAt: new Date(new Date().toISOString()).getTime(),
         senderName: user.name,
         senderID: user.id,
-        lastMessage: message.attachmentType == 0 ? message.message : 'Sent an image',
+        lastMessage:
+          message.attachmentType == 0 ? message.message : "Sent an image",
         membersInfo: conversation.membersInfo,
       });
     },
@@ -223,7 +218,8 @@ export const useChatStore = defineStore('chat', {
       const conversationRef = doc(db, "Conversations", newConvId);
       const user = this.newConversationUser;
 
-      const membersInfo = [{
+      const membersInfo = [
+        {
           id: "" + user.id,
           name: user.name,
           photo: user.photo,
@@ -244,7 +240,7 @@ export const useChatStore = defineStore('chat', {
         id: newConvId,
         senderName: authUser.name,
         senderID: authUser.id,
-        lastMessage: '',
+        lastMessage: "",
         members,
         membersInfo,
         sentAt: new Date(new Date().toISOString()).getTime(),
@@ -253,28 +249,30 @@ export const useChatStore = defineStore('chat', {
       await setDoc(conversationRef, newConv);
       this.selectedConversation = newConv;
       this.openSelectedConversation(newConv);
-      this.sendMessage(messagePayload)
+      this.sendMessage(messagePayload);
     },
 
     scrollToBottom() {
-
       setTimeout(() => {
         const messagesDiv = document.getElementById("messages-main-div");
         if (messagesDiv) {
           messagesDiv.scrollTop = parseInt(messagesDiv.scrollHeight);
           //console.log(messagesDiv.scrollHeight, messagesDiv.scrollTop)
         }
-
       }, 300);
-
     },
     autoOpenChatIfExist(conversation) {
       // auto open conversation if already have a chat with user id of seller in params
-      if (this.paramsSellerId && conversation.membersInfo.find(member => member.id == this.paramsSellerId)) {
+      if (
+        this.paramsSellerId &&
+        conversation.membersInfo.find(
+          (member) => member.id == this.paramsSellerId
+        )
+      ) {
         this.selectedConversation = conversation;
         this.newConversationUser = null;
-        this.openSelectedConversation(conversation)
+        this.openSelectedConversation(conversation);
       }
     },
-  }
-})
+  },
+});

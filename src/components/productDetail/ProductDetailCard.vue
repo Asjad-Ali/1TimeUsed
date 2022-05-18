@@ -195,6 +195,13 @@ const { product } = toRefs(props);
 const redirectToChat = () => {
   chatStore.reffererProduct = product.value;
   chatStore.newConversationUser = product.value.seller;
+  chatStore.productMessageModel = {
+    productID: "" + product.value.id,
+    productName: product.value.title,
+    productImage: product.value.gallery.length
+      ? product.value.gallery[0].path
+      : null,
+  };
   router.push(`/chat/${product.value.seller.id}`);
 };
 </script>

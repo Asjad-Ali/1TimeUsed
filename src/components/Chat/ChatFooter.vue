@@ -23,7 +23,7 @@
         dense
         class="WAL__field col-grow q-mr-sm"
         bg-color="white"
-        v-model="message"
+        v-model="chatStore.messageInput[chatMember.id]"
         placeholder="Type a message"
         @keyup.enter="sendMessage"
       />
@@ -37,30 +37,42 @@
 import { useAuthStore } from "src/stores/auth.store";
 import { useChatStore } from "src/stores/chat.store";
 import compressImage from "src/composables/useImageCompression";
-import { ref } from "vue";
-const message = ref("");
+import { computed, ref } from "vue";
 const chatFile = ref(null);
 
 const chatStore = useChatStore();
 const authStore = useAuthStore();
 
 const sendMessage = async () => {
-  if (!message.value?.trim()) {
+  if (!chatStore.messageInput[chatMember.value.id]?.trim()) {
     return;
   }
 
   await chatStore.sendMessage({
-    message: message.value,
+    message: chatStore.messageInput[chatMember.value.id],
     attachmentType: 0,
     senderID: authStore.authUser.id,
-    productMessageModel: null,
   });
 
-  message.value = "";
+  chatStore.messageInput[chatMember.value.id] = "";
 };
 
 async function selectMedia(e) {
   const file = e.target.files[0];
   chatFile.value = await compressImage(file);
 }
+
+const chatMember = computed(() => {
+  const user = chatStore.selectedConversation
+    ? chatStore.selectedConversation.membersInfo.find(
+        (user) => user.id != authStore.authUser.id
+      )
+    : chatStore.newConversationUser;
+
+  user.photo = !user.photo
+    ? authStore.defaultAvatar
+    : (!user.photo.includes("http") ? process.env.imagesBaseURL : "") +
+      user.photo;
+  return user;
+});
 </script>
