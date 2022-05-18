@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "@vue/runtime-core";
+import { onBeforeUnmount, onMounted, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
@@ -24,22 +24,28 @@ const store = useProductStore();
 const route = useRoute();
 const viewType = ref("grid");
 
+const handlePagination = () => {
+  if (Date.now() - lastApiCallTime < 1200) {
+    return false;
+  }
+  if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+    console.log("scrolled to bottom");
+    console.log(store.hasMorePages);
+    if (store.hasMorePages) {
+      store.currentPage++;
+      loadSubCategoryProduct(route.params.id, true);
+      lastApiCallTime = Date.now();
+    }
+  }
+};
+
 onMounted(() => {
   store.loadSubCategoryProduct(route.params.id);
-  window.addEventListener("scroll", () => {
-    if (Date.now() - lastApiCallTime < 1200) {
-      return false;
-    }
-    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-      console.log("scrolled to bottom");
-      console.log(store.hasMorePages);
-      if (store.hasMorePages) {
-        store.currentPage++;
-        loadSubCategoryProduct(route.params.id, true);
-        lastApiCallTime = Date.now();
-      }
-    }
-  });
+  window.addEventListener("scroll", handlePagination);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handlePagination);
 });
 </script>
 <style lang="scss" scoped>

@@ -18,7 +18,9 @@
       <div
         class="q-ml-lg"
         v-if="
-          $route.path == '/chat' && !chatStore.leftDrawerOpen && $q.screen.lt.md
+          $route.path.includes('/chat') &&
+          !chatStore.leftDrawerOpen &&
+          $q.screen.lt.md
         "
       >
         <q-avatar class="q-mr-sm">
@@ -52,9 +54,11 @@ const chatStore = useChatStore();
 const authStore = useAuthStore();
 
 const chatMember = computed(() => {
-  const user = chatStore.selectedConversation.membersInfo.find(
-    (user) => user.id != authStore.authUser.id
-  );
+  const user = chatStore.newConversationUser
+    ? chatStore.newConversationUser
+    : chatStore.selectedConversation.membersInfo.find(
+        (user) => user.id != authStore.authUser.id
+      );
 
   user.photo = !user.photo
     ? authStore.defaultAvatar

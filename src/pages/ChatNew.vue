@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import ConversationsList from "src/components/Chat/ConversationsList.vue";
 import ChatLoadingSkeleton from "src/components/Chat/ChatLoadingSkeleton.vue";
 import ImagePreview from "src/components/Chat/ImagePreview.vue";
@@ -83,6 +83,7 @@ import { useAuthStore } from "src/stores/auth.store";
 import useFirebaseAuth from "src/composables/useFirebaseAuth";
 import { useRoute, useRouter } from "vue-router";
 import useChat from "src/composables/useChat";
+import { useQuasar } from "quasar";
 
 const chatStore = useChatStore();
 const authStore = useAuthStore();
@@ -94,6 +95,7 @@ const { timeDiff } = useChat();
 const { loginAnonymously } = useFirebaseAuth();
 
 const message = ref("");
+const $q = useQuasar();
 
 onMounted(() => {
   if (!authStore.authUser) {
@@ -104,12 +106,28 @@ onMounted(() => {
   }
   chatStore.lookForConversationChanges();
   chatStore.paramsSellerId = route.params.id ? parseInt(route.params.id) : null;
+
+  if (
+    $q.screen.lt.sm &&
+    chatStore.paramsSellerId &&
+    (chatStore.newConversationUser || chatStore.selectedConversation)
+  ) {
+    chatStore.leftDrawerOpen = false;
+  }
+});
+
+onBeforeUnmount(() => {
+  chatStore.leftDrawerOpen = true;
+  chatStore.newConversationUser = null;
+  chatStore.selectedConversation = null;
 });
 
 const getMember = (id) => {
-  const user = chatStore.selectedConversation.membersInfo.find(
-    (member) => member.id == id
-  );
+  const user = chatStore.newConversationUser
+    ? chatStore.newConversationUser
+    : chatStore.selectedConversation.membersInfo.find(
+        (member) => member.id == id
+      );
   if (!user) return user;
 
   user.photo = !user.photo
