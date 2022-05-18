@@ -36,7 +36,7 @@
                     style="max-width: 300px"
                   />
                   <div>
-                    <span class="text-primary">{{ imageError }}</span>
+                    <span class="text-primary">{{ productError.images }}</span>
                   </div>
                 </div>
                 <div class="col-12 flex wrap-sm items-center">
@@ -237,7 +237,10 @@
               </div>
               <!-- Neighbourhood -->
               <div class="col-md-12">
-                <div class="label-font">Neighborhood:</div>
+                <div class="label-font">
+                  Neighborhood:
+                  <span class="text-primary">{{ productError.Location }}</span>
+                </div>
                 <q-input
                   for="neighborhood"
                   dense
@@ -254,7 +257,7 @@
 
                 <q-input
                   dense
-                  :rules="[rules.required, rules.min5]"
+                  :rules="[rules.required, rules.min24]"
                   v-model="product.description"
                   type="textarea"
                   outlined
@@ -287,6 +290,7 @@
                 <q-input
                   dense
                   outlined
+                  v-model="product.color"
                   label="Enter Color e.g (red, blue)"
                   class="q-mb-md"
                 />
@@ -308,6 +312,7 @@
                 <q-input
                   dense
                   outlined
+                  v-model="product.meta_tag"
                   label="Enter search keywords e.g (shoes, dress)"
                   class="q-mb-md"
                 />
@@ -401,7 +406,7 @@ const confirmationModal = (imageIndex, id) => {
 
 const {
   product,
-  imageError,
+  productError,
   productForm,
   goToNextStep,
   loadSubCategory,
@@ -418,28 +423,27 @@ onMounted(() => {
   const options = {
     //bounds: defaultBounds,
     componentRestrictions: { country: "pk" },
-    fields: ["address_components", "geometry", "icon", "name"],
+    fields: ["geometry", "formatted_address", "name"],
     strictBounds: false,
-    types: ["establishment"],
+    types: ["geocode"],
   };
 
-  const searchBox = new google.maps.places.Autocomplete(input, options);
-  console.log(searchBox);
+  setTimeout(() => {
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
+    console.log("autocomplete", autocomplete);
 
-  searchBox.addListener("places_changed", () => {
-    const places = searchBox.getPlaces();
-
-    console.log(places);
-
-    if (places.length) {
-      places.forEach((place) => {
-        if (!place.geometry || !place.geometry.location) {
-          console.log("Returned place contains no geometry");
-          return;
-        }
-      });
-    }
-  });
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      product.value.neighborhood = place.formatted_address || place.name;
+      console.log("place", place);
+      if (place.geometry && place.geometry.location) {
+        product.value.latitude = place.geometry.location.lat();
+        product.value.longitude = place.geometry.location.lng();
+      } else {
+        console.log("Returned place contains no geometry");
+      }
+    });
+  }, 1500);
 });
 </script>
 

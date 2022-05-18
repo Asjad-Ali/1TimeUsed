@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.loadingStatus" class="container">
-    <div class="flex items-center justify-center" style="height: 40vh">
+    <div class="flex items-center justify-center" style="height: 60vh">
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
