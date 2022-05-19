@@ -98,6 +98,7 @@ import ConversationsList from "src/components/Chat/ConversationsList.vue";
 import ChatLoadingSkeleton from "src/components/Chat/ChatLoadingSkeleton.vue";
 import ImagePreview from "src/components/Chat/ImagePreview.vue";
 import PreviewChatImageModal from "src/components/Chat/PreviewChatImageModal.vue";
+
 import ChatHeader from "src/components/Chat/ChatHeader.vue";
 import ChatFooter from "src/components/Chat/ChatFooter.vue";
 import { useChatStore } from "src/stores/chat.store";
