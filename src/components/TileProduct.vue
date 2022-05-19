@@ -61,7 +61,7 @@
         ></i>
       </q-btn>
       <!--Featured Badge  -->
-      <q-badge v-if="product.price" color="warning" class="badge shadow-sm">
+      <q-badge v-if="product.featured" color="warning" class="badge shadow-sm">
         Featured
       </q-badge>
       <!-- New badge -->
@@ -101,7 +101,7 @@ const addToWishlist = (product) => {
 };
 
 const ProductDetail = (product) => {
-  productStore.loadedProduct = $q.screen.gt.md ? null : product;
+  productStore.loadedProduct = $q.screen.gt.sm ? null : product;
   router.push({
     path: `/product_details/${product.slug}`,
   });
