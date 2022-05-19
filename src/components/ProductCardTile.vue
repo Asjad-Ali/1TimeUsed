@@ -1,161 +1,112 @@
 <template>
-  <q-card class="my-card" flat bordered>
-    <q-card-section horizontal>
-      <q-card-section
-        class="col-5 flex flex-center"
-        @click="ProductDetail(product)"
-      >
-        <q-img
-          class="rounded-borders fit img-holder cursor-pointer"
-          :src="imageBaseURL + product.gallery[0].path"
-        />
-      </q-card-section>
-      <q-card-section>
-        <div
-          class="text-h6 q-mt-md ellipsis mobile-font"
-          style="font-size: 12px"
-        >
-          {{ product.title }}
-        </div>
-        <div class="text-caption text-grey ellipsis">
-          RS:{{ product.price }}
-        </div>
-        <div class="q-my-sm text-right">
-          <q-btn
-            v-if="payload.status == 1"
-            size="sm"
-            color="primary"
-            label="Activate"
-            @click="small = true"
-          />
-          <q-btn
-            v-if="payload.status == 0"
-            size="sm"
-            color="primary"
-            label="Deactivate"
-            @click="small = true"
-          />
-          <q-btn
-            v-if="payload.status == 2"
-            size="sm"
-            color="primary"
-            label="Sold out"
-            @click="small = true"
-          />
-          <q-btn
-            v-if="payload.status == 3"
-            size="sm"
-            color="primary"
-            label="Sold Out/Deactivate"
-            @click="small = true"
-          />
-        </div>
-
-        <div class="flex justify-between column">
-          <div class="text-caption text-grey ellipsis">
-            {{ product.neighborhood }}
+  <div class="row items-start">
+    <q-card class="my-card" flat bordered>
+      <q-card-section horizontal>
+        <q-card-section class="col-5 flex flex-center">
+          <div class="img-holder">
+            <img
+              class="rounded-borders fit"
+              :src="imageBaseURL + product.gallery[0].path"
+            />
           </div>
-          <div class="text-caption text-grey ellipsis">
-            {{ product.created_at.substr(0, 10) }}
+        </q-card-section>
+        <q-card-section class="col-7">
+          <div
+            @click="ProductDetail(product)"
+            class="text-h6 ellipsis"
+            style="font-size: 12px"
+          >
+            {{ product.title.substr(0, 20) }}
+            {{ product.title.length > 20 ? "..." : "" }}
           </div>
-        </div>
-      </q-card-section>
-      <div
-        style="position: absolute; top: 3%; right: 3%"
-        class="inline rounded-borders"
-      >
-        <div class="inline cursor-pointer">
-          <i class="fa fa-ellipsis-v q-pa-md" aria-hidden="true"></i>
-        </div>
-        <q-menu touch-position>
-          <q-list style="min-width: 100px">
-            <q-item clickable v-close-popup>
-              <q-item-section @click="editProduct">Edit</q-item-section>
-            </q-item>
-            <q-item @click="confirm = true" clickable v-close-popup>
-              <q-item-section>Delete</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </div>
-    </q-card-section>
-  </q-card>
+          <div class="flex justify-between">
+            <p v-if="product.price" class="text-caption text-grey ellipsis">
+              RS:{{ product.price }}
+            </p>
+            <p v-else class="prise text-center">FREE</p>
+            <div class="text-caption text-primary ellipsis">
+              in Stock:<span class="dark">{{ product.current_stock }}</span>
+            </div>
+          </div>
 
-  <!-- Delete Confirmation Modal -->
-  <q-dialog v-model="confirm" persistent>
-    <q-card>
-      <q-card-section class="row items-center">
-        <span class="q-ml-sm"
-          >Are You sure you want to delete this Product</span
-        >
-      </q-card-section>
-      <q-card-actions align="right">
-        <q-btn flat label="Cancel" color="primary" v-close-popup />
-        <q-btn
-          flat
-          label="Yes"
-          color="primary"
-          @click="deleteProduct(product.id)"
-          v-close-popup
-        />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+          <div class="flex justify-between">
+            <q-btn
+              size="8px"
+              color="primary"
+              label="Activate"
+              class="q-mb-xs"
+            />
+            <div class="text-caption text-grey">
+              <q-icon name="visibility" color="primary" size="12px" />
+              {{ product.views }}
+            </div>
+          </div>
 
-  <!-- Modal Order Active & Deactive -->
-  <q-dialog v-model="small">
-    <q-card style="width: 230px">
-      <div class="q-gutter-sm flex column q-pa-md">
-        <q-radio
-          v-model="payload.status"
-          @click="changeStatus(1)"
-          :val="1"
-          label="Activate"
-          v-close-popup
-        />
-        <q-radio
-          @click="changeStatus(0)"
-          v-model="payload.status"
-          :val="0"
-          label="Deactivate"
-          v-close-popup
-        />
-        <q-radio
-          @click="changeStatus(2)"
-          v-model="payload.status"
-          :val="2"
-          label="Sold Out"
-          v-close-popup
-        />
-        <q-radio
-          @click="changeStatus(3)"
-          v-model="payload.status"
-          :val="3"
-          label="Sold Out/Deactivate"
-          v-close-popup
-        />
+          <div class="flex justify-between">
+            <div class="text-caption text-grey ellipsis">
+              {{ product.city || getAddress(product.neighborhood) }}
+            </div>
+            <div class="text-caption text-grey ellipsis">
+              {{ formatDate(product.created_at) }}
+            </div>
+          </div>
+        </q-card-section>
+      </q-card-section>
+
+      <!-- Edit Delete -->
+      <div class="inline cursor-pointer menu-icon shadow-sm">
+        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
       </div>
+      <q-menu touch-position>
+        <q-list style="min-width: 100px" dense>
+          <q-item clickable v-close-popup>
+            <q-item-section>Edit</q-item-section>
+          </q-item>
+          <q-item clickable v-close-popup>
+            <q-item-section>Delete</q-item-section>
+          </q-item>
+        </q-list>
+      </q-menu>
+
+      <!--Featured Badge  -->
+      <!-- <q-badge v-if="product.price" color="warning" class="badge shadow-sm">
+        Featured
+      </q-badge> -->
+      <!-- New badge -->
+      <!-- <q-badge v-if="product.price" color="primary" class="new-baadge shadow-sm"
+        >New
+      </q-badge> -->
+      <!-- Donation badge -->
+      <!-- <q-badge v-if="!product.price" color="positive" class="badge shadow-sm"
+        >Donation
+      </q-badge> -->
     </q-card>
-  </q-dialog>
+  </div>
 </template>
 
 <script setup>
-import { ref, toRefs } from "vue";
+import { useWishlistStore } from "../stores/wishlist.store";
+import { useProductStore } from "../stores/products.store";
+import { toRefs } from "vue";
 import { useRouter } from "vue-router";
-import { useProductStore } from "src/stores/products.store";
 import { useQuasar } from "quasar";
-const router = useRouter();
 const imageBaseURL = process.env.imagesBaseURL;
+const wishlistStore = useWishlistStore();
 const productStore = useProductStore();
+const router = useRouter();
 const $q = useQuasar();
 const props = defineProps({
   product: Object,
+  mainDiv: {
+    type: String,
+    default: "featured-products",
+  },
 });
-const { product } = toRefs(props);
-const payload = ref({
-  id: product.value.id,
-  status: product.value.status,
-});
+const { product, mainDiv } = toRefs(props);
+
+const addToWishlist = (product) => {
+  wishlistStore.addWishlist(product);
+};
 
 const ProductDetail = (product) => {
   productStore.loadedProduct = $q.screen.gt.md ? null : product;
@@ -173,24 +124,9 @@ const ProductDetail = (product) => {
   }
 };
 
-const editProduct = () => {
-  productStore.selectedProductForEdit = product.value;
-  router.push(`/edit_product/${product.value.id}`);
-};
-
-const deleteProduct = (id) => {
-  productStore.deleteAProduct(id);
-};
-
-const changeStatus = (status) => {
-  payload.value.status = status;
-  productStore.productStatus(payload.value);
-};
-
 const getAddress = (address) => {
   if (address) {
     address = address.replace(", Pakistan", "");
-    //address = address.replace("Pakistan", "");
   }
 
   if (address && address.length > 15) {
@@ -203,34 +139,65 @@ const getAddress = (address) => {
   return address;
 };
 
-const confirm = ref(false);
-const shape = ref("line");
-const small = ref(false);
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const formatDate = (date) => {
+  date = new Date(date);
+  return `${date.getDate()} ${months[date.getMonth()]}`;
+};
 </script>
+
 <style lang="scss" scoped>
 .my-card {
+  height: 130px;
   width: 350px;
+  position: relative;
+  @media (max-width: $breakpoint-xs-max) {
+    width: 97vw;
+  }
+}
+
+.menu-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.911);
+  padding: 0px 8px;
+  border-radius: 3px !important;
+}
+
+p {
+  margin: 0 0 3px;
+}
+
+.badge {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+}
+.new-baadge {
+  position: absolute;
+  top: 35%;
+  right: 2px;
 }
 
 .img-holder {
-  height: 110px;
+  height: 100px;
+  width: 100%;
 }
-// Small devices (landscape phones, less than 768px)
-@media (max-width: 1262px) {
-  .my-card {
-    max-width: 340px;
-  }
-}
-// Small devices (landscape phones, less than 768px)
-@media (max-width: 768px) {
-  .my-card {
-    max-width: 317px;
-    overflow: hidden;
-  }
-}
-@media (max-width: $breakpoint-sm-max) {
-  .mobile-font {
-    font-size: 10px;
-  }
+.img-holder > img {
+  object-fit: cover;
 }
 </style>

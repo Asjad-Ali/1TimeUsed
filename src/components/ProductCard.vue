@@ -55,20 +55,7 @@
         </small>
       </div>
     </q-card-section>
-    <!-- Edit Delete -->
-    <div class="inline cursor-pointer menu-icon shadow-sm">
-      <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-    </div>
-    <q-menu touch-position>
-      <q-list style="min-width: 100px" dense>
-        <q-item clickable v-close-popup>
-          <q-item-section>Edit</q-item-section>
-        </q-item>
-        <q-item clickable v-close-popup>
-          <q-item-section>Delete</q-item-section>
-        </q-item>
-      </q-list>
-    </q-menu>
+
     <!-- Feature badge -->
     <q-badge
       v-if="product.price"
@@ -171,28 +158,20 @@ const formatDate = (date) => {
   width: 100%;
 }
 
-.menu-icon {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: rgba(255, 255, 255, 0.911);
-  padding: 0px 8px;
-  border-radius: 3px !important;
-}
 .featured-baadge {
   position: absolute;
   top: 40px;
-  left: 0;
+  right: 0;
 }
 .new-baadge {
   position: absolute;
   top: 18px;
-  left: 0;
+  right: 0;
 }
 .donation-baadge {
   position: absolute;
   top: 18px;
-  left: 0;
+  right: 0;
 }
 
 @media (max-width: $breakpoint-sm-max) {
