@@ -39,7 +39,7 @@ export default function useProductForm() {
     color: '',
     meta_tag: '',
     current_stock: 1,
-    description: "This is a A+ Quality Product and up to 50% off on Every Item",
+    description: "This is a Good Quality Product and up to 50% off on Every Item",
     images: [],
     condition: "used",
     latitude: '',
@@ -119,7 +119,12 @@ export default function useProductForm() {
     }
 
     if (response.status == 200) {
-      router.push("/my_products");
+      if (response.data.purpose == "Donate") {
+        router.push({ path: "/donation" });
+      } else {
+        router.push({ path: "/my_products" });
+      }
+
     }
   };
 
