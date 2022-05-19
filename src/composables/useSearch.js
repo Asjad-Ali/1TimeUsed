@@ -20,6 +20,8 @@ export default function useSearch() {
   const search = ref("");
   const route = useRoute();
   const searchSuggestions = ref();
+  const searchInput = ref();
+
   let searchVal = '';
 
   const getLocalSearchHistory = () => {
@@ -56,6 +58,8 @@ export default function useSearch() {
   }
 
   const searchProducts = async (paginated = false) => {
+    searchInput.value.hidePopup();
+    document.querySelector('#q-app').click();
     if (currentPage == 1 || !paginated) {
       store.searchProducts = [];
     }
@@ -104,6 +108,7 @@ export default function useSearch() {
     searchSuggestions,
     getSearchSuggestions,
     searchProducts,
-    search
+    search,
+    searchInput
   };
 }
