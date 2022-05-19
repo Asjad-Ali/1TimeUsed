@@ -105,7 +105,11 @@ import useValidationRules from "src/composables/useValidationRules";
 import { useAuthStore } from "src/stores/auth.store";
 import useFirebaseAuth from "src/composables/useFirebaseAuth";
 import { useRouter } from "vue-router";
+import useMetaTags from "src/composables/useMetaTags";
 
+useMetaTags({
+  title: "Login",
+});
 const facebookAppId = process.env.facebookAppId;
 const appURL = ref(process.env.appURL);
 const { rules } = useValidationRules();

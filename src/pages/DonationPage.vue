@@ -42,7 +42,11 @@ import { useProductStore } from "../stores/products.store";
 import { useWishlistStore } from "../stores/wishlist.store";
 import useSearch from "../composables/useSearch";
 import ProductsList from "src/components/ProductsList.vue";
+import useMetaTags from "src/composables/useMetaTags";
 
+useMetaTags({
+  title: "Donation Product",
+});
 const search = ref("");
 
 const model = ref(null);

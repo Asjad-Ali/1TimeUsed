@@ -45,6 +45,11 @@ import { onMounted } from "vue";
 import { useProductStore } from "../stores/products.store";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "src/stores/auth.store";
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "My Products",
+});
 const router = useRouter();
 const store = useProductStore();
 const authStore = useAuthStore();

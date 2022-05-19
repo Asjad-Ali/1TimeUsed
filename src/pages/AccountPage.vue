@@ -35,6 +35,11 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "src/stores/auth.store";
 import { onMounted, ref, computed } from "vue";
 import { useWishlistStore } from "../stores/wishlist.store";
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "Account",
+});
 const store = useWishlistStore();
 
 const imageBaseURL = process.env.imagesBaseURL;

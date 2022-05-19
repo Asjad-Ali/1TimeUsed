@@ -65,6 +65,7 @@ import { useProductStore } from "src/stores/products.store";
 import { useWishlistStore } from "src/stores/wishlist.store";
 import ProductDetailCard from "../components/productDetail/ProductDetailCard.vue";
 import SliderMain from "../components/productDetail/SliderMain.vue";
+import useMetaTags from "src/composables/useMetaTags";
 const { toRefs } = require("@vue/reactivity");
 const wishlistStore = useWishlistStore();
 const imageBaseURL = process.env.imagesBaseURL;
@@ -74,34 +75,10 @@ const addToWishlist = (product) => {
   wishlistStore.addWishlist(product);
 };
 
-useMeta({
-  title: `${product.value.title} - 1timeused`,
-
-  // meta tags
-  meta: {
-    description: { name: "description", content: product.value.description },
-    keywords: { name: "keywords", content: "1timeused" },
-    // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
-    ogTitle: {
-      property: "og:title",
-      // optional; similar to titleTemplate, but allows templating with other meta properties
-      template(ogTitle) {
-        return `${product.value.title} - 1timeused`;
-      },
-    },
-    ogDescription: {
-      property: "og:description",
-      template(ogDescription) {
-        return product.value.description;
-      },
-    },
-    ogImage: {
-      property: "og:image",
-      template(ogImage) {
-        return imageBaseURL + product.value.gallery[0].path;
-      },
-    },
-  },
+useMetaTags({
+  title: product.value.title,
+  description: product.value.description,
+  image: product.value.gallery[0].path,
 });
 </script>
 

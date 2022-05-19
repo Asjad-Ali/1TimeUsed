@@ -36,9 +36,13 @@
 import { computed, onMounted } from "@vue/runtime-core";
 import { useCategoryStore } from "src/stores/categories.store";
 import { useRouter } from "vue-router";
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "Categories",
+});
 
 const router = useRouter();
-
 const imageBaseURL = process.env.imagesBaseURL;
 const store = useCategoryStore();
 
