@@ -7,7 +7,10 @@
         horizontal
       >
         <q-card-section class="col-5 flex flex-center">
-          <div class="img-holder">
+          <div
+            class="img-holder cursor-pointer"
+            @click="ProductDetail(product)"
+          >
             <img
               class="rounded-borders fit"
               :src="imageBaseURL + product.gallery[0].path"
@@ -15,15 +18,32 @@
           </div>
         </q-card-section>
         <q-card-section>
-          <div class="text-h6 ellipsis" style="font-size: 12px">
+          <div
+            @click="ProductDetail(product)"
+            class="text-h6 ellipsis cursor-pointer"
+            style="font-size: 12px"
+          >
             {{ product.title.substr(0, 20) }}
             {{ product.title.length > 20 ? "..." : "" }}
           </div>
-          <p v-if="product.price" class="text-caption text-grey ellipsis">
+          <p
+            v-if="product.price"
+            @click="ProductDetail(product)"
+            class="text-caption text-grey ellipsis cursor-pointer"
+          >
             RS:{{ product.price }}
           </p>
-          <p v-else class="prise text-center">FREE</p>
-          <div class="flex justify-between">
+          <p
+            v-else
+            @click="ProductDetail(product)"
+            class="prise text-center cursor-pointer"
+          >
+            FREE
+          </p>
+          <div
+            class="flex justify-between cursor-pointer"
+            @click="ProductDetail(product)"
+          >
             <div class="text-caption text-grey ellipsis">
               {{ product.city || getAddress(product.neighborhood) }}
             </div>
