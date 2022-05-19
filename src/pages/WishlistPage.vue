@@ -14,7 +14,7 @@
       class="m-5 text-center absolute-center w-100"
       v-if="!store.wishlistProducts.length"
     >
-      <div class="m-5 text-subtitle1">No Wishlist Product</div>
+      <div class="m-5 text-subtitle1">No Prodcuts Added in Wishlist</div>
     </div>
   </div>
 </template>

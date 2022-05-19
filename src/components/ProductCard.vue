@@ -1,5 +1,5 @@
 <template>
-  <q-card class="cursor-pointer">
+  <q-card class="cursor-pointer relative-position">
     <div class="img-holder" @click="ProductDetail(product)">
       <q-img
         :src="
@@ -55,16 +55,36 @@
         </small>
       </div>
     </q-card-section>
+    <!-- Edit Delete -->
+    <div class="inline cursor-pointer menu-icon shadow-sm">
+      <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+    </div>
+    <q-menu touch-position>
+      <q-list style="min-width: 100px" dense>
+        <q-item clickable v-close-popup>
+          <q-item-section>Edit</q-item-section>
+        </q-item>
+        <q-item clickable v-close-popup>
+          <q-item-section>Delete</q-item-section>
+        </q-item>
+      </q-list>
+    </q-menu>
     <!-- Feature badge -->
-    <q-badge v-if="product.price" color="amber" class="featured-baadge"
+    <q-badge
+      v-if="product.price"
+      color="amber"
+      class="featured-baadge shadow-sm"
       >Featured
     </q-badge>
     <!-- New badge -->
-    <q-badge v-if="product.price" color="primary" class="new-baadge"
+    <q-badge v-if="product.price" color="primary" class="new-baadge shadow-sm"
       >New
     </q-badge>
     <!-- Donation badge -->
-    <q-badge v-if="!product.price" color="positive" class="donation-baadge"
+    <q-badge
+      v-if="!product.price"
+      color="positive"
+      class="donation-baadge shadow-sm"
       >Donation
     </q-badge>
   </q-card>
@@ -145,19 +165,28 @@ const formatDate = (date) => {
   height: 160px;
   width: 100%;
 }
+
+.menu-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.911);
+  padding: 0px 8px;
+  border-radius: 3px !important;
+}
 .featured-baadge {
   position: absolute;
   top: 40px;
-  right: 0;
+  left: 0;
 }
 .new-baadge {
   position: absolute;
   top: 18px;
-  right: 0;
+  left: 0;
 }
 .donation-baadge {
   position: absolute;
-  top: 125px;
+  top: 18px;
   left: 0;
 }
 
