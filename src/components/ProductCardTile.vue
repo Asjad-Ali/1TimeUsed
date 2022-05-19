@@ -2,7 +2,10 @@
   <div class="row items-start">
     <q-card class="my-card" flat bordered>
       <q-card-section horizontal>
-        <q-card-section class="col-5 flex flex-center">
+        <q-card-section
+          @click="ProductDetail(product)"
+          class="col-5 flex flex-center cursor-pointer"
+        >
           <div class="img-holder">
             <img
               class="rounded-borders fit"
@@ -11,11 +14,7 @@
           </div>
         </q-card-section>
         <q-card-section class="col-7">
-          <div
-            @click="ProductDetail(product)"
-            class="text-h6 ellipsis"
-            style="font-size: 12px"
-          >
+          <div class="text-h6 ellipsis" style="font-size: 12px">
             {{ product.title.substr(0, 20) }}
             {{ product.title.length > 20 ? "..." : "" }}
           </div>
@@ -52,34 +51,22 @@
           </div>
         </q-card-section>
       </q-card-section>
-
-      <!-- Edit Delete -->
-      <div class="inline cursor-pointer menu-icon shadow-sm">
-        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-      </div>
-      <q-menu touch-position>
-        <q-list style="min-width: 100px" dense>
-          <q-item clickable v-close-popup>
-            <q-item-section>Edit</q-item-section>
-          </q-item>
-          <q-item clickable v-close-popup>
-            <q-item-section>Delete</q-item-section>
-          </q-item>
-        </q-list>
-      </q-menu>
-
-      <!--Featured Badge  -->
-      <!-- <q-badge v-if="product.price" color="warning" class="badge shadow-sm">
-        Featured
-      </q-badge> -->
-      <!-- New badge -->
-      <!-- <q-badge v-if="product.price" color="primary" class="new-baadge shadow-sm"
-        >New
-      </q-badge> -->
-      <!-- Donation badge -->
-      <!-- <q-badge v-if="!product.price" color="positive" class="badge shadow-sm"
-        >Donation
-      </q-badge> -->
+      <span>
+        <!-- Edit Delete -->
+        <div class="inline cursor-pointer menu-icon shadow-sm">
+          <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        </div>
+        <q-menu touch-position>
+          <q-list style="min-width: 100px" dense>
+            <q-item clickable v-close-popup>
+              <q-item-section>Edit</q-item-section>
+            </q-item>
+            <q-item clickable v-close-popup>
+              <q-item-section>Delete</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </span>
     </q-card>
   </div>
 </template>
@@ -97,12 +84,23 @@ const router = useRouter();
 const $q = useQuasar();
 const props = defineProps({
   product: Object,
-  mainDiv: {
-    type: String,
-    default: "featured-products",
-  },
 });
-const { product, mainDiv } = toRefs(props);
+
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const { product, parentDiv } = toRefs(props);
 
 const addToWishlist = (product) => {
   wishlistStore.addWishlist(product);
@@ -110,7 +108,9 @@ const addToWishlist = (product) => {
 
 const ProductDetail = (product) => {
   productStore.loadedProduct = $q.screen.gt.sm ? null : product;
-  router.push(`/product_details/${product.slug}`);
+  router.push({
+    path: `/product_details/${product.slug}`,
+  });
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id
   );
@@ -127,6 +127,7 @@ const ProductDetail = (product) => {
 const getAddress = (address) => {
   if (address) {
     address = address.replace(", Pakistan", "");
+    //address = address.replace("Pakistan", "");
   }
 
   if (address && address.length > 15) {
@@ -139,20 +140,6 @@ const getAddress = (address) => {
   return address;
 };
 
-const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
 const formatDate = (date) => {
   date = new Date(date);
   return `${date.getDate()} ${months[date.getMonth()]}`;
