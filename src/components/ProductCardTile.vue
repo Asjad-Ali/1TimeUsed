@@ -30,9 +30,10 @@
 
           <div class="flex justify-between">
             <q-btn
+              @click="small = true"
+              :label="status[product.status]"
               size="8px"
               color="primary"
-              label="Activate"
               class="q-mb-xs"
             />
             <div class="text-caption text-grey">
@@ -59,22 +60,79 @@
         <q-menu touch-position>
           <q-list style="min-width: 100px" dense>
             <q-item clickable v-close-popup>
-              <q-item-section>Edit</q-item-section>
+              <q-item-section @click="editProduct">Edit</q-item-section>
             </q-item>
             <q-item clickable v-close-popup>
-              <q-item-section>Delete</q-item-section>
+              <q-item-section @click="confirm = true">Delete</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
       </span>
     </q-card>
   </div>
+
+  <!-- Delete Confirmation Modal -->
+  <q-dialog v-model="confirm" persistent>
+    <q-card>
+      <q-card-section class="row items-center">
+        <span class="q-ml-sm"
+          >Are You sure you want to delete this Product</span
+        >
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn flat label="Cancel" color="primary" v-close-popup />
+        <q-btn
+          flat
+          label="Yes"
+          color="primary"
+          @click="deleteProduct(product.id)"
+          v-close-popup
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+  <!-- Modal Order Active & Deactive -->
+  <q-dialog v-model="small">
+    <q-card style="width: 230px">
+      <div class="q-gutter-sm flex column q-pa-md">
+        <q-radio
+          v-model="product.status"
+          @click="changeStatus(1)"
+          :val="1"
+          label="Activate"
+          v-close-popup
+        />
+        <q-radio
+          v-model="product.status"
+          @click="changeStatus(0)"
+          :val="0"
+          label="Deactivate"
+          v-close-popup
+        />
+        <q-radio
+          v-model="product.status"
+          @click="changeStatus(2)"
+          :val="2"
+          label="Sold Out"
+          v-close-popup
+        />
+        <q-radio
+          v-model="product.status"
+          @click="changeStatus(3)"
+          :val="3"
+          label="Sold Out/Deactivate"
+          v-close-popup
+        />
+      </div>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup>
 import { useWishlistStore } from "../stores/wishlist.store";
 import { useProductStore } from "../stores/products.store";
-import { toRefs } from "vue";
+import { ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
 const imageBaseURL = process.env.imagesBaseURL;
@@ -106,6 +164,18 @@ const addToWishlist = (product) => {
   wishlistStore.addWishlist(product);
 };
 
+const payload = ref({
+  id: product.value.id,
+  status: product.value.status,
+});
+
+const status = ref([
+  "Deactivate",
+  "Activate",
+  "Sold out",
+  "Sold Out/Deactivate",
+]);
+
 const ProductDetail = (product) => {
   productStore.loadedProduct = $q.screen.gt.sm ? null : product;
   router.push({
@@ -124,6 +194,20 @@ const ProductDetail = (product) => {
   }
 };
 
+const editProduct = () => {
+  productStore.selectedProductForEdit = product.value;
+  router.push(`/edit_product/${product.value.id}`);
+};
+
+const deleteProduct = (id) => {
+  productStore.deleteAProduct(id);
+};
+
+const changeStatus = (status) => {
+  payload.value.status = status;
+  productStore.productStatus(payload.value);
+};
+
 const getAddress = (address) => {
   if (address) {
     address = address.replace(", Pakistan", "");
@@ -139,6 +223,9 @@ const getAddress = (address) => {
   }
   return address;
 };
+
+const confirm = ref(false);
+const small = ref(false);
 
 const formatDate = (date) => {
   date = new Date(date);
