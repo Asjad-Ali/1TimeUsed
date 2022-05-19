@@ -1,11 +1,7 @@
 <template>
   <div class="row items-start">
     <q-card class="my-card" flat bordered>
-      <q-card-section
-        @click="ProductDetail(product)"
-        class="cursor-pointer"
-        horizontal
-      >
+      <q-card-section horizontal>
         <q-card-section class="col-5 flex flex-center">
           <div
             class="img-holder cursor-pointer"
