@@ -109,7 +109,7 @@ const addToWishlist = (product) => {
 };
 
 const ProductDetail = (product) => {
-  productStore.loadedProduct = $q.screen.gt.md ? null : product;
+  productStore.loadedProduct = $q.screen.gt.sm ? null : product;
   router.push(`/product_details/${product.slug}`);
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id

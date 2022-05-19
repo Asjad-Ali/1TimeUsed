@@ -74,8 +74,14 @@ export const useWishlistStore = defineStore("wishlistStore", {
         }
 
         persistData('wishlist_products', this.wishlistProducts);
-        persistData('viewed_products', store.recentProducts);
-        persistData('featured_products', store.featuredProducts);
+        if (store.recentProducts.length) {
+          persistData('viewed_products', store.recentProducts);
+        }
+        if (store.featuredProducts.length) {
+          persistData('featured_products', store.featuredProducts);
+        }
+
+
       }
 
     },

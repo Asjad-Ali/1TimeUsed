@@ -9,10 +9,8 @@
       <div class="col-md-6 col-12">
         <q-select
           ref="searchInput"
-          bg-color="white"
-          rounded
-          outlined
-          @keydown.enter.prevent="searchProducts"
+          filled
+          @keydown.enter="searchProducts"
           v-model="search"
           use-input
           hide-selected
@@ -34,13 +32,7 @@
           </template>
 
           <template v-slot:after>
-            <q-btn
-              @click="searchProducts"
-              color="white"
-              text-color="primary"
-              icon="search"
-              round
-            >
+            <q-btn @click="searchProducts" icon="search" size="16px" outline>
             </q-btn>
           </template>
         </q-select>
@@ -88,11 +80,16 @@ import ProductsHeader from "src/components/ProductsHeader.vue";
 import ProductsList from "src/components/ProductsList.vue";
 
 const store = useProductStore();
-const searchInput = ref();
+
 const viewType = ref("grid");
 
-const { searchSuggestions, getSearchSuggestions, searchProducts, search } =
-  useSearch();
+const {
+  searchInput,
+  searchSuggestions,
+  getSearchSuggestions,
+  searchProducts,
+  search,
+} = useSearch();
 
 onMounted(() => {
   searchInput.value.focus();
