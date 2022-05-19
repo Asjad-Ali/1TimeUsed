@@ -116,9 +116,9 @@ export const useProductStore = defineStore("productsStore ", {
       }
     },
 
-    async loadProductDetails(slug) {
+    async loadProductDetails(slug, screen = 'application') {
       const response = await API.get(
-        `products/${slug}${1 == 1 ? "?screen=desktop" : ""}`
+        `products/${slug}?screen=${screen}`
       );
       if (response.status == 200) {
         this.loadedProduct = response.data;

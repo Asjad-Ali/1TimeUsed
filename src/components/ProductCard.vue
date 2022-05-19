@@ -95,10 +95,12 @@ import { useWishlistStore } from "../stores/wishlist.store";
 import { useProductStore } from "../stores/products.store";
 import { toRefs } from "vue";
 import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
 const imageBaseURL = process.env.imagesBaseURL;
 const wishlistStore = useWishlistStore();
 const productStore = useProductStore();
 const router = useRouter();
+const $q = useQuasar();
 const props = defineProps({
   product: Object,
 });
@@ -124,7 +126,10 @@ const addToWishlist = (product) => {
 };
 
 const ProductDetail = (product) => {
-  router.push(`/product_details/${product.slug}`);
+  productStore.loadedProduct = $q.screen.gt.md ? null : product;
+  router.push({
+    path: `/product_details/${product.slug}`,
+  });
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id
   );

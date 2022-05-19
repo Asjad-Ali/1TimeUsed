@@ -41,10 +41,24 @@
 </template>
 <script setup>
 import ProductCardTile from "../components/ProductCardTile.vue";
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { useProductStore } from "../stores/products.store";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "src/stores/auth.store";
+const router = useRouter();
 const store = useProductStore();
-onMounted(() => store.loadMyProducts());
+const authStore = useAuthStore();
+onMounted(() => {
+  if (!authStore.authUser) {
+    router.push(
+      router.options.history.state.back == "/login" ||
+        router.options.history.state.forward == "/login"
+        ? router.options.history.state.back
+        : "/login"
+    );
+  }
+  store.loadMyProducts();
+});
 </script>
 
 <style lang="scss" scoped>
