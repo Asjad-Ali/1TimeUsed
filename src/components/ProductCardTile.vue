@@ -97,31 +97,12 @@
     <q-card style="width: 230px">
       <div class="q-gutter-sm flex column q-pa-md">
         <q-radio
+          v-for="(name, index) in status"
+          :key="index"
           v-model="product.status"
-          @click="changeStatus(1)"
-          :val="1"
-          label="Activate"
-          v-close-popup
-        />
-        <q-radio
-          v-model="product.status"
-          @click="changeStatus(0)"
-          :val="0"
-          label="Deactivate"
-          v-close-popup
-        />
-        <q-radio
-          v-model="product.status"
-          @click="changeStatus(2)"
-          :val="2"
-          label="Sold Out"
-          v-close-popup
-        />
-        <q-radio
-          v-model="product.status"
-          @click="changeStatus(3)"
-          :val="3"
-          label="Sold Out/Deactivate"
+          @click="changeStatus(index)"
+          :val="index"
+          :label="name"
           v-close-popup
         />
       </div>

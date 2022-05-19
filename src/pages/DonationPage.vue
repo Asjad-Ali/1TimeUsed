@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="height: 60vh">
     <div class="column q-pb-xl">
       <div class="row justify-center items-center q-my-md">
         <div class="col-md-6 col-12">
