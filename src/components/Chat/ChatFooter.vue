@@ -12,10 +12,10 @@
       />
       <q-btn
         round
-        @click="$refs.mediaInput.click()"
         flat
         icon="collections"
         class="q-mr-sm"
+        @click="$refs.mediaInput.click()"
       />
       <q-input
         rounded
@@ -31,6 +31,26 @@
       <q-btn @click="sendMessage" round flat icon="send" />
     </q-toolbar>
   </q-footer>
+
+  <!-- Modal -->
+  <q-dialog v-model="icon">
+    <q-card>
+      <q-card-section class="row items-center q-pa-xs">
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+
+      <q-card-section class="q-pa-xs">
+        <div class="img-holder">
+          <img src="https://www.w3schools.com/w3images/avatar2.png" alt="" />
+        </div>
+      </q-card-section>
+      <q-card-actions align="center" class="q-gutter-md">
+        <q-btn size="sm" color="red" label="Cancel" />
+        <q-btn size="sm" color="green" label="Send" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script setup>
@@ -39,6 +59,7 @@ import { useChatStore } from "src/stores/chat.store";
 import compressImage from "src/composables/useImageCompression";
 import { computed, ref } from "vue";
 const chatFile = ref(null);
+const icon = ref(false);
 
 const chatStore = useChatStore();
 const authStore = useAuthStore();
@@ -76,3 +97,13 @@ const chatMember = computed(() => {
   return user;
 });
 </script>
+<style lang="scss" scoped>
+.img-holder {
+  max-width: 310px;
+  max-height: 310px;
+}
+.img-holder > img {
+  height: 100%;
+  width: 100%;
+}
+</style>

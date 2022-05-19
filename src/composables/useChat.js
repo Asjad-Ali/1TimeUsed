@@ -1,12 +1,8 @@
-import {
-  onMounted,
-  ref
-} from "vue";
-
+import { onMounted, ref } from "vue";
 
 export default function useChat() {
-
   const timeNow = ref(Date.now());
+  const openedImage = ref(null);
 
   onMounted(() => {
     setInterval(() => {
@@ -27,7 +23,19 @@ export default function useChat() {
     }
   };
 
+  const handleClick = (e) => {
+    console.log(e.target.getAttribute("src"));
+    if (e.target.classList.contains("chat-img")) {
+      openedImage.value = e.target.getAttribute("src");
+    }
+  };
+
+  onMounted(() => {
+    document.addEventListener("click", handleClick);
+  });
+
   return {
     timeDiff,
+    openedImage,
   };
 }

@@ -66,6 +66,7 @@ import { useWishlistStore } from "src/stores/wishlist.store";
 import ProductDetailCard from "../components/productDetail/ProductDetailCard.vue";
 import SliderMain from "../components/productDetail/SliderMain.vue";
 import useMetaTags from "src/composables/useMetaTags";
+import ProductsList from "src/components/ProductsList.vue";
 const { toRefs } = require("@vue/reactivity");
 const wishlistStore = useWishlistStore();
 const imageBaseURL = process.env.imagesBaseURL;
