@@ -112,7 +112,12 @@
     </q-card>
 
     <!-- Seller Contact -->
-    <q-card class="my-card q-pa-md q-my-sm" flat bordered>
+    <q-card
+      v-if="authStore.authUser.id != product.seller.id"
+      class="my-card q-pa-md q-my-sm"
+      flat
+      bordered
+    >
       <div class="title-date">
         <div class="text-h6 ellipsis common-size">Contact Seller</div>
       </div>
@@ -177,12 +182,14 @@
 
 <script setup>
 const { toRefs, ref } = require("@vue/reactivity");
+const { useAuthStore } = require("src/stores/auth.store");
 const { useChatStore } = require("src/stores/chat.store");
 const { useRouter } = require("vue-router");
 const imageBaseURL = process.env.imagesBaseURL;
 const toggleText = ref(false);
 const togglePhone = ref(false);
 
+const authStore = useAuthStore();
 const router = useRouter();
 const chatStore = useChatStore();
 
