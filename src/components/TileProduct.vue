@@ -1,7 +1,11 @@
 <template>
   <div class="row items-start">
     <q-card class="my-card" flat bordered>
-      <q-card-section horizontal>
+      <q-card-section
+        @click="ProductDetail(product)"
+        class="cursor-pointer"
+        horizontal
+      >
         <q-card-section class="col-5 flex flex-center">
           <div
             class="img-holder cursor-pointer"
@@ -118,7 +122,9 @@ const addToWishlist = (product) => {
 
 const ProductDetail = (product) => {
   productStore.loadedProduct = $q.screen.gt.md ? null : product;
-  router.push(`/product_details/${product.slug}`);
+  router.push({
+    path: `/product_details/${product.slug}`,
+  });
   const index = productStore.recentProducts.findIndex(
     (object) => object.id === product.id
   );
