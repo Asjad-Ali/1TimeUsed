@@ -12,21 +12,7 @@
           <div class="text-h6 q-my-md">Related Products</div>
 
           <div class="row">
-            <div
-              class="
-                flex
-                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-                justify-center
-                items-center
-              "
-            >
-              <ProductCard
-                class="q-my-md"
-                v-for="(relatedProduct, index) in product.related_products"
-                :key="index"
-                :product="relatedProduct"
-              />
-            </div>
+            <ProductsList :products="product.related_products" />
           </div>
         </q-card>
       </div>
@@ -39,10 +25,10 @@ import { Screen } from "quasar";
 import { useMeta } from "quasar";
 export default {
   async preFetch({ store, currentRoute }) {
-    let screen = "application";
+    let screen = "desktop";
     if (!process.env.SERVER) {
-      if (Screen.gt.sm) {
-        screen = "desktop";
+      if (Screen.lt.md) {
+        screen = "application";
       }
     }
 
@@ -65,6 +51,7 @@ import { useProductStore } from "src/stores/products.store";
 import { useWishlistStore } from "src/stores/wishlist.store";
 import ProductDetailCard from "../components/productDetail/ProductDetailCard.vue";
 import SliderMain from "../components/productDetail/SliderMain.vue";
+import ProductsList from "src/components/ProductsList.vue";
 const { toRefs } = require("@vue/reactivity");
 const wishlistStore = useWishlistStore();
 const imageBaseURL = process.env.imagesBaseURL;

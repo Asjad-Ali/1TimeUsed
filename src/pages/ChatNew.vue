@@ -1,4 +1,9 @@
 <template>
+  <PreviewChatImageModal
+    :imagePath="openedImage"
+    v-if="openedImage"
+    @previewChatImageModal="openedImage = null"
+  />
   <div class="container">
     <div class="WAL position-relative">
       <q-layout view="lHh Lpr lFf" class="WAL__layout shadow-3" container>
@@ -30,7 +35,7 @@
                     message.attachmentType == 0 && !message.productMessageModel
                       ? message.message
                       : message.attachmentType
-                      ? `<div> <img src='${message.message}' style='max-width:200px' /> </div>`
+                      ? `<div> <img class='chat-img cursor-pointer' src='${message.message}' style='max-width:200px' /> </div>`
                       : relatedProductDesign(message),
                   ]"
                   :text-html="
@@ -92,6 +97,7 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 import ConversationsList from "src/components/Chat/ConversationsList.vue";
 import ChatLoadingSkeleton from "src/components/Chat/ChatLoadingSkeleton.vue";
 import ImagePreview from "src/components/Chat/ImagePreview.vue";
+import PreviewChatImageModal from "src/components/Chat/PreviewChatImageModal.vue";
 import ChatHeader from "src/components/Chat/ChatHeader.vue";
 import ChatFooter from "src/components/Chat/ChatFooter.vue";
 import { useChatStore } from "src/stores/chat.store";
@@ -106,7 +112,7 @@ const authStore = useAuthStore();
 
 const router = useRouter();
 const route = useRoute();
-const { timeDiff } = useChat();
+const { timeDiff, openedImage } = useChat();
 
 const { loginAnonymously } = useFirebaseAuth();
 
