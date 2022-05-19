@@ -17,7 +17,11 @@ import RecentProducts from "src/components/Home/Mobile/RecentProducts.vue";
 import { useAuthStore } from "../stores/auth.store";
 import { useProductStore } from "../stores/products.store";
 import { useRoute } from "vue-router";
+import useMetaTags from "src/composables/useMetaTags";
 
+useMetaTags({
+  title: "Home",
+});
 const productStore = useProductStore();
 const authStore = useAuthStore();
 const route = useRoute();

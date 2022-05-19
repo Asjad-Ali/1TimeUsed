@@ -12,7 +12,21 @@
           <div class="text-h6 q-my-md">Related Products</div>
 
           <div class="row">
-            <ProductsList :products="product.related_products" />
+            <div
+              class="
+                flex
+                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+                justify-center
+                items-center
+              "
+            >
+              <ProductCard
+                class="q-my-md"
+                v-for="(relatedProduct, index) in product.related_products"
+                :key="index"
+                :product="relatedProduct"
+              />
+            </div>
           </div>
         </q-card>
       </div>
@@ -25,10 +39,10 @@ import { Screen } from "quasar";
 import { useMeta } from "quasar";
 export default {
   async preFetch({ store, currentRoute }) {
-    let screen = "desktop";
+    let screen = "application";
     if (!process.env.SERVER) {
-      if (Screen.lt.md) {
-        screen = "application";
+      if (Screen.gt.sm) {
+        screen = "desktop";
       }
     }
 
@@ -51,6 +65,7 @@ import { useProductStore } from "src/stores/products.store";
 import { useWishlistStore } from "src/stores/wishlist.store";
 import ProductDetailCard from "../components/productDetail/ProductDetailCard.vue";
 import SliderMain from "../components/productDetail/SliderMain.vue";
+import useMetaTags from "src/composables/useMetaTags";
 import ProductsList from "src/components/ProductsList.vue";
 const { toRefs } = require("@vue/reactivity");
 const wishlistStore = useWishlistStore();
@@ -61,34 +76,10 @@ const addToWishlist = (product) => {
   wishlistStore.addWishlist(product);
 };
 
-useMeta({
-  title: `${product.value.title} - 1timeused`,
-
-  // meta tags
-  meta: {
-    description: { name: "description", content: product.value.description },
-    keywords: { name: "keywords", content: "1timeused" },
-    // note: for Open Graph type metadata you will need to use SSR, to ensure page is rendered by the server
-    ogTitle: {
-      property: "og:title",
-      // optional; similar to titleTemplate, but allows templating with other meta properties
-      template(ogTitle) {
-        return `${product.value.title} - 1timeused`;
-      },
-    },
-    ogDescription: {
-      property: "og:description",
-      template(ogDescription) {
-        return product.value.description;
-      },
-    },
-    ogImage: {
-      property: "og:image",
-      template(ogImage) {
-        return imageBaseURL + product.value.gallery[0].path;
-      },
-    },
-  },
+useMetaTags({
+  title: product.value.title,
+  description: product.value.description,
+  image: product.value.gallery[0].path,
 });
 </script>
 

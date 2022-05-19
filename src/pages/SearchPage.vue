@@ -78,7 +78,11 @@ import useSearch from "../composables/useSearch";
 import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
 import ProductsList from "src/components/ProductsList.vue";
+import useMetaTags from "src/composables/useMetaTags";
 
+useMetaTags({
+  title: "Search",
+});
 const store = useProductStore();
 
 const viewType = ref("grid");

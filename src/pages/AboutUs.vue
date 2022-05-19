@@ -6,8 +6,12 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "About Us",
+});
 </script>
 
 <style lang="scss" scoped>

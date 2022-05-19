@@ -59,7 +59,12 @@
         <div class="text-h4 text-center q-pt-md">All Products</div>
         <hr class="hr-4" />
         <div
-          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+          class="
+            flex
+            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+            justify-center
+            items-center
+          "
         >
           <ProductCard
             :product="product"
@@ -80,6 +85,11 @@ import { onMounted } from "@vue/runtime-core";
 import ProductCard from "src/components/ProductCard.vue";
 import { useRoute } from "vue-router";
 import { useSellerStore } from "../stores/seller.store";
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "Seller Profile",
+});
 const route = useRoute();
 const store = useSellerStore();
 let lastApiCallTime = Date.now();

@@ -24,7 +24,11 @@ import { onMounted } from "@vue/runtime-core";
 import ProductCard from "src/components/ProductCard.vue";
 import { useWishlistStore } from "../stores/wishlist.store";
 import ProductsList from "src/components/ProductsList.vue";
+import useMetaTags from "src/composables/useMetaTags";
 
+useMetaTags({
+  title: "Favorite Products",
+});
 const store = useWishlistStore();
 onMounted(() => {
   store.loadwishlistProducts();
