@@ -22,7 +22,7 @@ export const useProductStore = defineStore("productsStore ", {
     searchProducts: [],
     donateProducts: [],
     btnStatus: 0,
-    loadingStatus: "",
+    loadingStatus: false,
     featuredProductsLoader: false,
     recentProductsLoader: false,
     searchLoader: false,
@@ -117,14 +117,17 @@ export const useProductStore = defineStore("productsStore ", {
     },
 
     async loadProductDetails(slug, screen = 'application') {
+      this.loadingStatus = true;
       const response = await API.get(
         `products/${slug}?screen=${screen}`
       );
+      this.loadingStatus = false;
       if (response.status == 200) {
         this.loadedProduct = response.data;
       }
       return response;
     },
+
     async loadSearchProduct(sort) {
       this.searchLoader = true;
       const response = await API.get(`search?sort=${sort}`);

@@ -33,13 +33,21 @@ import { computed, onMounted } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import { useCategoryStore } from "../stores/categories.store";
 import { useProductStore } from "../stores/products.store";
+import useMetaTags from "src/composables/useMetaTags";
 
 const productStore = useProductStore();
 const store = useCategoryStore();
 const router = useRouter();
 const route = useRoute();
 const imageBaseURL = process.env.imagesBaseURL;
+const selectedCategory =
+  store.categories.find((cat) => cat.slug == route.params.slug) || {};
 
+useMetaTags({
+  title: selectedCategory.title || route.params.slug,
+  description: selectedCategory.title || route.params.slug,
+  image: selectedCategory.thumbnail || "",
+});
 onMounted(() => {
   store.loadCategories();
   store.loadSubCategory(route.params.slug);

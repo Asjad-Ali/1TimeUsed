@@ -12,7 +12,7 @@
     />
   </div>
   <div
-    v-show="!store.subCategoryProduct"
+    v-if="!store.subCategoryProduct.length && !store.loadingStatus"
     class="text-center absolute-center w-100"
   >
     <div class="text-subtitle1">Product not Available</div>
@@ -25,11 +25,21 @@ import { useRoute } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
 import ProductsList from "src/components/ProductsList.vue";
+import useMetaTags from "src/composables/useMetaTags";
+import { useCategoryStore } from "src/stores/categories.store";
+
 let lastApiCallTime = Date.now();
 const store = useProductStore();
+const categoryStore = useCategoryStore();
 const route = useRoute();
 const viewType = ref("grid");
-
+const selectedSUbCategory =
+  categoryStore.subCategories.find((cat) => cat.id == route.params.id) || {};
+useMetaTags({
+  title: selectedSUbCategory.title || "Subcategory",
+  description: selectedSUbCategory.title || "Subcategory",
+  image: selectedSUbCategory.thumbnail || "",
+});
 const handlePagination = () => {
   if (Date.now() - lastApiCallTime < 1200) {
     return false;
