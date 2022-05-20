@@ -16,6 +16,7 @@
           "
           alt="img"
           style="object-fit: cover"
+          @click="$refs.fileInput.click()"
         />
         <div
           class="absolute-bottom text-right"
@@ -27,16 +28,10 @@
             @change="handleProfileImage($event)"
             ref="fileInput"
             hidden
+            @click="$refs.fileInput.click()"
           />
           <i
-            class="
-              fa fa-camera
-              cursor-pointer
-              shadow-sm
-              bg-white
-              q-pa-xs
-              rounded
-            "
+            class="fa fa-camera cursor-pointer shadow-sm bg-white q-pa-xs rounded"
             @click="$refs.fileInput.click()"
             style="font-size: 20px"
           >
