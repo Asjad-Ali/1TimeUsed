@@ -55,6 +55,11 @@
 import { useSellerStore } from "src/stores/seller.store";
 import useValidationRules from "src/composables/useValidationRules";
 import { ref } from "vue";
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "Suggestions",
+});
 const { rules } = useValidationRules();
 const sellerStore = useSellerStore();
 

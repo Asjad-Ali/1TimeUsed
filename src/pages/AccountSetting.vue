@@ -114,7 +114,11 @@ import { useAuthStore } from "src/stores/auth.store";
 import { ref } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import compressImage from "src/composables/useImageCompression";
+import useMetaTags from "src/composables/useMetaTags";
 
+useMetaTags({
+  title: "Account Setting",
+});
 const imageBaseURL = process.env.imagesBaseURL;
 const { rules } = useValidationRules();
 const authStore = useAuthStore();

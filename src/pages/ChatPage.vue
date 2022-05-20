@@ -81,6 +81,11 @@ import ConversationsSection from "src/components/Chat/ConversationsSection.vue";
 import ChatInput from "src/components/Chat/ChatInput.vue";
 import { useRouter } from "vue-router";
 import useChat from "src/composables/useChat";
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "Search",
+});
 const chatStore = useChatStore();
 const authStore = useAuthStore();
 const { loginAnonymously } = useFirebaseAuth();

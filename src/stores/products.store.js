@@ -193,6 +193,7 @@ export const useProductStore = defineStore("productsStore ", {
     },
 
     async loadDonateProducts(searchQuery = "") {
+      if (this.donateProducts.length) return;
       this.loadingStatus = true;
       let path = "donateproducts";
       if (searchQuery) {

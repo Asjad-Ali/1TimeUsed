@@ -76,6 +76,11 @@
 <script setup>
 import { useNotificationStore } from "../stores/notification.store";
 import { onMounted, ref } from "vue";
+import useMetaTags from "src/composables/useMetaTags";
+
+useMetaTags({
+  title: "Notifications",
+});
 const model = ref(null);
 const store = useNotificationStore();
 
