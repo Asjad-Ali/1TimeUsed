@@ -16,9 +16,9 @@ export default function useFirebaseStorage() {
 
     const storageRef = firebaseRef(
       storage,
-      `images/${
+      `test/images/${
         chatStore.selectedConversation.id
-      }/${Date.now()}${file.name.substring(0, 5)}${file.name.split(".").pop()}`
+      }/${Date.now()}${file.name.substring(0, 5)}.${file.name.split(".").pop()}`
     );
     const uploadTask = uploadBytesResumable(storageRef, file);
 
