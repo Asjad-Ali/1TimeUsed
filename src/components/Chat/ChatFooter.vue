@@ -33,7 +33,7 @@
     <ImageUploadPreviewModal
       :imagePath="imageBase64"
       :open="imageUploadPreviewModal"
-      @cancelImageUpload="cancelImageUpload"
+      @closeImageUploadModal="closeImageUploadModal"
       @sendImage="sendImage"
       :progress="uploadProgress"
     />
@@ -99,7 +99,7 @@ const convertFileToBase64 = (file) => {
   reader.readAsDataURL(file);
 };
 
-const cancelImageUpload = () => {
+const closeImageUploadModal = () => {
   imageUploadPreviewModal.value = false;
   imageBase64.value = null;
   chatFile.value = null;
@@ -110,9 +110,5 @@ const { uploadFileToFirebaseStorage, uploadProgress } = useFirebaseStorage();
 
 const sendImage = () => {
   uploadFileToFirebaseStorage(chatFile.value);
-  imageUploadPreviewModal.value = false;
-  imageBase64.value = null;
-  chatFile.value = null;
-  mediaInput.value.value = "";
 };
 </script>
