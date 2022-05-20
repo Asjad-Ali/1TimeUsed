@@ -30,36 +30,27 @@
       <!-- <q-btn round flat icon="mic" /> -->
       <q-btn @click="sendMessage" round flat icon="send" />
     </q-toolbar>
+    <ImageUploadPreviewModal
+      :imagePath="imageBase64"
+      :open="imageUploadPreviewModal"
+      @cancelImageUpload="cancelImageUpload"
+      @sendImage="sendImage"
+      :progress="uploadProgress"
+    />
   </q-footer>
-
-  <!-- Modal -->
-  <q-dialog v-model="icon">
-    <q-card>
-      <q-card-section class="row items-center q-pa-xs">
-        <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
-      </q-card-section>
-
-      <q-card-section class="q-pa-xs">
-        <div class="img-holder">
-          <img src="https://www.w3schools.com/w3images/avatar2.png" alt="" />
-        </div>
-      </q-card-section>
-      <q-card-actions align="center" class="q-gutter-md">
-        <q-btn size="sm" color="red" label="Cancel" />
-        <q-btn size="sm" color="green" label="Send" />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
 </template>
 
 <script setup>
 import { useAuthStore } from "src/stores/auth.store";
 import { useChatStore } from "src/stores/chat.store";
 import compressImage from "src/composables/useImageCompression";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
+import ImageUploadPreviewModal from "./ImageUploadPreviewModal.vue";
+import useFirebaseStorage from "src/composables/useFirebaseStorage";
 const chatFile = ref(null);
-const icon = ref(false);
+const imageUploadPreviewModal = ref(false);
+const imageBase64 = ref(null);
+const mediaInput = ref();
 
 const chatStore = useChatStore();
 const authStore = useAuthStore();
@@ -80,7 +71,9 @@ const sendMessage = async () => {
 
 async function selectMedia(e) {
   const file = e.target.files[0];
+  convertFileToBase64(file);
   chatFile.value = await compressImage(file);
+  imageUploadPreviewModal.value = true;
 }
 
 const chatMember = computed(() => {
@@ -96,14 +89,30 @@ const chatMember = computed(() => {
       user.photo;
   return user;
 });
+
+const convertFileToBase64 = (file) => {
+  const reader = new FileReader();
+  reader.onloadend = function () {
+    imageBase64.value = reader.result;
+    //console.log(imageBase64.value);
+  };
+  reader.readAsDataURL(file);
+};
+
+const cancelImageUpload = () => {
+  imageUploadPreviewModal.value = false;
+  imageBase64.value = null;
+  chatFile.value = null;
+  mediaInput.value.value = "";
+};
+
+const { uploadFileToFirebaseStorage, uploadProgress } = useFirebaseStorage();
+
+const sendImage = () => {
+  uploadFileToFirebaseStorage(chatFile.value);
+  imageUploadPreviewModal.value = false;
+  imageBase64.value = null;
+  chatFile.value = null;
+  mediaInput.value.value = "";
+};
 </script>
-<style lang="scss" scoped>
-.img-holder {
-  max-width: 310px;
-  max-height: 310px;
-}
-.img-holder > img {
-  height: 100%;
-  width: 100%;
-}
-</style>
