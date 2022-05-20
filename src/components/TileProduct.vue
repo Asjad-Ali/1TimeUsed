@@ -61,11 +61,11 @@
         class="absolute shadow-sm"
         style="top: 5px; right: 10px"
       >
-        <i
+        <q-spinner-ios
           v-if="wishlistStore.wishlistLoader == product.id"
-          class="fa fa-repeat fa-2x"
-          aria-hidden="true"
-        ></i>
+          color="red"
+          size="1.5em"
+        />
         <i
           v-else
           class="fa-2x"

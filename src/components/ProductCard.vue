@@ -21,11 +21,11 @@
         class="absolute bg-white shadow-sm"
         style="top: 0; right: 12px; transform: translateY(-50%)"
       >
-        <i
+        <q-spinner-ios
           v-if="wishlistStore.wishlistLoader == product.id"
-          class="fa fa-repeat fa-2x"
-          aria-hidden="true"
-        ></i>
+          color="red"
+          size="1.5em"
+        />
         <i
           v-else
           class="fa-2x"
