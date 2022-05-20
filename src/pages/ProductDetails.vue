@@ -15,11 +15,9 @@
             <div
               class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
             >
-              <ProductCard
-                class="q-my-md"
-                v-for="(relatedProduct, index) in product.related_products"
-                :key="index"
-                :product="relatedProduct"
+              <ProductsList
+                :products="product.related_products"
+                :loader="productStore.loadingStatus"
               />
             </div>
           </div>
@@ -40,7 +38,6 @@ export default {
         screen = "desktop";
       }
     }
-
     const productStore = useProductStore(store);
     if (!productStore.loadedProduct) {
       const response = await productStore.loadProductDetails(
@@ -54,7 +51,6 @@ export default {
 
 <script setup>
 import { computed } from "vue";
-
 import ProductCard from "src/components/ProductCard.vue";
 import { useProductStore } from "src/stores/products.store";
 import { useWishlistStore } from "src/stores/wishlist.store";
