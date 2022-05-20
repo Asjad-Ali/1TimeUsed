@@ -1,6 +1,6 @@
 <template>
   <SliderMain :product="product" />
-  <div class="container q-mb-lg">
+  <div class="container q-mb-lg" v-if="product">
     <div class="row">
       <ProductDetailCard :product="product" />
       <div class="col-12 col-md-6 q-pa-sm desktop-only">
@@ -13,7 +13,12 @@
 
           <div class="row">
             <div
-              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+              class="
+                flex
+                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+                justify-center
+                items-center
+              "
             >
               <ProductsList
                 :products="product.related_products"
@@ -39,7 +44,11 @@ export default {
       }
     }
     const productStore = useProductStore(store);
-    if (!productStore.loadedProduct) {
+    if (
+      !productStore.loadedProduct ||
+      (productStore.loadedProduct.slug != currentRoute.params.slug &&
+        productStore.loadedProduct.id != currentRoute.params.slug)
+    ) {
       const response = await productStore.loadProductDetails(
         currentRoute.params.slug,
         screen

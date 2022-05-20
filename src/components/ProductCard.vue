@@ -21,11 +21,11 @@
         class="absolute bg-white shadow-sm"
         style="top: 0; right: 12px; transform: translateY(-50%)"
       >
-        <i
+        <q-spinner-ios
           v-if="wishlistStore.wishlistLoader == product.id"
-          class="fa fa-repeat fa-2x"
-          aria-hidden="true"
-        ></i>
+          color="red"
+          size="1.5em"
+        />
         <i
           v-else
           class="fa-2x"
@@ -64,7 +64,10 @@
       >Featured
     </q-badge>
     <!-- New badge -->
-    <q-badge v-if="product.price" color="primary" class="new-baadge shadow-sm"
+    <q-badge
+      v-if="!timeDiff(product.created_at).includes('d')"
+      color="primary"
+      class="new-baadge shadow-sm"
       >New
     </q-badge>
     <!-- Donation badge -->
@@ -78,9 +81,10 @@
 </template>
 
 <script setup>
+import useTimeFormat from "src/composables/useTimeFormat.js";
 import { useWishlistStore } from "../stores/wishlist.store";
 import { useProductStore } from "../stores/products.store";
-import { toRefs } from "vue";
+import { ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import { useQuasar } from "quasar";
 const imageBaseURL = process.env.imagesBaseURL;
@@ -88,6 +92,8 @@ const wishlistStore = useWishlistStore();
 const productStore = useProductStore();
 const router = useRouter();
 const $q = useQuasar();
+const { timeDiff } = useTimeFormat();
+
 const props = defineProps({
   product: Object,
 });

@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-main">
+  <div class="slider-main" v-if="product && product.gallery.length">
     <q-carousel
       animated
       v-model="slide"
