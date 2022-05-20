@@ -140,7 +140,7 @@
             <div class="seller-info q-pl-lg">
               <div
                 class="text-subtitle1 cursor-pointer"
-                @click="$router.push(`/seller_profile/${product.seller.id}`)"
+                @click="openSellerProfile(product.seller.id)"
               >
                 {{ product.seller.name }}
               </div>
@@ -196,6 +196,10 @@ const chatStore = useChatStore();
 const props = defineProps({
   product: Object,
 });
+
+const openSellerProfile = (id) => {
+  router.push({ path: `/seller_profile/${id}` });
+};
 
 const { product } = toRefs(props);
 
