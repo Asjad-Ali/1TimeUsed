@@ -40,14 +40,13 @@ const store = useCategoryStore();
 const router = useRouter();
 const route = useRoute();
 const imageBaseURL = process.env.imagesBaseURL;
-const selectedCategory = store.categories.filter(
-  (cat) => cat.slug == route.params.slug
-);
+const selectedCategory =
+  store.categories.find((cat) => cat.slug == route.params.slug) || {};
 
 useMetaTags({
-  title: selectedCategory[0].title || route.params.slug,
-  description: selectedCategory[0].title || route.params.slug,
-  image: selectedCategory[0].thumbnail || "",
+  title: selectedCategory.title || route.params.slug,
+  description: selectedCategory.title || route.params.slug,
+  image: selectedCategory.thumbnail || "",
 });
 onMounted(() => {
   store.loadCategories();

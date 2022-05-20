@@ -38,7 +38,7 @@ export const useCategoryStore = defineStore('categoryStore', {
     },
     loadSubCategory(slug) {
       const category = this.categories.find(category => category.slug == slug || category.id == slug)
-      this.subCategories = category.subcategories
+      this.subCategories = category ? category.subcategories : []
     }
   },
 })

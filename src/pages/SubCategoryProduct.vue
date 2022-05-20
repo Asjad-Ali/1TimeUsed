@@ -33,13 +33,12 @@ const store = useProductStore();
 const categoryStore = useCategoryStore();
 const route = useRoute();
 const viewType = ref("grid");
-const selectedSUbCategory = categoryStore.subCategories.filter(
-  (cat) => cat.id == route.params.id
-);
+const selectedSUbCategory =
+  categoryStore.subCategories.find((cat) => cat.id == route.params.id) || {};
 useMetaTags({
-  title: selectedSUbCategory[0].title || "Subcategory",
-  description: selectedSUbCategory[0].title || "Subcategory",
-  image: selectedSUbCategory[0].thumbnail || "",
+  title: selectedSUbCategory.title || "Subcategory",
+  description: selectedSUbCategory.title || "Subcategory",
+  image: selectedSUbCategory.thumbnail || "",
 });
 const handlePagination = () => {
   if (Date.now() - lastApiCallTime < 1200) {
