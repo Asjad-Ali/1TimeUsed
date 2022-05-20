@@ -14,7 +14,7 @@
             <q-badge
               color="white"
               text-color="accent"
-              :label="`${progress}%`"
+              :label="`${progress.toFixed(1)}%`"
             />
           </div>
         </q-linear-progress>
@@ -26,7 +26,7 @@
           color="red"
           label="Cancel"
           icon="close"
-          @click="$emit('cancelImageUpload', true)"
+          @click="$emit('closeImageUploadModal', true)"
         />
 
         <q-btn
@@ -35,6 +35,7 @@
           color="positive"
           label="Send"
           icon-right="send"
+          :loading="progress > 0"
         />
       </q-card-actions>
     </q-card>
@@ -42,7 +43,7 @@
 </template>
 
 <script setup>
-import { toRefs } from "vue";
+import { toRefs, watch } from "vue";
 
 const props = defineProps({
   imagePath: String,
@@ -52,8 +53,16 @@ const props = defineProps({
     default: 0,
   },
 });
+const emit = defineEmits(["closeImageUploadModal"]);
 
-const { imagePath, open } = toRefs(props);
+const { imagePath, open, progress } = toRefs(props);
+
+// close modal on image upload completion
+watch(progress, (current) => {
+  if (current > 99) {
+    emit("closeImageUploadModal");
+  }
+});
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Stepper -->
     <div class="w-100 justify-center">
-      <div class="q-my-md">
+      <div class="q-my-md productForm">
         <q-form
           action="#"
           method="post"
@@ -18,7 +18,7 @@
           >
             <q-step
               :name="1"
-              title="Product Info"
+              :title="$q.screen.gt.xs || step == 1 ? 'Product Info' : '1'"
               icon="settings"
               :error="step < 1"
               :done="step > 1"
@@ -269,7 +269,7 @@
 
             <q-step
               :name="2"
-              title="Additional Info"
+              :title="$q.screen.gt.xs || step == 2 ? 'Additional Info' : '2'"
               icon="add_comment"
               :done="step > 2"
             >
@@ -318,7 +318,11 @@
                 />
               </div>
             </q-step>
-            <q-step :name="3" title="Review & Submit" icon="send">
+            <q-step
+              :name="3"
+              :title="$q.screen.gt.xs || step == 3 ? 'Review & Submit' : '3'"
+              icon="send"
+            >
               <ReviewProductDetails :product="product" />
             </q-step>
 
@@ -475,6 +479,16 @@ onMounted(() => {
   }
   .img-holder {
     height: 120px;
+  }
+}
+</style>
+
+<style lang="scss">
+@media screen and (max-width: $breakpoint-xs-max) {
+  .productForm {
+    .q-stepper__title {
+      font-size: 12px;
+    }
   }
 }
 </style>

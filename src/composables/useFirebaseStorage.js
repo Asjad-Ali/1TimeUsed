@@ -16,9 +16,9 @@ export default function useFirebaseStorage() {
 
     const storageRef = firebaseRef(
       storage,
-      `images/${
+      `test/images/${
         chatStore.selectedConversation.id
-      }/${Date.now()}${file.name.substring(0, 5)}${file.name.split(".").pop()}`
+      }/${Date.now()}${file.name.substring(0, 5)}.${file.name.split(".").pop()}`
     );
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -29,6 +29,7 @@ export default function useFirebaseStorage() {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        uploadProgress.value = progress;
         console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
@@ -50,6 +51,10 @@ export default function useFirebaseStorage() {
             message: downloadURL,
             attachmentType: 1,
           });
+          setTimeout(() => {
+            uploadProgress.value = 0;
+          }, 200);
+
           console.log("File available at", downloadURL);
         });
       }
