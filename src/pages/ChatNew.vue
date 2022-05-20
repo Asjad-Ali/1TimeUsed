@@ -17,7 +17,7 @@
 
               <ChatLoadingSkeleton v-if="chatStore.chatLoadingStatus" />
 
-              <div v-else id="messages-main-div" style="overflow-y: scroll">
+              <div v-else id="messages-main-div">
                 <q-chat-message
                   v-for="message in chatStore.messages"
                   :key="message.id"

@@ -13,12 +13,7 @@
 
           <div class="row">
             <div
-              class="
-                flex
-                q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-                justify-center
-                items-center
-              "
+              class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
             >
               <ProductsList
                 :products="product.related_products"

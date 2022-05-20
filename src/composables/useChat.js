@@ -24,7 +24,6 @@ export default function useChat() {
   };
 
   const handleClick = (e) => {
-    console.log(e.target.getAttribute("src"));
     if (e.target.classList.contains("chat-img")) {
       openedImage.value = e.target.getAttribute("src");
     }

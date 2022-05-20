@@ -155,6 +155,7 @@ export const useChatStore = defineStore("chat", {
         this.createNewConversation(payload);
         return;
       }
+      const authStore = useAuthStore();
 
       const db = getFirestore();
       const newDocId = new Date().getTime().toString() + "id";
@@ -175,7 +176,7 @@ export const useChatStore = defineStore("chat", {
         message: payload.message,
         attachmentType: payload.attachmentType,
         sentAt: new Date(new Date().toISOString()).getTime(),
-        senderID: "" + payload.senderID,
+        senderID: "" + authStore.authUser.id,
         productMessageModel: this.productMessageModel,
         id: newDocId,
       };

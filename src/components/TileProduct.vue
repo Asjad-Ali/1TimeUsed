@@ -13,7 +13,7 @@
             />
           </div>
         </q-card-section>
-        <q-card-section>
+        <q-card-section class="col-7">
           <div
             @click="ProductDetail(product)"
             class="text-h6 ellipsis cursor-pointer"
