@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="height: 60vh">
+  <div class="container" :class="{ 'relative-position': $q.screen.gt.sm }">
     <div class="column q-pb-xl">
       <div class="row justify-center items-center q-my-md">
         <div class="col-md-6 col-12">
@@ -68,6 +68,14 @@ const donateProducts = computed(() => store.donateProducts);
 </script>
 
 <style lang="scss" scoped>
+.container {
+  min-height: 60vh;
+
+  @media screen and (max-width: 768px) {
+    min-height: 88vh;
+  }
+}
+
 .img-holder {
   height: 160px;
   width: 100%;

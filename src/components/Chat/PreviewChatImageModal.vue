@@ -32,8 +32,7 @@ const { imagePath } = toRefs(props);
 <style lang="scss" scoped>
 .modal {
   position: fixed;
-  z-index: 99;
-  padding-top: 100px;
+  z-index: 2001;
   top: 0;
   width: 100%;
   height: 100%;
@@ -57,6 +56,7 @@ img#img01 {
   font-size: 40px;
   font-weight: 400;
   transition: 0.3s;
+  z-index: 2002;
 }
 
 .close:hover,
