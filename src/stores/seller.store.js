@@ -1,11 +1,15 @@
-import { defineStore } from "pinia";
-import { Notify } from "quasar";
+import {
+  defineStore
+} from "pinia";
+import {
+  Notify
+} from "quasar";
 
 import API from "src/services/API";
 
 export const useSellerStore = defineStore("sellerStore ", {
   state: () => ({
-    sellerProducts: {},
+    sellerProducts: [],
     seller: {},
     loadingStatus: false,
     currentPage: 1,
