@@ -3,7 +3,11 @@
     <div class="container q-py-lg">
       <div class="column items-center w-100">
         <div>
-          <img src="../../public/images/img_splash_logo.png" width="200" />
+          <img
+            @click="$router.push('/')"
+            src="../../public/images/img_splash_logo.png"
+            width="200"
+          />
         </div>
         <q-form
           ref="loginForm"
