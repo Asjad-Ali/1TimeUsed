@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-6 q-pa-sm">
+  <div class="col-12 col-md-6 q-pa-sm" v-if="product">
     <q-card class="top-card q-px-md q-mb-md" flat bordered>
       <div class="title-date flex justify-between items-center">
         <div class="text-h6 ellipsis common-size">{{ product.title }}</div>

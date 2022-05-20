@@ -107,6 +107,7 @@ import useFirebaseAuth from "src/composables/useFirebaseAuth";
 import { useRouter, useRoute } from "vue-router";
 import useChat from "src/composables/useChat";
 import { useQuasar } from "quasar";
+import useMetaTags from "src/composables/useMetaTags";
 
 const chatStore = useChatStore();
 const authStore = useAuthStore();
@@ -120,6 +121,9 @@ const { loginAnonymously } = useFirebaseAuth();
 const message = ref("");
 const $q = useQuasar();
 
+useMetaTags({
+  title: "Chat",
+});
 onMounted(() => {
   if (!authStore.authUser) {
     router.push(
