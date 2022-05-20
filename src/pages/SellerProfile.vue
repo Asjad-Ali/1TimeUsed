@@ -1,15 +1,10 @@
 <template>
-  <div v-if="store.loadingStatus" class="container">
-    <div class="flex items-center justify-center" style="height: 60vh">
-      <q-spinner color="primary" size="5em" />
-    </div>
-  </div>
   <div
     class="container q-mb-lg"
     @scroll="handleScroll"
     :class="{ 'relative-position': $q.screen.gt.sm }"
   >
-    <div v-if="store.sellerProducts.length" class="row justify-center q-my-lg">
+    <div class="row justify-center q-my-lg">
       <div class="col-md-4 col-12">
         <!-- Seller Profile -->
         <q-card class="my-card q-pa-md" flat bordered>
@@ -61,23 +56,29 @@
         <div
           class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
         >
-          <ProductCard
-            :product="product"
-            v-for="product in store.sellerProducts"
-            :key="product"
+          <ProductsList
+            :products="store.sellerProducts"
+            :loader="store.loadingStatus"
           />
         </div>
       </div>
-    </div>
-    <div v-else class="text-center absolute-center w-100">
-      This profile has not added any products
+
+      <div
+        class="text-center absolute-center w-100"
+        v-if="!store.sellerProducts.length && !store.loadingStatus"
+      >
+        <h1 class="text-subtitle1 text-center">
+          This profile has not added any products
+        </h1>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from "@vue/runtime-core";
-import ProductCard from "src/components/ProductCard.vue";
+
+import ProductsList from "src/components/ProductsList.vue";
 import { useRoute } from "vue-router";
 import { useSellerStore } from "../stores/seller.store";
 const route = useRoute();
