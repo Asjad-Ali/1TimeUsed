@@ -62,7 +62,7 @@
                   @click="scrollToBottom"
                   class="fixed-bottom q-mx-auto"
                   fab
-                  style="max-width: 40px; bottom: 55px; z-index: 9999"
+                  style="max-width: 40px; bottom: 55px; z-index: 1"
                   icon="arrow_downward"
                   color="accent"
                 />

@@ -43,7 +43,11 @@ export const useChatStore = defineStore("chat", {
       );
 
       // if conversation is only marked as read than do not take conversation to top
-      if (conversations[index].read == false && updatedConversation.read) {
+      if (
+        conversations[index].read == false &&
+        updatedConversation.read &&
+        conversations[index].lastMessage == updatedConversation.lastMessage
+      ) {
         this.conversations[index].read = true;
         return;
       }
@@ -148,6 +152,7 @@ export const useChatStore = defineStore("chat", {
           if (change.type === "added") {
             this.messages.push(message);
             this.scrollToBottom();
+            //this.showScrollButton = true;
           }
           if (change.type === "modified") {
             console.log("Modified Message: ", message);
@@ -286,12 +291,15 @@ export const useChatStore = defineStore("chat", {
 
     scrollToBottom() {
       setTimeout(() => {
-        const messagesDiv = document.getElementById("messages-main-div");
+        const messagesDiv = document.querySelector(".scroll");
         if (messagesDiv) {
-          messagesDiv.scrollTop = parseInt(messagesDiv.scrollHeight);
-          //console.log(messagesDiv.scrollHeight, messagesDiv.scrollTop)
+          messagesDiv.scroll({
+            top: messagesDiv.scrollHeight,
+            behavior: "smooth",
+          });
+          //messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
-      }, 300);
+      }, 150);
     },
     autoOpenChatIfExist(conversation) {
       // auto open conversation if already have a chat with user id of seller in params

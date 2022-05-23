@@ -59,7 +59,7 @@
         />
         <q-list v-else-if="conversations.length">
           <q-item
-            v-for="(conversation, index) in conversations"
+            v-for="conversation in conversations"
             :key="conversation.id"
             clickable
             @click="openConversation(conversation)"
@@ -84,14 +84,17 @@
               <q-item-label
                 class="conversation__summary"
                 :class="{
-                  'text-weight-bold':
+                  'text-weight-medium text-grey-9':
                     conversation.senderID != authStore.authUser.id &&
                     !conversation.read,
                 }"
                 caption
               >
-                <q-icon name="check" v-if="index % 2 == 0" />
-                <q-icon name="not_interested" v-else />
+                <q-icon
+                  :name="conversation.read ? 'done_all' : 'check'"
+                  :color="conversation.read ? 'blue' : 'grey-6'"
+                  size="16px"
+                />
                 {{
                   conversation.senderID == authStore.authUser.id
                     ? "Me"
