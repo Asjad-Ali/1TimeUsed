@@ -27,9 +27,12 @@
         <q-avatar class="q-mr-sm">
           <img :src="chatMember.photo" />
         </q-avatar>
-        <span class="text-white" style="font-size: 0.9rem">{{
-          chatMember.name
-        }}</span>
+        <span
+          @click="$router.push(`/seller_profile/${chatMember.id}`)"
+          class="text-white cursor-pointer"
+          style="font-size: 0.9rem"
+          >{{ chatMember.name }}</span
+        >
       </div>
 
       <span

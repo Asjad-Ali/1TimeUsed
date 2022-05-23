@@ -47,10 +47,10 @@
       </div>
 
       <div @click="ProductDetail(product)" class="flex justify-between">
-        <small class="q-mr-sm">
+        <small class="mobile-font">
           {{ product.city || getAddress(product.neighborhood) }}
         </small>
-        <small>
+        <small class="mobile-font">
           {{ formatDate(product.created_at) }}
         </small>
       </div>
@@ -139,17 +139,10 @@ const ProductDetail = (product) => {
 const getAddress = (address) => {
   if (address) {
     address = address.replace(", Pakistan", "");
-    //address = address.replace("Pakistan", "");
+    address = address.replace("Pakistan", "");
   }
 
-  if (address && address.length > 15) {
-    const addressArray = address.split(",");
-    return addressArray
-      .slice(Math.max(addressArray.length - 5, 1))
-      .join(",")
-      .substring(1, 15);
-  }
-  return address;
+  return address.substring(0, 15);
 };
 
 const formatDate = (date) => {
@@ -182,7 +175,7 @@ const formatDate = (date) => {
 
 @media (max-width: $breakpoint-sm-max) {
   .mobile-font {
-    font-size: 10px;
+    font-size: 9px;
   }
   .img-holder {
     height: 120px;

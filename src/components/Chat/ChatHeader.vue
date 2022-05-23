@@ -18,7 +18,10 @@
         </q-avatar>
       </q-btn>
 
-      <span class="q-subtitle-1 q-pl-md">
+      <span
+        @click="$router.push(`/seller_profile/${chatMember.id}`)"
+        class="q-subtitle-1 q-pl-md cursor-pointer"
+      >
         {{ chatMember.name }}
       </span>
 

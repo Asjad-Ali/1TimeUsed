@@ -152,6 +152,7 @@ onBeforeUnmount(() => {
   chatStore.leftDrawerOpen = true;
   chatStore.newConversationUser = null;
   chatStore.selectedConversation = null;
+  chatStore.messages = [];
 });
 
 const getMember = (id) => {
