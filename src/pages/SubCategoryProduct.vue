@@ -10,12 +10,12 @@
       :loader="store.loadingStatus"
       class="q-mt-sm"
     />
-  </div>
-  <div
-    v-if="!store.subCategoryProduct.length && !store.loadingStatus"
-    class="text-center absolute-center w-100"
-  >
-    <div class="text-subtitle1">Product not Available</div>
+    <div
+      v-if="!store.subCategoryProduct.length && !store.loadingStatus"
+      class="text-center absolute-center w-100"
+    >
+      <div class="text-subtitle1">No Product Available</div>
+    </div>
   </div>
 </template>
 

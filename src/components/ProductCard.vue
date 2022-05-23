@@ -58,7 +58,7 @@
 
     <!-- Feature badge -->
     <q-badge
-      v-if="product.price"
+      v-if="product.featured"
       color="amber"
       class="featured-baadge shadow-sm"
       >Featured

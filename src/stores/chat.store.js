@@ -61,7 +61,7 @@ export const useChatStore = defineStore("chat", {
         const q = query(
           conversationRef,
           where("members", "array-contains", "" + user.id),
-          orderBy("createdAt", "desc")
+          orderBy("sentAt", "desc")
         );
 
         /*const unsubscribe = */
@@ -126,6 +126,10 @@ export const useChatStore = defineStore("chat", {
       this.selectedChatListenerRef = onSnapshot(q, (snapshot) => {
         this.hasMoreMessages =
           snapshot.docs.length == limitRecords ? true : false;
+
+        if (snapshot.docs.length) {
+          this.markConversationAsRead(this.selectedConversation);
+        }
 
         snapshot.docChanges().forEach((change) => {
           const id = change.doc.id;
@@ -208,9 +212,27 @@ export const useChatStore = defineStore("chat", {
         sentAt: new Date(new Date().toISOString()).getTime(),
         senderName: user.name,
         senderID: user.id,
+        read: false,
         lastMessage:
           message.attachmentType == 0 ? message.message : "Sent an image",
         membersInfo: conversation.membersInfo,
+      });
+    },
+
+    async markConversationAsRead(conversation) {
+      if (
+        this.selectedConversation.senderID == authStore.authUser.id ||
+        this.selectedConversation.read
+      ) {
+        return;
+      }
+
+      this.selectedConversation.read = true;
+
+      const db = getFirestore();
+      const conversationRef = doc(db, "Conversations", conversation.id);
+      updateDoc(conversationRef, {
+        read: true,
       });
     },
 
@@ -246,6 +268,7 @@ export const useChatStore = defineStore("chat", {
         senderID: authUser.id,
         lastMessage: "",
         members,
+        read: false,
         membersInfo,
         sentAt: new Date(new Date().toISOString()).getTime(),
         createdAt: new Date(new Date().toISOString()).getTime(),
