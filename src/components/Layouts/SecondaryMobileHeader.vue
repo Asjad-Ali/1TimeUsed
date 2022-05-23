@@ -11,8 +11,9 @@
             : $router.back()
         "
         name="keyboard_backspace"
-        size="md"
+        size="sm"
         color="white"
+        class="absolute"
       />
 
       <div
@@ -26,15 +27,15 @@
         <q-avatar class="q-mr-sm">
           <img :src="chatMember.photo" />
         </q-avatar>
-        <span class="text-white" style="font-size: 1.1rem">{{
+        <span class="text-white" style="font-size: 0.9rem">{{
           chatMember.name
         }}</span>
       </div>
 
       <span
         v-else
-        class="text-weight-medium text-h6 text-white q-mx-auto"
-        style="text-transform: capitalize"
+        class="text-weight-reguler text-h6 text-white q-mx-auto"
+        style="text-transform: capitalize; font-size: 0.9rem"
         >{{
           $route.path.includes("/category/")
             ? $route.params.name ||

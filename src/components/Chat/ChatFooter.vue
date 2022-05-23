@@ -2,7 +2,7 @@
   <q-footer
     v-if="chatStore.selectedConversation || chatStore.newConversationUser"
   >
-    <q-toolbar class="bg-grey-3 text-black row">
+    <q-toolbar class="bg-grey-3 text-black row q-px-none">
       <input
         type="file"
         ref="mediaInput"
