@@ -119,7 +119,7 @@ export const useChatStore = defineStore("chat", {
 
       const chatRef = collection(
         db,
-        `Conversations/${selectedConversation.id}/Messages`
+        `Conversations/${this.selectedConversation.id}/Messages`
       );
       const limitRecords = 15;
       const q = query(chatRef, orderBy("sentAt"), limitToLast(limitRecords));
