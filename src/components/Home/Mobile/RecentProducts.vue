@@ -27,9 +27,7 @@
             :product="
               store.recentProducts[index]
                 ? store.recentProducts[index]
-                : store.recentProducts[
-                    Math.floor(Math.random() * store.recentProducts.length)
-                  ]
+                : store.recentProducts[index % store.recentProducts.length]
             "
             style="width: 180px"
           />

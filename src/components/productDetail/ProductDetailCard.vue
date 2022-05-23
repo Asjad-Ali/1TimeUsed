@@ -122,7 +122,7 @@
 
     <!-- Seller Contact -->
     <q-card
-      v-if="authStore.authUser.id != product.seller.id"
+      v-if="!authStore.authUser || authStore.authUser.id != product.seller.id"
       class="my-card q-pa-md q-my-sm"
       flat
       bordered

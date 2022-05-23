@@ -54,7 +54,12 @@
         <div class="text-h4 text-center q-pt-md">All Products</div>
         <hr class="hr-4" />
         <div
-          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
+          class="
+            flex
+            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
+            justify-center
+            items-center
+          "
         >
           <ProductsList
             :products="store.sellerProducts"
@@ -91,8 +96,7 @@ const store = useSellerStore();
 let lastApiCallTime = Date.now();
 const imageBaseURL = process.env.imagesBaseURL;
 
-onMounted(() => {
-  store.loadSellerProducts(route.params.id);
+const handlePagination = () => {
   window.addEventListener("scroll", () => {
     if (Date.now() - lastApiCallTime < 1200) {
       return false;
@@ -107,6 +111,15 @@ onMounted(() => {
       }
     }
   });
+};
+
+onMounted(() => {
+  store.loadSellerProducts(route.params.id);
+  window.addEventListener("scroll", handlePagination);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handlePagination);
 });
 </script>
 
