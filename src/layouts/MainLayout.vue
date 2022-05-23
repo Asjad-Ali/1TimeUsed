@@ -34,8 +34,19 @@ import BottomNav from "../components/Layouts/BottomNav.vue";
 import FooterMain from "../components/Layouts/FooterMain.vue";
 import CategoriesSection from "src/components/CategoriesSection.vue";
 import MobileCategoriesSection from "src/components/MobileCategoriesSection.vue";
+import { persistData } from "src/helpers/persistentHelper";
 const authStore = useAuthStore();
 onMounted(() => {
   authStore.loadFirebaseAuth();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      persistData("user_current_position", {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
 });
 </script>

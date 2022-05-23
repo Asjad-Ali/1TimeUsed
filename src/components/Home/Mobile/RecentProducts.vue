@@ -9,7 +9,15 @@
           :style="{
             'margin-right': `${itemMarginRight}px`,
           }"
-          class="item row fit justify-center items-center q-gutter-md q-col-gutter no-wrap"
+          class="
+            item
+            row
+            fit
+            justify-center
+            items-center
+            q-gutter-md q-col-gutter
+            no-wrap
+          "
         >
           <CardSkeleton
             style="height: 266px; width: 180px"
@@ -19,7 +27,9 @@
             :product="
               store.recentProducts[index]
                 ? store.recentProducts[index]
-                : store.recentProducts[0]
+                : store.recentProducts[
+                    Math.floor(Math.random() * store.recentProducts.length)
+                  ]
             "
             style="width: 180px"
           />

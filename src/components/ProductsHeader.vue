@@ -94,6 +94,7 @@ const props = defineProps({
     default: "grid",
   },
 });
+
 const emit = defineEmits(["toggleViewType"]);
 const route = useRoute();
 //console.log("route path: ", route.path));

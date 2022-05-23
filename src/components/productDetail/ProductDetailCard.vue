@@ -86,10 +86,19 @@
         </div>
       </div>
       <q-separator />
+      <div class="title-date flex justify-between items-center">
+        <div class="ellipsis text-subtitle1 text-grey common-size">
+          Neighbourhood
+        </div>
+        <div class="text-subtitle1 common-size text-grey">
+          {{ product.neighborhood.substring(0, 50) }}
+        </div>
+      </div>
+      <q-separator />
       <div class="title q-pt-sm">
         <div class="text-h6 ellipsis common-size">Description</div>
         <p class="text-grey common-size">
-          {{ product.description.substr(0, 28) }}
+          {{ product.description.replace(", Pakistan", "").substr(0, 28) }}
         </p>
       </div>
       <div class="title text-grey q-pb-sm">
