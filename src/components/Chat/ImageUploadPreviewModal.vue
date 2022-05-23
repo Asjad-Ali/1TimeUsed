@@ -4,7 +4,7 @@
     <q-card class="modal-card">
       <q-card-section class="q-pa-xs">
         <div class="img-holder">
-          <img :src="imagePath" alt="" />
+          <img :src="imagePath" alt="upload" class="fit" />
         </div>
       </q-card-section>
 
@@ -68,11 +68,6 @@ watch(progress, (current) => {
 <style lang="scss" scoped>
 .img-holder {
   max-width: 310px;
-  max-height: 310px;
-}
-
-.img-holder > img {
-  height: 100%;
-  width: 100%;
+  height: 310px;
 }
 </style>
