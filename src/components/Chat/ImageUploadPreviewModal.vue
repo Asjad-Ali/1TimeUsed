@@ -1,19 +1,19 @@
 <template>
   <!-- Modal -->
   <q-dialog v-model="open">
-    <q-card class="modal-card">
+    <q-card class="modal-card bg-grey-9">
       <q-card-section class="q-pa-xs">
         <div class="img-holder">
           <img :src="imagePath" alt="upload" class="fit" />
         </div>
       </q-card-section>
 
-      <q-card-section class="q-pa-xs" v-if="progress > 0">
-        <q-linear-progress size="25px" :value="progress / 100" color="accent">
+      <q-card-section class="q-pa-none" v-if="progress > 0">
+        <q-linear-progress size="25px" :value="progress / 100" color="info">
           <div class="absolute-full flex flex-center">
             <q-badge
               color="white"
-              text-color="accent"
+              text-color="info"
               :label="`${progress.toFixed(1)}%`"
             />
           </div>
@@ -67,7 +67,11 @@ watch(progress, (current) => {
 
 <style lang="scss" scoped>
 .img-holder {
-  max-width: 310px;
+  max-width: 100%;
+  width: 310px;
   height: 310px;
+}
+.img-holder > img {
+  object-fit: contain;
 }
 </style>
