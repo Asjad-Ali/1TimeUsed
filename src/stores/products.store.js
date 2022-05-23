@@ -77,12 +77,23 @@ export const useProductStore = defineStore("productsStore ", {
         console.log("Error in Featured", response);
       }
     },
-    async loadSubCategoryProduct(id, sort, paginated = false) {
+
+    async loadSubCategoryProduct(id, sort = null, paginated = false) {
       if (this.currentPage == 1 || !paginated) {
         this.subCategoryProduct = [];
       }
+      const userCurrentPosition = JSON.parse(localStorage.getItem('user_current_position'));
+      const params = {};
+      if (userCurrentPosition) {
+        params.latitude = userCurrentPosition.latitude;
+        params.longitude = userCurrentPosition.longitude;
+      }
+      if (sort) {
+        params.sort = sort;
+      }
+
       this.loadingStatus = true;
-      const response = await API.get(`sub_categories/${id}/products?sort=${sort}`);
+      const response = await API.get(`sub_categories/${id}/products`, params);
       this.loadingStatus = false;
       if (response.status == 200) {
         this.subCategoryProduct = [
