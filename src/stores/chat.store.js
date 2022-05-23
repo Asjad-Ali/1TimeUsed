@@ -14,6 +14,7 @@ import {
   limitToLast,
 } from "firebase/firestore";
 import { useAuthStore } from "./auth.store";
+const authStore = useAuthStore();
 
 export const useChatStore = defineStore("chat", {
   state: () => ({
@@ -40,6 +41,13 @@ export const useChatStore = defineStore("chat", {
       const index = conversations.findIndex(
         (conv) => conv.id == updatedConversation.id
       );
+
+      // if conversation is only marked as read than do not take conversation to top
+      if (conversations[index].read == false && updatedConversation.read) {
+        this.conversations[index].read = true;
+        return;
+      }
+
       conversations.splice(index, 1);
       conversations.unshift(updatedConversation);
       this.conversations = conversations;
@@ -159,7 +167,6 @@ export const useChatStore = defineStore("chat", {
         this.createNewConversation(payload);
         return;
       }
-      const authStore = useAuthStore();
 
       const db = getFirestore();
       const newDocId = new Date().getTime().toString() + "id";
@@ -193,7 +200,6 @@ export const useChatStore = defineStore("chat", {
     },
 
     updateConversation(message) {
-      const authStore = useAuthStore();
       const conversation = this.selectedConversation;
       const db = getFirestore();
       const user = authStore.authUser;
@@ -237,7 +243,6 @@ export const useChatStore = defineStore("chat", {
     },
 
     async createNewConversation(messagePayload) {
-      const authStore = useAuthStore();
       const db = getFirestore();
       const authUser = authStore.authUser;
       const newConvId = new Date().getTime().toString() + "convId";
