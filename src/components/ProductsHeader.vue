@@ -35,7 +35,10 @@
           name="filter_alt"
           :size="$q.screen.lt.md ? 'sm' : `md`"
           class="icons"
-        />
+          @click="showing = true"
+        >
+          <q-tooltip v-model="showing">Coming Soon</q-tooltip>
+        </q-icon>
         <span>Filter</span>
       </div>
     </div>
@@ -44,11 +47,12 @@
   <!-- Sort by Modal -->
   <q-dialog v-model="sortModal">
     <q-card style="width: 300px">
-      <q-card-section>
+      <q-card-section class="q-pa-sm">
         <div class="text-h6 text-center">Sort By</div>
       </q-card-section>
-      <q-card-section class="q-pt-none">
-        <div class="q-gutter-sm flex column q-pa-md">
+      <q-separator />
+      <q-card-section>
+        <div class="q-gutter-sm flex column">
           <q-radio
             v-model="sort_products"
             @click="sortProducts(`desc`)"

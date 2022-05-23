@@ -14,6 +14,7 @@ import {
   limitToLast,
 } from "firebase/firestore";
 import { useAuthStore } from "./auth.store";
+const authStore = useAuthStore();
 
 export const useChatStore = defineStore("chat", {
   state: () => ({
@@ -40,6 +41,17 @@ export const useChatStore = defineStore("chat", {
       const index = conversations.findIndex(
         (conv) => conv.id == updatedConversation.id
       );
+
+      // if conversation is only marked as read than do not take conversation to top
+      if (
+        conversations[index].read == false &&
+        updatedConversation.read &&
+        conversations[index].lastMessage == updatedConversation.lastMessage
+      ) {
+        this.conversations[index].read = true;
+        return;
+      }
+
       conversations.splice(index, 1);
       conversations.unshift(updatedConversation);
       this.conversations = conversations;
@@ -61,7 +73,7 @@ export const useChatStore = defineStore("chat", {
         const q = query(
           conversationRef,
           where("members", "array-contains", "" + user.id),
-          orderBy("createdAt", "desc")
+          orderBy("sentAt", "desc")
         );
 
         /*const unsubscribe = */
@@ -119,13 +131,17 @@ export const useChatStore = defineStore("chat", {
 
       const chatRef = collection(
         db,
-        `Conversations/${selectedConversation.id}/Messages`
+        `Conversations/${this.selectedConversation.id}/Messages`
       );
       const limitRecords = 15;
       const q = query(chatRef, orderBy("sentAt"), limitToLast(limitRecords));
       this.selectedChatListenerRef = onSnapshot(q, (snapshot) => {
         this.hasMoreMessages =
           snapshot.docs.length == limitRecords ? true : false;
+
+        if (snapshot.docs.length) {
+          this.markConversationAsRead(this.selectedConversation);
+        }
 
         snapshot.docChanges().forEach((change) => {
           const id = change.doc.id;
@@ -136,6 +152,7 @@ export const useChatStore = defineStore("chat", {
           if (change.type === "added") {
             this.messages.push(message);
             this.scrollToBottom();
+            //this.showScrollButton = true;
           }
           if (change.type === "modified") {
             console.log("Modified Message: ", message);
@@ -155,7 +172,6 @@ export const useChatStore = defineStore("chat", {
         this.createNewConversation(payload);
         return;
       }
-      const authStore = useAuthStore();
 
       const db = getFirestore();
       const newDocId = new Date().getTime().toString() + "id";
@@ -189,7 +205,6 @@ export const useChatStore = defineStore("chat", {
     },
 
     updateConversation(message) {
-      const authStore = useAuthStore();
       const conversation = this.selectedConversation;
       const db = getFirestore();
       const user = authStore.authUser;
@@ -208,14 +223,31 @@ export const useChatStore = defineStore("chat", {
         sentAt: new Date(new Date().toISOString()).getTime(),
         senderName: user.name,
         senderID: user.id,
+        read: false,
         lastMessage:
           message.attachmentType == 0 ? message.message : "Sent an image",
         membersInfo: conversation.membersInfo,
       });
     },
 
+    async markConversationAsRead(conversation) {
+      if (
+        this.selectedConversation.senderID == authStore.authUser.id ||
+        this.selectedConversation.read
+      ) {
+        return;
+      }
+
+      this.selectedConversation.read = true;
+
+      const db = getFirestore();
+      const conversationRef = doc(db, "Conversations", conversation.id);
+      updateDoc(conversationRef, {
+        read: true,
+      });
+    },
+
     async createNewConversation(messagePayload) {
-      const authStore = useAuthStore();
       const db = getFirestore();
       const authUser = authStore.authUser;
       const newConvId = new Date().getTime().toString() + "convId";
@@ -246,6 +278,7 @@ export const useChatStore = defineStore("chat", {
         senderID: authUser.id,
         lastMessage: "",
         members,
+        read: false,
         membersInfo,
         sentAt: new Date(new Date().toISOString()).getTime(),
         createdAt: new Date(new Date().toISOString()).getTime(),
@@ -258,12 +291,15 @@ export const useChatStore = defineStore("chat", {
 
     scrollToBottom() {
       setTimeout(() => {
-        const messagesDiv = document.getElementById("messages-main-div");
+        const messagesDiv = document.querySelector(".scroll");
         if (messagesDiv) {
-          messagesDiv.scrollTop = parseInt(messagesDiv.scrollHeight);
-          //console.log(messagesDiv.scrollHeight, messagesDiv.scrollTop)
+          messagesDiv.scroll({
+            top: messagesDiv.scrollHeight,
+            behavior: "smooth",
+          });
+          //messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
-      }, 300);
+      }, 150);
     },
     autoOpenChatIfExist(conversation) {
       // auto open conversation if already have a chat with user id of seller in params

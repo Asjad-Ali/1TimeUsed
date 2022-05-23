@@ -19,13 +19,10 @@
           <q-menu auto-close :offset="[110, 8]">
             <q-list style="min-width: 150px">
               <q-item clickable>
-                <q-item-section>Profile</q-item-section>
+                <q-item-section>Unread</q-item-section>
               </q-item>
               <q-item clickable>
-                <q-item-section>Archived</q-item-section>
-              </q-item>
-              <q-item clickable>
-                <q-item-section>Favorites</q-item-section>
+                <q-item-section>All</q-item-section>
               </q-item>
             </q-list>
           </q-menu>
@@ -62,24 +59,42 @@
         />
         <q-list v-else-if="conversations.length">
           <q-item
-            v-for="(conversation, index) in conversations"
+            v-for="conversation in conversations"
             :key="conversation.id"
             clickable
             @click="openConversation(conversation)"
+            class="position-relative"
           >
             <q-item-section avatar>
               <q-avatar>
                 <img :src="otherMember(conversation).photo" />
               </q-avatar>
+              <!-- <q-badge
+                rounded
+                color="positive"
+                label="new"
+                class="chat-notifucation"
+              /> -->
             </q-item-section>
 
             <q-item-section>
               <q-item-label lines="1">
                 {{ otherMember(conversation).name }}
               </q-item-label>
-              <q-item-label class="conversation__summary" caption>
-                <q-icon name="check" v-if="index % 2 == 0" />
-                <q-icon name="not_interested" v-else />
+              <q-item-label
+                class="conversation__summary"
+                :class="{
+                  'text-weight-medium text-grey-9':
+                    conversation.senderID != authStore.authUser.id &&
+                    !conversation.read,
+                }"
+                caption
+              >
+                <q-icon
+                  :name="conversation.read ? 'done_all' : 'check'"
+                  :color="conversation.read ? 'blue' : 'grey-6'"
+                  size="16px"
+                />
                 {{
                   conversation.senderID == authStore.authUser.id
                     ? "Me"
@@ -88,7 +103,7 @@
                 :
                 {{
                   conversation.lastMessage
-                    ? conversation.lastMessage.substring(0, 25)
+                    ? conversation.lastMessage.substring(0, 15)
                     : ""
                 }}
                 {{
@@ -168,6 +183,11 @@ const conversations = computed(() => {
 });
 </script>
 <style>
+.chat-notifucation {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
 @media (max-width: 768px) {
   .side-bar aside.q-drawer {
     width: 100% !important;
