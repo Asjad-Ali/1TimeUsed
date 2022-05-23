@@ -103,12 +103,12 @@
                 :
                 {{
                   conversation.lastMessage
-                    ? conversation.lastMessage.substring(0, 15)
+                    ? conversation.lastMessage.substring(0, 14)
                     : ""
                 }}
                 {{
                   conversation.lastMessage &&
-                  conversation.lastMessage.length > 25
+                  conversation.lastMessage.length > 14
                     ? "..."
                     : ""
                 }}
