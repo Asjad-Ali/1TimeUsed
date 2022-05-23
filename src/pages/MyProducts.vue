@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.loadingStatus" class="container">
-    <div class="flex items-center justify-center" style="height: 60vh">
+    <div class="flex items-center justify-center">
       <q-spinner color="primary" size="5em" />
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div>
       <div
         v-if="store.myProducts.length"
-        class="q-pa-md row items-start q-gutter-md justify-center empty_space"
+        class="q-pa-md row items-start q-gutter-md justify-center"
       >
         <ProductCardTile
           v-for="product in store.myProducts"
@@ -84,8 +84,5 @@ onMounted(() => {
   position: unset;
   max-width: 100%;
   max-height: 100%;
-}
-.empty_space {
-  min-height: 65vh;
 }
 </style>

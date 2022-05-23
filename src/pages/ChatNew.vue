@@ -52,7 +52,7 @@
                   "
                   :text-color="
                     authStore.authUser.id == message.senderID
-                      ? 'white'
+                      ? 'black'
                       : 'black'
                   "
                 />
@@ -79,7 +79,7 @@
             <img src="../../public/images/chat.svg" alt="chat" width="30%" />
 
             <div class="text-h6 q-py-md text-grey column">
-              Choose a conversation from the left
+              Select a chat to view conversation
             </div>
           </div>
         </q-page-container>
@@ -210,6 +210,12 @@ function sanitizeHTML(text) {
 </script>
 
 <style lang="scss" scoped>
+@media (max-width: $breakpoint-xs-max) {
+  .container {
+    padding: 0 !important;
+  }
+}
+
 .WAL {
   height: calc(100vh - 100px);
   padding-bottom: 10px;
@@ -224,8 +230,9 @@ function sanitizeHTML(text) {
 
 @media (max-width: 768px) {
   .WAL {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 60px);
     padding-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }
 </style>

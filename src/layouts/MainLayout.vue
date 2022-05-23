@@ -11,8 +11,11 @@
 
       <router-view />
     </q-page-container>
-    <FooterMain v-if="$q.screen.gt.sm" />
-    <BottomNav v-else />
+
+    <div class="footer" v-if="!$route.path.includes('/chat')">
+      <FooterMain v-if="$q.screen.gt.sm" />
+      <BottomNav v-else />
+    </div>
   </q-layout>
 </template>
 
