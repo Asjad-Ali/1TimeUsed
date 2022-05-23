@@ -66,7 +66,12 @@ export default function useSearch() {
     store.loadingStatus = true;
     const query = search.value || searchVal;
 
-    const response = await API.get(`search?q=${query}&page=${currentPage}`);
+    const userCurrentPosition = JSON.parse(localStorage.getItem('user_current_position'));
+    let latLng = '';
+    if (userCurrentPosition) {
+      latLng = `&latitude=${userCurrentPosition.latitude}&longitude=${userCurrentPosition.longitude}`;
+    }
+    const response = await API.get(`search?q=${query}&page=${currentPage}${latLng}`);
     store.loadingStatus = false;
     store.searchProducts = [...store.searchProducts, ...response.data];
     console.log(response)
