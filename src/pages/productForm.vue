@@ -392,7 +392,7 @@ import { useCategoryStore } from "../stores/categories.store";
 import { onMounted, ref, watch } from "vue";
 import useValidationRules from "src/composables/useValidationRules";
 import useProductForm from "src/composables/useProductForm";
-import useAutoCompletePlaces from "src/composables/useAutoCompletePlace";
+// import useAutoCompletePlaces from "src/composables/useAutoCompletePlace";
 import ReviewProductDetails from "src/components/addProduct/ReviewProductDetail.vue";
 import { useRouter } from "vue-router";
 
@@ -426,7 +426,7 @@ const {
   removeOldImage,
 } = useProductForm();
 
-const { initializeAutoComplete, place } = useAutoCompletePlaces();
+// const { initializeAutoComplete, place } = useAutoCompletePlaces();
 onMounted(() => {
   if (!authStore.authUser) {
     router.push(
@@ -436,22 +436,48 @@ onMounted(() => {
         : "/login"
     );
   }
-  watch(place, (current) => {
-    console.log("in form", current);
-    product.value.neighborhood = place.formatted_address || place.name;
-    if (place.geometry && place.geometry.location) {
-      product.value.latitude = place.geometry.location.lat();
-      product.value.longitude = place.geometry.location.lng();
-    } else {
-      console.log("Returned place contains no geometry");
-    }
-  });
+
+  const input = document.getElementById("neighborhood");
+  const options = {
+    //bounds: defaultBounds,
+    componentRestrictions: { country: "pk" },
+    fields: ["geometry", "formatted_address", "name"],
+    strictBounds: false,
+    types: ["geocode"],
+  };
 
   setTimeout(() => {
-    const input = document.getElementById("neighborhood");
-    const place = initializeAutoComplete(input);
-    console.log("Place in form", place);
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
+    console.log("autocomplete", autocomplete);
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      product.value.neighborhood = place.formatted_address || place.name;
+      console.log("place", place);
+      if (place.geometry && place.geometry.location) {
+        product.value.latitude = place.geometry.location.lat();
+        product.value.longitude = place.geometry.location.lng();
+      } else {
+        console.log("Returned place contains no geometry");
+      }
+    });
   }, 1500);
+
+  // watch(place, (current) => {
+  //   console.log("in form", current);
+  //   product.value.neighborhood = place.formatted_address || place.name;
+  //   if (place.geometry && place.geometry.location) {
+  //     product.value.latitude = place.geometry.location.lat();
+  //     product.value.longitude = place.geometry.location.lng();
+  //   } else {
+  //     console.log("Returned place contains no geometry");
+  //   }
+  // });
+
+  // setTimeout(() => {
+  //   const input = document.getElementById("neighborhood");
+  //   const place = initializeAutoComplete(input);
+  //   console.log("Place in form", place);
+  // }, 1500);
 });
 </script>
 
