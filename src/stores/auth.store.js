@@ -32,6 +32,7 @@ export const useAuthStore = defineStore('authStore', {
     firebaseUser: null,
     profilePhoto: null,
     defaultAvatar: `https://www.w3schools.com/w3images/avatar2.png`,
+    checkingForRedirectionResult: true,
   }),
   // getters: {
   //   getAuthUser(state) {
