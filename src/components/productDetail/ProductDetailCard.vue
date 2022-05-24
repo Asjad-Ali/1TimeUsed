@@ -98,12 +98,13 @@
       <div class="title q-pt-sm">
         <div class="text-h6 ellipsis common-size">Description</div>
         <p class="text-grey common-size">
-          {{ product.description.replace(", Pakistan", "").substr(0, 28) }}
+          {{ product.description.replace(", Pakistan", "").substr(0, 50)
+          }}{{ product.description.length > 50 ? "..." : "" }}
         </p>
       </div>
       <div class="title text-grey q-pb-sm">
         <span v-show="toggleText"
-          >{{ product.description.substr(28) }} <br />
+          >{{ product.description.substr(50) }} <br />
           <a
             @click="toggleText = !toggleText"
             class="text-subtitle2 text-blue cursor-pointer"
