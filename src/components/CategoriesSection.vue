@@ -13,9 +13,10 @@
                 v-for="subcategory in category.subcategories"
                 :key="subcategory.id"
               >
-                <q-item-section @click="subCategoryProduct(subcategory.id)">{{
-                  subcategory.title
-                }}</q-item-section>
+                <q-item-section
+                  @click="subCategoryProduct(category.id, subcategory.id)"
+                  >{{ subcategory.title }}</q-item-section
+                >
               </q-item>
 
               <q-separator />
@@ -36,6 +37,7 @@ import { useRouter } from "vue-router";
 const store = useCategoryStore();
 const productStore = useProductStore();
 const router = useRouter();
+
 onMounted(() => {
   store.loadCategories();
 });
@@ -45,8 +47,12 @@ const toggleMenu = (categoryID) => {
   menu.click();
 };
 const categories = computed(() => store.categories);
-const subCategoryProduct = (id) => {
-  router.push(`/subcategory-product/${id}`);
+const categoryStore = useCategoryStore();
+const subCategoryProduct = (categoryID, subcategoryID) => {
+  categoryStore.subCategories = categoryStore.categories.find(
+    (cat) => cat.id == categoryID
+  ).subcategories;
+  router.push(`/subcategory-product/${subcategoryID}`);
 };
 </script>
 <style scoped lang="scss">

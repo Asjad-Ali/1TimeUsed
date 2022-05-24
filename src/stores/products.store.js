@@ -28,6 +28,8 @@ export const useProductStore = defineStore("productsStore ", {
     searchLoader: false,
     currentPage: 1,
     hasMorePages: false,
+    featuredCurrentPage: 1,
+    hasMoreFeaturedPages: false,
   }),
 
   getters: {},
@@ -59,20 +61,30 @@ export const useProductStore = defineStore("productsStore ", {
     },
 
     async loadFeaturedProducts() {
-      if (this.featuredProducts.length) {
+      if (this.featuredProducts.length && this.featuredCurrentPage == 1) {
         return;
       }
-      const featuredProducts = getPersistentData("featured_products", 2);
-      if (featuredProducts) {
-        this.featuredProducts = featuredProducts;
-        return;
+
+      if (this.featuredCurrentPage == 1) {
+        const featuredProductsResponse = getPersistentData("featured_products", 2);
+        if (featuredProductsResponse) {
+          this.featuredProducts = featuredProductsResponse.data;
+          this.hasMoreFeaturedPages = featuredProductsResponse.links.next ? true : false;
+          return;
+        }
       }
+
       this.featuredProductsLoader = true;
-      const response = await API.get("products/featured");
+      const response = await API.get(`products/featured?page=${this.featuredCurrentPage}`);
       this.featuredProductsLoader = false;
       if (response.status == 200) {
-        this.featuredProducts = response.data;
-        persistData("featured_products", response.data);
+        this.featuredProducts = [...this.featuredProducts, ...response.data];
+        this.featuredCurrentPage = response.meta.current_page;
+        this.hasMoreFeaturedPages = response.links.next ? true : false;
+        if (this.featuredCurrentPage == 1) {
+          persistData("featured_products", response);
+        }
+
       } else {
         console.log("Error in Featured", response);
       }
