@@ -65,7 +65,7 @@
               <q-tooltip class="grey-10">Notifications</q-tooltip>
               <!-- <q-badge color="red" floating>100+</q-badge> -->
             </q-btn>
-            <q-btn
+            <!-- <q-btn
               round
               color="primary"
               icon="category"
@@ -74,7 +74,7 @@
               @click="$router.push('/category')"
             >
               <q-tooltip class="grey-10">Categories</q-tooltip>
-            </q-btn>
+            </q-btn> -->
             <q-btn
               round
               color="primary"
