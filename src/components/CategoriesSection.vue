@@ -18,7 +18,6 @@
               class="col-md-2 col-12"
               v-for="(subCategory, index) in store.subCategories"
               :key="index"
-              style="background-color: black"
             >
               <q-card
                 class="my-card cursor-pointer"
