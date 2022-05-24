@@ -5,7 +5,7 @@
       @toggleViewType="viewType = viewType == 'grid' ? 'tile' : 'grid'"
     />
 
-    <div class="row justify-center items-start q-gutter-md q-mt-sm">
+    <div class="row justify-center items-start q-gutter-md q-mt-sm q-px-sm">
       <div class="col-md-4 col-12">
         <q-input
           bg-color="white"

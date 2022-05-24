@@ -106,6 +106,7 @@ const productStore = useProductStore();
 const { viewType } = toRefs(props);
 const sort_products = ref("");
 const sortModal = ref(false);
+const showing = ref(true);
 
 const sortProducts = (sort) => {
   if (route.path.includes("/search")) {

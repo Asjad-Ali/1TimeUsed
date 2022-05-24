@@ -43,7 +43,8 @@
         <p v-if="product.price" class="price text-primary text-center">
           RS:{{ product.price }}
         </p>
-        <p v-else class="price text-center">FREE</p>
+        <p v-else class="price text-center text-orange">FREE</p>
+        <!-- <q-badge v-else rounded color="orange" label="Free" class="price" /> -->
       </div>
 
       <div @click="ProductDetail(product)" class="flex justify-between">
