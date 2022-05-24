@@ -103,7 +103,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import useSearch from "../composables/useSearch";
 import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
@@ -116,11 +116,7 @@ useMetaTags({
   title: "Search",
 });
 const store = useProductStore();
-const get_location = reactive({
-  neighborhood: "",
-  latitude: "",
-  longitude: "",
-});
+
 const viewType = ref("grid");
 
 const {
@@ -129,6 +125,7 @@ const {
   getSearchSuggestions,
   searchProducts,
   search,
+  get_location,
 } = useSearch();
 
 const { product, productError, productForm } = useProductForm();
