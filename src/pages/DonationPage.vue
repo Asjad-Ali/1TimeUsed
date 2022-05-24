@@ -7,15 +7,23 @@
             @update:model-value="searchDonatedProduct"
             class="q-my-auto"
             dense
-            filled
+            bg-color="white"
             outlined
+            rounded
             debounce="400"
             v-model="search"
             label="Search Here"
             style="max-width: 100%"
           >
             <template v-slot:after>
-              <q-btn icon="search" size="16px" outline> </q-btn>
+              <q-btn
+                color="white"
+                text-color="primary"
+                icon="search"
+                size="16px"
+                rounded
+              >
+              </q-btn>
             </template>
           </q-input>
           <h6 v-show="search" class="text-center text-grey q-my-md">

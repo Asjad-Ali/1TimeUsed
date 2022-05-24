@@ -5,7 +5,28 @@
       @toggleViewType="viewType = viewType == 'grid' ? 'tile' : 'grid'"
     />
 
-    <div class="row justify-center items-center q-mt-lg">
+    <div class="row justify-center items-start q-gutter-md q-mt-sm">
+      <div class="col-md-4 col-12">
+        <q-input
+          bg-color="white"
+          rounded
+          outlined
+          dense
+          standout
+          bottom-slots
+          v-model="text"
+          label="Location"
+          class="q-pa-none"
+        >
+          <template v-slot:prepend>
+            <q-icon name="place" />
+          </template>
+          <template v-slot:append>
+            <q-icon name="close" @click="text = ''" class="cursor-pointer" />
+          </template>
+        </q-input>
+      </div>
+
       <div class="col-md-6 col-12">
         <q-select
           ref="searchInput"

@@ -10,7 +10,7 @@
       <div class="title-date flex justify-between items-center">
         <div
           v-if="product.price"
-          class="ellipsis text-subtitle1 text-grey common-size"
+          class="ellipsis text-subtitle1 text-primary common-size price"
         >
           RS:{{ product.price }}
         </div>
@@ -229,6 +229,9 @@ const redirectToChat = () => {
 <style></style>
 
 <style scoped lang="scss">
+.price {
+  font-weight: 600;
+}
 .top-card {
   margin-top: 20px;
 }
