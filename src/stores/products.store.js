@@ -162,14 +162,14 @@ export const useProductStore = defineStore("productsStore ", {
         Notify.create({
           message: "Product added successfully",
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "positive",
         });
       } else {
         Notify.create({
           message: response.message,
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "negative",
         });
       }
@@ -192,14 +192,14 @@ export const useProductStore = defineStore("productsStore ", {
         Notify.create({
           message: "Product updated successfully",
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "positive",
         });
       } else {
         Notify.create({
           message: response.message,
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "negative",
         });
       }
@@ -229,14 +229,14 @@ export const useProductStore = defineStore("productsStore ", {
         Notify.create({
           message: response.message,
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "positive",
         });
       } else {
         Notify.create({
           message: response.message,
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "negative",
         });
       }
@@ -257,14 +257,14 @@ export const useProductStore = defineStore("productsStore ", {
         Notify.create({
           message: response.message,
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "positive",
         });
       } else {
         Notify.create({
           message: response.message,
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "negative",
         });
       }

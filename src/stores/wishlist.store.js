@@ -59,7 +59,7 @@ export const useWishlistStore = defineStore("wishlistStore", {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         })
         store.recentProducts = toggleFavorite(product_id, store.recentProducts)
