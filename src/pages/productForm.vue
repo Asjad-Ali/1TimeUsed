@@ -461,23 +461,6 @@ onMounted(() => {
       }
     });
   }, 1500);
-
-  // watch(place, (current) => {
-  //   console.log("in form", current);
-  //   product.value.neighborhood = place.formatted_address || place.name;
-  //   if (place.geometry && place.geometry.location) {
-  //     product.value.latitude = place.geometry.location.lat();
-  //     product.value.longitude = place.geometry.location.lng();
-  //   } else {
-  //     console.log("Returned place contains no geometry");
-  //   }
-  // });
-
-  // setTimeout(() => {
-  //   const input = document.getElementById("neighborhood");
-  //   const place = initializeAutoComplete(input);
-  //   console.log("Place in form", place);
-  // }, 1500);
 });
 </script>
 

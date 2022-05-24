@@ -14,7 +14,8 @@
           rounded
           outlined
           dense
-          label="Location"
+          placeholder="Custom location instead of current?"
+          label="Your location"
           @keydown.enter="getLocation"
           v-model="get_location.neighborhood"
           @update:model-value="getLocation"
