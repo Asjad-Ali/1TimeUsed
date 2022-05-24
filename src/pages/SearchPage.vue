@@ -8,8 +8,7 @@
     <div class="row justify-center items-start q-gutter-md q-mt-sm">
       <div class="col-md-4 col-12">
         <q-input
-          for="neighborhood"
-          ref="searchInput"
+          ref="neighborhood"
           bg-color="white"
           rounded
           outlined
@@ -17,9 +16,8 @@
           standout
           bottom-slots
           label="Location"
-          @keydown.enter="searchProducts"
-          :rules="[rules.required]"
-          v-model="product.neighborhood"
+          @keydown.enter="getLocation"
+          v-model="locations"
           class="q-pa-none"
           clearable
         >
@@ -118,7 +116,7 @@ useMetaTags({
   title: "Search",
 });
 const store = useProductStore();
-
+const locations = ref();
 const viewType = ref("grid");
 
 const {
@@ -128,10 +126,12 @@ const {
   searchProducts,
   search,
 } = useSearch();
+
 const { product, productError, productForm } = useProductForm();
 const { rules } = useValidationRules();
-
-console.log(product.neighborhood);
+const getLocation = () => {
+  console.log(locations.value);
+};
 
 onMounted(() => {
   searchInput.value.focus();
@@ -148,7 +148,6 @@ onMounted(() => {
   setTimeout(() => {
     const autocomplete = new google.maps.places.Autocomplete(input, options);
     console.log("autocomplete", autocomplete);
-
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
       product.value.neighborhood = place.formatted_address || place.name;
