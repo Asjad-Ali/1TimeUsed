@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         })
         // redirect(''); redirect in vue file through router.push
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'warning',
-          position: 'bottom',
+          position: 'top-right',
           color: 'negative',
         })
       }
@@ -79,7 +79,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         });
 
@@ -89,7 +89,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'warning',
-          position: 'bottom',
+          position: 'top-right',
           color: 'negative',
         })
       }
@@ -139,7 +139,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         })
         redirect('/account_setting');
@@ -148,7 +148,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'warning',
-          position: 'bottom',
+          position: 'top-right',
           color: 'negative',
         })
       }
@@ -167,7 +167,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         });
         this.authUser = response.data.user;
@@ -178,7 +178,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'warning',
-          position: 'bottom',
+          position: 'top-right',
           color: 'negative',
         })
 
@@ -200,7 +200,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         });
         this.authUser = response.data.user;
@@ -211,7 +211,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'warning',
-          position: 'bottom',
+          position: 'top-right',
           color: 'negative',
         })
 
@@ -230,7 +230,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         });
 
@@ -238,7 +238,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'warning',
-          position: 'bottom',
+          position: 'top-right',
           color: 'negative',
         })
       }
@@ -254,7 +254,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'done',
-          position: 'bottom',
+          position: 'top-right',
           color: 'positive',
         });
         redirect('login');
@@ -263,7 +263,7 @@ export const useAuthStore = defineStore('authStore', {
         Notify.create({
           message: response.message,
           icon: 'warning',
-          position: 'bottom',
+          position: 'top-right',
           color: 'negative',
         })
       }
