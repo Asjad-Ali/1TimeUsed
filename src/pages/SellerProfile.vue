@@ -92,6 +92,7 @@ let lastApiCallTime = Date.now();
 const imageBaseURL = process.env.imagesBaseURL;
 
 const handlePagination = () => {
+  console.log("scrolled to bottom");
   window.addEventListener("scroll", () => {
     if (Date.now() - lastApiCallTime < 1200) {
       return false;

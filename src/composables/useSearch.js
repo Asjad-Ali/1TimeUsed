@@ -2,6 +2,7 @@ import API from "src/services/API";
 import {
   onBeforeUnmount,
   onMounted,
+  reactive,
   ref
 } from "vue";
 import {
@@ -21,8 +22,12 @@ export default function useSearch() {
   const route = useRoute();
   const searchSuggestions = ref();
   const searchInput = ref();
-
   let searchVal = '';
+  const get_location = reactive({
+    neighborhood: "",
+    latitude: "",
+    longitude: "",
+  });
 
   const getLocalSearchHistory = () => {
     const localHistory = localStorage.getItem('local_search_history');
@@ -68,9 +73,13 @@ export default function useSearch() {
 
     const userCurrentPosition = JSON.parse(localStorage.getItem('user_current_position'));
     let latLng = '';
-    if (userCurrentPosition) {
+
+    if (get_location) {
+      latLng = `&latitude=${get_location.latitude}&longitude=${get_location.longitude}`;
+    } else if (userCurrentPosition) {
       latLng = `&latitude=${userCurrentPosition.latitude}&longitude=${userCurrentPosition.longitude}`;
     }
+
     const response = await API.get(`search?q=${query}&page=${currentPage}${latLng}`);
     store.loadingStatus = false;
     store.searchProducts = [...store.searchProducts, ...response.data];
@@ -114,6 +123,7 @@ export default function useSearch() {
     getSearchSuggestions,
     searchProducts,
     search,
-    searchInput
+    searchInput,
+    get_location
   };
 }

@@ -8,18 +8,16 @@
     <div class="row justify-center items-start q-gutter-md q-mt-sm q-px-sm">
       <div class="col-md-4 col-12">
         <q-input
+          ref="neighborhood"
           for="neighborhood"
-          ref="searchInput"
           bg-color="white"
           rounded
           outlined
           dense
-          standout
-          bottom-slots
           label="Location"
-          @keydown.enter="searchProducts"
-          :rules="[rules.required]"
-          v-model="product.neighborhood"
+          @keydown.enter="getLocation"
+          v-model="get_location.neighborhood"
+          @update:model-value="getLocation"
           class="q-pa-none"
           clearable
         >
@@ -105,7 +103,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import useSearch from "../composables/useSearch";
 import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
@@ -127,12 +125,18 @@ const {
   getSearchSuggestions,
   searchProducts,
   search,
+  get_location,
 } = useSearch();
+
 const { product, productError, productForm } = useProductForm();
 const { rules } = useValidationRules();
+const getLocation = () => {
+  console.log("location get", get_location);
+};
 
-console.log(product.neighborhood);
-
+watch(get_location, (current) => {
+  console.log(get_location);
+});
 onMounted(() => {
   searchInput.value.focus();
 
@@ -148,19 +152,18 @@ onMounted(() => {
   setTimeout(() => {
     const autocomplete = new google.maps.places.Autocomplete(input, options);
     console.log("autocomplete", autocomplete);
-
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
-      product.value.neighborhood = place.formatted_address || place.name;
+      get_location.neighborhood = place.formatted_address || place.name;
       console.log("place", place);
       if (place.geometry && place.geometry.location) {
-        product.value.latitude = place.geometry.location.lat();
-        product.value.longitude = place.geometry.location.lng();
+        get_location.latitude = place.geometry.location.lat();
+        get_location.longitude = place.geometry.location.lng();
       } else {
         console.log("Returned place contains no geometry");
       }
     });
-  }, 1500);
+  }, 2000);
 });
 </script>
 

@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from "@vue/runtime-core";
+import { computed, onBeforeUnmount, onMounted, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
@@ -33,13 +33,18 @@ const store = useProductStore();
 const categoryStore = useCategoryStore();
 const route = useRoute();
 const viewType = ref("grid");
-const selectedSUbCategory =
-  categoryStore.subCategories.find((cat) => cat.id == route.params.id) || {};
+
+const selectedSubcategory = computed(
+  () =>
+    categoryStore.subCategories.find((cat) => cat.id == route.params.id) || {}
+);
+
 useMetaTags({
-  title: selectedSUbCategory.title || "Subcategory",
-  description: selectedSUbCategory.title || "Subcategory",
-  image: selectedSUbCategory.thumbnail || "",
+  title: selectedSubcategory.value.title || "Subcategory",
+  description: selectedSubcategory.value.title || "Subcategory",
+  image: selectedSubcategory.value.thumbnail || "",
 });
+
 const handlePagination = () => {
   if (Date.now() - lastApiCallTime < 1200) {
     return false;
