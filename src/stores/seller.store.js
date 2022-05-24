@@ -42,9 +42,9 @@ export const useSellerStore = defineStore("sellerStore ", {
       if (response.status == 200) {
         console.log("response: ", response.data);
         Notify.create({
-          message: response.message,
+          message: "Complaint register successfully",
           icon: "done",
-          position: "bottom",
+          position: "top-right",
           color: "positive",
         });
       } else {
@@ -52,7 +52,7 @@ export const useSellerStore = defineStore("sellerStore ", {
         Notify.create({
           message: response.message,
           icon: "warning",
-          position: "bottom",
+          position: "top-right",
           color: "negative",
         });
       }

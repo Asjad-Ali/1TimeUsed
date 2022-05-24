@@ -107,6 +107,7 @@
                     : ""
                 }}
                 {{
+                  conversation.read &&
                   conversation.lastMessage &&
                   conversation.lastMessage.length > 14
                     ? "..."

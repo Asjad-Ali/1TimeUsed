@@ -54,12 +54,7 @@
         <div class="text-h4 text-center q-pt-md">All Products</div>
         <hr class="hr-4" />
         <div
-          class="
-            flex
-            q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg
-            justify-center
-            items-center
-          "
+          class="flex q-gutter-y-md q-gutter-x-sm q-mx-auto q-mb-lg justify-center items-center"
         >
           <ProductsList
             :products="store.sellerProducts"
@@ -81,7 +76,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, onBeforeUnmount } from "@vue/runtime-core";
 
 import ProductsList from "src/components/ProductsList.vue";
 import { useRoute } from "vue-router";

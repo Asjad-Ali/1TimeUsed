@@ -40,17 +40,17 @@
         <p class="ellipsis text-subtitle2 mobile-font">
           {{ product.title }}
         </p>
-        <p v-if="product.price" class="prise text-center">
+        <p v-if="product.price" class="price text-primary text-center">
           RS:{{ product.price }}
         </p>
-        <p v-else class="prise text-center">FREE</p>
+        <p v-else class="price text-center">FREE</p>
       </div>
 
       <div @click="ProductDetail(product)" class="flex justify-between">
-        <small class="q-mr-sm">
+        <small class="mobile-font">
           {{ product.city || getAddress(product.neighborhood) }}
         </small>
-        <small>
+        <small class="mobile-font">
           {{ formatDate(product.created_at) }}
         </small>
       </div>
@@ -139,17 +139,10 @@ const ProductDetail = (product) => {
 const getAddress = (address) => {
   if (address) {
     address = address.replace(", Pakistan", "");
-    //address = address.replace("Pakistan", "");
+    address = address.replace("Pakistan", "");
   }
 
-  if (address && address.length > 15) {
-    const addressArray = address.split(",");
-    return addressArray
-      .slice(Math.max(addressArray.length - 5, 1))
-      .join(",")
-      .substring(1, 15);
-  }
-  return address;
+  return address.substring(0, 15);
 };
 
 const formatDate = (date) => {
@@ -163,7 +156,9 @@ const formatDate = (date) => {
   height: 160px;
   width: 100%;
 }
-
+.price {
+  font-weight: 600;
+}
 .featured-baadge {
   position: absolute;
   top: 40px;
@@ -182,7 +177,7 @@ const formatDate = (date) => {
 
 @media (max-width: $breakpoint-sm-max) {
   .mobile-font {
-    font-size: 10px;
+    font-size: 9px;
   }
   .img-holder {
     height: 120px;

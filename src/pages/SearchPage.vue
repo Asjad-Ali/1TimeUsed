@@ -5,7 +5,30 @@
       @toggleViewType="viewType = viewType == 'grid' ? 'tile' : 'grid'"
     />
 
-    <div class="row justify-center items-center q-mt-lg">
+    <div class="row justify-center items-start q-gutter-md q-mt-sm">
+      <div class="col-md-4 col-12">
+        <q-input
+          for="neighborhood"
+          ref="searchInput"
+          bg-color="white"
+          rounded
+          outlined
+          dense
+          standout
+          bottom-slots
+          label="Location"
+          @keydown.enter="searchProducts"
+          :rules="[rules.required]"
+          v-model="product.neighborhood"
+          class="q-pa-none"
+          clearable
+        >
+          <template v-slot:prepend>
+            <q-icon name="place" />
+          </template>
+        </q-input>
+      </div>
+
       <div class="col-md-6 col-12">
         <q-select
           ref="searchInput"
@@ -88,6 +111,8 @@ import { useProductStore } from "src/stores/products.store";
 import ProductsHeader from "src/components/ProductsHeader.vue";
 import ProductsList from "src/components/ProductsList.vue";
 import useMetaTags from "src/composables/useMetaTags";
+import useProductForm from "src/composables/useProductForm";
+import useValidationRules from "src/composables/useValidationRules";
 
 useMetaTags({
   title: "Search",
@@ -103,9 +128,39 @@ const {
   searchProducts,
   search,
 } = useSearch();
+const { product, productError, productForm } = useProductForm();
+const { rules } = useValidationRules();
+
+console.log(product.neighborhood);
 
 onMounted(() => {
   searchInput.value.focus();
+
+  const input = document.getElementById("neighborhood");
+  const options = {
+    //bounds: defaultBounds,
+    componentRestrictions: { country: "pk" },
+    fields: ["geometry", "formatted_address", "name"],
+    strictBounds: false,
+    types: ["geocode"],
+  };
+
+  setTimeout(() => {
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
+    console.log("autocomplete", autocomplete);
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      product.value.neighborhood = place.formatted_address || place.name;
+      console.log("place", place);
+      if (place.geometry && place.geometry.location) {
+        product.value.latitude = place.geometry.location.lat();
+        product.value.longitude = place.geometry.location.lng();
+      } else {
+        console.log("Returned place contains no geometry");
+      }
+    });
+  }, 1500);
 });
 </script>
 

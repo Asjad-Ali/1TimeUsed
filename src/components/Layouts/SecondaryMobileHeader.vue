@@ -17,19 +17,22 @@
       />
 
       <div
-        class="q-ml-lg"
+        class="q-ml-xl"
         v-if="
           $route.path.includes('/chat') &&
           !chatStore.leftDrawerOpen &&
           $q.screen.lt.md
         "
       >
-        <q-avatar class="q-mr-sm">
+        <q-avatar class="q-mr-sm" size="40px">
           <img :src="chatMember.photo" />
         </q-avatar>
-        <span class="text-white" style="font-size: 0.9rem">{{
-          chatMember.name
-        }}</span>
+        <span
+          @click="$router.push(`/seller_profile/${chatMember.id}`)"
+          class="text-white cursor-pointer"
+          style="font-size: 0.9rem"
+          >{{ chatMember.name }}</span
+        >
       </div>
 
       <span
