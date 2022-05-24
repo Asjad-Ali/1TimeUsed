@@ -40,10 +40,10 @@
         <p class="ellipsis text-subtitle2 mobile-font">
           {{ product.title }}
         </p>
-        <p v-if="product.price" class="prise text-center">
+        <p v-if="product.price" class="price text-primary text-center">
           RS:{{ product.price }}
         </p>
-        <p v-else class="prise text-center">FREE</p>
+        <p v-else class="price text-center">FREE</p>
       </div>
 
       <div @click="ProductDetail(product)" class="flex justify-between">
@@ -156,7 +156,9 @@ const formatDate = (date) => {
   height: 160px;
   width: 100%;
 }
-
+.price {
+  font-weight: 600;
+}
 .featured-baadge {
   position: absolute;
   top: 40px;
