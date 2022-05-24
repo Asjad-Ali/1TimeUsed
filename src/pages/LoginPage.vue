@@ -62,6 +62,7 @@
               <p class="text-center q-py-md text-grey">Or Login With</p>
               <div class="text-center q-mb-lg">
                 <q-btn
+                  :disable="store.checkingForRedirectionResult"
                   color="blue"
                   icon-right="facebook"
                   label="login with facebook"
@@ -69,7 +70,11 @@
                 />
               </div>
               <div class="text-center q-mb-lg">
-                <q-btn label="login with Google" @click="loginWithGoogle">
+                <q-btn
+                  :disable="store.checkingForRedirectionResult"
+                  label="login with Google"
+                  @click="loginWithGoogle"
+                >
                   <img
                     src="../../public/icons/google-color.svg"
                     alt="google "
@@ -111,15 +116,17 @@ import useFirebaseAuth from "src/composables/useFirebaseAuth";
 import { useRouter } from "vue-router";
 import useMetaTags from "src/composables/useMetaTags";
 
+const store = useAuthStore();
+const router = useRouter();
+const appURL = ref(process.env.appURL);
+const { rules } = useValidationRules();
+
 useMetaTags({
   title: "Login",
 });
-const facebookAppId = process.env.facebookAppId;
-const appURL = ref(process.env.appURL);
-const { rules } = useValidationRules();
-const store = useAuthStore();
-const router = useRouter();
-const { loginWithGoogle, loginWithFacebook } = useFirebaseAuth();
+
+const { loginWithGoogle, loginWithFacebook, getFirebaseAuthRedirectResult } =
+  useFirebaseAuth();
 
 const password = ref("");
 const isPwd = ref(true);
@@ -127,6 +134,8 @@ const credentials = ref({
   email: "",
   password: null,
 });
+
+getFirebaseAuthRedirectResult();
 
 onMounted(() => {
   appURL.value = `https://${location.host}/`;

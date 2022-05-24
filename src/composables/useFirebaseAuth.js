@@ -1,19 +1,69 @@
 import {
   getAuth,
-  signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInAnonymously,
-  fetchSignInMethodsForEmail,
+  getRedirectResult
 } from "firebase/auth";
 
-import { Notify } from "quasar";
+import {
+  Notify
+} from "quasar";
 
-import { useAuthStore } from "src/stores/auth.store";
+import {
+  useAuthStore
+} from "src/stores/auth.store";
 
 export default function useFirebaseAuth() {
+
+  const auth = getAuth();
+
+  const getFirebaseAuthRedirectResult = () => {
+    getRedirectResult(auth)
+      .then((result) => {
+        const authStore = useAuthStore();
+        authStore.checkingForRedirectionResult = false;
+        if (result) {
+          const credential = result.providerId == 'google.com' ? GoogleAuthProvider.credentialFromResult(result) : FacebookAuthProvider.credentialFromResult(result);
+          // console.log(result, credential)
+
+          if (credential) {
+            console.log(credential)
+            const token = credential.accessToken;
+
+            const accessToken = result._tokenResponse.oauthIdToken;
+            // The signed-in user info.
+            const user = result.user;
+
+            if (result.providerId == 'google.com') {
+              authStore.loginWithGoogle(accessToken);
+            } else {
+              authStore.loginWithFacebook(token);
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        //const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        //const email = error.email;
+        // The AuthCredential type that was used.
+        //const credential = GoogleAuthProvider.credentialFromError(error);
+
+        Notify.create({
+          message: errorMessage,
+          icon: "warning",
+          position: "bottom",
+          color: "negative",
+        });
+      });
+  }
+
   const loginAnonymously = () => {
-    const auth = getAuth();
+
     signInAnonymously(auth)
       .then(() => {
         console.log("signedIN");
@@ -27,80 +77,19 @@ export default function useFirebaseAuth() {
 
   const loginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const accessToken = result._tokenResponse.oauthIdToken;
-        // The signed-in user info.
-        const user = result.user;
-        const authStore = useAuthStore();
-        authStore.loginWithGoogle(accessToken);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-
-        Notify.create({
-          message: errorMessage,
-          icon: "warning",
-          position: "bottom",
-          color: "negative",
-        });
-      });
+    signInWithRedirect(auth, provider);
   };
 
   const loginWithFacebook = () => {
-    const authStore = useAuthStore();
     const provider = new FacebookAuthProvider();
     provider.addScope("email");
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // The signed-in user info.
-        const user = result.user;
-
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-
-        authStore.loginWithFacebook(accessToken);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = FacebookAuthProvider.credentialFromError(error);
-
-        if (
-          errorCode == "auth/account-exists-with-different-credential" &&
-          credential &&
-          credential.accessToken
-        ) {
-          authStore.loginWithFacebook(credential.accessToken);
-        } else {
-          Notify.create({
-            message: errorMessage,
-            icon: "warning",
-            position: "bottom",
-            color: "negative",
-          });
-        }
-      });
+    signInWithRedirect(auth, provider);
   };
 
   return {
     loginAnonymously,
     loginWithGoogle,
     loginWithFacebook,
+    getFirebaseAuthRedirectResult
   };
 }
